@@ -1,16 +1,16 @@
 ARG PHP_VERSION=${PHP_VERSION:-8.1}
 FROM php:${PHP_VERSION}-fpm-alpine3.16 AS php-system-setup
 # Install system dependencies
-RUN apk add --no-cache dcron busybox-suid libcap curl zip unzip git nano mc openssh-client rsync tzdata
+RUN apk add --no-cache dcron busybox-suid libcap curl zip unzip git nano mc npm
 
 # Install PHP extensions
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
-RUN install-php-extensions intl bcmath gd pdo_mysql pdo_pgsql opcache redis uuid exif pcntl zip
+RUN install-php-extensions intl bcmath gd pdo_mysql pdo_pgsql opcache redis uuid exif pcntl zip  
 
 # Install supervisord implementation
 COPY --from=ochinchina/supervisord:latest /usr/local/bin/supervisord /usr/local/bin/supervisord
 
-# edsf Install caddy
+# Install caddy
 COPY --from=caddy:2.5.1 /usr/bin/caddy /usr/local/bin/caddy
 RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/caddy
 
@@ -33,10 +33,6 @@ RUN addgroup $NON_ROOT_USER wheel
 COPY ./.deploy/config/crontab /etc/crontabs/$NON_ROOT_USER
 RUN chmod 777 /usr/sbin/crond
 RUN chown -R $NON_ROOT_USER:$NON_ROOT_GROUP /etc/crontabs/$NON_ROOT_USER && setcap cap_setgid=ep /usr/sbin/crond
-
-#COPY ./ssh_file/ ../../root/
-#RUN chmod -R 600 ../../root/.ssh/id_rsa
-
 
 # Switch to non-root 'app' user & install app dependencies
 COPY composer.json composer.lock ./
@@ -93,11 +89,6 @@ ARG PUSHER_APP_CLUSTER=${PUSHER_APP_CLUSTER}
 
 # Start app
 EXPOSE 80
-# RUN mkdir ~/.ssh
-# RUN chmod 777 ~/.ssh
-# RUN chmod 777 ~/.ssh
-# COPY  ~/.ssh/ ~/.ssh/
-
 COPY ./.deploy/entrypoint.sh /
 
 ENTRYPOINT ["sh", "/entrypoint.sh"]
