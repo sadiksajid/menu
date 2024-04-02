@@ -1,0 +1,23 @@
+// https://aka.ms/devcontainer.json
+{
+	"name": "Existing Docker Compose (Extend)",
+	"dockerComposeFile": [
+		"../docker-compose.yml"
+	],
+	"service": "laravel.wallpapper",
+	"workspaceFolder": "/var/www/html",
+	"settings": {},
+	"extensions": [
+		"MehediDracula.php-namespace-resolver",
+		"ecmel.vscode-html-css",
+		"sidthesloth.html5-boilerplate",
+		"rifi2k.format-html-in-php",
+		"kokororin.vscode-phpfmt",
+		"znck.vue"
+	],
+	"remoteUser": "sail",
+	"postCreateCommand": "chown -R 1000:1000 /var/www/html"
+	// "forwardPorts": [],
+	// "runServices": [],
+	// "shutdownAction": "none",
+}
