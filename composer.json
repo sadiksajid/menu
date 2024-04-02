@@ -24,7 +24,8 @@
         "symfony/http-foundation": "^6.4",
         "symfony/intl": "^6.4",
         "yajra/laravel-datatables-buttons": "9.0",
-        "yajra/laravel-datatables-oracle": "^10.11"
+        "yajra/laravel-datatables-oracle": "^10.11",
+        "khaled.alshamaa/ar-php": "^6.3.4"
     },
     "require-dev": {
         "spatie/laravel-ignition": "^1.0",
