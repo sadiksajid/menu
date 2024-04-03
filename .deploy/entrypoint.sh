@@ -1,5 +1,5 @@
 #!/bin/sh
-
+mkdir $LARAVEL_PATH/bootstrap/cache
 echo "🎬 entrypoint.sh: [$(whoami)] [PHP $(php -r 'echo phpversion();')]"
 # chmod 777 -R $LARAVEL_PATH/bootstrap
 # chmod 777 -R $LARAVEL_PATH/storage
