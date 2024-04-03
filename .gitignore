@@ -18,3 +18,4 @@ yarn-error.log
 /.vscode
 node_modules
 pdf.zip
+composer.lock
