@@ -19,5 +19,5 @@ echo "🎬 artisan commands"
 php artisan migrate --no-interaction --force
 # php artisan websocket:serve
 echo "🎬 start supervisord"
-
+php artisan optimize
 supervisord -c $LARAVEL_PATH/.deploy/config/supervisor.conf
