@@ -100,7 +100,7 @@
                                         <div class="owl-carousel saas-brand owl-theme">
                                             @foreach ($offer->products as $product)
                                               <div style="height: 150px">
-                                                  {{-- <a href="/store/sadik_store/{{ $category->category_meta }}" > --}}
+                                                  {{-- <a href="/store/goodforhealth/{{ $category->category_meta }}" > --}}
                                                     <a href="/shop/product/{{ $product->product->product_meta }}" >
                                                         <div class="item hover-overlay pt-2 cat_div background-image  shadow border border-dark ; position:relative"
                                                             data-background="url({{ url(env('PATH_PRODUCTS')) }}/{{ $product->product->media[0]?->media  }})">

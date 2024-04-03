@@ -15,7 +15,7 @@ class Header extends Component
 
     public function mount()
     {
-        $this->store_meta = 'sadik_store';
+        $this->store_meta = env('STOR_NAME');
         $stores = Cache::get('stores');
 
         if (isset($stores[$this->store_meta])) {

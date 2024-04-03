@@ -45,7 +45,7 @@ class CartView extends Component
         //     $this->currency = $info[$this->store_meta]['currency'];
         // }
 
-        $this->store_meta = 'sadik_store';
+        $this->store_meta = env('STOR_NAME');
         $stores = Cache::get('stores');
         if (isset($stores[$this->store_meta])) {
             $this->store_info = $stores[$this->store_meta];

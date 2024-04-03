@@ -21,7 +21,7 @@ class Cart extends Component
     {
         $this->store_meta = getStoreName();
         if ($this->store_meta == null) {
-            $this->store_meta = 'sadik_store';
+            $this->store_meta = env('STOR_NAME');
         }
         if (Auth::guard('client')->check()) {
             $this->order_nbr = Auth::guard('client')->user()->orders->count();

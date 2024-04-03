@@ -130,7 +130,7 @@ Route::group(['middleware' => ['fw-block-blacklisted', 'fw-block-attacks', 'web'
     });
 
     Route::get('/shop/{category?}', function ($category = null) {
-        $store_info = Store::where('store_meta', 'sadik_store')->first();
+        $store_info = Store::where('store_meta', env('STOR_NAME'))->first();
         if (!empty($store_info)) {
             if ($store_info->status == 1) {
                 return view('livewire.store.store_route', ['store_info' => $store_info, 'category' => $category]);
@@ -143,7 +143,7 @@ Route::group(['middleware' => ['fw-block-blacklisted', 'fw-block-attacks', 'web'
     });
 
     Route::get('/shop/product/{product}', function ($product) {
-        $store_info = Store::where('store_meta', 'sadik_store')->first();
+        $store_info = Store::where('store_meta', env('STOR_NAME'))->first();
         if (!empty($store_info)) {
             if ($store_info->status == 1) {
                 $product_info = StoreProduct::where('product_meta', $product)->where('status', 1)->first();
@@ -160,7 +160,7 @@ Route::group(['middleware' => ['fw-block-blacklisted', 'fw-block-attacks', 'web'
         }
     });
     Route::get('/shop/offer/{meta}', function ($meta) {
-        $store_info = Store::where('store_meta', 'sadik_store')->first();
+        $store_info = Store::where('store_meta', env('STOR_NAME'))->first();
         if (!empty($store_info)) {
             if ($store_info->status == 1) {
                 $offer = Offer::where('offer_meta', $meta)->where('status', 1)
@@ -185,7 +185,7 @@ Route::group(['middleware' => ['fw-block-blacklisted', 'fw-block-attacks', 'web'
     });
 
     // Route::get('/shop/offers', function ($category = null) {
-    //     $store_info = Store::where('store_meta', 'sadik_store')->first();
+    //     $store_info = Store::where('store_meta', env('STOR_NAME'))->first();
     //     if (!empty($store_info)) {
     //         if ($store_info->status == 1) {
     //             return view('livewire.offers.offers_route', ['store_info' => $store_info]);
@@ -234,7 +234,7 @@ Route::group(['middleware' => ['fw-block-blacklisted', 'fw-block-attacks', 'web'
     });
 
     Route::get('/', function () {
-        $store_info = Store::where('store_meta', 'sadik_store')->first();
+        $store_info = Store::where('store_meta', env('STOR_NAME'))->first();
         if (!empty($store_info)) {
             if ($store_info->status == 1) {
                 return view('livewire.index1.index_route');
@@ -247,7 +247,7 @@ Route::group(['middleware' => ['fw-block-blacklisted', 'fw-block-attacks', 'web'
     });
 
     Route::get('/menu', function () {
-        $store_info = Store::where('store_meta', 'sadik_store')->first();
+        $store_info = Store::where('store_meta', env('STOR_NAME'))->first();
         if (!empty($store_info)) {
             if ($store_info->status == 1) {
                 return view('livewire.menu1.menu_route');
