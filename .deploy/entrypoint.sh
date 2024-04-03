@@ -1,5 +1,4 @@
 #!/bin/sh
-mkdir $LARAVEL_PATH/bootstrap/cache
 echo "🎬 entrypoint.sh: [$(whoami)] [PHP $(php -r 'echo phpversion();')]"
 # chmod 777 -R $LARAVEL_PATH/bootstrap
 # chmod 777 -R $LARAVEL_PATH/storage
@@ -20,4 +19,5 @@ php artisan migrate --no-interaction --force
 # php artisan websocket:serve
 echo "🎬 start supervisord"
 php artisan optimize
+php artisan config:clear
 supervisord -c $LARAVEL_PATH/.deploy/config/supervisor.conf
