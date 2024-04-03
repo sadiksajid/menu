@@ -1,7 +1,7 @@
 ARG PHP_VERSION=${PHP_VERSION:-8.1}
 FROM php:${PHP_VERSION}-fpm-alpine3.16 AS php-system-setup
 # Install system dependencies
-RUN apk add --no-cache dcron busybox-suid libcap curl zip unzip git nano mc npm php-calendar
+RUN apk add --no-cache dcron busybox-suid libcap curl zip unzip git nano mc npm php-calendar calendar
 
 # Install PHP extensions
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
@@ -35,8 +35,7 @@ RUN chmod 777 /usr/sbin/crond
 RUN chown -R $NON_ROOT_USER:$NON_ROOT_GROUP /etc/crontabs/$NON_ROOT_USER && setcap cap_setgid=ep /usr/sbin/crond
 
 # Switch to non-root 'app' user & install app dependencies
-# COPY composer.json composer.lock ./
-COPY composer.json  ./
+COPY composer.json composer.lock ./
 RUN chown -R $NON_ROOT_USER:$NON_ROOT_GROUP $LARAVEL_PATH
 USER $NON_ROOT_USER
 RUN composer install --prefer-dist --no-scripts --no-dev --no-autoloader

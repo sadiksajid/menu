@@ -6,12 +6,16 @@
     "license": "MIT",
     "require": {
         "php": "^7.1.3|^7.3|^8.0",
+        "ext-calendar": "*",
+        "10quality/php-calendar": "*",
         "ab-alselwi/laravel-arabic-html": "^0.2.0",
         "barryvdh/laravel-dompdf": "^2.1",
         "dompdf/dompdf": "^2.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^3.0",
+        "fisharebest/ext-calendar": "*",
+        "khaled.alshamaa/ar-php": "^6.3.4",
         "kutia-software-company/larafirebase": "^1.3",
         "laravel/framework": "^9.0",
         "laravel/sanctum": "^2.11",
@@ -24,8 +28,8 @@
         "symfony/http-foundation": "^6.4",
         "symfony/intl": "^6.4",
         "yajra/laravel-datatables-buttons": "9.0",
-        "yajra/laravel-datatables-oracle": "^10.11",
-        "khaled.alshamaa/ar-php": "^6.3.4"
+        "yajra/laravel-datatables-oracle": "^10.11"
+
     },
     "require-dev": {
         "spatie/laravel-ignition": "^1.0",
