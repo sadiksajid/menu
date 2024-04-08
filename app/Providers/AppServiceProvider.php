@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $ip =  'IP address = '.$_SERVER['HTTP_X_REAL_IP'];   
         if (!$this->app->environment('local')) {
             URL::forceScheme('https');
         }
