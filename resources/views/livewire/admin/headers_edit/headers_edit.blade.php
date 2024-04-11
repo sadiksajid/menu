@@ -38,7 +38,7 @@
 
                                                 @endif
 
-                                                <img src="{{ $upload_image['shop']->temporaryUrl() }}"
+                                                <img src="{{ request()->getSchemeAndHttpHost() }}/livewire-tmp/{{ $upload_image['shop']->getFileName() }}" 
                                                     style="height: 100%;width:100%">
 
                                             </div>
@@ -146,7 +146,7 @@
 
                                                 @endif
 
-                                                <img src="{{ $upload_image['offers']->temporaryUrl() }}"
+                                                <img src="{{ request()->getSchemeAndHttpHost() }}/livewire-tmp/{{ $upload_image['offers']->getFileName() }}" 
                                                     style="height: 100%;width:100%">
 
                                             </div>
@@ -254,7 +254,7 @@
 
                                                 @endif
 
-                                                <img src="{{ $upload_image['orders']->temporaryUrl() }}"
+                                                <img src="{{ request()->getSchemeAndHttpHost() }}/livewire-tmp/{{ $upload_image['orders']->getFileName() }}" 
                                                     style="height: 100%;width:100%">
 
                                             </div>
@@ -353,7 +353,7 @@
 
                                                 @endif
 
-                                                <img src="{{ $upload_image['cart']->temporaryUrl() }}"
+                                                <img src="{{ request()->getSchemeAndHttpHost() }}/livewire-tmp/{{ $upload_image['cart']->getFileName() }}" 
                                                     style="height: 100%;width:100%">
 
                                             </div>
@@ -451,7 +451,7 @@
 
                                                 @endif
 
-                                                <img src="{{ $upload_image['checkout']->temporaryUrl() }}"
+                                                <img src="{{ request()->getSchemeAndHttpHost() }}/livewire-tmp/{{ $upload_image['checkout']->getFileName() }}"
                                                     style="height: 100%;width:100%">
 
                                             </div>

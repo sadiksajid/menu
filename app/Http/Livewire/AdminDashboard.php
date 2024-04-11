@@ -108,7 +108,7 @@ class AdminDashboard extends Component
         // \DB::raw("SUM(total) as total"),
 
             ->groupBy('status', 'date')
-            ->orderBy('created_at', 'DESC') // Optionally order by status
+            ->orderBy('date', 'DESC') // Optionally order by status
             ->get();
 
         $this->total_incum = $this->statusCounts->sum('total');

@@ -290,10 +290,9 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12">
-
                                         <div class="dropify-wrapper" style="height:auto;border: none;">
                                             @if (isset($edit_logo) and $edit_logo != null)
-                                            <img src="{{ $edit_logo->temporaryUrl() ?? null }}"
+                                            <img src="{{ request()->getSchemeAndHttpHost() }}/livewire-tmp/{{ $edit_logo->getFileName() }}"
                                                 style="height: 100%;width:100%">
                                             @elseif(isset($logo) and !empty($logo))
                                             <img src="{{ url('storage/store_logo') }}/{{ $logo }}"

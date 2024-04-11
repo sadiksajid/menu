@@ -81,7 +81,7 @@ return [
      */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
+        public_path('storage') => storage_path('app/Public'),
         public_path('storage/product_extras') => storage_path('app/Public/product_extras'),
         public_path('storage/categories') => storage_path('app/Public/categories'),
         public_path('storage/product_images') => storage_path('app/Public/product_images'),
@@ -89,6 +89,7 @@ return [
         public_path('storage/store_logo') => storage_path('app/Public/store_logo'),
         public_path('storage/offer_images') => storage_path('app/Public/offer_images'),
         public_path('storage/pdf') => storage_path('app/Public/pdf'),
+        public_path('livewire-tmp') => storage_path('app/livewire-tmp'),
 
     ],
     // after that run php artisan storage:link

@@ -40,7 +40,7 @@
 
                                     <div class="dropify-wrapper" style="height:auto;border: none;">
                                         @if (isset($logo_edit) and $logo_edit != null)
-                                            <img src="{{ $logo_edit->temporaryUrl() ?? null }}"
+                                            <img src="{{ request()->getSchemeAndHttpHost() }}/livewire-tmp/{{ $logo_edit->getFileName()  ?? null  }}"  
                                                 style="height: 100%;width:100%">
                                         @elseif($logo != null)
                                             <img src="{{ url('storage/appino_images') }}/{{ $logo }}"
@@ -67,7 +67,7 @@
 
                                     <div class="dropify-wrapper" style="height:auto;border: none;">
                                         @if (isset($small_logo_edit) and $small_logo_edit != null)
-                                            <img src="{{ $small_logo_edit->temporaryUrl() ?? null }}"
+                                            <img src="{{ request()->getSchemeAndHttpHost() }}/livewire-tmp/{{ $small_logo_edit->getFileName()  ?? null  }}"   
                                                 style="height: 100%;width:100%">
                                         @elseif($small_logo != null)
                                             <img src="{{ url('storage/appino_images') }}/{{ $small_logo }}"

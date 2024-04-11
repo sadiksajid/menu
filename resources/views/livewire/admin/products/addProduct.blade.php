@@ -140,7 +140,7 @@
 
                                     <div class="dropify-wrapper" style="height:auto;border: none;">
                                         @if (isset($cat_image) and $cat_image != null)
-                                            <img src="{{ $cat_image->temporaryUrl() ?? null }}"
+                                            <img src="{{ request()->getSchemeAndHttpHost() }}/livewire-tmp/{{ $cat_image->getFileName()  ?? null  }}"  
                                                 style="height: 100%;width:100%">
                                         @else
                                             <img src="{{ URL::asset('assets/images/small_site_logo.png') }}"
@@ -244,7 +244,7 @@
                                                                 data-original-title="fa fa-times"></i></button>
                                                     @endif
                                     
-                                                        <img src="{{ $image->temporaryUrl() }}"
+                                                        <img src="{{ request()->getSchemeAndHttpHost() }}/livewire-tmp/{{ $image->getFileName()  ?? null  }}"   
                                                             style="height: 100%;width:100%">
                                                     
                                                 </div>
@@ -368,7 +368,7 @@
                                                         style="height: 100%;width:100%">
 
                                                 @else
-                                                    <img src="{{ $extras[$key]['image']->temporaryUrl() ?? null }}"
+                                                    <img src="{{ request()->getSchemeAndHttpHost() }}/livewire-tmp/{{ $extras[$key]['image']->getFileName()  ?? null  }}"  
                                                         style="height: 100%;width:100%">
                                                 @endif
                                             @else

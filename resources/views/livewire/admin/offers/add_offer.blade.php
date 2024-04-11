@@ -168,7 +168,7 @@
                                                         data-original-title="fa fa-times"></i></button>
                                                 @endif
 
-                                                <img src="{{ $offer_image->temporaryUrl() }}" style="height: 100%;width:100%">
+                                                <img src="{{ request()->getSchemeAndHttpHost() }}/livewire-tmp/{{ $offer_image->getFileName() }}" style="height: 100%;width:100%">
 
                                             </div>
                                         </div>
@@ -250,7 +250,7 @@
                                                         data-original-title="fa fa-times"></i></button>
                                                 @endif
 
-                                                <img src="{{ $offer_image_squad->temporaryUrl() }}" style="height: 100%;width:100%">
+                                                <img src="{{ request()->getSchemeAndHttpHost() }}/livewire-tmp/{{ $offer_image_squad->getFileName() }}" style="height: 100%;width:100%">
 
                                             </div>
                                         </div>
