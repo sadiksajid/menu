@@ -67,7 +67,7 @@
                         @isset($store_info->logo)
                             <div class="row">
                                 <div class="col-2">
-                                    <img src="{{ url('storage/store_logo') }}/{{ $store_info->logo }}" width="60px"
+                                    <img src="{{ get_image($store_info->logo) }}" width="60px"
                                         height="60px" class="header-brand-img desktop-lgo" alt="Appino logo">
                                 </div>
                                 <div class="col-3 mt-2">
@@ -141,7 +141,7 @@
             @isset($store_info->logo)
                 <div class="col-12">
                     <div class="link link-horizontal  text-center mb-3">
-                        <img src="{{ url('storage/store_logo') }}/{{ $store_info->logo }}" width="60px" height="60px"
+                        <img src="{{ get_image($store_info->logo) }}" width="60px" height="60px"
                             class="header-brand-img desktop-lgo" alt="Appino logo">
                     </div>
                 </div>

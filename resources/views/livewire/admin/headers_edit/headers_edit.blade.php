@@ -65,7 +65,7 @@
                                                         data-original-title="fa fa-trash-o"></i></button>
 
                                                 @endif
-                                                <img src="{{ url('storage/shop1/' . $images_shop) }}"
+                                                <img src="{{ get_image($images_shop) }}"
                                                     style="height: 100%;width:100%">
 
                                             </div>
@@ -174,7 +174,7 @@
                                                         data-original-title="fa fa-trash-o"></i></button>
 
                                                 @endif
-                                                <img src="{{ url('storage/offers1/' . $images_offers) }}"
+                                                <img src="{{ get_image($images_offers) }}"
                                                     style="height: 100%;width:100%">
 
                                             </div>
@@ -281,7 +281,7 @@
                                                         data-original-title="fa fa-trash-o"></i></button>
 
                                                 @endif
-                                                <img src="{{ url('storage/orders1/' . $images_orders) }}"
+                                                <img src="{{ get_image($images_orders)}}"
                                                     style="height: 100%;width:100%">
 
                                             </div>
@@ -380,7 +380,7 @@
                                                         data-original-title="fa fa-trash-o"></i></button>
 
                                                 @endif
-                                                <img src="{{ url('storage/cart1/' . $images_cart) }}"
+                                                <img src="{{ get_image($images_cart) }}"
                                                     style="height: 100%;width:100%">
 
                                             </div>
@@ -478,7 +478,7 @@
                                                         data-original-title="fa fa-trash-o"></i></button>
 
                                                 @endif
-                                                <img src="{{ url('storage/checkout1/' . $images_checkout) }}"
+                                                <img src="{{ get_image($images_checkout) }}"
                                                     style="height: 100%;width:100%">
 
                                             </div>

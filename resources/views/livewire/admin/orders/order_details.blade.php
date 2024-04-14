@@ -114,7 +114,7 @@
                                 <tr>
                                     <th scope="row">{{ $loop->index + 1 }}</th>
                                     <td>
-                                       <img style='width:50px;height:50px' src="{{ url(env('PATH_PRODUCTS')) }}/{{ $product->product->media[0]->media }}">
+                                       <img style='width:50px;height:50px' src="{{ get_image($product->product->media[0]->media) }}">
                                     </td>
                                     <td>{{$product->product->title}}</td>
                                     <td>{{$product->qte}}</td>

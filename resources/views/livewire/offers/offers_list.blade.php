@@ -64,7 +64,7 @@
 
 
     <div wire:ignore class="hero_single inner_pages background-image"
-        @if (isset($images['img_1']))   data-background="url({{ url('storage/menu1/' . $images['img_1']) }})" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif
+        @if (isset($images['img_1']))   data-background="get_image($images['img_1'])" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif
         style="position: relative  ;  " >
 
             <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
@@ -111,7 +111,7 @@
                                                                 <a
                                                                     href="/shop/offer/{{ $offer->offer_meta }}"><img
                                                                         alt="" class="img-fluid"
-                                                                        src="{{ url(env('PATH_OFFERS')) }}/{{ $offer->image_squad }}"></a>
+                                                                        src="{{ get_image($offer->image_squad) }}"></a>
                                                             </div>
 
                                                       
@@ -188,7 +188,7 @@
 
             changeTitle(@json($store_info)['title'])
             window.livewire.offers = @json($offers)['data'];
-            var path = @json(url(env('PATH_offerS')));
+            var path = @json(get_image('moyen'));
             var currency = @json($currency);
             var history = {};
             var history_image = {};

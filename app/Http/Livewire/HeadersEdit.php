@@ -200,6 +200,8 @@ class HeadersEdit extends Component
             $img_link = 'shop1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image['shop']->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'shop1', $img_link);
+            $img_link = 'shop1/'.$img_link ;
+
             if ($save_result) {
                 $images['img_1'] = $img_link;
             }
@@ -234,6 +236,8 @@ class HeadersEdit extends Component
             $img_link = 'offers1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image['offers']->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'offers1', $img_link);
+            $img_link = 'offers1/'.$img_link ;
+
             if ($save_result) {
                 $images['img_1'] = $img_link;
             }
@@ -267,6 +271,9 @@ class HeadersEdit extends Component
             $img_link = 'orders1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image['orders']->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'orders1', $img_link);
+            $img_link = 'orders1/'.$img_link ;
+
+
             if ($save_result) {
                 $images['img_1'] = $img_link;
             }
@@ -300,6 +307,9 @@ class HeadersEdit extends Component
             $img_link = 'cart1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image['cart']->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'cart1', $img_link);
+            $img_link = 'cart1/'.$img_link ;
+
+
             if ($save_result) {
                 $images['img_1'] = $img_link;
             }
@@ -334,6 +344,9 @@ class HeadersEdit extends Component
             $img_link = 'checkout1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image['checkout']->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'checkout1', $img_link);
+            $img_link = 'checkout1/'.$img_link ;
+
+
             if ($save_result) {
                 $images['img_1'] = $img_link;
             }
@@ -385,6 +398,9 @@ class HeadersEdit extends Component
             $img_link = 'index1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'index1', $img_link);
+            $img_link = 'index1/'.$img_link ;
+
+
             if ($save_result) {
                 $this->images[$id] = $img_link;
                 $this->data->images = json_encode($this->images);

@@ -34,7 +34,7 @@
                                                     </span>
 
 
-                                                    <img src="{{ url(env('PATH_PRODUCTS_TMB')) }}/{{ $product['media'][0]['media'] }}"
+                                                    <img src="{{ get_image( 'tmb/'.$product['media'][0]['media']) }}"
                                                         class="card-image1 ">
                                                 </div>
                                                 <div class="card-body p-2">
@@ -193,7 +193,7 @@
                                                         data-toggle="tooltip" title=""
                                                         data-original-title="fa fa-times"></i></button>
                                                 @endif
-                                                <img src="{{ url(env('PATH_OFFERS')) }}/{{ $edit_offer_image }}"
+                                                <img src="{{ get_image($edit_offer_image) }}"
                                                     style="height: 100%;width:100%">
 
                                             </div>
@@ -275,7 +275,7 @@
                                                         data-toggle="tooltip" title=""
                                                         data-original-title="fa fa-times"></i></button>
                                                 @endif
-                                                <img src="{{ url(env('PATH_OFFERS')) }}/{{ $edit_offer_image_squad }}"
+                                                <img src="{{ get_image($edit_offer_image_squad ) }}"
                                                     style="height: 100%;width:100%">
 
                                             </div>
@@ -342,7 +342,7 @@
                                         <div style="overflow: hidden;
                                         width: 100%;
                                         height: 200px;">
-                                            <img src="{{ url(env('PATH_PRODUCTS_TMB')) }}/{{ $product->media[0]->media }}"
+                                            <img src="{{ get_image('tmb/'.$product->media[0]->media) }}"
                                                 class="card-image1 ">
                                         </div>
                                         <div class="card-body p-2">

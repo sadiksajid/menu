@@ -20,7 +20,7 @@
                         <div style="overflow: hidden;
                                     width: 100%;
                                     height: 200px;
-                                    background: url({{ url(env('PATH_OFFERS')) }}/{{ $offer->image }});
+                                    background: url({{ get_image($offer->image) }});
                                     background-size: cover;
                                     background-position:50%,50%;
                                     position:relative"

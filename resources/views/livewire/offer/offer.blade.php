@@ -69,7 +69,7 @@
     <!-- section start -->
 
     <div wire:ignore class="hero_single inner_pages background-image" style="height:260px" @if (isset($offer->image ))
-        data-background="url({{ url(env('PATH_OFFERS')) }}/{{ $offer->image  }})" @else
+        data-background="url({{ get_image($offer->image)}})" @else
         data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif >
 
         <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
@@ -103,7 +103,7 @@
                                                   {{-- <a href="/store/goodforhealth/{{ $category->category_meta }}" > --}}
                                                     <a href="/shop/product/{{ $product->product->product_meta }}" >
                                                         <div class="item hover-overlay pt-2 cat_div background-image  shadow border border-dark ; position:relative"
-                                                            data-background="url({{ url(env('PATH_PRODUCTS')) }}/{{ $product->product->media[0]?->media  }})">
+                                                            data-background="url({{ get_image($product->product->media[0]?->media)  }})">
                                                             <span class="badge badge-warning mt-1" role="button"   style="position: absolute; z-index:10;color:black">
                                                                 <h7 class="mb-0"><strong>{{ $product->product->price}} {{$currency}}</strong></h7>
                                                             </span>
@@ -112,14 +112,13 @@
                                                     </a>
                                               </div>
                                             @endforeach
-                
                                         </div>
                 
                                     </center>
                                 </div>
                             </div>
 
-
+                            
                             <div class="row">
                                 @if(!testMobile())
                                 <div class="col-lg-6">
@@ -128,12 +127,12 @@
                                             <div>
                                                 <div>
                                                     <img alt="" class="img-fluid"
-                                                        src="{{ url(env('PATH_OFFERS')) }}/{{ $offer->image_squad  }}">
+                                                        src="{{ get_image($offer->image_squad ) }}">
                                                 </div>
                                                 @foreach ($offer->products as $product)
                                                 <div class="mb-2">
                                                     <img alt="" class="img-fluid"
-                                                        src="{{ url(env('PATH_PRODUCTS')) }}/{{ $product->product->media[0]?->media  }}">
+                                                        src="{{ get_image($product->product->media[0]?->media)  }}">
                                                 </div>
                                                 @endforeach
 
@@ -147,12 +146,12 @@
                                     <div class="product-slick">
                                         <div>
                                             <img alt="" class="img-fluid"
-                                                src="{{ url(env('PATH_OFFERS')) }}/{{ $offer->image_squad  }}">
+                                                src="{{ get_image($offer->image_squad ) }}">
                                         </div>
                                         @foreach ($offer->products as $product)
                                         <div>
                                             <img alt="" class="img-fluid"
-                                                src="{{ url(env('PATH_PRODUCTS')) }}/{{ $product->product->media[0]?->media  }}">
+                                                src="{{ get_image($product->product->media[0]?->media)  }}">
                                         </div>
                                         @endforeach
 
@@ -162,12 +161,12 @@
                                             <div class="slider-nav">
                                                 <div>
                                                     <img alt="" class="img-fluid"
-                                                        src="{{ url(env('PATH_OFFERS')) }}/{{ $offer->image_squad  }}">
+                                                        src="{{ get_image($offer->image_squad ) }}">
                                                 </div>
                                                 @foreach ($offer->products as $product)
                                                 <div>
                                                     <img alt="" class="img-fluid image_zoom_cls-0"
-                                                        src="{{ url(env('PATH_PRODUCTS')) }}/{{ $product->product->media[0]?->media  }}">
+                                                        src="{{ get_image($product->product->media[0]?->media)  }}">
                                                 </div>
                                                 @endforeach
 

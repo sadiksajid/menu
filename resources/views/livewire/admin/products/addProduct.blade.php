@@ -209,7 +209,7 @@
                                                             title=""
                                                             data-original-title="fa fa-times"></i></button>
                                                 @endif
-                                                    <img src="{{ url(env('PATH_PRODUCTS_TMB')) }}/{{ $image->media }}"
+                                                    <img src="{{ get_image($image->media) }}"
                                                         style="height: 100%;width:100%">
                                        
                                             </div>
@@ -364,7 +364,7 @@
                                         <div class="dropify-wrapper" style="height:auto;border: none;">
                                             @if (isset($extras[$key]['image']) and $extras[$key]['image'] != null)
                                                 @if (is_string($extras[$key]['image']))
-                                                    <img src="{{ url(env('PATH_EXTRAS_TMB')) }}/{{$extras[$key]['image']}}"
+                                                    <img src="{{ get_image('tmb/'.$extras[$key]['image'])}}"
                                                         style="height: 100%;width:100%">
 
                                                 @else

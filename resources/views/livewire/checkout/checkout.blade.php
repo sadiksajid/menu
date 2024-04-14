@@ -1,6 +1,6 @@
 <div>
     <div wire:ignore class="hero_single inner_pages background-image" style="height:260px"
-    @if (isset($images_checkout))   data-background="url({{ url('storage/checkout1/' . $images_checkout) }})" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif >
+    @if (isset($images_checkout))   data-background="url({{ get_image($images_checkout}})" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif >
 
         <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
             <div class="container">

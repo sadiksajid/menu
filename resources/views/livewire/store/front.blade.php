@@ -64,7 +64,7 @@
 
 
     <div wire:ignore class="hero_single inner_pages background-image"
-        @if (isset($images_shop))   data-background="url({{ url('storage/shop1/' . $images_shop) }})" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif
+        @if (isset($images_shop))   data-background="url({{get_image($images_shop)}})" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif
         style="position: relative  ;  " >
 
             <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
@@ -96,7 +96,7 @@
                                   {{-- <a href="/store/goodforhealth/{{ $category->category_meta }}" > --}}
                                     <a href="/shop/{{ $category->category_meta }}" >
                                         <div class="item hover-overlay pt-2 cat_div background-image rounded-circle shadow border border-dark"
-                                            data-background="url({{ url(env('PATH_CATEGORIES')) }}/{{ $category->image }})">
+                                            data-background="url({{ get_image($category->image )}})">
                                             <div class="over_cat">
                                                 <h5  class="cat_titel align-self-center">
                                                     <strong>{{ $category->title }}</strong>
@@ -147,13 +147,13 @@
                                                                 <a
                                                                     href="/shop/product/{{ $product->product_meta }}"><img
                                                                         alt="" class="img-fluid"
-                                                                        src="{{ url(env('PATH_PRODUCTS')) }}/{{ $product->media[0]->media }}"></a>
+                                                                        src="{{ get_image('moyen/'.$product->media[0]->media) }}"></a>
                                                             </div>
                                                             <div class="back">
                                                                 <a
                                                                     href="/shop/product/{{ $product->product_meta }}"><img
                                                                         alt="" class="img-fluid"
-                                                                        src="{{ url(env('PATH_PRODUCTS')) }}/{{ $product->media[1]->media ?? $product->media[0]->media }}"></a>
+                                                                        src="{{ get_image('moyen/'.($product->media[1]->media ?? $product->media[0]->media)) }}"></a>
                                                             </div>
                                                             <div class="cart-info cart-wrap gray-bg-color"
                                                                 style='border-radius:8px'>
@@ -304,7 +304,7 @@
 
             changeTitle(@json($store_info)['title'])
             window.livewire.products = @json($products)['data'];
-            var path = @json(url(env('PATH_PRODUCTS')));
+            var path = @json(get_image('moyen'));
             var currency = @json($currency);
             var images = @json($products_images);
             var history = {};
@@ -326,7 +326,6 @@
             // history_image[current_path] = images
             $(document).on('click', '.showDetail', function() {
                 var id = $(this).attr("data-id");
-                console.log(window.livewire.products);
                 product = window.livewire.products[id] ?? window.livewire.products.data[id]
                 $("#detail_image").attr("src", path + '/' + images[id])
                 $("#detail_title").html(product['title'])

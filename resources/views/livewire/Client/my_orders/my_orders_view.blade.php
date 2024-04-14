@@ -43,7 +43,7 @@
     $orders = Cache::get('orders-' . $client->id);
     @endphp
     <div wire:ignore class="hero_single inner_pages background-image" style="height:260px"        
-     @if (isset($images_orders))   data-background="url({{ url('storage/orders1/' . $images_orders) }})" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif >
+     @if (isset($images_orders))   data-background="url({{get_image($images_orders)}})" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif >
 
 
         <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
@@ -113,14 +113,15 @@
                                                                     @php
                                                                         $prod = $o_prod->product ;
                                                                     @endphp
+
                                                                     <div class="col-12">
                                                                         <div class="menu_item order mb-0">
                                                                             <figure class="order_imgs">
-                                                                                <a href="{{ url(env('PATH_PRODUCTS')) }}/{{$prod['media'][0]['media'] }}"
+                                                                                <a href="{{ get_image($prod['media'][0]['media'])}}"
                                                                                     title="Summer Berry" data-effect="mfp-zoom-in">
                 
                                                                                     <img src="{{ URL::asset('index1/img/menu_items/menu_items_placeholder.png') }}"
-                                                                                        data-src="{{ url(env('PATH_PRODUCTS')) }}/{{ $prod['media'][0]['media'] }}"
+                                                                                        data-src="{{ get_image($prod['media'][0]['media'])}}"
                                                                                         class="lazy" alt="">
                                                                                 </a>
                                                                             </figure>
@@ -141,11 +142,11 @@
                                                             <div class="col-12">
                                                                 <div class="menu_item order mb-0">
                                                                     <figure class="order_imgs">
-                                                                        <a href="{{ url(env('PATH_PRODUCTS')) }}/{{$prod['media'][0]['media'] }}"
+                                                                        <a href="{{ get_image($prod['media'][0]['media'])}}"
                                                                             title="Summer Berry" data-effect="mfp-zoom-in">
         
                                                                             <img src="{{ URL::asset('index1/img/menu_items/menu_items_placeholder.png') }}"
-                                                                                data-src="{{ url(env('PATH_PRODUCTS')) }}/{{ $prod['media'][0]['media'] }}"
+                                                                                data-src="{{ get_image($prod['media'][0]['media'])}}"
                                                                                 class="lazy" alt="">
                                                                         </a>
                                                                     </figure>

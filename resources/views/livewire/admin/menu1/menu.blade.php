@@ -8,7 +8,7 @@
             <div id="logo">
                 <a href="index.html">
                     <img src="{{ URL::asset('index1/img/logo.svg') }}" width="140" height="35" alt=""
-                        class="logo_normal">
+                        class="logo_normal rounded-circle">
                     <img src="{{ URL::asset('index1/img/logo_sticky.svg') }}" width="140" height="35"
                         alt="" class="logo_sticky">
                 </a>
@@ -136,7 +136,7 @@
     <main>
 
         <div class="hero_single inner_pages background-image edit-image"
-        @if (isset($images['img_1']))   data-background="url({{ url('storage/menu1/' . $images['img_1']) }})" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif >
+        @if (isset($images['img_1']))   data-background="url({{ get_image($images['img_1']}})" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif >
         <button class="edit-button-image"  data-cue="slideInUp"  data-id='img_1' style='top: 50%;font-size: 180%;'><i class="fa fa-upload"></i></button>
 
             <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
@@ -169,11 +169,11 @@
                         <div class="col-lg-6" data-cue="slideInUp">
                             <div class="menu_item">
                                 <figure>
-                                    <a href="{{ url(env('PATH_PRODUCTS')) }}/{{$prod['media'][0]['media'] }}" title="Summer Berry"
+                                    <a href="{{ get_image($prod['media'][0]['media']) }}" title="Summer Berry"
                                         data-effect="mfp-zoom-in">
                                         
                                         <img src="{{ URL::asset('index1/img/menu_items/menu_items_placeholder.png') }}"
-                                            data-src="{{ url(env('PATH_PRODUCTS')) }}/{{ $prod['media'][0]['media'] }}" class="lazy"
+                                            data-src="{{get_image( $prod['media'][0]['media']) }}" class="lazy"
                                             alt="">
                                     </a>
                                 </figure>

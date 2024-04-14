@@ -124,7 +124,7 @@
                                         <td class="font-weight-bold">{{ $loop->index + 1 }}</td>
                                         <td class="tx-center">
                                             <img style='width:50px;height:50px'
-                                                src="{{ url(env('PATH_PRODUCTS')) }}/{{ $product->product->media[0]->media }}">
+                                                src="{{ get_image($product->product->media[0]->media) }}">
                                         </td>
                                         <td class="tx-center">{{ $product->product->title }}</td>
                                         <td class="tx-center">{{ $product->qte }}</td>

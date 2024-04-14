@@ -129,7 +129,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-9 col-sm-9">
                                         <div class="media mt-0">
-                                            <img src="{{ url(env('PATH_PRODUCTS_TMB')) }}/{{ $order->products[0]->product->media[0]->media ?? '' }}"
+                                            <img src="{{ get_image($order->products[0]->product->media[0]->media ?? '' )}}"
                                                 alt="img" class="avatar brround avatar-md mr-3">
                                             <div class="media-body">
                                                 <div class="d-md-flex align-items-center mt-1">
@@ -252,7 +252,7 @@
                                 @foreach ($top_products as $product)
                                     <tr>
                                         <td class="font-weight-bold"><img class="w-7 h-7 rounded shadow mr-3"
-                                                src="{{ url(env('PATH_PRODUCTS_TMB')) }}/{{ $product->product->media[0]->media ?? '' }}"
+                                                src="{{ get_image('tmb/'.$product->product->media[0]->media ?? '') }}"
                                                 alt="media1">
                                             {{ $product->product->title }}
                                         </td>

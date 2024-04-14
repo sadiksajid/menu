@@ -1,16 +1,19 @@
 <?php
 
-use App\Models\OffersAnalyse;
-use App\Models\OffersView;
-use App\Models\ProductCategory;
-use App\Models\ProductMedia;
-use App\Models\ProductView;
+use Aws\S3\S3Client;
 use App\Models\StoreView;
+use App\Models\OffersView;
+use App\Models\ProductView;
+use App\Models\ProductMedia;
+use League\Flysystem\Config;
+use App\Models\OffersAnalyse;
 use Illuminate\Support\Carbon;
+use App\Models\ProductCategory;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager;
+use League\Flysystem\AwsS3V3\AwsS3V3Adapter;
 
 if (!function_exists('money')) {
     function money($value, $short_format = false, $currency = null)
@@ -112,10 +115,10 @@ if (!function_exists('number_format_short')) {
             $suffix = 'T';
         }
         // Remove unecessary zeroes after decimal. "1.0" -> "1"; "1.00" -> "1"
-        // Intentionally does not affect partials, eg "1.50" -> "1.50"
+        // Intentionally minioes not affect partials, eg "1.50" -> "1.50"
         if ($precision > 0) {
-            $dotzero = '.' . str_repeat('0', $precision);
-            $n_format = str_replace($dotzero, '', $n_format);
+            $miniotzero = '.' . str_repeat('0', $precision);
+            $n_format = str_replace($miniotzero, '', $n_format);
         }
         return $n_format . $suffix;
     }
@@ -230,43 +233,31 @@ if (!function_exists('convert_days')) {
     }
 }
 
-if (!function_exists('custom_asset')) {
-    function custom_asset($path, $url = null)
+if (!function_exists('get_image')) {
+    function get_image($url)
     {
-        if (isset($url)) {
-            return env('ASSET_URL', $url) . '/' . ltrim($path, '/');
-        }
-        // check if cdn;
-        else {
-            return env('ASSET_URL', 'https://codpartner.fra1.digitaloceanspaces.com') . '/' . ltrim($path, '/');
-        }
+        
+        // $img = Storage::disk('minio')->get($url);
+        // $base64Image = base64_encode($img);
+        
+        // return 'data:image/jpeg;base64,'.$base64Image ;
 
-        if (str_contains($path, 'users')) {
-            return env('ASSET_URL', 'https://codpartner.fra1.digitaloceanspaces.com') . '/' . ltrim($path, '/');
-        }
-        // check if cdn;
+        return config('filesystems.disks.minio.endpoint').'/'.config('filesystems.disks.minio.bucket').'/'.$url;
 
-        if (str_contains($path, 'product')) {
-            return env('ASSET_URL', 'https://codpartner.fra1.digitaloceanspaces.com') . '/' . ltrim($path, '/');
-        }
-        // check if cdn;
-
-        if (str_contains($path, 'payments')) {
-            return env('ASSET_URL', 'https://codpartner.fra1.digitaloceanspaces.com') . '/' . ltrim($path, '/');
-        }
-
-        if (str_contains($path, 'sourcing')) {
-            return env('ASSET_URL', 'https://codpartner.fra1.digitaloceanspaces.com') . '/' . ltrim($path, '/');
-        }
-
-        if (str_contains($path, 'img')) {
-            return env('ASSET_URL', 'https://codpartner.fra1.digitaloceanspaces.com') . '/' . ltrim($path, '/');
-        }
-
-        return 'https://codpartner.fra1.digitaloceanspaces.com/' . $path;
-        //return env('ASSET_URL', 'https://app.codpartner.com').'/'. ltrim($path, '/'); // check if cdn;
     }
 }
+
+if (!function_exists('delete_file')) {
+    function delete_file($url)
+    {
+        
+        $result = Storage::disk('minio')->delete($url);
+
+        return  $result ;
+    }
+}
+
+
 
 if (!function_exists('save_livewire_filetocdn')) {
     function save_livewire_filetocdn($file, $subfolder, $name, $sizes = null)
@@ -286,8 +277,8 @@ if (!function_exists('save_livewire_filetocdn')) {
 
                     $webpContent = $img->scale($width, $height)->toWebp(100);
 
-                    $path = $subfolder . '/' . $key . '/' . $name;
-                    Storage::disk('public')->put($path, $webpContent);
+                    $path = $key . '/' .$subfolder . '/' . $name;
+                    Storage::disk('minio')->put($path, $webpContent);
 
                 }
             } else {
@@ -296,11 +287,11 @@ if (!function_exists('save_livewire_filetocdn')) {
                 $height = $img->height();
                 $webpContent = $img->scale($width, $height)->toWebp(100);
                 $path = $subfolder . '/' . $name;
-                Storage::disk('public')->put($path, $webpContent);
+                Storage::disk('minio')->put($path, $webpContent);
 
                 $webpContent = $img->scale($width, $height)->toWebp(100);
                 $path = $subfolder . '/' . $name;
-                Storage::disk('public')->put($path, $webpContent);
+                Storage::disk('minio')->put($path, $webpContent);
 
                 if ($height >= 1000) {
                     $webpContent = $img->scale($width / 2, $height / 2)->toWebp(100);
@@ -308,8 +299,8 @@ if (!function_exists('save_livewire_filetocdn')) {
                 } else {
                     $webpContent = $img->scale($width, $height)->toWebp(60);
                 }
-                $path = $subfolder . '/tmb/' . $name;
-                Storage::disk('public')->put($path, $webpContent);
+                $path ='tmb/' . $subfolder . '/' . $name;
+                Storage::disk('minio')->put($path, $webpContent);
             }
 
             return true;
@@ -329,11 +320,11 @@ if (!function_exists('add_to_tmb_if_not_products')) {
             $url = $media->media;
             $manager = new ImageManager(new Driver());
 
-            if (Storage::disk('public')->exists($subfolder . '/' . $url)) {
+            if (Storage::disk('minio')->exists($subfolder . '/' . $url)) {
                 foreach ($sizes as $key => $size) {
                     $url = $media->media;
 
-                    $img = $manager->read(Storage::disk('public')->get($subfolder . '/' . $url));
+                    $img = $manager->read(Storage::disk('minio')->get($subfolder . '/' . $url));
 
                     $width = $size['w']; // your max width
                     $height = $size['h']; // your max height
@@ -347,9 +338,9 @@ if (!function_exists('add_to_tmb_if_not_products')) {
                     $info = pathinfo($url);
                     $url = str_replace($info['extension'], 'webp', $url);
 
-                    $path = $subfolder . '/' . $key . '/' . $url;
+                    $path = $key . '/' . $subfolder . '/' . $url;
 
-                    Storage::disk('public')->put($path, $webpContent);
+                    Storage::disk('minio')->put($path, $webpContent);
 
                 }
                 $update = ProductMedia::find($media->id);
@@ -372,10 +363,10 @@ if (!function_exists('add_to_tmb_if_not_category')) {
         $url = $urls->image;
         $manager = new ImageManager(new Driver());
 
-        if (Storage::disk('public')->exists($subfolder . '/' . $url) and $url != null) {
+        if (Storage::disk('minio')->exists($subfolder . '/' . $url) and $url != null) {
             foreach ($sizes as $key => $size) {
                 $url = $urls->image;
-                $img = $manager->read(Storage::disk('public')->get($subfolder . '/' . $url));
+                $img = $manager->read(Storage::disk('minio')->get($subfolder . '/' . $url));
 
                 $width = $size['w']; // your max width
                 $height = $size['h']; // your max height
@@ -389,9 +380,9 @@ if (!function_exists('add_to_tmb_if_not_category')) {
                 $info = pathinfo($url);
                 $url = str_replace($info['extension'], 'webp', $url);
 
-                $path = $subfolder . '/' . $key . '/' . $url;
+                $path = $key . '/' . $subfolder . '/' .  $url;
 
-                Storage::disk('public')->put($path, $webpContent);
+                Storage::disk('minio')->put($path, $webpContent);
 
             }
             $update = ProductCategory::find($urls->id);
@@ -411,7 +402,7 @@ if (!function_exists('testMobile')) {
         $userAgent = $_SERVER['HTTP_USER_AGENT'];
 
         // Common mobile user agents
-        $mobileKeywords = ['Android', 'iPhone', 'iPad', 'Windows Phone', 'BlackBerry', 'Opera Mini', 'Mobile'];
+        $mobileKeywords = ['Android', 'iPhone', 'iPad', 'Winminiows Phone', 'BlackBerry', 'Opera Mini', 'Mobile'];
 
         foreach ($mobileKeywords as $keyword) {
             if (strpos($userAgent, $keyword) !== false) {
@@ -489,4 +480,125 @@ if (!function_exists('setView')) {
         }
 
     }
+    // if(!function_exists('Minio')) {
+    //     function Minio( $file , $subfolder, $name =null,$resize = true){
+           
+    //         $fileName = $subfolder.'/'.$name;
+    //         $extension = pathinfo($fileName, PATHINFO_EXTENSION);
+
+
+    //         $path = parse_url($fileName, PHP_URL_PATH);
+    //         $fileInfo = pathinfo($path);
+
+
+
+    //         $fileName = str_replace('.'.$extension,'_'.$extension.'.'.$extension, $fileName);
+
+
+    //         $fileInfo = pathinfo($fileName);
+    //         $fileTitle = preg_replace("/[^a-zA-Z0-9_]/", "", $fileInfo['filename']);
+    //         $fileTitleExt = $fileTitle.'.'.$extension ;
+    //         $filePath =  str_replace($fileInfo['filename'].'.'.$extension,$fileTitleExt, $fileName);
+    //         $data = array(
+    //             'extension'=>$extension ,
+    //             'filePath'=>$filePath ,
+    //             'fileTitleExt'=>$fileTitleExt ,
+    //             'resize'=>$resize ,
+    //             'file'=>$file ,
+    //         );
+    //             // $images_arr = ['jpg','jpeg','png','gif','webp','bmp']
+    //         $images_arr = ['jpg','jpeg','png','webp'];
+    //         $fileName = $fileNameOrigin = uploadFIleOrigin($data,true);
+    //         if( in_array(strtolower($extension),$images_arr)){
+    //             $fileNameWebp = uploadFIleWebp($data);
+    //             $fileName =  $fileNameWebp ;
+    //             if ($resize == true) {
+    //                 uploadFIleTmb($data);
+    //             }
+    //             if (@file_get_contents(config('filesystems.disks.minio.endpoint') . $fileName) === false) {
+    //                 $fileName = $fileNameOrigin  ;
+    //             }
+    //         }
+    //         return $fileName;
+    //     }
+    // }
+    // if(!function_exists('uploadFIleOrigin')) {
+    //     function uploadFIleOrigin($data,$livewire = false){
+    //         $file = $data['file'];
+    //         $resize = $data['resize'];
+    //         $filePath = $data['filePath'];
+    //         if($livewire == true){
+    //             $webpContent =  $file;
+    //         }else{
+    //             $webpContent =  file_get_contents($file);
+    //         }
+
+    //         $test = Storage::disk('minio')->put($filePath, $webpContent);
+    //         return $test;
+    //     }
+    // }
+
+    // if(!function_exists('uploadFIleWebp')) {
+    //     function uploadFIleWebp($data){
+    //         $file = $data['file'];
+    //         $resize = $data['resize'];
+    //         $filePath = $data['filePath'];
+    //         $extension = $data['extension'];
+
+    //         // create image manager with desired driver
+    //         $manager = new ImageManager(new Driver());
+
+        
+    //         // read image from file system
+    //         $img = $manager->read($file);
+
+    //         if ($resize == true) {
+    //             $width = 1000; // your max width
+    //             $height = 1000; // your max height
+    //             if ( $img->height() < $height and $img->width() < $width ){
+    //                 $width  = $img->width();
+    //                 $height = $img->height();
+    //             }
+    //             // resize image proportionally to fit within the given dimensions and encode to webp
+    //             $webpContent = $img->cover($width, $height)->toWebp(80);
+    //         } else {
+    //             // encode image to webp without resizing
+    //             $webpContent = $img->toWebp(80);
+    //         }
+
+    //         $fileName = str_replace('.'.$extension,'.webp',$filePath);
+    //         $test = Storage::disk('minio')->put($filePath, $webpContent);
+    //         return $test;
+    //     }
+    // }
+
+    // if(!function_exists('uploadFIleTmb')) {
+    //     function uploadFIleTmb($data){
+    //         $file = $data['file'];
+    //         $resize = $data['resize'];
+    //         $filePath = $data['filePath'];
+    //         $extension = $data['extension'];
+    //         $fileTitleExt = $data['fileTitleExt'];
+    //         // $img = InterventionImage::make($file) ;
+
+    //         // create image manager with desired driver
+    //         $manager = new ImageManager(new Driver());
+
+    
+    //         // read image from file system
+    //         $img = $manager->read($file);
+
+                    
+    //         $width = 300; // your max width
+    //         $height = 300; // your max height
+    //                 // resize image proportionally to fit within the given dimensions and encode to webp
+    //         $webpContent = $img->cover($width, $height)->toWebp(80);
+
+    //         $fileName = str_replace($fileTitleExt,'thumbnail_'.$fileTitleExt,$filePath);
+    //         $fileName = str_replace('.'.$extension,'.webp',$fileName);
+    //         $test = Storage::disk('minio')->put($filePath, $webpContent);
+    //         return $test;
+    //     }
+    // }
+
 }

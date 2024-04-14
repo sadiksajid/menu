@@ -24,8 +24,7 @@
                                      <span class="badge badge-warning" role="button"   style="position: absolute; z-index:10;color:black;bottom:0px">
                                         <h4 class="mb-0"><strong>{{ $product['price']}} {{$currency}}</strong></h4>
                                     </span>
-                            <img src="{{ url(env('PATH_PRODUCTS_TMB')) }}/{{ $product->media[0]->media }}" 
-                            class="card-image1 ">
+                            <img src="{{ get_image('tmb/'.$product->media[0]->media) }}" lass="card-image1 " style='height: 100%;width: 100%;'>
                         </div>
                         <div class="card-body p-2">
                             <div style="color: rgb(81, 81, 81)">

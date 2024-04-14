@@ -117,6 +117,8 @@ class EditMenu extends Component
             $img_link = 'menu1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'menu1', $img_link);
+            $img_link = 'menu1/'.$img_link ;
+
             if ($save_result) {
                 $this->images[$id] = $img_link;
                 $this->data->images = json_encode($this->images);

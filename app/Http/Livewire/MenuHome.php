@@ -93,24 +93,7 @@ class MenuHome extends Component
             'Content-Disposition' => 'inline', // Set to 'inline' for browser view
         ]);
 
-        // $headers = array(
-        //     "Content-type" => "application/pdf",
-        // );
 
-        // $title = 'menu.pdf';
-        // // sadik testing remove /test
-        // // $output = save_livewire_filetocdn(  $pdf, '/pdf/warhouses/'.$this->filter_warehouses.'/orders_lists/test',$title,false);
-
-        // return response()->streamDownload(
-        //     fn() => print($pdf), // add the content to the stream
-        //     $title, // the name of the file/stream
-        //     $headers
-        // );
-
-        // $link = 'menu.pdf'; // Path where the PDF will be saved
-        // Storage::disk('public')->put('pdf/menu.pdf', $pdf);
-
-        // $this->dispatchBrowserEvent('pdfGenerated', ['url' => 'storage/pdf/menu.pdf']);
 
     }
 

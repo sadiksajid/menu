@@ -3,13 +3,14 @@
 namespace App\Http\Livewire;
 
 use App\Models\City;
-use App\Models\Quartier;
-use App\Models\Region;
 use App\Models\Store;
+use App\Models\Region;
+use Livewire\Component;
+use App\Models\Quartier;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Livewire\Component;
-use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class StoreInfo extends Component
 {
@@ -82,6 +83,7 @@ class StoreInfo extends Component
     }
     public function mount()
     {
+        
         $this->store_id = Auth::user()->store_id;
         $this->regions = Region::orderBy('region', 'ASC')->get();
         $this->editStoreInfo();
@@ -217,15 +219,22 @@ class StoreInfo extends Component
 
         if (!empty($this->edit_logo)) {
             try {
-                File::delete(storage_path('app') . '/public/store_logo/' . $this->logo);
+                // File::delete(storage_path('app') . '/public/store_logo/' . $this->logo);
+                delete_file($this->logo);
+
             } catch (\Throwable $th) {
                 //throw $th;
             }
 
             $this->img_link = 'Logo_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.' . $this->edit_logo->extension();
-            $this->edit_logo->storeAs('Public/store_logo', $this->img_link);
+            // $this->edit_logo->storeAs('Public/store_logo', $this->img_link);
+            $localFilee = File::get($this->edit_logo->getRealPath());
+            $path = '/store_info/store_logo' ; 
+            // Minio($localFilee, $path,$this->img_link,false);
+            $save_result = save_livewire_filetocdn($localFilee, $path , $this->img_link);
 
-            $this->store_info->logo = $this->img_link;
+
+            $this->store_info->logo =  $path.'/'.$this->img_link;
         }
         $this->store_info->save();
 

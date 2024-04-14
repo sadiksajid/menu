@@ -112,7 +112,7 @@ html {
       @foreach ($cat as $prod)
         <li class="menu-items inline-b-item">
           <div  class="inline-b">
-              <img  src="{{ storage_path('app/Public/product_images/moyen/'.$prod['media'][0]['media']) }}" alt="Spicy lobster" 
+              <img  src="{{ get_image('/moyen/'.$prod['media'][0]['media'])) }}" alt="Spicy lobster" 
               style="  width: 27mm;
               height: 35mm;
               object-fit: cover;

@@ -1,6 +1,6 @@
 <div>
     <div wire:ignore class="hero_single inner_pages background-image" style="height:260px"
-    @if (isset($images_cart))   data-background="url({{ url('storage/cart1/' . $images_cart) }})" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif >
+    @if (isset($images_cart))   data-background=" {{ get_image($images_cart}} " @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif >
 
         <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
             <div class="container">
@@ -46,9 +46,9 @@
                                         <td>
 
                                             @if($product['type']=='product')
-                                            <a href="#"><img alt="" src="{{ url(env('PATH_PRODUCTS')) }}/{{ $product['image'] }}" class="rounded-circle"></a>
+                                            <a href="#"><img alt="" src="{{ get_image($product['image']) }}" class="rounded-circle"></a>
                                             @else
-                                            <a href="#"><img alt="" src="{{ url(env('PATH_OFFERS')) }}/{{ $product['image'] }}" class="rounded-circle" width="90px"></a>
+                                            <a href="#"><img alt="" src="{{ get_image($product['image']) }}" class="rounded-circle" width="90px"></a>
                                             <span class="badge badge-info" style="width: 80%;">Offer</span>
 
                                             @endif

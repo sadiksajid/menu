@@ -132,7 +132,7 @@
 
                                                                     <td class="tx-center">
                                                                         <img style='width:50px;height:50px'
-                                                                            src="{{ url(env('PATH_PRODUCTS')) }}/{{ $product->product->media[0]->media ?? null }}">
+                                                                            src="{{ get_image($product->product->media[0]->media ?? null  ) ">
                                                                     </td>
 
                                                                     <td class="tx-center">

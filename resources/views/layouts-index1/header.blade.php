@@ -18,11 +18,11 @@
         <div id="logo">
             <a href="/">
                 @isset($store_info->logo)
-                <img src="{{ url('storage/store_logo') }}/{{ $store_info->logo }}" height="70px" alt=""
-                class="logo_normal">
+                <img src="{{ get_image($store_info->logo) }}" height="70px" alt=""
+                class="logo_normal rounded-circle">
                 @else
                 <img src="{{ URL::asset('index1/img/logo.svg') }}" width="140" height="35" alt=""
-                class="logo_normal">
+                class="logo_normal rounded-circle">
                 <img src="{{ URL::asset('index1/img/logo_sticky.svg') }}" width="140" height="35"
                     alt="" class="logo_sticky">
                 @endisset
@@ -71,8 +71,8 @@
                     <i class="icon_close"></i><span>Menu</span>
                 </a>
                 @isset($store_info->logo)
-                <img src="{{ url('storage/store_logo') }}/{{ $store_info->logo }}" width="60px"
-                                        height="60px" class="header-brand-img desktop-lgo" alt="Appino logo">
+                <img src="{{ get_image($store_info->logo) }}" width="60px"
+                                        height="60px" class="header-brand-img desktop-lgo rounded-circle" alt="Appino logo">
                 @else
                 <a href="index.html"><img src="{{ URL::asset('index1/img/logo.svg') }}" width="140"
                     height="35" alt=""></a>

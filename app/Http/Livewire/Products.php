@@ -188,6 +188,9 @@ class Products extends Component
             $this->img_link = 'Category_' . str_replace(' ', '_', $this->cat_title) . md5(microtime()) . '.webp';
             $image = File::get($this->cat_image->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'categories', $this->img_link, $this->catigory_sizes);
+
+            $this->img_link= 'categories/'.$this->img_link;
+
             if ($save_result) {
                 $cat->image = $this->img_link;
             }
@@ -294,6 +297,11 @@ class Products extends Component
             $link = 'product_image_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.webp';
             $image = File::get($img->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'product_images', $link, $this->product_sizes);
+
+            $link= 'product_images/'.$link;
+
+
+
             if ($save_result) {
                 $images[] = $link;
             }
@@ -335,6 +343,9 @@ class Products extends Component
                         $link = 'extra_image_' . str_replace(' ', '_', $extra['title']) . md5(microtime()) . '.webp';
                         $image = File::get($extra['image']->getRealPath());
                         $save_result = save_livewire_filetocdn($image, 'extra_images', $link, $this->extras_sizes);
+
+                        $link= 'extra_images/'.$link;
+
 
                     } else {
                         $link = '';
@@ -476,6 +487,8 @@ class Products extends Component
             $link = 'product_image_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.webp';
             $image = File::get($img->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'product_images', $link, $this->product_sizes);
+            $link= 'product_images/'.$link;
+
             if ($save_result) {
                 $images[] = $link;
             }
@@ -494,7 +507,9 @@ class Products extends Component
         if (!empty($this->product_images_deleted)) {
             foreach ($this->product_images_deleted as $image) {
                 foreach ($this->product_sizes as $key => $size) {
-                    File::delete(storage_path('app') . '/public/product_images/' . $key . '/' . $image['media']);
+
+                    delete_file($key . '/' . $image['media']);
+
                     $old_image = ProductMedia::find($image['id']);
                     if (!empty($old_image)) {
                         $old_image->delete();
@@ -550,6 +565,8 @@ class Products extends Component
                             $link = 'extra_image_' . str_replace(' ', '_', $extra['title']) . md5(microtime()) . '.webp';
                             $image = File::get($extra['image']->getRealPath());
                             $save_result = save_livewire_filetocdn($image, 'extra_images', $link, $this->extras_sizes);
+                            $link= 'extra_images/'.$link;
+
 
                         }
 
@@ -574,10 +591,12 @@ class Products extends Component
                             $link = 'extra_image_' . str_replace(' ', '_', $extra['title']) . md5(microtime()) . '.webp';
                             $image = File::get($extra['image']->getRealPath());
                             $save_result = save_livewire_filetocdn($image, 'extra_images', $link, $this->extras_sizes);
+                            $link= 'extra_images/'.$link;
 
                             $delete_img = $this->edit_extra->where('product_extra_id', $this->extra_is_new[$key])->first();
                             foreach ($this->extras_sizes as $key_extra => $size) {
-                                File::delete(storage_path('app') . '/public/extra_images/' . $key_extra . '/' . $delete_img->image);
+                                delete_file($key_extra . '/' . $delete_img->image);
+
                             }
                         } else {
                             $link = $extra['image'];
@@ -649,7 +668,8 @@ class Products extends Component
                 $product_images = ProductMedia::where('store_product_id', $this->product_id)->get();
                 foreach ($product_images as $image) {
                     foreach ($this->product_sizes as $key => $size) {
-                        File::delete(storage_path('app') . '/public/product_images/' . $key . '/' . $image->media);
+                        delete_file($key . '/' . $image->media);
+
 
                     }
                 }

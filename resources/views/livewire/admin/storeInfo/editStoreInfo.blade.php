@@ -295,9 +295,9 @@
                                             <img src="{{ request()->getSchemeAndHttpHost() }}/livewire-tmp/{{ $edit_logo->getFileName() }}"
                                                 style="height: 100%;width:100%">
                                             @elseif(isset($logo) and !empty($logo))
-                                            <img src="{{ url('storage/store_logo') }}/{{ $logo }}"
+                                            <img src="{{ get_image($logo) }}"
                                                 style="height: 100%;width:100%"
-                                                onerror="this.onerror=null; this.src='{{ URL::asset('assets/images/small_site_logo.png') }}'">
+                                                >
                                             @else
                                             <img src="{{ URL::asset('assets/images/small_site_logo.png') }}"
                                                 style="height: 100%;width:100%">

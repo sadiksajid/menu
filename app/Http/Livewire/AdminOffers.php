@@ -218,10 +218,12 @@ class AdminOffers extends Component
         $link = 'offer_image_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.webp';
         $image = File::get($this->offer_image->getRealPath());
         $save_result = save_livewire_filetocdn($image, 'offer_images', $link);
+        $link = 'offer_images/'.$link ; 
 
         $link2 = 'offer_image_squad_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.webp';
         $image = File::get($this->offer_image_squad->getRealPath());
         $save_result2 = save_livewire_filetocdn($image, 'offer_images', $link2);
+        $link = 'offer_images/'.$link2 ; 
 
         if ($save_result and $save_result2) {
             $offer = new Offer();
@@ -322,12 +324,13 @@ class AdminOffers extends Component
         }
         $check = true;
         if (!empty($this->offer_image)) {
-
-            File::delete(storage_path('app') . '/public/offer_images/' . $this->offer_image_deleted);
+            delete_file($this->offer_image_deleted);
 
             $link = 'offer_image_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.webp';
             $image = File::get($this->offer_image->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'offer_images', $link);
+            $link = 'offer_images/'.$link ;
+
             if (!$save_result) {
                 $check = false;
             }
@@ -335,11 +338,14 @@ class AdminOffers extends Component
 
         }
         if (!empty($this->offer_image_squad)) {
-            File::delete(storage_path('app') . '/public/offer_images/' . $this->offer_image_squad_deleted);
+            delete_file($this->offer_image_squad_deleted);
+
 
             $link2 = 'offer_image_squad_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.webp';
             $image = File::get($this->offer_image_squad->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'offer_images', $link2);
+            $link2 = 'offer_images/'.$link2 ;
+
             if (!$save_result) {
                 $check = false;
             }

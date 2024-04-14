@@ -1,8 +1,8 @@
     <aside class="app-sidebar  ">
         <div class="app-sidebar__logo">
             <a class="header-brand" href="{{ url('/' . ($page = '')) }}">
-                <img src="{{ url('storage/store_logo') }}/{{ Auth::user()->store->logo }}" style='height:4rem'
-                    class="header-brand-img desktop-lgo" alt="Appino logo">
+                <img src="{{ get_image(Auth::user()->store->logo) }}" style='height:4rem'
+                    class="header-brand-img desktop-lgo rounded-circle" alt="Appino logo">
 
             </a>
         </div>
@@ -133,6 +133,13 @@
                             <a class="side-menu__item" href="/admin/MenuEdit">
                               
                                 <i class="angle fa fa-angle-right ml-4 mr-3"></i> <span class="side-menu__label">Menue</span>
+                            </a>
+            
+                        </li>
+                        <li class="slide mt-3">
+                            <a class="side-menu__item" href="/admin/HeadesEdit">
+                              
+                                <i class="angle fa fa-angle-right ml-4 mr-3"></i> <span class="side-menu__label">Other Headers</span>
                             </a>
             
                         </li>

@@ -3,7 +3,7 @@
 
 
         <div wire:ignore class="hero_single inner_pages background-image"
-        @if (isset($images['img_1']))   data-background="url({{ url('storage/menu1/' . $images['img_1']) }})" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif >
+        @if (isset($images['img_1']))   data-background="get_image($images['img_1'])" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif >
 
             <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
                 <div class="container">
@@ -35,11 +35,11 @@
                         <div class="col-lg-6" data-cue="slideInUp">
                             <div class="menu_item order">
                                 <figure style='border:1px solid black'>
-                                    <a href="{{ url(env('PATH_PRODUCTS')) }}/{{$prod['media'][0]['media'] }}" title="Summer Berry"
+                                    <a href="{{ get_image($prod['media'][0]['media'])}}" title="Summer Berry"
                                         data-effect="mfp-zoom-in">
                                         
                                         <img src="{{ URL::asset('index1/img/menu_items/menu_items_placeholder.png') }}"
-                                            data-src="{{ url(env('PATH_PRODUCTS')) }}/{{ $prod['media'][0]['media'] }}" class="lazy"
+                                            data-src="{{ get_image($prod['media'][0]['media'])}}" class="lazy"
                                             alt="">
                                     </a>
                                 </figure>

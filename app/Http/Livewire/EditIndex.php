@@ -115,6 +115,8 @@ class EditIndex extends Component
             $img_link = 'index1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'index1', $img_link);
+            $img_link = 'index1/'.$img_link ;
+
             if ($save_result) {
                 $this->images[$id] = $img_link;
                 $this->data->images = json_encode($this->images);

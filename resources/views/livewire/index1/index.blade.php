@@ -4,7 +4,7 @@
     @endphp
     <div class="header-video">
         <div id="hero_video" @if (isset($images['img_1']))
-            style='background-image:url({{ url('storage/index1/' . $images['img_1']) }})' @endif>
+            style='background-image:url({{ get_image($images["img_1"]) }})' @endif>
             <div wire:ignore class="opacity-mask d-flex align-items-center  img_1"
                 data-opacity-mask="rgba(0, 0, 0, 0.6)">
                 <div class="container">
@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <img src="{{ url('storage/index1/' . $images['img_1']) }}"
+        <img src="{{ get_image($images['img_1']) }}"
             data-video-src="{{ URL::asset('index1/video/intro') }}" class="header-video--media"
             data-teaser-source="{{ URL::asset('index1/video/intro') }}" data-provider="" data-video-width="1920"
             data-video-height="960">
@@ -33,8 +33,8 @@
             <a @if (isset($urls['url_1'])) href="{{$urls['url_1']}}" @else href="menu-1.html" @endif
                 class="img_container  " data-id='url_1'>
 
-                <img @if (isset($images['img_2'])) src="{{ url('storage/index1/' . $images['img_2']) }}"
-                    data-src="{{ url('storage/index1/' . $images['img_2']) }}" @else
+                <img @if (isset($images['img_2'])) src="{{ get_image($images['img_2']) }}"
+                    data-src="{{ get_image($images['img_2']) }}" @else
                     src="{{ URL::asset('index1/img/banners_cat_placeholder.jpg') }}"
                     data-src="{{ URL::asset('index1/img/banner_1.jpg') }}" @endif alt="" class="lazy">
 
@@ -48,8 +48,8 @@
         <li class="">
             <a @if (isset($urls['url_2'])) href="{{$urls['url_2']}}" @else href="menu-1.html" @endif
                 class="img_container  " data-id='url_2'>
-                <img @if (isset($images['img_3'])) src="{{ url('storage/index1/' . $images['img_3']) }}"
-                    data-src="{{ url('storage/index1/' . $images['img_3']) }}" @else
+                <img @if (isset($images['img_3'])) src="{{ get_image($images['img_3']) }}"
+                    data-src="{{ get_image($images['img_3'])}}" @else
                     src="{{ URL::asset('index1/img/banners_cat_placeholder.jpg') }}"
                     data-src="{{ URL::asset('index1/img/banner_1.jpg') }}" @endif alt="" class="lazy">
 
@@ -66,8 +66,8 @@
         <li class="">
             <a @if (isset($urls['url_3'])) href="{{$urls['url_3']}}" @else href="menu-1.html" @endif
                 class="img_container  " data-id='url_3'>
-                <img @if (isset($images['img_4'])) src="{{ url('storage/index1/' . $images['img_4']) }}"
-                    data-src="{{ url('storage/index1/' . $images['img_4']) }}" @else
+                <img @if (isset($images['img_4'])) src="{{ get_image($images['img_4']) }}"
+                    data-src="{{ get_image($images['img_4'])}}" @else
                     src="{{ URL::asset('index1/img/banners_cat_placeholder.jpg') }}"
                     data-src="{{ URL::asset('index1/img/banner_1.jpg') }}" @endif alt="" class="lazy">
 
@@ -87,8 +87,8 @@
             <div class="row justify-content-center d-flex align-items-center">
                 <div class="col-lg-5 text-lg-center d-none d-lg-block " data-cue="slideInUp">
                     <figure class="">
-                        <img @if (isset($images['img_5'])) src="{{ url('storage/index1/' . $images['img_5']) }}"
-                            data-src="{{ url('storage/index1/' . $images['img_5']) }}" @else
+                        <img @if (isset($images['img_5'])) src="{{ get_image($images['img_5'])}}"
+                            data-src="{{ get_image($images['img_5']) }}" @else
                             src="{{ URL::asset('index1/img/home_1_placeholder.png') }}"
                             data-src="{{ URL::asset('index1/img/home_1.jpg') }}" @endif width="354" height="440" alt=""
                             class="img-fluid lazy">
@@ -138,10 +138,14 @@
 
             </div>
             <!-- /main_title -->
+
+        
+
+
             @if (isset($offer->image))
             <a href="/shop/offer/{{ $offer->offer_meta}}">
                 <div class="banner lazy " @if (isset($offer->image))
-                    data-bg="url({{ url(env('PATH_OFFERS')) }}/{{ $offer->image }})" @else
+                    data-bg="{{ get_image($offer->image) }}" @else
                     data-bg="url({{ URL::asset('index1/img/banner_bg.jpg') }})" @endif>
     
                     {{-- <div wire:ignore class="wrapper d-flex align-items-center justify-content-between opacity-mask"
@@ -169,11 +173,11 @@
                 <div class="col-lg-6" data-cue="slideInUp">
                     <div class="menu_item">
                         <figure style="border:1px solid black" >
-                            <a href="{{ url(env('PATH_PRODUCTS')) }}/{{ $product->media[0]->media }}"
+                            <a href="{{ get_image('moyen/'.$product->media[0]->media) }}"
                                 title="Summer Berry" data-effect="mfp-zoom-in">
 
                                 <img src="{{ URL::asset('index1/img/menu_items/menu_items_placeholder.png') }}"
-                                    data-src="{{ url(env('PATH_PRODUCTS')) }}/{{ $product->media[0]->media }}"
+                                    data-src="{{ get_image('moyen/'.$product->media[0]->media) }}"
                                     class="lazy " alt="">
                             </a>
                         </figure>
@@ -194,8 +198,8 @@
     <!-- /bg_gray -->
 
     <div class="call_section lazy" @if (isset($images['img_7']))
-        style="position: relative; background-image:url({{ url('storage/index1/' . $images['img_7']) }})"
-        data-bg="url({{ url('storage/index1/' . $images['img_7']) }})" @else style="position: relative"
+        style="position: relative; background-image:get_image($images['img_7'])"
+        data-bg="get_image($images['img_7'])" @else style="position: relative"
         data-bg="url({{ URL::asset('index1/img/bg_call_section.jpg') }})" @endif>
 
         <div class="container clearfix">
@@ -227,7 +231,7 @@
                 <div class="col-lg-6 text-center d-none d-lg-block" data-cue="slideInUp">
 
                     @if (isset($images['img_8']))
-                    <img src="{{ url('storage/index1/' . $images['img_8']) }}" width="420" height="770" alt=""
+                    <img src="{{ get_image($images['img_8'])}}" width="420" height="770" alt=""
                         class="img-fluid">
                     @else
                     <img src="{{ URL::asset('index1/img/chef.png') }}" width="420" height="770" alt=""
