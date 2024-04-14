@@ -316,7 +316,7 @@
                                         data-effect="mfp-zoom-in">
                                         
                                         <img src="{{ URL::asset('index1/img/menu_items/menu_items_placeholder.png') }}"
-                                            data-src="{{ get_image($product->media[0]->media) }}" class="lazy"
+                                            data-src="{{ get_image('moyen/'.$product->media[0]->media) }}" class="lazy"
                                             alt="">
                                     </a>
                                 </figure>
