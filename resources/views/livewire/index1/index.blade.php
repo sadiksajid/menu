@@ -11,11 +11,11 @@
                     <div class="row justify-content-center text-center">
                         <div class="col-xl-8 col-lg-10 col-md-8 mt-2">
                             <h1 class='' data-id='title-1'>
-                                {{ $titles['title-1'] ?? 'Taste Unique Food' }}</h1>
+                                {{ $titles['title-1'] ??  $translations_resto['taste_unique_food']['en']  }}</h1>
                             <p class='' data-id='title-2'>
-                                {{ $titles['title-2'] ?? 'Delicious food since 2005' }}</p>
+                                {{ $titles['title-2'] ?? '' }}</p>
                             <a data-id='btn-1' class="btn_1 "
-                                href="{{ $buttons['btn-1']['url'] ?? '#menu-1.html' }}" style='background-color:{{$store_info->btn_color}}'>{{ $buttons['btn-1']['title'] ?? 'Read more' }}</a>
+                                href="{{ $buttons['btn-1']['url'] ?? '#menu-1.html' }}" style='background-color:{{$store_info->btn_color}}'>{{ $buttons['btn-1']['title'] ?? $translations['read_more']['en'] }}</a>
                         </div>
                     </div>
                 </div>
@@ -39,9 +39,9 @@
                     data-src="{{ URL::asset('index1/img/banner_1.jpg') }}" @endif alt="" class="lazy">
 
                 <div wire:ignore class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
-                    <h3 class='' data-id='title-3'> {{ $titles['title-3'] ?? 'Our Menu' }} </h3>
+                    <h3 class='' data-id='title-3'> {{ $titles['title-3'] ?? $translations_resto['our_menu']['en'] }} </h3>
                     <p class='' data-id='title-4'>
-                        {{ $titles['title-4'] ?? 'View Our Specialites' }} </p>
+                        {{ $titles['title-4'] ?? $translations_resto['view_our_specialites']['en'] }} </p>
                 </div>
             </a>
         </li>
@@ -55,9 +55,9 @@
 
                 <div wire:ignore class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
 
-                    <h3 class='' data-id='title-5'> {{ $titles['title-5'] ?? 'Delivery' }} </h3>
+                    <h3 class='' data-id='title-5'> {{ $titles['title-5'] ?? $translations_resto['delivery']['en'] }} </h3>
                     <p class='' data-id='title-6'>
-                        {{ $titles['title-6'] ?? 'Home delivery or take away food' }}
+                        {{ $titles['title-6'] ??  $translations_resto['home_delivery_or_take_away_food']['en'] }}
                     </p>
 
                 </div>
@@ -73,9 +73,9 @@
 
                 <div wire:ignore class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
 
-                    <h3 class='' data-id='title-7'> {{ $titles['title-7'] ?? 'Inside Foores' }} </h3>
+                    <h3 class='' data-id='title-7'> {{ $titles['title-7'] ??  $translations_resto['inside_foores']['en'] }} </h3>
                     <p class='' data-id='title-8'>
-                        {{ $titles['title-8'] ?? 'View the Gallery' }}
+                        {{ $titles['title-8'] ??  $translations_resto['view_the_gallery']['en'] }}
                     </p>
                 </div>
             </a>
@@ -102,21 +102,13 @@
                 <div class="col-lg-5 pt-lg-4" data-cue="slideInUp" data-delay="500">
                     <div class="main_title">
                         <span><em></em></span>
-                        <h2 class='' data-id='title-9'>{{ $titles['title-9'] ?? 'Some words about us' }}</h2>
+                        <h2 class='' data-id='title-9'>{{ $titles['title-9'] ??  $translations_resto['some_words_about_us']['en'] }}</h2>
                         <p class='' data-id='title-16'>
-                            {{ $titles['title-16'] ?? 'Cum doctus civibus efficiantur in imperdiet deterruisset.' }}</p>
+                            {{ $titles['title-16'] ??  $translations_resto['some_words_about_us_meta']['en']  }}</p>
                     </div>
                     <div class='' data-id='text-1'>
                         <p>
-                            {!! $texts['text-1'] ?? 'Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat
-
-                            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                            officia deserunt mollit anim id est laborum.
-                            <br>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                            ullamco laboris nisi ut aliquip ex ea commodo consequat' !!}
+                            {!! $texts['text-1'] ?? $translations_resto['some_words_about_us_text']['en'] !!}
                         </p>
                     </div>
 
@@ -134,7 +126,7 @@
         <div class="container margin_120_100" data-cue="slideInUp">
             <div class="main_title center mb-5">
                 <span><em></em></span>
-                <h2 class='' data-id='title-10'>{{ $titles['title-10'] ?? 'Our Daily Menu' }}</h2>
+                <h2 class='' data-id='title-10'>{{ $titles['title-10'] ??  $translations_resto['our_daily_menu']['en'] }}</h2>
 
             </div>
             <!-- /main_title -->
@@ -191,7 +183,7 @@
 
             </div>
             <!-- /row -->
-            <p class="text-center"><a href="/menu" class="btn_1 outline" data-cue="zoomIn">See More</a></p>
+            <p class="text-center"><a href="/menu" class="btn_1 outline" data-cue="zoomIn">{{$translations['see_more']['en']}}</a></p>
         </div>
         <!-- /container -->
     </div>
@@ -208,13 +200,11 @@
 
                     <div class="box_1" data-cue="slideInUp">
 
-                        <h2 class='' data-id='title-14'> {{ $titles['title-14'] ?? 'Celebrate' }}</h2>
+                        <h2 class='' data-id='title-14'> {{ $titles['title-14'] ?? $translations_resto['our_location']['en'] }}</h2>
                         <h2 class='' data-id='title-15'><span>
-                                {{ $titles['title-15'] ?? ' a Special Event with us!' }}</span></h2>
+                                {{ $titles['title-15'] ?? '' }}</span></h2>
 
-                        <p class='' data-id='text-2'>{!! $texts['text-2'] ?? ' Nemo enim ipsam voluptatem quia voluptas
-                            sit aspernatur aut odit aut fugit, sed quia
-                            consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt' !!}.</p>
+                        <p class='' data-id='text-2'>{!! $texts['text-2'] ?? $translations_resto['our_location_text']['en'] !!}.</p>
                         <a data-id='btn-3' class="btn_1  mt-3 " style=' background-color:{{$store_info->btn_color}}'
                             href="{{ $buttons['btn-3']['url'] ?? '#contacts.html' }}">{{ $buttons['btn-3']['title'] ?? 'Contact us' }}</a>
 
@@ -401,7 +391,7 @@
                 <div class="col-md-3 col-6 " >
                     <a href="/shop">
                         <Button class="btn btn-lg " style="background-color:{{$store_info->btn_color}} ;color:white!important;width:100%">
-                            <h4 class="mb-0" style='color:white!important'>Visit Our Shop</h4>
+                            <h4 class="mb-0" style='color:white!important'>{{$translations['visit_our_shop']['en']}}</h4>
                         </Button>
                     </a>
                 </div>

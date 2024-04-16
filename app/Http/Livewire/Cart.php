@@ -16,9 +16,16 @@ class Cart extends Component
     public $currency = 0;
     public $store_meta;
     public $order_nbr;
+    //////////////////////////
+    public $translations;
+    public $translations_resto;
 
     public function mount()
     {
+        $json = app('translations');
+        $this->translations = $json['system'];
+        $this->translations_resto = $json['resto'];
+
         $this->store_meta = getStoreName();
         if ($this->store_meta == null) {
             $this->store_meta = env('STOR_NAME');

@@ -5,7 +5,9 @@
         color: {{$store_info->text_color}}!important;
     }
 </style>
-
+@php
+$translations = app('translations')['system'];
+@endphp
 
 <div id="preloader" wire:ignore>
     <div data-loader="circle-side"></div>
@@ -55,7 +57,7 @@
                     @else   
                         <button  class="btn login_show" style=' background-color:{{$store_info->text_color}};color: black;float: right; margin-right:20px;font-size:13px'>
                             <i class="fa fa-user"  style="margin-right: 5px;"></i>
-                            Login
+                            {{$translations['login']['en']}}
                         </button>
                     @endif
           
@@ -63,12 +65,12 @@
         </ul>
         <!-- /top_menu -->
         <a href="#0" class="open_close">
-            <i class="icon_menu"></i><span>Menu</span>
+            <i class="icon_menu"></i><span>{{$translations['menu']['en']}}</span>
         </a>
         <nav class="main-menu">
             <div id="header_menu">
                 <a href="#0" class="open_close">
-                    <i class="icon_close"></i><span>Menu</span>
+                    <i class="icon_close"></i><span>{{$translations['menu']['en']}}</span>
                 </a>
                 @isset($store_info->logo)
                 <img src="{{ get_image($store_info->logo) }}" width="60px"
@@ -82,13 +84,13 @@
             <ul>
          
                 <li class="submenu">
-                    <a href="/" >Home</a>
+                    <a href="/" >{{$translations['home']['en']}}</a>
                 </li>
                 <li class="submenu">
-                    <a href="/menu" >Menu</a>
+                    <a href="/menu" >{{$translations['menu']['en']}}</a>
                 </li>
                 <li class="submenu">
-                    <a href="/shop" >Shop</a>
+                    <a href="/shop" >{{$translations['shop']['en']}}</a>
                 </li>
             </ul>
         </nav>
@@ -97,7 +99,7 @@
     <div class="search-overlay-menu">
         <span class="search-overlay-close"><span class="closebt"><i class="icon_close"></i></span></span>
         <form role="search" id="searchform" method="get">
-            <input value="" name="q" type="search" placeholder="Search..." />
+            <input value="" name="q" type="search" placeholder="{{$translations['search']['en']}}..." />
             <button type="submit"><i class="icon_search"></i></button>
         </form>
     </div><!-- End Search -->

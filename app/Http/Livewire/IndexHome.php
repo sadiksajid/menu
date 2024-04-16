@@ -26,10 +26,18 @@ class IndexHome extends Component
     public $upload_image;
     public $products;
     public $offer;
+    //////////////////////////
+    public $translations;
+    public $translations_resto;
+
     protected $listeners = ['indexRender' => 'renderComponent'];
 
     public function mount()
     {
+        $json = app('translations');
+        $this->translations = $json['system'];
+        $this->translations_resto = $json['resto'];
+
         $this->store_meta = env('STOR_NAME');
         $stores = Cache::get('stores');
 

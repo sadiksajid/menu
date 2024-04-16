@@ -31,9 +31,17 @@ class StoreClient extends Component
 
     // public $catigory_sizes = ['tmb' => ['w' => 150, 'h' => 150], 'origin' => ['w' => 300, 'h' => 300]];
     protected $listeners = ['addToCart', 'changeQte', 'storeComponent' => 'renderComponent', 'setViewStore', 'setViewProduct'];
+    //////////////////////////
+    public $translations;
+    public $translations_resto;
 
     public function mount($store_info, $category = null)
     {
+
+        $json = app('translations');
+        $this->translations = $json['system'];
+        $this->translations_resto = $json['resto'];
+        ////////////////////////////////////////////
         $this->store_meta = $store_info->store_meta;
         $this->store_info = $store_info;
         $this->categories = ProductCategory::where('store_id', $store_info->id)

@@ -3,7 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Foores - Single Restaurant Version">
     <meta name="author" content="Ansonika">
-    <title>sadik sajid - Single Restaurant Version</title>
+    <title>CoolResto</title>
     <!-- Favicons-->
     <link href="{{ URL::asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/animated.css') }}" rel="stylesheet" />

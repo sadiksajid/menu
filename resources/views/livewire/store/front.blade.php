@@ -71,8 +71,8 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-xl-9 col-lg-10 col-md-8">
-                            <h1  > {{ $titles_shop ?? 'Store' }}  </h1>
-                            <p  >{{ $texts_shop ?? 'Cooking delicious and tasty food since 2005' }} </p>
+                            <h1  > {{ $titles_shop ?? $translations['store']['en'] }}  </h1>
+                            <p  >{{ $texts_shop ?? $translations_resto['store_meta']['en']  }} </p>
                         </div>
                     </div>
                     <!-- /row -->
@@ -207,8 +207,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="load-more-sec"><a wire:click="nextPage()">load
-                                            more</a></div>
+                                    <div class="load-more-sec"><a wire:click="nextPage()">{{$translations['load_more']['en'] }}</a></div>
                                 </div>
                             </div>
                         </div>
