@@ -71,8 +71,8 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-xl-9 col-lg-10 col-md-8">
-                            <h1  > {{ $titles_shop ?? $translations['store']['en'] }}  </h1>
-                            <p  >{{ $texts_shop ?? $translations_resto['store_meta']['en']  }} </p>
+                            <h1  > {{ $titles_shop ?? $translations['store'] }}  </h1>
+                            <p  >{{ $texts_shop ?? $translations_resto['store_meta']  }} </p>
                         </div>
                     </div>
                     <!-- /row -->
@@ -189,7 +189,7 @@
                                                                     </div>
                                                                     {{ $product->category->title }}
                                                                     <a class="mt-2"
-                                                                        href="product-page(no-sidebar).html">
+                                                                        href="/shop/product/{{ $product->product_meta }}">
                                                                         <h4>{{ substr($product->title, 0, 40) }}</h4>
                                                                     </a>
                                                                     <p class="mt-2">
@@ -207,7 +207,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="load-more-sec"><a wire:click="nextPage()">{{$translations['load_more']['en'] }}</a></div>
+                                    <div class="load-more-sec"><a wire:click="nextPage()">{{$translations['load_more'] }}</a></div>
                                 </div>
                             </div>
                         </div>
@@ -236,7 +236,7 @@
                                 <h3 id='detail_price'>$32.96</h3>
 
                                 <div class="border-product">
-                                    <h6 class="product-title">product details</h6>
+                                    <h6 class="product-title">{{$translations['product_details']}}</h6>
                                     <p id='detail_description'>Sed ut perspiciatis, unde omnis iste natus error sit
                                         voluptatem accusantium
                                         doloremque laudantium</p>
@@ -250,7 +250,7 @@
                                             <li><a href="#">xl</a></li>
                                         </ul>
                                     </div> --}}
-                                    <h6 class="product-title">quantity</h6>
+                                    <h6 class="product-title">{{$translations['quantity']}}</h6>
                                     <div class="qty-box">
                                         <div class="input-group"><span class="input-group-prepend"><button
                                                     class="btn quantity-left-minus" data-field="" data-type="minus"
@@ -268,10 +268,10 @@
 
                                 <div class="product-buttons">
                                     <a class="btn btn-default primary-btn radius-0" href="#" id='add_to_cart'>
-                                        add to cart
+                                        {{$translations['add_to_cart']}} 
                                     </a>
                                     <a class="btn btn-default primary-btn radius-0" href="#"id='pop_up_url'>
-                                        view detail
+                                        {{$translations['view_detail']}} 
                                     </a>
                                 </div>
                             </div>

@@ -63,9 +63,15 @@ class Products extends Component
     public $product_sizes = ['tmb' => ['w' => 300, 'h' => 300], 'moyen' => ['w' => 600, 'h' => 600], 'origin' => ['w' => 1000, 'h' => 1000]];
     public $extras_sizes = ['tmb' => ['w' => 150, 'h' => 150], 'small' => ['w' => 300, 'h' => 300], 'moyen' => ['w' => 600, 'h' => 600], 'origin' => ['w' => 1000, 'h' => 1000]];
     protected $listeners = ['confirmed'];
+////////////////////////////////
+    public $translations;
+    public $langs = [];
 
     public function mount($url = null, $id = null)
     {
+        $this->langs = languages()['langs'];
+        $this->translations = app('translations_admin');
+///////////////////////////////////
         $this->store_info = Auth::user()->store;
         $this->store_id = $this->store_info->id;
         $this->url = $url;
@@ -189,7 +195,7 @@ class Products extends Component
             $image = File::get($this->cat_image->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'categories', $this->img_link, $this->catigory_sizes);
 
-            $this->img_link= 'categories/'.$this->img_link;
+            $this->img_link = 'categories/' . $this->img_link;
 
             if ($save_result) {
                 $cat->image = $this->img_link;
@@ -284,8 +290,21 @@ class Products extends Component
             ]);
         }
         $product = new StoreProduct();
-        $product->title = $this->title;
-        $product->description = $this->description;
+
+        foreach ($this->langs as $lang) {
+            if ($lang == 'en') {
+                $title = $this->title;
+                $description = $this->description;
+            } else {
+                $title = translate($this->title, $lang);
+                $description = translate($this->description, $lang);
+            }
+
+            $product->setTranslation('title', $lang, $title, JSON_UNESCAPED_UNICODE);
+            $product->setTranslation('description', $lang, $description, JSON_UNESCAPED_UNICODE);
+
+        }
+
         $product->status = $this->status;
         $product->to_menu = $this->to_menu;
         $product->price = $this->price;
@@ -298,9 +317,7 @@ class Products extends Component
             $image = File::get($img->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'product_images', $link, $this->product_sizes);
 
-            $link= 'product_images/'.$link;
-
-
+            $link = 'product_images/' . $link;
 
             if ($save_result) {
                 $images[] = $link;
@@ -344,8 +361,7 @@ class Products extends Component
                         $image = File::get($extra['image']->getRealPath());
                         $save_result = save_livewire_filetocdn($image, 'extra_images', $link, $this->extras_sizes);
 
-                        $link= 'extra_images/'.$link;
-
+                        $link = 'extra_images/' . $link;
 
                     } else {
                         $link = '';
@@ -375,7 +391,7 @@ class Products extends Component
 
         $this->dispatchBrowserEvent('swal:modal_back', [
             'type' => 'success',
-            'title' => 'Product Submitted Successfully!',
+            'title' => $this->translations['product_submitted_success'],
             // 'message' => 'Do you want to back to products page ?',
             'url' => '/admin/products',
 
@@ -487,7 +503,7 @@ class Products extends Component
             $link = 'product_image_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.webp';
             $image = File::get($img->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'product_images', $link, $this->product_sizes);
-            $link= 'product_images/'.$link;
+            $link = 'product_images/' . $link;
 
             if ($save_result) {
                 $images[] = $link;
@@ -565,8 +581,7 @@ class Products extends Component
                             $link = 'extra_image_' . str_replace(' ', '_', $extra['title']) . md5(microtime()) . '.webp';
                             $image = File::get($extra['image']->getRealPath());
                             $save_result = save_livewire_filetocdn($image, 'extra_images', $link, $this->extras_sizes);
-                            $link= 'extra_images/'.$link;
-
+                            $link = 'extra_images/' . $link;
 
                         }
 
@@ -591,7 +606,7 @@ class Products extends Component
                             $link = 'extra_image_' . str_replace(' ', '_', $extra['title']) . md5(microtime()) . '.webp';
                             $image = File::get($extra['image']->getRealPath());
                             $save_result = save_livewire_filetocdn($image, 'extra_images', $link, $this->extras_sizes);
-                            $link= 'extra_images/'.$link;
+                            $link = 'extra_images/' . $link;
 
                             $delete_img = $this->edit_extra->where('product_extra_id', $this->extra_is_new[$key])->first();
                             foreach ($this->extras_sizes as $key_extra => $size) {
@@ -635,8 +650,8 @@ class Products extends Component
 
         $this->dispatchBrowserEvent('swal:confirm_redirect', [
             'type' => 'success',
-            'title' => 'Product Updated Successfully!',
-            'message' => 'Do you want to back to products page ?',
+            'title' => $this->translations['product_updated_success'],
+            'message' => $this->translations['do_you_want_to_back_product'],
             'url' => '/admin/products',
 
         ]);
@@ -648,8 +663,8 @@ class Products extends Component
 
         $this->dispatchBrowserEvent('swal:confirm', [
             'type' => 'warning',
-            'title' => 'Please Confirm !',
-            'message' => 'Do you Want Delete This Product ?',
+            'title' => $this->translations['please_confirm'],
+            'message' => $this->translations['product_delete_msg_1'],
         ]);
 
     }
@@ -670,7 +685,6 @@ class Products extends Component
                     foreach ($this->product_sizes as $key => $size) {
                         delete_file($key . '/' . $image->media);
 
-
                     }
                 }
                 ProductMedia::where('store_product_id', $this->product_id)->forceDelete();
@@ -681,8 +695,7 @@ class Products extends Component
             }
             $this->dispatchBrowserEvent('swal:modal_back', [
                 'type' => 'success',
-                'title' => 'Product Deleted Successfully!',
-                // 'message' => 'Do you want to back to products page ?',
+                'title' => $this->translations['product_delete_success'],
                 'url' => '/admin/products',
 
             ]);
@@ -695,8 +708,7 @@ class Products extends Component
     {
         $this->dispatchBrowserEvent('swal:modal_back', [
             'type' => 'success',
-            'title' => 'Product Not Found',
-            // 'message' => 'Do you want to back to products page ?',
+            'title' => $this->translations['product_not_found'],
             'url' => '/admin/products',
 
         ]);

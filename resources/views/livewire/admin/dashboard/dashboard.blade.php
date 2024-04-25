@@ -18,11 +18,11 @@
                     <div class="text-left mb-4">
                         <p class=" mb-1 ">
                             <i class="fa fa-cart-plus mr-1"></i>
-                            New Orders
+                            {{ $translations['new_orders'] }}
                         </p>
                         <h2 class="mb-0 font-weight-bold">{{ end($orders['all']) }}<span class="fs-12 text-muted"><span
                                     class=" @if ($res_orders['all'] >= 0) text-success @else text-danger @endif  mr-1"><i
-                                        class="fe fe-arrow-up ml-1 "></i> {{ $res_orders['all'] }}%</span> last week</span>
+                                        class="fe fe-arrow-up ml-1 "></i> {{ $res_orders['all'] }}%</span>{{ $translations['last_week'] }}</span>
                         </h2>
                     </div>
                 </div>
@@ -37,12 +37,11 @@
                     <div class="text-left mb-4">
                         <p class=" mb-1 ">
                             <i class="fa fa-cart-arrow-down mr-1"></i>
-                            Pending Orders
+                            {{ $translations['pending_orders'] }}
                         </p>
                         <h2 class="mb-0 font-weight-bold">{{ end($orders['pending']) }}<span class="fs-12 text-muted"><span
                                     class=" @if ($res_orders['pending'] >= 0) text-success @else text-danger @endif  mr-1"><i
-                                        class="fe fe-arrow-up ml-1 "></i> {{ $res_orders['pending'] }}%</span> last
-                                week</span></h2>
+                                        class="fe fe-arrow-up ml-1 "></i> {{ $res_orders['pending'] }}%</span> {{ $translations['last_week'] }}</span></h2>
                     </div>
                 </div>
                 <div class="chart-wrapper overflow-hidden">
@@ -56,13 +55,12 @@
                     <div class="text-left mb-4">
                         <p class=" mb-1 ">
                             <i class="fa fa-cart-arrow-down mr-1"></i>
-                            Confirmed Orders
+                            {{ $translations['confirmed_orders'] }}
                         </p>
                         <h2 class="mb-0 font-weight-bold">{{ end($orders['confirmed']) }}<span
                                 class="fs-12 text-muted"><span
                                     class=" @if ($res_orders['confirmed'] >= 0) text-success @else text-danger @endif  mr-1"><i
-                                        class="fe fe-arrow-up ml-1 "></i> {{ $res_orders['confirmed'] }}%</span> last
-                                week</span></h2>
+                                        class="fe fe-arrow-up ml-1 "></i> {{ $res_orders['confirmed'] }}%</span> {{ $translations['last_week'] }}</span></h2>
                     </div>
                 </div>
                 <div class="chart-wrapper overflow-hidden">
@@ -76,12 +74,11 @@
                     <div class="text-left mb-4">
                         <p class=" mb-1">
                             <i class="fa fa-exclamation-triangle mr-1"></i>
-                            Declined Orders
+                            {{ $translations['declined_orders'] }}
                         </p>
                         <h2 class="mb-0 font-weight-bold">{{ end($orders['declined']) }}<span class="fs-12 text-muted"><span
                                     class=" @if ($res_orders['declined'] >= 0) text-success @else text-danger @endif  mr-1"><i
-                                        class="fe fe-arrow-up ml-1 "></i> {{ $res_orders['declined'] }}%</span> last
-                                week</span></h2>
+                                        class="fe fe-arrow-up ml-1 "></i> {{ $res_orders['declined'] }}%</span> {{ $translations['last_week'] }}</span></h2>
                     </div>
                 </div>
                 <div class="chart-wrapper overflow-hidden">
@@ -95,16 +92,14 @@
         <div class="col-12">
             <div class="card" style="height:95.5%">
                 <div class="card-header">
-                    <div class="card-title">Clicks Analyse</div>
+                    <div class="card-title">{{ $translations['clicks_analyse'] }}</div>
                 </div>
                 <div class="card-body">
                     <div class="morris-wrapper-demo" id="morrisLine1"></div>
                     <div class="text-center mt-2">
-                        <span class="mr-4"><span class="dot-label" style="background-color:#9400D3 "></span>Store
-                            Views</span>
-                        <span class="mr-4"><span class="dot-label " style="background-color:#FF1493 "></span>Products
-                            Views</span>
-                        <span><span class="dot-label " style="background-color:#00BFFF "></span>Orders</span>
+                        <span class="mr-4"><span class="dot-label" style="background-color:#9400D3 "></span>{{ $translations['store_views'] }}</span>
+                        <span class="mr-4"><span class="dot-label " style="background-color:#FF1493 "></span>{{ $translations['products_views'] }}</span>
+                        <span><span class="dot-label " style="background-color:#00BFFF "></span>{{ $translations['orders'] }}</span>
                     </div>
                 </div>
             </div>
@@ -115,9 +110,9 @@
         <div class="col-xl-4 col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Recent Orders</h3>
+                    <h3 class="card-title">{{ $translations['recent_orders'] }}</h3>
                     <div class="card-options">
-                        <a href="/admin/orders"><button class="btn btn-light btn-sm"> All Orders</button></a>
+                        <a href="/admin/orders"><button class="btn btn-light btn-sm">{{ $translations['all_orders'] }} </button></a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -169,11 +164,11 @@
                 <div class="card-body">
                     <div class="d-flex align-items-end justify-content-between">
                         <div>
-                            <p class=" mb-1 fs-14">Clients</p>
+                            <p class=" mb-1 fs-14">{{ $translations['clients'] }}</p>
                             <h2 class="mb-0"><span class="number-font1">{{ $all_clients }}</span><span
                                     class="ml-2 text-muted fs-11"><span class="text-success"><i
                                             class="fa fa-caret-up"></i>
-                                        {{ $this_month_clients }}</span> this month</span></h2>
+                                        {{ $this_month_clients }}</span> {{ $translations['this_month'] }} </span></h2>
 
                         </div>
                         <span class="text-primary fs-35 dash1-iocns bg-primary-transparent border-primary"><i
@@ -181,7 +176,7 @@
                     </div>
                     <div class="d-flex mt-4">
                         <div>
-                            <span class="text-muted fs-12 mr-1">Last Month</span>
+                            <span class="text-muted fs-12 mr-1">{{ $translations['last_month'] }}</span>
                             <span class="number-font fs-12"><i
                                     class="fa fa-caret-up mr-1 text-success"></i>{{ $last_month_clients }}</span>
                         </div>
@@ -193,18 +188,18 @@
                 <div class="card-body">
                     <div class="d-flex align-items-end justify-content-between">
                         <div>
-                            <p class=" mb-1 fs-14">Sales</p>
+                            <p class=" mb-1 fs-14">{{ $translations['sales'] }}</p>
                             <h2 class="mb-0"><span class="number-font1">{{ $total_incum }}
                                     {{ $currency }}</span><span class="ml-2 text-muted fs-11"><span
                                         class="text-success"><i class="fa fa-caret-up"></i>
-                                        {{ $today_incum }} {{ $currency }}</span> Today</span></h2>
+                                        {{ $today_incum }} {{ $currency }}</span> {{ $translations['today'] }}</span></h2>
                         </div>
                         <span class="text-secondary fs-35 dash1-iocns bg-secondary-transparent border-secondary"><i
                                 class="las la-hand-holding-usd"></i></span>
                     </div>
                     <div class="d-flex mt-4">
                         <div>
-                            <span class="text-muted fs-12 mr-1">Last Day</span>
+                            <span class="text-muted fs-12 mr-1">{{ $translations['last_day'] }}</span>
                             <span class="number-font fs-12"><i
                                     class="fa fa-caret-up mr-1 text-success"></i>{{ $yesterday_incum }}
                                 {{ $currency }}</span>
@@ -223,15 +218,15 @@
         <div class="col-xl-12 col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Top Product Sales Overview</h3>
+                    <h3 class="card-title">{{ $translations['top_product_sales_overview'] }}</h3>
                     <div class="card-options">
                         <a href="" class="option-dots" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"><i class="fe fe-more-horizontal fs-20"></i></a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="">Today</a>
-                            <a class="dropdown-item" href="">Last Week</a>
-                            <a class="dropdown-item" href="">Last Month</a>
-                            <a class="dropdown-item" href="">Last Year</a>
+                            <a class="dropdown-item" href="">{{ $translations['today'] }}</a>
+                            <a class="dropdown-item" href="">{{ $translations['last_week'] }}</a>
+                            <a class="dropdown-item" href="">{{ $translations['last_month'] }}</a>
+                            <a class="dropdown-item" href="">{{ $translations['Last_year'] }}</a>
                         </div>
                     </div>
                 </div>
@@ -240,12 +235,12 @@
                         <table class="table table-vcenter text-nowrap mb-0 table-striped table-bordered border-top">
                             <thead class="">
                                 <tr>
-                                    <th>Product</th>
-                                    <th>Sold</th>
-                                    <th>Likes</th>
-                                    <th>Stock</th>
-                                    <th>Amount</th>
-                                    <th>Stock Status</th>
+                                    <th>{{ $translations['product'] }}</th>
+                                    <th>{{ $translations['sold'] }} </th>
+                                    <th>{{ $translations['likes'] }} </th>
+                                    <th>{{ $translations['stock'] }} </th>
+                                    <th>{{ $translations['amount'] }} </th>
+                                    <th>{{ $translations['stock_status'] }} </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -260,7 +255,7 @@
                                         <td>05</td>
                                         <td>112</td>
                                         <td class="number-font">{{ $product->total }} {{ $currency }}</td>
-                                        <td><i class="fa fa-check mr-1 text-success"></i> In Stock</td>
+                                        <td><i class="fa fa-check mr-1 text-success"></i> {{ $translations['in_stock'] }} </td>
                                     </tr>
                                 @endforeach
 
@@ -280,29 +275,7 @@
     </div>
 @endsection
 @section('js')
-    <!--INTERNAL Peitychart js-->
-    {{-- <script src="{{URL::asset('assets/plugins/peitychart/jquery.peity.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/peitychart/peitychart.init.js')}}"></script>
 
-<!--INTERNAL Apexchart js-->
-<script src="{{URL::asset('assets/js/apexcharts.js')}}"></script>
-
-<!--INTERNAL ECharts js-->
-<script src="{{URL::asset('assets/plugins/echarts/echarts.js')}}"></script>
-
-<!--INTERNAL Chart js -->
-<script src="{{URL::asset('assets/plugins/chart/chart.bundle.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/chart/utils.js')}}"></script>
-
-<!-- INTERNAL Select2 js -->
-<script src="{{URL::asset('assets/plugins/select2/select2.full.min.js')}}"></script>
-<script src="{{URL::asset('assets/js/select2.js')}}"></script>
-
-<!--INTERNAL Moment js-->
-<script src="{{URL::asset('assets/plugins/moment/moment.js')}}"></script>
-
-<!--INTERNAL Index js-->
-<script src="{{URL::asset('assets/js/index1.js')}}"></script> --}}
 
     <script src="{{ URL::asset('assets/plugins/morris/raphael-min.js') }}"></script>
     <script src="{{ URL::asset('assets/plugins/morris/morris.js') }}"></script>

@@ -6,32 +6,32 @@
                     <div class="col-12">
                         <div class="e-panel card">
                             <div class="card-header">
-                                <h3 class="card-title">Store info </h3>
+                                <h3 class="card-title"> {{ $translations['store_info'] }} </h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12">
-                                        <label class="col-md-12 form-label">Store Name <span
+                                        <label class="col-md-12 form-label">{{ $translations['store_name'] }} <span
                                                 class="text-red">*</span></label>
-                                        <input class="form-control mb-4" placeholder="Title" type="text"
+                                        <input class="form-control mb-4" placeholder="{{ $translations['store_name'] }}" type="text"
                                             wire:model='title'>
                                         @error('title')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="col-12">
-                                        <label class="col-md-12 form-label">Sub Title <span
+                                        <label class="col-md-12 form-label">{{ $translations['sub_title'] }} <span
                                                 class="text-red">*</span></label>
-                                        <input class="form-control mb-4" placeholder="Sub Title" type="text"
+                                        <input class="form-control mb-4" placeholder="{{ $translations['sub_title'] }}" type="text"
                                             wire:model='s_title'>
                                         @error('s_title')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="col-12">
-                                        <label class="col-md-12 form-label">Description<span
+                                        <label class="col-md-12 form-label">{{ $translations['description'] }}<span
                                                 class="text-red">*</span></label>
-                                        <textarea class="form-control mb-4" placeholder="Description"
+                                        <textarea class="form-control mb-4" placeholder="{{ $translations['description'] }}"
                                             wire:model='description' style="height: 200px"></textarea>
                                         @error('description')
                                         <span class="text-danger">{{ $message }}</span>
@@ -44,22 +44,22 @@
                     <div class="col-12">
                         <div class="e-panel card">
                             <div class="card-header">
-                                <h3 class="card-title">Store Colors </h3>
+                                <h3 class="card-title">{{ $translations['store_colors'] }}  </h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-8">
-                                                <label class="col-md-12 form-label">Button Color </label>
-                                                <input class="form-control mb-4" placeholder="Color hex or Name" type="text"
+                                                <label class="col-md-12 form-label">{{ $translations['buttons_color'] }} </label>
+                                                <input class="form-control mb-4" placeholder="{{ $translations['buttons_color_test'] }}" type="text"
                                                     wire:model='btn_color'>
 
                                             </div>
                                             <div class="col-4">
-                                                <label class="col-md-12 form-label">Button View </label>
+                                                <label class="col-md-12 form-label">{{ $translations['buttons_view'] }}</label>
                                                 <button class="btn btn-md btn-info" style="background-color:{{$btn_color}}">
-                                                    Button Test
+                                                    {{ $translations['button_test'] }}
                                                 </button>
 
                                             </div>
@@ -73,15 +73,15 @@
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-8">
-                                                <label class="col-md-12 form-label">Text Color </label>
-                                                <input class="form-control mb-4" placeholder="Color hex or Name" type="text"
+                                                <label class="col-md-12 form-label"> {{ $translations['text_color'] }}  </label>
+                                                <input class="form-control mb-4" placeholder="{{ $translations['buttons_color_test'] }}" type="text"
                                                     wire:model='text_color'>
 
                                             </div>
                                             <div class="col-4">
-                                                <label class="col-md-12 form-label">text View</label>
+                                                <label class="col-md-12 form-label">{{ $translations['text_view'] }}</label>
                                                 <h3 class='mt-1' style="color:{{$text_color}}">
-                                                    Text Test
+                                                    {{ $translations['text_test'] }} 
                                                 </h3>
 
                                             </div>
@@ -96,15 +96,15 @@
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-8">
-                                                <label class="col-md-12 form-label">Background Color </label>
-                                                <input class="form-control mb-4" placeholder="Color hex or Name" type="text"
+                                                <label class="col-md-12 form-label"> {{ $translations['background_color'] }}   </label>
+                                                <input class="form-control mb-4" placeholder="{{ $translations['buttons_color_test'] }}" type="text"
                                                     wire:model='background_color'>
 
                                             </div>
                                             <div class="col-4">
-                                                <label class="col-md-12 form-label">Background View </label>
+                                                <label class="col-md-12 form-label">{{ $translations['background_view'] }}  </label>
                                                 <button class="btn btn-md btn-info" style="background-color:{{$background_color}}">
-                                                    background Test
+                                                    {{ $translations['background_test'] }}
                                                 </button>
                                             </div>
                                             <div class="col-12">
@@ -124,7 +124,7 @@
                     <div class="col-12">
                         <div class="e-panel card">
                             <div class="card-header">
-                                <h3 class="card-title">Store Status </h3>
+                                <h3 class="card-title">{{ $translations['store_status'] }}  </h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -133,7 +133,7 @@
                                             <input type="checkbox" name="custom-switch-checkbox" wire:model='status'
                                                 class="custom-switch-input">
                                             <span class="custom-switch-indicator"></span>
-                                            <span class="custom-switch-description">Status</span>
+                                            <span class="custom-switch-description">{{ $translations['status'] }}</span>
                                         </label>
                                         @error('status')
                                         <span class="text-danger">{{ $message }}</span>
@@ -145,7 +145,7 @@
                                             <input type="checkbox" name="custom-switch-checkbox" wire:model='shipping'
                                                 class="custom-switch-input">
                                             <span class="custom-switch-indicator"></span>
-                                            <span class="custom-switch-description">Shipping</span>
+                                            <span class="custom-switch-description">{{ $translations['shipping'] }}</span>
                                         </label>
                                         @error('shipping')
                                         <span class="text-danger">{{ $message }}</span>
@@ -157,7 +157,7 @@
                                             <input type="checkbox" name="custom-switch-checkbox" wire:model='preorder'
                                                 class="custom-switch-input">
                                             <span class="custom-switch-indicator"></span>
-                                            <span class="custom-switch-description">Pre Order</span>
+                                            <span class="custom-switch-description">{{ $translations['pre_order'] }} </span>
                                         </label>
                                         @error('preorder')
                                         <span class="text-danger">{{ $message }}</span>
@@ -171,13 +171,13 @@
                     <div class="col-12">
                         <div class="e-panel card">
                             <div class="card-header">
-                                <h3 class="card-title">Store Location</h3>
+                                <h3 class="card-title">{{ $translations['store_location'] }}</h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
 
                                     <div class="col-6" wire:ignore>
-                                        <label class="col-md-12 form-label">Region<span
+                                        <label class="col-md-12 form-label">{{ $translations['region'] }}<span
                                                 class="text-red">*</span></label>
                                         <select class="form-control" wire:model="region_id" id="region_select2">
                                             @foreach ($regions as $region)
@@ -191,7 +191,7 @@
                                     </div>
 
                                     <div class="col-6" wire:ignore>
-                                        <label class="col-md-12 form-label">City<span class="text-red">*</span></label>
+                                        <label class="col-md-12 form-label">{{ $translations['city'] }}<span class="text-red">*</span></label>
                                         <select class="form-control" wire:model="city_id" id="city_select2">
                                             @foreach ($cities as $city)
                                             <option value="{{ $city['id'] }}">{{ $city['city'] }}
@@ -204,27 +204,27 @@
                                     </div>
 
                                     <div class="col-12">
-                                        <label class="col-md-12 form-label">Quartier<span
+                                        <label class="col-md-12 form-label">{{ $translations['quartier'] }} <span
                                                 class="text-red">*</span></label>
-                                        <input class="form-control mb-4" placeholder="Quartier" type="text"
+                                        <input class="form-control mb-4" placeholder="{{ $translations['quartier'] }}" type="text"
                                             wire:model='quartier'>
                                         @error('quartier')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="col-12">
-                                        <label class="col-md-12 form-label">Post Code<span
+                                        <label class="col-md-12 form-label">{{ $translations['post_code'] }}<span
                                                 class="text-red">*</span></label>
-                                        <input class="form-control mb-4" placeholder="Post Code" type="text"
+                                        <input class="form-control mb-4" placeholder="{{ $translations['post_code'] }}" type="text"
                                             wire:model='post_code'>
                                         @error('post_code')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="col-12">
-                                        <label class="col-md-12 form-label">Full Address<span
+                                        <label class="col-md-12 form-label">{{ $translations['full_address'] }} <span
                                                 class="text-red">*</span></label>
-                                        <input class="form-control mb-4" placeholder="Address" type="text"
+                                        <input class="form-control mb-4" placeholder="{{ $translations['full_address'] }}" type="text"
                                             wire:model='address'>
                                         @error('address')
                                         <span class="text-danger">{{ $message }}</span>
@@ -232,7 +232,7 @@
                                     </div>
                                     <div class="col-12">
 
-                                        <button class="btn btn-info" wire:click="showMaps">Edit Location <i
+                                        <button class="btn btn-info" wire:click="showMaps"> {{ $translations['edit_location'] }} <i
                                                 class="zmdi zmdi-pin" data-toggle="tooltip" title=""
                                                 data-original-title="zmdi zmdi-pin" @if (!empty($edit_longitude))
                                                 style="color: #00ff08" @endif></i></button>
@@ -246,7 +246,8 @@
                                             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header p-1">
-                                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">
+                                                            {{ $translations['edit_location'] }}
                                                         </h5>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
@@ -258,17 +259,17 @@
 
                                                             <div class="spinner-grow text-primary" role="status"
                                                                 style="width: 158px;height: 150px;color: #bf1c3d !important;margin-left: 40%;margin-top: 15%;">
-                                                                <span class="sr-only">Loading...</span>
+                                                                <span class="sr-only">{{ $translations['loading'] }}...</span>
                                                             </div>
 
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer p-1">
                                                         <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Close</button>
+                                                            data-dismiss="modal">{{ $translations['close'] }}</button>
                                                         <button type="button" class="btn btn-primary"
-                                                            wire:click="saveLocation">Save
-                                                            changes</button>
+                                                            wire:click="saveLocation">{{ $translations['save'] }}
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -285,7 +286,7 @@
                     <div class="col-12">
                         <div class="e-panel card">
                             <div class="card-header">
-                                <h3 class="card-title">Store Logo </h3>
+                                <h3 class="card-title"> {{ $translations['store_logo'] }} </h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -322,7 +323,7 @@
 
             <div class="col-12">
                 <div class="col-12">
-                    <button class="btn btn-success" wire:click="updateInfo">Save Changes <i class="zmdi zmdi-save"
+                    <button class="btn btn-success" wire:click="updateInfo"> {{ $translations['shop_header'] }} <i class="zmdi zmdi-save"
                             data-toggle="tooltip" title="" data-original-title="zmdi zmdi-save"></i></button>
                 </div>
             </div>

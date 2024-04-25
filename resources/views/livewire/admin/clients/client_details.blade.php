@@ -37,18 +37,18 @@
                 <div class="text-lg-right btn-list mt-4 mt-lg-0">
                     @if ($client->status == 'active')
                         @if ($client->trusted == 1)
-                            <a wire:click='changeStatus(1)' class="btn btn-sm btn-success">Trusted</a>
-                            <a wire:click='changeStatus(-1)'' class="btn btn-sm btn-light">Untrusted</a>
+                            <a wire:click='changeStatus(1)' class="btn btn-sm btn-success">{{ $translations['trusted'] }}</a>
+                            <a wire:click='changeStatus(-1)'' class="btn btn-sm btn-light">{{ $translations['untrusted'] }}</a>
                         @elseif ($client->trusted == 0)
-                            <a wire:click='changeStatus(1)' class="btn btn-sm btn-primary">Trusted</a>
-                            <a wire:click='changeStatus(-1)'' class="btn btn-sm btn-danger">Untrusted</a>
+                            <a wire:click='changeStatus(1)' class="btn btn-sm btn-primary">{{ $translations['trusted'] }}</a>
+                            <a wire:click='changeStatus(-1)'' class="btn btn-sm btn-danger">{{ $translations['untrusted'] }}</a>
                         @elseif ($client->trusted == -1)
-                            <a wire:click='changeStatus(1)' class="btn btn-sm btn-light">Trusted</a>
-                            <a wire:click='changeStatus(-1)'' class="btn btn-sm  btn-danger">Untrusted</a>
+                            <a wire:click='changeStatus(1)' class="btn btn-sm btn-light">{{ $translations['trusted'] }}</a>
+                            <a wire:click='changeStatus(-1)'' class="btn btn-sm  btn-danger">{{ $translations['untrusted'] }}</a>
                         @endif
-                        <a wire:click='BlockClient(0)' class="btn btn-sm btn-danger">Block</a>
+                        <a wire:click='BlockClient(0)' class="btn btn-sm btn-danger">{{ $translations['block'] }}</a>
                     @else
-                        <a wire:click='BlockClient(1)' class="btn btn-danger">UnBlock</a>
+                        <a wire:click='BlockClient(1)' class="btn btn-danger">{{ $translations['unblock'] }}</a>
                     @endif
 
 
@@ -60,7 +60,7 @@
                                 <i class="fa fa-cart-plus fs-18"></i>
                             </div>
                             <div class="media-body">
-                                <small class="text-muted">Orders</small>
+                                <small class="text-muted">{{ $translations['orders'] }}</small>
                                 <div class="font-weight-bold number-font">
                                     {{ $orders }}
                                 </div>
@@ -109,19 +109,19 @@
                                     <div class="timelineleft-item">
                                         <span class="time"><i class="fa fa-clock-o text-danger"></i>
                                             {{ $order->created_at->format('H:d') }} </span>
-                                        <h3 class="timelineleft-header"><a href="#">New Order</a>
+                                        <h3 class="timelineleft-header"><a href="#">{{ $translations['new_order'] }}</a>
                                             <div class="timelineleft-body">
                                                 <div class="table-responsive mt-4">
                                                     <table class="table table-bordered border text-nowrap mb-0">
                                                         <thead>
                                                             <tr>
                                                                 <th class="wd-20p"></th>
-                                                                <th class="wd-20p">Image</th>
-                                                                <th class="tx-center">Title</th>
-                                                                <th class="tx-right">Qty</th>
-                                                                <th class="tx-right">Price</th>
+                                                                <th class="wd-20p">{{ $translations['image'] }}</th>
+                                                                <th class="tx-center">{{ $translations['title'] }}</th>
+                                                                <th class="tx-right">{{ $translations['quantity'] }}</th>
+                                                                <th class="tx-right">{{ $translations['price'] }}</th>
 
-                                                                <th class="tx-right">Total</th>
+                                                                <th class="tx-right">{{ $translations['total'] }}</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -132,7 +132,7 @@
 
                                                                     <td class="tx-center">
                                                                         <img style='width:50px;height:50px'
-                                                                            src="{{ get_image($product->product->media[0]->media ?? null  ) ">
+                                                                            src="{{ get_image($product->product->media[0]->media ?? null  )}} ">
                                                                     </td>
 
                                                                     <td class="tx-center">
@@ -148,7 +148,7 @@
                                                                 <td class="valign-middle" colspan="4" rowspan="10">
                                                                     <div class="invoice-notes">
                                                                         <label
-                                                                            class="main-content-label tx-13 font-weight-semibold">Note</label>
+                                                                            class="main-content-label tx-13 font-weight-semibold">{{ $translations['note'] }}</label>
                                                                         <p> {{ $order->comment }}</p>
                                                                     </div><!-- invoice-notes -->
                                                                 </td>
@@ -160,7 +160,7 @@
 
 
                                                             <tr>
-                                                                <td class="text-uppercase font-weight-semibold">Total
+                                                                <td class="text-uppercase font-weight-semibold">{{ $translations['total'] }}
                                                                 </td>
                                                                 <td class="tx-right">
                                                                     <h4 class="text-primary font-weight-bold">
@@ -175,7 +175,7 @@
                                             </div>
                                             <div class="timelineleft-footer">
                                                 <a href="/admin/orders/details/{{ $order->id }}"
-                                                    class="btn btn-primary text-white btn-sm mt-2">Read more</a>
+                                                    class="btn btn-primary text-white btn-sm mt-2">{{ $translations['read_more'] }}</a>
                                             </div>
                                     </div>
                                 </li>

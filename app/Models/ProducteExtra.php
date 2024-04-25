@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class ProducteExtra extends Model
 {
@@ -16,6 +17,9 @@ class ProducteExtra extends Model
         'updated_at',
     ];
 
+    use HasTranslations;
+
+    public $translatable = ['title'];
 
     public function products()
     {
@@ -29,7 +33,5 @@ class ProducteExtra extends Model
     {
         return $this->hasMany(OrderProductExtra::class);
     }
-
-
 
 }

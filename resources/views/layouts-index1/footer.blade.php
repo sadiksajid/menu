@@ -8,14 +8,14 @@ $translations = app('translations')['system'];
           <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
               <div class="footer_wp">
                   <i class="icon_pin_alt"></i>
-                  <h3> {{$translations['address']['en']}}</h3>
+                  <h3> {{$translations['address']}}</h3>
                   <p>{{$this->store_info->address}}</p>
               </div>
           </div>
           <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
               <div class="footer_wp">
                   <i class="icon_tag_alt"></i>
-                  <h3>{{$translations['contact_us']['en']}}</h3>
+                  <h3>{{$translations['contact_us']}}</h3>
                   <p><a href="tel:{{$this->store_info->phone}}">{{$this->store_info->phone}}</a><br><a
                           href="#0">{{$this->store_info->email}}</a></p>
               </div>
@@ -23,7 +23,7 @@ $translations = app('translations')['system'];
           <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
               <div class="footer_wp">
                   <i class="icon_clock_alt"></i>
-                  <h3>{{$translations['opening_hours']['en']}}</h3>
+                  <h3>{{$translations['opening_hours']}}</h3>
                   <ul>
                       <li>Mon - Sat: 10am - 11pm</li>
                       {{-- <li>Sunday: Closed</li> --}}
@@ -50,7 +50,7 @@ $translations = app('translations')['system'];
       <hr>
       <div class="row">
           <div class="col-sm-5">
-              <p class="copy">© Sadik Sajid  - {{$translations['all_rights_reserved']['en']}}</p>
+              <p class="copy">© Sadik Sajid  - {{$translations['all_rights_reserved']}}</p>
           </div>
           <div class="col-sm-7">
               <div class="follow_us">
@@ -88,4 +88,5 @@ $translations = app('translations')['system'];
       </div>
       <p class="text-center"></p>
   </div>
+
 </footer>

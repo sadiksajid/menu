@@ -1,3 +1,6 @@
+    @php
+        $translations = app('translations_admin');
+    @endphp
     <aside class="app-sidebar  ">
         <div class="app-sidebar__logo">
             <a class="header-brand" href="{{ url('/' . ($page = '')) }}">
@@ -36,7 +39,7 @@
                         <path
                             d="M19 5v2h-4V5h4M9 5v6H5V5h4m10 8v6h-4v-6h4M9 17v2H5v-2h4M21 3h-8v6h8V3zM11 3H3v10h8V3zm10 8h-8v10h8V11zm-10 4H3v6h8v-6z" />
                     </svg>
-                    <span class="side-menu__label">Dashboard</span></a>
+                    <span class="side-menu__label"> {{ $translations['dashboard'] }}  </span></a>
             </li>
 
             <li class="slide mt-3">
@@ -48,7 +51,7 @@
                             d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
 
                     </svg>
-                    <span class="side-menu__label">Products</span><i class="angle fa fa-angle-right"></i>
+                    <span class="side-menu__label">{{ $translations['products'] }} </span><i class="angle fa fa-angle-right"></i>
                 </a>
 
             </li>
@@ -61,7 +64,7 @@
                             d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
 
                     </svg>
-                    <span class="side-menu__label">Offers</span><i class="angle fa fa-angle-right"></i>
+                    <span class="side-menu__label">{{ $translations['offers'] }}</span><i class="angle fa fa-angle-right"></i>
                 </a>
 
             </li>
@@ -74,7 +77,7 @@
                     </svg>
 
 
-                    <span class="side-menu__label">Orders</span><i class="angle fa fa-angle-right"></i>
+                    <span class="side-menu__label">{{ $translations['orders'] }}</span><i class="angle fa fa-angle-right"></i>
                 </a>
 
             </li>
@@ -91,7 +94,7 @@
                     </svg>
 
 
-                    <span class="side-menu__label">My Clients</span><i class="angle fa fa-angle-right"></i>
+                    <span class="side-menu__label">{{ $translations['my_clients'] }}</span><i class="angle fa fa-angle-right"></i>
                 </a>
 
             </li>
@@ -102,7 +105,7 @@
                         <path
                             d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z" />
                     </svg>
-                    <span class="side-menu__label">Store Info</span><i class="angle fa fa-angle-right"></i>
+                    <span class="side-menu__label">{{ $translations['store_info'] }}</span><i class="angle fa fa-angle-right"></i>
                 </a>
 
             </li>
@@ -117,7 +120,7 @@
                      <circle cx="14.5" cy="7.5" r="1.5"></circle>
                      <circle cx="17.5" cy="11.5" r="1.5"></circle>
                  </svg>
-                 <span class="side-menu__label">Edite Pages</span>
+                 <span class="side-menu__label">{{ $translations['edite_pages'] }}</span>
                  <i class="fe fe-chevron-down side-menu__angle"></i> </a>
 
                  <div class="collapse" id="email">
@@ -125,21 +128,21 @@
                         <li class="slide mt-3">
                             <a class="side-menu__item" href="/admin/homeEdit">
                           
-                                <i class="angle fa fa-angle-right ml-4 mr-3"></i><span class="side-menu__label">Home Page</span>
+                                <i class="angle fa fa-angle-right ml-4 mr-3"></i><span class="side-menu__label">{{ $translations['home_page'] }}</span>
                             </a>
             
                         </li>
                         <li class="slide mt-3">
                             <a class="side-menu__item" href="/admin/MenuEdit">
                               
-                                <i class="angle fa fa-angle-right ml-4 mr-3"></i> <span class="side-menu__label">Menue</span>
+                                <i class="angle fa fa-angle-right ml-4 mr-3"></i> <span class="side-menu__label">{{ $translations['menu'] }}</span>
                             </a>
             
                         </li>
                         <li class="slide mt-3">
                             <a class="side-menu__item" href="/admin/HeadesEdit">
                               
-                                <i class="angle fa fa-angle-right ml-4 mr-3"></i> <span class="side-menu__label">Other Headers</span>
+                                <i class="angle fa fa-angle-right ml-4 mr-3"></i> <span class="side-menu__label">{{ $translations['other_pages'] }}</span>
                             </a>
             
                         </li>

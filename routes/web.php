@@ -11,6 +11,7 @@ use App\Models\Client;
 use App\Models\Offer;
 use App\Models\Store;
 use App\Models\StoreProduct;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -30,7 +31,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'fw-block-blackl
 
         return redirect('/admin/dashboard');
 
-    });
+    });;
+
+    Route::post('/change_lang', function (Request $request) {
+        $lang = $request->input('lang');
+        if ($lang == 'ma') {
+            $lang = 'ar';
+        }
+        Cache::put('locale_admin', $lang, 86400);
+        return back();
+    })->name('change_lang');
 
     Route::get('/homeEdit', function () {
         return view('livewire.admin.index1.index_route');
@@ -57,15 +67,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'fw-block-blackl
     Route::get('/store_info', function () {
         return view('livewire.admin.storeInfo.store_info');
     });
-    // Route::get('/orders', function () {
-    //     return view('livewire.admin.orders.orders_route');
-    // });
+
     Route::get('/dashboard', function () {
         return view('livewire.admin.dashboard.dashboard_route');
     });
 
     Route::get('/orders', [OrdersController::class, 'index'])->name('orders.index');
-    // Route::get('/orders/data', [OrderController::class, 'getOrdes'])->name('orders.data');
     Route::get('/orders/details/{id}', function ($id) {
         return view('livewire.admin.orders.orders_route', ['type' => 'details', 'id' => $id]);
     });
@@ -92,7 +99,6 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth:client', 'fw-block-bl
 
     Route::get('/my_orders', function () {
         return view('livewire.Client.my_orders.my_orders_route');
-
     });
 });
 
@@ -244,7 +250,7 @@ Route::group(['middleware' => ['fw-block-blacklisted', 'fw-block-attacks', 'web'
         } else {
             return view('404');
         }
-    });
+    })->name('home');
 
     Route::get('/menu', function () {
         $store_info = Store::where('store_meta', env('STOR_NAME'))->first();

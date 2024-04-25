@@ -1,4 +1,7 @@
-
+@php
+    $json = app('translations');
+    $translations = $json['system'];
+@endphp
 <!-- COMMON SCRIPTS -->
 <!-- Jquery js-->
 <script src="{{ URL::asset('assets/js/jquery-3.5.1.min.js') }}"></script>
@@ -41,6 +44,8 @@
 <script src="{{ URL::asset('assets2/js/category.js') }}"></script>
 <script src="{{ URL::asset('assets2/js/owl.carousel.min.js') }}"></script>
 <script src="{{ URL::asset('assets\js\bootstrap-notify.js') }}"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
 
 <script>
     window.addEventListener('changeURL', event => {
@@ -89,7 +94,7 @@
         });
         window.addEventListener('login_faild', event => {
             $.notify({
-                message: event.detail.message ?? 'Phone Or Password Incorrect',
+                message: event.detail.message ?? "{{$translations['login_error']}}",
             }, {
                 showProgressbar: true,
                 type: "danger"
@@ -162,6 +167,23 @@
 
     })
 
+    $(document).on('click','.show_modal_language',function(){
+        $('#select_modal_language').modal('show')
+
+    })
+
+
+    window.addEventListener('swal:chamgeLanguage', event => {
+        $('#select_modal_language').modal('show')
+
+    });
+    $(document).ready(function() {
+        Livewire.emit('checkLanguage')
+
+        // $('#select_modal_language').modal('show')
+        
+    
+    });
 
 </script>
 @csrf

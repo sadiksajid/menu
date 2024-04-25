@@ -35,9 +35,13 @@ class AdminDashboard extends Component
     public $top_offers = [];
 
     public $view_week = [];
+    ////////////////////////////
+    public $translations;
 
     public function mount()
     {
+        $this->translations = app('translations_admin');
+
         $this->today = Carbon::today()->format('Y-m-d');
         $this->yasterday = Carbon::today()->subDays(1)->format('Y-m-d');
         $this->store_info = Auth::user()->store;

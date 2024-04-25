@@ -15,9 +15,13 @@ class AdminOrders extends Component
     public $qte = 0;
     public $currency = 0;
     public $orders;
+    ////////////////////////////
+    public $translations;
 
     public function mount()
     {
+        $this->translations = app('translations_admin');
+        /////////////////////////////////////////////////
         $this->client = Auth::user();
         $orders = StoreOrder::where('client_id', $this->client->id)
             ->with(['products' => function ($q) {

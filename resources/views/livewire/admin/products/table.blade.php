@@ -2,7 +2,7 @@
     <div class="container-fluid mb-3">
         <div class="col-md-3 col-6 ">
             <a href="/admin/products/addProduct">
-                <button class="btn btn-info" >New Product</button>
+                <button class="btn btn-info" >{{ $translations['new_product'] }}</button>
             </a>
         </div>
     </div>
@@ -11,9 +11,9 @@
             @foreach ($products as $product)
                 <div class="col-md-4 col-lg-4 col-12">
                     @if($product->status == 0)
-                    <span class="badge badge-warning" style="position: absolute; z-index:10">inactive</span>
+                    <span class="badge badge-warning" style="position: absolute; z-index:10">{{ $translations['inactive'] }}</span>
                     @else
-                    <span class="badge badge-success"  style="position: absolute; z-index:10">active</span>
+                    <span class="badge badge-success"  style="position: absolute; z-index:10">{{ $translations['active'] }}</span>
 
                     @endif
                     <div class="card overflow-hidden">
@@ -33,7 +33,7 @@
                             </div>
                             <h5 class="card-title mb-3">{{substr($product->title , 0, 40) }}</h5>
                             <p class="card-text">{{substr($product->description , 0, 40) }}</p>
-                            <a  class="text-uppercase" href="/admin/products/editProduct/{{ $product->id }}" ><H5 class="">Edite</H5></a>
+                            <a  class="text-uppercase" href="/admin/products/editProduct/{{ $product->id }}" ><H5 class="">{{ $translations['edit'] }}</H5></a>
                            
 
                         </div>

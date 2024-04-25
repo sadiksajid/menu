@@ -105,14 +105,16 @@ class ClientsDataTable extends DataTable
 
     public function getColumns(): array
     {
+        $translations = app('translations_admin');
+
         return [
-            Column::make('id'),
-            Column::make('client')->orderable(false),
-            Column::make('phone'),
-            Column::make('status'),
-            Column::make('trusted'),
-            Column::make('date')->orderable(false),
-            Column::make('actions')->orderable(false),
+            Column::make('id')->title($translations['id']),
+            Column::make('client')->title($translations['client'])->orderable(false),
+            Column::make('phone')->title($translations['phone']),
+            Column::make('status')->title($translations['status']),
+            Column::make('trusted')->title($translations['trusted']),
+            Column::make('date')->title($translations['date'])->orderable(false),
+            Column::make('actions')->title($translations['actions'])->orderable(false),
         ];
     }
 

@@ -15,7 +15,7 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-xl-9 col-lg-10 col-md-8">
-                            <h1  > {{ $product->title ?? 'Product' }}  </h1>
+                            <h1  > {{ $product->title ?? $translations['product'] }}  </h1>
                             {{-- <p  >{{ $titles['title-2'] ?? 'Cooking delicious and tasty food since 2005' }} </p> --}}
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                                                         <li><a href="#">xl</a></li>
                                                     </ul>
                                                 </div>
-                                                <h6 class="product-title">quantity</h6>
+                                                <h6 class="product-title">{{$translations['quantity']}}</h6>
                                                 <div class="qty-box">
                                                     <div class="input-group"><span class="input-group-prepend"><button
                                                                 class="btn quantity-left-minus" data-field=""
@@ -112,7 +112,7 @@
                                             </div>
                                             <div class="product-buttons">
                                                 <a class="btn btn-default primary-btn radius-0" wire:click="addToCart()">
-                                                    add to cart 
+                                                    {{$translations['add_to_cart']}} 
                                                     @isset($cart[$product->product_meta])
                                                         <i aria-hidden="true" class="fa fa-check-circle-o" style="font-size: 20px;
                                                         margin-left: 12px;" ></i>
@@ -121,15 +121,16 @@
                                                   
                                                 </a>
                                                 <a class="btn btn-default primary-btn radius-0" href="#">
-                                                    buy now
+                                                   
+                                                    {{$translations['buy_now']}}
                                                 </a>
                                             </div>
                                             <div class="border-product">
-                                                <h6 class="product-title">product details</h6>
+                                                <h6 class="product-title">{{$translations['product_details']}}</h6>
                                                 <p>{{$product->description}}</p>
                                             </div>
                                             <div class="border-product">
-                                                <h6 class="product-title mb-2">share it</h6>
+                                                <h6 class="product-title mb-2">{{$translations['share_it']}}</h6>
                                                 <div class="product-icon">
                                                     <ul class="product-social">
                                                         <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -140,7 +141,7 @@
                                                     </ul>
                                                     <form class="d-inline-block">
                                                         <button class="wishlist-btn"><i class="fa fa-heart"></i><span
-                                                                class="title-font">Add To WishList</span></button>
+                                                                class="title-font">{{$translations['add_to_wishList']}}</span></button>
                                                     </form>
                                                 </div>
                                             </div>

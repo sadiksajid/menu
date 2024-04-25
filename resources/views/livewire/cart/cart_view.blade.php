@@ -7,7 +7,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-xl-9 col-lg-10 col-md-8">
-                        <h1  > {{ $titles_cart ?? $translations['cart']['en'] }}  </h1>
+                        <h1  > {{ $titles_cart ?? $translations['cart'] }}  </h1>
                         {{-- <p  >{{ $titles['title-2'] ?? 'Cooking delicious and tasty food since 2005' }} </p> --}}
                     </div>
                 </div>
@@ -23,12 +23,12 @@
                     <table class="table cart-table table-responsive-xs">
                         <thead>
                         <tr class="table-head">
-                            <th scope="col">{{$translations['image']['en']}}</th>
-                            <th scope="col">{{$translations['product_name']['en']}}</th>
-                            <th scope="col">{{$translations['price']['en']}}</th>
-                            <th scope="col">{{$translations['quantity']['en']}}</th>
-                            <th scope="col">{{$translations['actions']['en']}}</th>
-                            <th scope="col">{{$translations['total']['en']}}</th>
+                            <th scope="col">{{$translations['image']}}</th>
+                            <th scope="col">{{$translations['product_name']}}</th>
+                            <th scope="col">{{$translations['price']}}</th>
+                            <th scope="col">{{$translations['quantity']}}</th>
+                            <th scope="col">{{$translations['actions']}}</th>
+                            <th scope="col">{{$translations['total']}}</th>
                         </tr>
                         </thead>
                         @foreach ($my_cart as $store_name => $store)    
@@ -50,7 +50,7 @@
                                             <a href="#"><img alt="" src="{{ get_image($product['image']) }}" class="rounded-circle"></a>
                                             @else
                                             <a href="#"><img alt="" src="{{ get_image($product['image']) }}" class="rounded-circle" width="90px"></a>
-                                            <span class="badge badge-info" style="width: 80%;">{{$translations['offer']['en']}}</span>
+                                            <span class="badge badge-info" style="width: 80%;">{{$translations['offer']}}</span>
 
                                             @endif
 
@@ -115,7 +115,7 @@
                     <table class="table cart-table table-responsive-md">
                         <tfoot>
                         <tr>
-                            <td>{{$translations['total_price']['en']}} :</td>
+                            <td>{{$translations['total_price']}} :</td>
                             <td>
                                 <h2>{{$total}}  {{$currency}}</h2></td>
                         </tr>
@@ -125,8 +125,8 @@
             </div>
             <div class="row cart-buttons">
                 {{-- <div class="col-6"><a class="btn primary-btn btn-default" href="/store/{{Cache::get('last_store')}}">continue shopping</a></div> --}}
-                <div class="col-6"><a class="btn primary-btn btn-default" href="/shop">{{$translations['continue_shopping']['en']}}</a></div>
-                <div class="col-6"><a class="btn primary-btn btn-default" href="/client/checkout">{{$translations['checkout']['en']}}</a></div>
+                <div class="col-6"><a class="btn primary-btn btn-default" href="/shop">{{$translations['continue_shopping']}}</a></div>
+                <div class="col-6"><a class="btn primary-btn btn-default" href="/client/checkout">{{$translations['checkout']}}</a></div>
             </div>
         </div>
     </section>

@@ -10,7 +10,7 @@
                         <div class="col-12">
                             <div class="e-panel card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Shop Header </h3>
+                                    <h3 class="card-title">{{ $translations['shop_header'] }}  </h3>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
@@ -83,7 +83,7 @@
 
                                                 <input type="file" class="dropify" wire:model="upload_image.shop"
                                                     data-height="210px">
-                                                <div wire:loading wire:target="upload_image">Uploading...</div>
+                                                <div wire:loading wire:target="upload_image">{{ $translations['uploading'] }}...</div>
 
                                             </div>
                                         </div>
@@ -92,18 +92,18 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label class="col-md-12 form-label">Title <span
+                                            <label class="col-md-12 form-label">{{ $translations['title'] }} <span
                                                     class="text-red">*</span></label>
-                                            <input class="form-control mb-4" placeholder="Title" type="text"
+                                            <input class="form-control mb-4" placeholder="{{ $translations['title'] }}" type="text"
                                                 wire:model='titles_shop'>
                                             @error('titles_shop')
                                             <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div class="col-12">
-                                            <label class="col-md-12 form-label">Meta <span
+                                            <label class="col-md-12 form-label">{{ $translations['meta'] }} <span
                                                     class="text-red">*</span></label>
-                                            <input class="form-control mb-4" placeholder="Meta" type="text"
+                                            <input class="form-control mb-4" placeholder="{{ $translations['meta'] }}" type="text"
                                                 wire:model='texts_shop'>
                                             @error('texts_shop')
                                             <span class="text-danger">{{ $message }}</span>
@@ -118,7 +118,7 @@
                         <div class="col-12">
                             <div class="e-panel card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Offer Header </h3>
+                                    <h3 class="card-title">{{ $translations['offer_header'] }}  </h3>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
@@ -192,7 +192,7 @@
 
                                                 <input type="file" class="dropify" wire:model="upload_image.offers"
                                                     data-height="210px">
-                                                <div wire:loading wire:target="upload_image">Uploading...</div>
+                                                <div wire:loading wire:target="upload_image">{{ $translations['uploading'] }}...</div>
 
                                             </div>
                                         </div>
@@ -201,18 +201,18 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label class="col-md-12 form-label">Title <span
+                                            <label class="col-md-12 form-label">{{ $translations['title'] }} <span
                                                     class="text-red">*</span></label>
-                                            <input class="form-control mb-4" placeholder="Title" type="text"
+                                            <input class="form-control mb-4" placeholder="{{ $translations['title'] }}" type="text"
                                                 wire:model='titles_offers'>
                                             @error('titles_offers')
                                             <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div class="col-12">
-                                            <label class="col-md-12 form-label">Meta <span
+                                            <label class="col-md-12 form-label">{{ $translations['meta'] }} <span
                                                     class="text-red">*</span></label>
-                                            <input class="form-control mb-4" placeholder="Meta" type="text"
+                                            <input class="form-control mb-4" placeholder="{{ $translations['meta'] }}" type="text"
                                                 wire:model='texts_offers'>
                                             @error('texts_offers')
                                             <span class="text-danger">{{ $message }}</span>
@@ -227,7 +227,7 @@
                         <div class="col-12">
                             <div class="e-panel card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Order Header </h3>
+                                    <h3 class="card-title">{{ $translations['order_header'] }} </h3>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
@@ -299,7 +299,7 @@
 
                                                 <input type="file" class="dropify" wire:model="upload_image.orders"
                                                     data-height="210px">
-                                                <div wire:loading wire:target="upload_image">Uploading...</div>
+                                                <div wire:loading wire:target="upload_image">{{ $translations['uploading'] }}...</div>
 
                                             </div>
                                         </div>
@@ -308,9 +308,9 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label class="col-md-12 form-label">Title <span
+                                            <label class="col-md-12 form-label">{{ $translations['title'] }} <span
                                                     class="text-red">*</span></label>
-                                            <input class="form-control mb-4" placeholder="Title" type="text"
+                                            <input class="form-control mb-4" placeholder="{{ $translations['title'] }}" type="text"
                                                 wire:model='titles_orders'>
                                             @error('titles_orders')
                                             <span class="text-danger">{{ $message }}</span>
@@ -325,7 +325,7 @@
                         <div class="col-12">
                             <div class="e-panel card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Cart Header </h3>
+                                    <h3 class="card-title">{{ $translations['cart_header'] }} </h3>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
@@ -398,7 +398,7 @@
 
                                                 <input type="file" class="dropify" wire:model="upload_image.cart"
                                                     data-height="210px">
-                                                <div wire:loading wire:target="upload_image">Uploading...</div>
+                                                <div wire:loading wire:target="upload_image">{{ $translations['uploading'] }}...</div>
 
                                             </div>
                                         </div>
@@ -407,9 +407,9 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label class="col-md-12 form-label">Title <span
+                                            <label class="col-md-12 form-label">{{ $translations['title'] }} <span
                                                     class="text-red">*</span></label>
-                                            <input class="form-control mb-4" placeholder="Title" type="text"
+                                            <input class="form-control mb-4" placeholder="{{ $translations['title'] }}" type="text"
                                                 wire:model='titles_cart'>
                                             @error('titles_cart')
                                             <span class="text-danger">{{ $message }}</span>
@@ -424,7 +424,7 @@
                         <div class="col-12">
                             <div class="e-panel card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Checkout Header </h3>
+                                    <h3 class="card-title">{{ $translations['checkout_header'] }} </h3>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
@@ -496,7 +496,7 @@
 
                                                 <input type="file" class="dropify" wire:model="upload_image.checkout"
                                                     data-height="210px">
-                                                <div wire:loading wire:target="upload_image">Uploading...</div>
+                                                <div wire:loading wire:target="upload_image">{{ $translations['uploading'] }}...</div>
 
                                             </div>
                                         </div>
@@ -505,9 +505,9 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <label class="col-md-12 form-label">Title <span
+                                            <label class="col-md-12 form-label">{{ $translations['title'] }} <span
                                                     class="text-red">*</span></label>
-                                            <input class="form-control mb-4" placeholder="Title" type="text"
+                                            <input class="form-control mb-4" placeholder="{{ $translations['title'] }}" type="text"
                                                 wire:model='titles_checkout'>
                                             @error('titles_checkout')
                                             <span class="text-danger">{{ $message }}</span>
@@ -538,10 +538,14 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-12">
                                 <button type="button" class="btn btn-primary"
-                                    wire:click.prevent="Update()">Update</button>
+                                    wire:click.prevent="Update()">{{ $translations['update'] }} 
+                                <div wire:loading class="spinner-border text-light" role="status" style="width: 20px;height: 20px;">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                </button>
 
                                 <button type="button" class="btn btn-danger"
-                                    wire:click.prevent="cancel()">Cancel</button>
+                                    wire:click.prevent="cancel()">{{ $translations['cancel'] }}</button>
                             </div>
                         </div>
                     </div>

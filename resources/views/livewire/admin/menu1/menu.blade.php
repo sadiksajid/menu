@@ -136,15 +136,15 @@
     <main>
 
         <div class="hero_single inner_pages background-image edit-image"
-        @if (isset($images['img_1']))   data-background="url({{ get_image($images['img_1']}})" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif >
+        @if (isset($images['img_1']))   data-background="url({{ get_image($images['img_1'])}})" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif >
         <button class="edit-button-image"  data-cue="slideInUp"  data-id='img_1' style='top: 50%;font-size: 180%;'><i class="fa fa-upload"></i></button>
 
             <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-xl-9 col-lg-10 col-md-8">
-                            <h1 class='edit-title' data-id='title-1' > {{ $titles['title-1'] ?? 'Menu thumbs' }}  </h1>
-                            <p class='edit-title' data-id='title-2' >{{ $titles['title-2'] ?? 'Cooking delicious and tasty food since 2005' }} </p>
+                            <h1 class='edit-title' data-id='title-1' > {{ $titles['en']['title-1'] ?? 'Menu thumbs' }}  </h1>
+                            <p class='edit-title' data-id='title-2' >{{ $titles['en']['title-2'] ?? 'Cooking delicious and tasty food since 2005' }} </p>
                         </div>
                     </div>
                     <!-- /row -->

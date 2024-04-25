@@ -20,9 +20,14 @@ class Product extends Component
     public $store_meta;
 
     protected $listeners = ['changeQte'];
+////////////////////////////
+    public $translations;
 
     public function mount($store_info, $product_info)
     {
+        $json = app('translations');
+        $this->translations = $json['system'];
+
         $this->store_meta = $store_info->store_meta;
         $this->store_info = $store_info;
         $this->product_info = $product_info;

@@ -11,8 +11,13 @@ class AdminClientDetails extends Component
 {
     public $client;
     public $all_orders;
+    ////////////////////////////
+    public $translations;
+
     public function mount($client)
     {
+        $this->translations = app('translations_admin');
+
         $this->client = $client;
         $this->orders = $client->orders_count;
         $this->all_orders = StoreOrder::where('client_id', $client->id)->orderBy('id', 'DESC')
@@ -45,7 +50,7 @@ class AdminClientDetails extends Component
         $client->save();
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',
-            'message' => 'Status Changed',
+            'message' => $this->translations['status_changed'],
         ]);
     }
     public function BlockClient($status)
@@ -60,7 +65,7 @@ class AdminClientDetails extends Component
         $client->save();
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',
-            'message' => 'Status Changed',
+            'message' => $this->translations['status_changed'],
         ]);
     }
 }

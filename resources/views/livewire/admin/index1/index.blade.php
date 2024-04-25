@@ -110,17 +110,17 @@
                         <div class="row justify-content-center text-center">
                             <div class="col-xl-8 col-lg-10 col-md-8 mt-2">
                                 <h1 class='edit-title' data-id='title-1'>
-                                    {{ $titles['title-1'] ?? 'Taste Unique Food' }}</h1>
+                                    {{ $titles['en']['title-1'] ?? 'Taste Unique Food' }}</h1>
                                 <p class='edit-title' data-id='title-2'>
-                                    {{ $titles['title-2'] ?? 'Delicious food since 2005' }}</p>
+                                    {{ $titles['en']['title-2'] ?? 'Delicious food since 2005' }}</p>
                                 <a data-id='btn-1' class="btn_1 edit-btn"
-                                    href="{{ $buttons['btn-1']['url'] ?? '#menu-1.html' }}">{{ $buttons['btn-1']['title'] ?? 'Read more' }}</a>
+                                    href="{{ $buttons['en']['btn-1']['url'] ?? '#menu-1.html' }}">{{ $buttons['en']['btn-1']['title'] ?? 'Read more' }}</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <img src="{{ get_image($images['img_1']) }}"
+            <img src="{{ get_image($images['img_1'] ?? '') }}"
                 data-video-src="{{ URL::asset('index1/video/intro') }}" class="header-video--media"
                 data-teaser-source="{{ URL::asset('index1/video/intro') }}" data-provider="" data-video-width="1920"
                 data-video-height="960">
@@ -149,9 +149,9 @@
                         <button class="edit-button-image"  data-cue="slideInUp"  data-id='img_2' style='top: 10%;font-size: 180%;'><i class="fa fa-upload"></i></button>
 
                     <div wire:ignore class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
-                        <h3 class='edit-title' data-id='title-3'> {{ $titles['title-3'] ?? 'Our Menu' }} </h3>
+                        <h3 class='edit-title' data-id='title-3'> {{ $titles['en']['title-3'] ?? 'Our Menu' }} </h3>
                         <p class='edit-title' data-id='title-4'>
-                            {{ $titles['title-4'] ?? 'View Our Specialites' }} </p>
+                            {{ $titles['en']['title-4'] ?? 'View Our Specialites' }} </p>
                     </div>
                 </a>
             </li>
@@ -175,9 +175,9 @@
 
                     <div wire:ignore class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
 
-                        <h3 class='edit-title' data-id='title-5'> {{ $titles['title-5'] ?? 'Delivery' }} </h3>
+                        <h3 class='edit-title' data-id='title-5'> {{ $titles['en']['title-5'] ?? 'Delivery' }} </h3>
                         <p class='edit-title' data-id='title-6'>
-                            {{ $titles['title-6'] ?? 'Home delivery or take away food' }} 
+                            {{ $titles['en']['title-6'] ?? 'Home delivery or take away food' }} 
                         </p>
 
                     </div>
@@ -201,9 +201,9 @@
 
                     <div wire:ignore class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
 
-                        <h3 class='edit-title' data-id='title-7'> {{ $titles['title-7'] ?? 'Inside Foores' }} </h3>
+                        <h3 class='edit-title' data-id='title-7'> {{ $titles['en']['title-7'] ?? 'Inside Foores' }} </h3>
                         <p class='edit-title' data-id='title-8'>
-                            {{ $titles['title-8'] ?? 'View the Gallery' }} 
+                            {{ $titles['en']['title-8'] ?? 'View the Gallery' }} 
                         </p>
                     </div>
                 </a>
@@ -245,12 +245,12 @@
                     <div class="col-lg-5 pt-lg-4" data-cue="slideInUp" data-delay="500">
                         <div class="main_title">
                             <span><em></em></span>
-                            <h2 class='edit-title' data-id='title-9' >{{ $titles['title-9'] ?? 'Some words about us' }}</h2>
-                            <p class='edit-title' data-id='title-16' >{{ $titles['title-16'] ?? 'Cum doctus civibus efficiantur in imperdiet deterruisset.' }}</p>
+                            <h2 class='edit-title' data-id='title-9' >{{ $titles['en']['title-9'] ?? 'Some words about us' }}</h2>
+                            <p class='edit-title' data-id='title-16' >{{ $titles['en']['title-16'] ?? 'Cum doctus civibus efficiantur in imperdiet deterruisset.' }}</p>
                         </div>
                         <div class='edit-text' data-id='text-1'>
                             <p >
-                                {!! $texts['text-1'] ?? 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                {!! $texts['en']['text-1'] ?? 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
     
                                 nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
                                 officia deserunt mollit anim id est laborum.
@@ -275,11 +275,11 @@
             <div class="container margin_120_100" data-cue="slideInUp">
                 <div class="main_title center mb-5">
                     <span><em></em></span>
-                    <h2 class='edit-title' data-id='title-10' >{{ $titles['title-10'] ?? 'Our Daily Menu' }}</h2>
+                    <h2 class='edit-title' data-id='title-10' >{{ $titles['en']['title-10'] ?? 'Our Daily Menu' }}</h2>
 
                 </div>
                 <!-- /main_title -->
-                <div class="banner lazy  edit-image" 
+                {{-- <div class="banner lazy  edit-image" 
                 
                 @if (isset($images['img_6'])) 
                     data-bg="{{ get_image($images['img_6']) }}" 
@@ -292,12 +292,12 @@
                     <div wire:ignore class="wrapper d-flex align-items-center justify-content-between opacity-mask"
                         data-opacity-mask="rgba(0, 0, 0, 0.5)">
                         <div>
-                            <small class='edit-title' data-id='title-11'>{{ $titles['title-11'] ?? ' Special Offer' }}</small>
-                            <h3 class='edit-title' data-id='title-12'>{{ $titles['title-12'] ?? ' Burgher Menu $18 only' }}</h3>
-                            <p class='edit-title' data-id='title-13'>{{ $titles['title-13'] ?? ' Hamburgher, Chips, Mix Sausages, Beer, Muffin' }}</p>
+                            <small class='edit-title' data-id='title-11'>{{ $titles['en']['title-11'] ?? ' Special Offer' }}</small>
+                            <h3 class='edit-title' data-id='title-12'>{{ $titles['en']['title-12'] ?? ' Burgher Menu $18 only' }}</h3>
+                            <p class='edit-title' data-id='title-13'>{{ $titles['en']['title-13'] ?? ' Hamburgher, Chips, Mix Sausages, Beer, Muffin' }}</p>
 
                             <a data-id='btn-2' class="btn_1 edit-btn"
-                                    href="{{ $buttons['btn-2']['url'] ?? '#reservations.html' }}">{{ $buttons['btn-2']['title'] ?? 'Reserve now' }}</a>
+                                    href="{{ $buttons['en']['btn-2']['url'] ?? '#reservations.html' }}">{{ $buttons['en']['btn-2']['title'] ?? 'Reserve now' }}</a>
 
 
                         </div>
@@ -305,7 +305,7 @@
                                 alt="" width="200" height="200" class="img-fluid"></figure>
                     </div>
                     <!-- /wrapper -->
-                </div>
+                </div> --}}
                 <!-- /banner -->
                 <div class="row magnific-gallery homepage add_bottom_25">
                     @foreach ( $products as $product)
@@ -330,8 +330,8 @@
                     
                 </div>
                 <!-- /row -->
-                <p class="text-center"><a href="#0" class="btn_1 outline" data-cue="zoomIn">Download
-                        Menu</a></p>
+                {{-- <p class="text-center"><a href="#0" class="btn_1 outline" data-cue="zoomIn">Download
+                        Menu</a></p> --}}
             </div>
             <!-- /container -->
         </div>
@@ -355,13 +355,13 @@
 
                         <div class="box_1" data-cue="slideInUp">
 
-                            <h2 class='edit-title' data-id='title-14' > {{ $titles['title-14'] ?? 'Celebrate' }}</h2>
-                            <h2 class='edit-title' data-id='title-15' ><span> {{ $titles['title-15'] ?? ' a Special Event with us!' }}</span></h2>
+                            <h2 class='edit-title' data-id='title-14' > {{ $titles['en']['title-14'] ?? 'Celebrate' }}</h2>
+                            <h2 class='edit-title' data-id='title-15' ><span> {{ $titles['en']['title-15'] ?? ' a Special Event with us!' }}</span></h2>
                       
-                            <p class='edit-text' data-id='text-2'  >{!! $texts['text-2'] ?? ' Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+                            <p class='edit-text' data-id='text-2'  >{!! $texts['en']['text-2'] ?? ' Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
                                 consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt' !!}.</p>
                             <a data-id='btn-3' class="btn_1  mt-3 edit-btn"
-                            href="{{ $buttons['btn-3']['url'] ?? '#contacts.html' }}">{{ $buttons['btn-3']['title'] ?? 'Contact us' }}</a>
+                            href="{{ $buttons['en']['btn-3']['url'] ?? '#contacts.html' }}">{{ $buttons['en']['btn-3']['title'] ?? 'Contact us' }}</a>
 
 
                         </div>
@@ -371,7 +371,7 @@
         </div>
         <!--/call_section-->
 
-        <div class="pattern_2">
+        {{-- <div class="pattern_2">
             <div class="container margin_120_100 pb-0">
                 <div class="row justify-content-center">
                     <div class="col-lg-6 text-center d-none d-lg-block edit-image" data-cue="slideInUp">
@@ -542,7 +542,7 @@
                 <!-- /row -->
             </div>
             <!-- /container -->
-        </div>
+        </div> --}}
         <!-- /pattern_2 -->
     </main>
     <!-- /main -->
