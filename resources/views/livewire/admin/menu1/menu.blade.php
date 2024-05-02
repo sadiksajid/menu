@@ -169,11 +169,11 @@
                         <div class="col-lg-6" data-cue="slideInUp">
                             <div class="menu_item">
                                 <figure>
-                                    <a href="{{ get_image($prod['media'][0]['media']) }}" title="Summer Berry"
+                                    <a href="{{ get_image('moyen/'.$prod['media'][0]['media']) }}" title="Summer Berry"
                                         data-effect="mfp-zoom-in">
                                         
                                         <img src="{{ URL::asset('index1/img/menu_items/menu_items_placeholder.png') }}"
-                                            data-src="{{get_image( $prod['media'][0]['media']) }}" class="lazy"
+                                            data-src="{{get_image( 'moyen/'.$prod['media'][0]['media']) }}" class="lazy"
                                             alt="">
                                     </a>
                                 </figure>

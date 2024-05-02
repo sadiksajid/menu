@@ -45,6 +45,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'fw-block-blackl
     Route::get('/homeEdit', function () {
         return view('livewire.admin.index1.index_route');
     });
+    Route::get('/caisse ', function () {
+        return view('livewire.admin.caisse.caisse_route');
+    });
 
     Route::get('/MenuEdit', function () {
         return view('livewire.admin.menu1.menu_route');

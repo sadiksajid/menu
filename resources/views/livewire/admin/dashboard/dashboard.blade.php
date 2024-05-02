@@ -37,6 +37,24 @@
                     <div class="text-left mb-4">
                         <p class=" mb-1 ">
                             <i class="fa fa-cart-arrow-down mr-1"></i>
+                            {{ $translations['caisse_orders'] }}
+                        </p>
+                        <h2 class="mb-0 font-weight-bold">{{ end($orders['caisse_delivered']) }}<span class="fs-12 text-muted"><span
+                                    class=" @if ($res_orders['caisse_delivered'] >= 0) text-success @else text-danger @endif  mr-1"><i
+                                        class="fe fe-arrow-up ml-1 "></i> {{ $res_orders['caisse_delivered'] }}%</span> {{ $translations['last_week'] }}</span></h2>
+                    </div>
+                </div>
+                <div class="chart-wrapper overflow-hidden">
+                    <span class="sparkline_caisse_delivered"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-12">
+            <div class="card overflow-hidden">
+                <div class="card-body pb-0">
+                    <div class="text-left mb-4">
+                        <p class=" mb-1 ">
+                            <i class="fa fa-cart-arrow-down mr-1"></i>
                             {{ $translations['pending_orders'] }}
                         </p>
                         <h2 class="mb-0 font-weight-bold">{{ end($orders['pending']) }}<span class="fs-12 text-muted"><span
@@ -315,6 +333,18 @@
                 resize: true
             });
 
+
+            $(".sparkline_caisse_delivered").sparkline(<?php echo json_encode(array_values($orders['caisse_delivered'])); ?>, {
+                type: 'bar',
+                height: 50,
+                width: 250,
+                barWidth: 5,
+                barSpacing: 7,
+                colorMap: {
+                    '9': '#a1a1a1'
+                },
+                barColor: '#6f42c1'
+            });
 
             $(".sparkline_new").sparkline(<?php echo json_encode(array_values($orders['all'])); ?>, {
                 type: 'bar',

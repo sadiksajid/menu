@@ -18,9 +18,9 @@
                     <div class="item d-flex">
                         <div class="item-img mr-4" style="    margin-right: 13px !important; ">
                             @if($product['type']=='product')
-                            <img src="{{ get_image($product['image']) }}" alt="Image" class="img-fluid">
+                            <img src="{{ get_image('tmb/'.$product['image']) }}" alt="Image" class="img-fluid">
                             @else
-                            <img src="{{ get_image($product['image']) }}" alt="Image" class="img-fluid">
+                            <img src="{{ get_image('tmb/'.$product['image']) }}" alt="Image" class="img-fluid">
                             <br>
                             <span class="badge badge-info" style="width: 100%;">{{$translations['offer']}}</span>
 

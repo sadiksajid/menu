@@ -47,9 +47,9 @@
                                         <td>
 
                                             @if($product['type']=='product')
-                                            <a href="#"><img alt="" src="{{ get_image($product['image']) }}" class="rounded-circle"></a>
+                                            <a href="#"><img alt="" src="{{ get_image('tmb/'.$product['image']) }}" class="rounded-circle"></a>
                                             @else
-                                            <a href="#"><img alt="" src="{{ get_image($product['image']) }}" class="rounded-circle" width="90px"></a>
+                                            <a href="#"><img alt="" src="{{ get_image('tmb/'.$product['image']) }}" class="rounded-circle" width="90px"></a>
                                             <span class="badge badge-info" style="width: 80%;">{{$translations['offer']}}</span>
 
                                             @endif
@@ -102,8 +102,9 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <del><h2 class="td-color">{{ $product['qte'] * $product['product']->old_price}} {{$currency}}</h2>                                            </del>
-
+                                            @if ($product['type'] == 'offer')
+                                                <del><h2 class="td-color">{{ $product['qte'] * $product['product']->old_price}} {{$currency}}</h2>                                            </del>
+                                            @endif
                                             <h2 class="td-color">{{ $product['qte'] * $product['product']->price}} {{$currency}}</h2>
                                         </td>
                                     </tr>

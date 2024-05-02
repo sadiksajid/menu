@@ -1125,23 +1125,33 @@
         "fr": "à venir"
     },
 
-    "": {
-        "en": ""
+    "caisse_order_submit": {
+        "en": "Do you want to Submit this order?",
+        "ar": "هل ترغب في تقديم هذا الطلب؟",
+        "fr": "Voulez-vous soumettre cette commande ?"
     },
-    "": {
-        "en": ""
+    "caisse_order_success": {
+        "en": "Order Submitted Successfully!",
+        "ar": "تم تقديم الطلب بنجاح!",
+        "fr": "Commande soumise avec succès !"
     },
-    "": {
-        "en": ""
+    "print": {
+        "en": "Print",
+        "ar": "طباعة",
+        "fr": "Imprimer"
     },
-    "": {
-        "en": ""
+    "all": {
+        "en": "All",
+        "ar": "الكل",
+        "fr": "Tout"
     },
-    "": {
-        "en": ""
+    "selected_products": {
+        "en": "Selected Products",
+        "ar": "المنتجات المحددة",
+        "fr": "Produits sélectionnés"
     },
-    "": {
-        "en": ""
+    "caisse_orders": {
+        "en": "Caisse Orders"
     },
     "": {
         "en": ""

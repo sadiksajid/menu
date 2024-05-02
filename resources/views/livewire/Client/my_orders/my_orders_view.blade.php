@@ -117,10 +117,10 @@
                                                                     <div class="col-12">
                                                                         <div class="menu_item order mb-0">
                                                                             <figure class="order_imgs">
-                                                                                <a href="{{ get_image($prod['media'][0]['media'])}}"  data-effect="mfp-zoom-in">
+                                                                                <a href="{{ get_image('moyen/'.$prod['media'][0]['media'])}}"  data-effect="mfp-zoom-in">
                 
                                                                                     <img src="{{ URL::asset('index1/img/menu_items/menu_items_placeholder.png') }}"
-                                                                                        data-src="{{ get_image($prod['media'][0]['media'])}}"
+                                                                                        data-src="{{ get_image('moyen/'.$prod)}}"
                                                                                         class="lazy" alt="">
                                                                                 </a>
                                                                             </figure>
@@ -141,11 +141,11 @@
                                                             <div class="col-12">
                                                                 <div class="menu_item order mb-0">
                                                                     <figure class="order_imgs">
-                                                                        <a href="{{ get_image($prod['media'][0]['media'])}}"
+                                                                        <a href="{{ get_image('moyen/'.$prod['media'][0]['media'])}}"
                                                                             title="Summer Berry" data-effect="mfp-zoom-in">
         
                                                                             <img src="{{ URL::asset('index1/img/menu_items/menu_items_placeholder.png') }}"
-                                                                                data-src="{{ get_image($prod['media'][0]['media'])}}"
+                                                                                data-src="{{ get_image('moyen/'.$prod['media'][0]['media'])}}"
                                                                                 class="lazy" alt="">
                                                                         </a>
                                                                     </figure>

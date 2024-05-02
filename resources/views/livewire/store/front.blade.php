@@ -95,8 +95,8 @@
                               <div style="height: 150px">
                                   {{-- <a href="/store/goodforhealth/{{ $category->category_meta }}" > --}}
                                     <a href="/shop/{{ $category->category_meta }}" >
-                                        <div class="item hover-overlay pt-2 cat_div background-image rounded-circle shadow border border-dark"
-                                            data-background="url({{ get_image($category->image )}})">
+                                        <div class=" item hover-overlay pt-2 cat_div background-image rounded-circle shadow border border-dark"
+                                            data-background="url({{ get_image('tmb/'.$category->image )}})">
                                             <div class="over_cat">
                                                 <h5  class="cat_titel align-self-center">
                                                     <strong>{{ $category->title }}</strong>
@@ -197,14 +197,11 @@
                                                                     <h6 class="mt-2 " style='color:{{$store_info->btn_color}}'>{{ $product->price }}
                                                                         {{ $currency }}</h6>
                                                                 </center>
-
-
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             @endforeach
-
                                         </div>
                                     </div>
                                     <div class="load-more-sec"><a wire:click="nextPage()">{{$translations['load_more'] }}</a></div>
@@ -242,14 +239,7 @@
                                         doloremque laudantium</p>
                                 </div>
                                 <div class="product-description border-product">
-                                    {{-- <div class="size-box">
-                                        <ul class="d-flex">
-                                            <li class="active"><a href="#">s</a></li>
-                                            <li><a href="#">m</a></li>
-                                            <li><a href="#">l</a></li>
-                                            <li><a href="#">xl</a></li>
-                                        </ul>
-                                    </div> --}}
+                       
                                     <h6 class="product-title">{{$translations['quantity']}}</h6>
                                     <div class="qty-box">
                                         <div class="input-group"><span class="input-group-prepend"><button

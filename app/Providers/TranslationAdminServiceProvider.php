@@ -32,6 +32,7 @@ class TranslationAdminServiceProvider extends ServiceProvider
         } else {
             $currentLocale = 'en';
         }
+        app()->setLocale($currentLocale);
 
         $Lang_ranslations = collect($translations)
             ->mapWithKeys(function ($translation, $key) use ($currentLocale) {

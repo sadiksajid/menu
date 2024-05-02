@@ -11,6 +11,7 @@ use App\Models\ProductRecipe;
 use App\Models\ProductView;
 use App\Models\StoreProduct;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Livewire\Component;
@@ -72,6 +73,7 @@ class Products extends Component
         $this->langs = languages()['langs'];
         $this->translations = app('translations_admin');
 ///////////////////////////////////
+        // $this->TranslateAll();
         $this->store_info = Auth::user()->store;
         $this->store_id = $this->store_info->id;
         $this->url = $url;
@@ -126,9 +128,34 @@ class Products extends Component
     }
     public function getCategories()
     {
-        $this->categories = CategoryToStore::leftJoin('product_categories as cat', 'category_to_stores.product_category_id', 'cat.id')
+        $currentLocale = app()->getLocale();
+
+        $this->categories = CategoryToStore::Join('product_categories as cat', 'category_to_stores.product_category_id', 'cat.id')
             ->where('category_to_stores.store_id', $this->store_id)
-            ->select('cat.*')->get()->toArray();
+            ->select('cat.id', 'cat.title->' . $currentLocale . ' as title')->get();
+    }
+
+    public function TranslateAll()
+    {
+        $products = DB::table('store_products')->get();
+        foreach ($products as $product) {
+            $pro = StoreProduct::find($product->id);
+            foreach ($this->langs as $lang) {
+                if ($lang == 'en') {
+                    $title = $product->title;
+                    $description = $product->description;
+                } else {
+                    $title = translate($product->title, $lang);
+                    $description = translate($product->description, $lang);
+                }
+
+                $pro->setTranslation('title', $lang, $title, JSON_UNESCAPED_UNICODE);
+                $pro->setTranslation('description', $lang, $description, JSON_UNESCAPED_UNICODE);
+
+            }
+
+            $pro->save();
+        }
     }
 
     private function resetInputFields()
@@ -186,9 +213,23 @@ class Products extends Component
         ]);
 
         $cat = new ProductCategory();
-        $cat->title = $this->cat_title;
+
+        foreach ($this->langs as $lang) {
+            if ($lang == 'en') {
+                $title = $this->cat_title;
+                $cat_s_title = $this->cat_s_title;
+            } else {
+                $title = translate($this->cat_title, $lang);
+                $cat_s_title = translate($this->cat_s_title, $lang);
+            }
+
+            $cat->setTranslation('title', $lang, $title, JSON_UNESCAPED_UNICODE);
+            $cat->setTranslation('s_title', $lang, $cat_s_title, JSON_UNESCAPED_UNICODE);
+
+        }
+
         $cat->store_id = $this->store_id;
-        $cat->s_title = $this->cat_s_title;
+        $cat->category_meta = str_replace([' ', ',', ':', '-', '?'], '_', strtolower($this->cat_title));
 
         if (!empty($this->cat_image)) {
             $this->img_link = 'Category_' . str_replace(' ', '_', $this->cat_title) . md5(microtime()) . '.webp';

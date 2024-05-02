@@ -27,7 +27,7 @@ class EditIndex extends Component
     public $upload_image;
     public $products;
     public $currency;
-    public $langs = languages()['langs'];
+    public $langs;
 
     protected $listeners = ['editText', 'editBtn', 'editImg'];
 
@@ -36,6 +36,7 @@ class EditIndex extends Component
 
     public function mount()
     {
+        $this->langs = languages()['langs'];
         $this->translations = app('translations_admin');
         ///////////////////////////////////
         $this->store_id = Auth::user()->store_id;
