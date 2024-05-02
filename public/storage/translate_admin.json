@@ -1,0 +1,1164 @@
+{
+    "login": {
+        "en": "Login",
+        "ar": "تسجيل الدخول",
+        "fr": "Connexion"
+    },
+    "sing_in": {
+        "en": "Sing In",
+        "ar": "تسجيل الدخول",
+        "fr": "Connexion"
+    },
+    "logout": {
+        "en": "Logout",
+        "ar": "تسجيل الخروج",
+        "fr": "Déconnexion"
+    },
+    "singup": {
+        "en": "Singup",
+        "ar": "التسجيل",
+        "fr": "S'inscrire"
+    },
+    "home": {
+        "en": "Home",
+        "ar": "الصفحة الرئيسية",
+        "fr": "Accueil"
+    },
+    "shop": {
+        "en": "Shop",
+        "ar": "المتجر",
+        "fr": "Boutique"
+    },
+    "menu": {
+        "en": "Menu",
+        "ar": "القائمة",
+        "fr": "Menu"
+    },
+    "search": {
+        "en": "Search",
+        "ar": "بحث",
+        "fr": "Recherche"
+    },
+    "read_more": {
+        "en": "Read More",
+        "ar": "اقرأ المزيد",
+        "fr": "Lire la suite"
+    },
+    "see_more": {
+        "en": "See More",
+        "ar": "رؤية المزيد",
+        "fr": "Voir plus"
+    },
+    "visit_our_shop": {
+        "en": "Visit Our Shop",
+        "ar": "زيارة متجرنا",
+        "fr": "Visitez notre boutique"
+    },
+    "address": {
+        "en": "Address",
+        "ar": "العنوان",
+        "fr": "Adresse"
+    },
+    "contact_us": {
+        "en": "Contact Us",
+        "ar": "اتصل بنا",
+        "fr": "Contactez-nous"
+    },
+    "opening_hours": {
+        "en": "Opening Hours",
+        "ar": "ساعات العمل",
+        "fr": "Heures d'ouverture"
+    },
+    "all_rights_reserved": {
+        "en": "All rights reserved",
+        "ar": "كل الحقوق محفوظة",
+        "fr": "Tous droits réservés"
+    },
+    "add_to_cart": {
+        "en": "Add To Cart",
+        "ar": "أضف إلى السلة",
+        "fr": "Ajouter au panier"
+    },
+    "your_bag": {
+        "en": "Your Bag",
+        "ar": "حقيبتك",
+        "fr": "Votre sac"
+    },
+    "cart": {
+        "en": "Cart",
+        "ar": "عربة التسوق",
+        "fr": "Panier"
+    },
+    "offer": {
+        "en": "Offer",
+        "ar": "عرض",
+        "fr": "Offre"
+    },
+    "remove": {
+        "en": "Remove",
+        "ar": "إزالة",
+        "fr": "Supprimer"
+    },
+    "subtotal": {
+        "en": "Subtotal",
+        "ar": "المجموع الفرعي",
+        "fr": "Sous-total"
+    },
+    "checkout": {
+        "en": "Checkout",
+        "ar": "الدفع",
+        "fr": "Payer"
+    },
+    "store": {
+        "en": "Store",
+        "ar": "متجر",
+        "fr": "Magasin"
+    },
+    "load_more": {
+        "en": "Load More",
+        "ar": "تحميل المزيد",
+        "fr": "Charger plus"
+    },
+    "image": {
+        "en": "Image",
+        "ar": "صورة",
+        "fr": "Image"
+    },
+    "product_name": {
+        "en": "Product Name",
+        "ar": "اسم المنتج",
+        "fr": "Nom du produit"
+    },
+    "price": {
+        "en": "Price",
+        "ar": "السعر",
+        "fr": "Prix"
+    },
+    "quantity": {
+        "en": "Quantity",
+        "ar": "الكمية",
+        "fr": "Quantité"
+    },
+    "actions": {
+        "en": "Actions",
+        "ar": "إجراءات",
+        "fr": "Actions"
+    },
+    "total": {
+        "en": "Total",
+        "ar": "المجموع",
+        "fr": "Total"
+    },
+    "total_price": {
+        "en": "Total Price",
+        "ar": "السعر الإجمالي",
+        "fr": "Prix total"
+    },
+    "loading": {
+        "en": "loading",
+        "ar": "تحميل",
+        "fr": "Chargement"
+    },
+    "billing_details": {
+        "en": "Billing Details",
+        "ar": "تفاصيل الفوترة",
+        "fr": "Détails de facturation"
+    },
+    "first_name": {
+        "en": "First Name",
+        "ar": "الاسم الأول",
+        "fr": "Prénom"
+    },
+    "last_name": {
+        "en": "Last Name",
+        "ar": "الاسم الأخير",
+        "fr": "Nom de famille"
+    },
+    "phone": {
+        "en": "Phone",
+        "ar": "هاتف",
+        "fr": "Téléphone"
+    },
+    "email": {
+        "en": "Email",
+        "ar": "البريد الإلكتروني",
+        "fr": "Email"
+    },
+    "password": {
+        "en": "Password",
+        "ar": "كلمة السر",
+        "fr": "Mot de passe"
+    },
+    "password_meta": {
+        "en": "To keep your data safe",
+        "ar": "للحفاظ على بياناتك آمنة",
+        "fr": "Pour garder vos données en sécurité"
+    },
+    "repeat_password": {
+        "en": "Repeat Password",
+        "ar": "تكرار كلمة السر",
+        "fr": "Répéter le mot de passe"
+    },
+    "next": {
+        "en": "Next",
+        "ar": "التالي",
+        "fr": "Suivant"
+    },
+    "sellect_address": {
+        "en": "Sellect Address",
+        "ar": "اختر العنوان",
+        "fr": "Sélectionner l'adresse"
+    },
+    "new_address": {
+        "en": "New Address",
+        "ar": "عنوان جديد",
+        "fr": "Nouvelle adresse"
+    },
+    "town_city": {
+        "en": "Town/City",
+        "ar": "البلدة/المدينة",
+        "fr": "Ville"
+    },
+    "quarter": {
+        "en": "Quarter",
+        "ar": "الحي",
+        "fr": "Quartier"
+    },
+    "use": {
+        "en": "Use",
+        "ar": "استخدم",
+        "fr": "Utiliser"
+    },
+    "you_have_to_select_one_address": {
+        "en": "You have to select One address",
+        "ar": "يجب عليك تحديد عنوان واحد",
+        "fr": "Vous devez sélectionner une adresse"
+    },
+    "time": {
+        "en": "Time",
+        "ar": "الوقت",
+        "fr": "Temps"
+    },
+    "comment": {
+        "en": "Comment",
+        "ar": "تعليق",
+        "fr": "Commentaire"
+    },
+    "shipping": {
+        "en": "Shipping",
+        "ar": "الشحن",
+        "fr": "Livraison"
+    },
+    "im_coming": {
+        "en": "I'm Coming",
+        "ar": "أنا قادم",
+        "fr": "J'arrive"
+    },
+    "cod": {
+        "en": "Cash On Delivery",
+        "ar": "الدفع عند الاستلام",
+        "fr": "Paiement à la livraison"
+    },
+    "product": {
+        "en": "Product",
+        "ar": "المنتج",
+        "fr": "Produit"
+    },
+    "place_order": {
+        "en": "Place Order",
+        "ar": "تقديم الطلب",
+        "fr": "Passer la commande"
+    },
+    "ship_it_to_me": {
+        "en": "Ship it to me",
+        "ar": "شحنها لي",
+        "fr": "Expédiez-le moi"
+    },
+    "cart_is_empty": {
+        "en": "Cart is Empty!",
+        "ar": "السلة فارغة!",
+        "fr": "Le panier est vide !"
+    },
+    "order_submit_success": {
+        "en": "Order  Submitted  Successfully!",
+        "ar": "تم تقديم الطلب بنجاح!",
+        "fr": "Commande soumise avec succès !"
+    },
+    "login_error": {
+        "en": "Phone Or Password Incorrect!",
+        "ar": "الهاتف أو كلمة المرور غير صحيحة!",
+        "fr": "Téléphone ou mot de passe incorrect !"
+    },
+    "my_orders": {
+        "en": "My Orders",
+        "ar": "طلباتي",
+        "fr": "Mes commandes"
+    },
+    "order": {
+        "en": "Order",
+        "ar": "طلب",
+        "fr": "Commande"
+    },
+    "orders": {
+        "en": "Orders",
+        "ar": "طلبات",
+        "fr": "Commandes"
+    },
+    "type": {
+        "en": "Type",
+        "ar": "النوع",
+        "fr": "Type"
+    },
+    "status": {
+        "en": "Status",
+        "ar": "الحالة",
+        "fr": "Statut"
+    },
+    "previous": {
+        "en": "Previous",
+        "ar": "السابق",
+        "fr": "Précédent"
+    },
+    "buy_now": {
+        "en": "Buy Now",
+        "ar": "اشتري الآن",
+        "fr": "Acheter maintenant"
+    },
+    "product_details": {
+        "en": "Product Details",
+        "ar": "تفاصيل المنتج",
+        "fr": "Détails du produit"
+    },
+    "dashboard": {
+        "en": "Dashboard",
+        "ar": "لوحة التحكم",
+        "fr": "Tableau de bord"
+    },
+    "my_clients": {
+        "en": "My Clients",
+        "ar": "عملائي",
+        "fr": "Mes clients"
+    },
+    "store_info": {
+        "en": "Store Info",
+        "ar": "معلومات المتجر",
+        "fr": "magasin"
+    },
+    "edite_pages": {
+        "en": "Edite Pages",
+        "ar": "تحرير الصفحات",
+        "fr": "Modifier les pages"
+    },
+    "home_page": {
+        "en": "Home Page",
+        "ar": "الصفحة الرئيسية",
+        "fr": "Page d'accueil"
+    },
+    "other_pages": {
+        "en": "Other Pages",
+        "ar": "صفحات أخرى",
+        "fr": "Autres pages"
+    },
+    "products": {
+        "en": "Products",
+        "ar": "منتجات",
+        "fr": "Produits"
+    },
+    "offers": {
+        "en": "Offers",
+        "ar": "عروض",
+        "fr": "Offres"
+    },
+    "new_orders": {
+        "en": "New Orders",
+        "ar": "طلبات جديدة",
+        "fr": "Nouvelles commandes"
+    },
+    "last_week": {
+        "en": "last week",
+        "ar": "الأسبوع الماضي",
+        "fr": "la semaine dernière"
+    },
+    "pending_orders": {
+        "en": "Pending Orders",
+        "ar": "الطلبات المعلقة",
+        "fr": "Commandes en attente"
+    },
+    "confirmed_orders": {
+        "en": "Confirmed Orders",
+        "ar": "الطلبات المؤكدة",
+        "fr": "Commandes confirmées"
+    },
+    "declined_orders": {
+        "en": "Declined Orders",
+        "ar": "الطلبات المرفوضة",
+        "fr": "Commandes refusées"
+    },
+    "clicks_analyse": {
+        "en": "Clicks Analyse",
+        "ar": "تحليل النقرات",
+        "fr": "Analyse des clics"
+    },
+    "store_views": {
+        "en": "Store Views",
+        "ar": "عدد مشاهدات المتجر",
+        "fr": "Vues du magasin"
+    },
+    "products_views": {
+        "en": "Products Views",
+        "ar": "عدد مشاهدات المنتجات",
+        "fr": "Vues des produits"
+    },
+    "recent_orders": {
+        "en": "Recent Orders",
+        "ar": "الطلبات الأخيرة",
+        "fr": "Commandes récentes"
+    },
+    "all_orders": {
+        "en": "All Orders",
+        "ar": "كل الطلبات",
+        "fr": "Toutes les commandes"
+    },
+    "clients": {
+        "en": "Clients",
+        "ar": "عملاء",
+        "fr": "Clients"
+    },
+    "this_month": {
+        "en": "This Month",
+        "ar": "هذا الشهر",
+        "fr": "Ce mois-ci"
+    },
+    "last_month": {
+        "en": "Last Month",
+        "ar": "الشهر الماضي",
+        "fr": "Le mois dernier"
+    },
+    "sales": {
+        "en": "Sales",
+        "ar": "المبيعات",
+        "fr": "Ventes"
+    },
+    "today": {
+        "en": "Today",
+        "ar": "اليوم",
+        "fr": "Aujourd'hui"
+    },
+    "last_day": {
+        "en": "Last Day",
+        "ar": "اليوم السابق",
+        "fr": "Hier"
+    },
+    "top_product_sales_overview": {
+        "en": "Top Product Sales Overview",
+        "ar": "نظرة عامة على أعلى مبيعات المنتجات",
+        "fr": "Aperçu des meilleures ventes de produits"
+    },
+    "Last_year": {
+        "en": "Last Year",
+        "ar": "العام الماضي",
+        "fr": "L'année dernière"
+    },
+    "sold": {
+        "en": "Sold",
+        "ar": "تم بيعها",
+        "fr": "Vendu"
+    },
+    "likes": {
+        "en": "Likes",
+        "ar": "إعجابات",
+        "fr": "J'aime"
+    },
+    "stock": {
+        "en": "Stock",
+        "ar": "مخزون",
+        "fr": "Stock"
+    },
+    "amount": {
+        "en": "Amount",
+        "ar": "الكمية",
+        "fr": "Quantité"
+    },
+    "stock_status": {
+        "en": "Stock Status",
+        "ar": "حالة المخزون",
+        "fr": "Statut du stock"
+    },
+    "in_stock": {
+        "en": "In Stock",
+        "ar": "متوفر",
+        "fr": "En stock"
+    },
+    "trusted": {
+        "en": "Trusted",
+        "ar": "موثوق",
+        "fr": "Fiable"
+    },
+    "untrusted": {
+        "en": "Untrusted",
+        "ar": "غير موثوق",
+        "fr": "Non fiable"
+    },
+    "block": {
+        "en": "Block",
+        "ar": "حظر",
+        "fr": "Bloquer"
+    },
+    "unblock": {
+        "en": "Unblock",
+        "ar": "إلغاء الحظر",
+        "fr": "Débloquer"
+    },
+    "new_order": {
+        "en": "New Order",
+        "ar": "طلب جديد",
+        "fr": "Nouvelle commande"
+    },
+    "note": {
+        "en": "Note",
+        "ar": "ملاحظة",
+        "fr": "Remarque"
+    },
+    "title": {
+        "en": "Title",
+        "ar": "عنوان",
+        "fr": "Titre"
+    },
+    "new_offer": {
+        "en": "New Offer",
+        "ar": "عرض جديد",
+        "fr": "Nouvelle offre"
+    },
+    "edit": {
+        "en": "Edit",
+        "ar": "تحرير",
+        "fr": "Éditer"
+    },
+    "inactive": {
+        "en": "Inactive",
+        "ar": "غير نشط",
+        "fr": "Inactif"
+    },
+    "active": {
+        "en": "Active",
+        "ar": "نشط",
+        "fr": "Actif"
+    },
+    "manage_orders": {
+        "en": "Manage Orders",
+        "ar": "إدارة الطلبات",
+        "fr": "Gérer les commandes"
+    },
+    "id": {
+        "en": "ID",
+        "ar": "معرف",
+        "fr": "ID"
+    },
+    "client": {
+        "en": "Client",
+        "ar": "العميل",
+        "fr": "Client"
+    },
+    "date": {
+        "en": "Date",
+        "ar": "تاريخ",
+        "fr": "Date"
+    },
+    "maps": {
+        "en": "Maps",
+        "ar": "الخرائط",
+        "fr": "Cartes"
+    },
+    "maps_text_1": {
+        "en": "You need Client Maps Location !",
+        "ar": "تحتاج إلى موقع الخرائط للعميل!",
+        "fr": "Vous avez besoin de l'emplacement des cartes clients !"
+    },
+    "save_location": {
+        "en": "Save Location",
+        "ar": "حفظ الموقع",
+        "fr": "Enregistrer l'emplacement"
+    },
+    "maps_text_2": {
+        "en": "Is This location of",
+        "ar": "هل هذا موقع",
+        "fr": "Est-ce l'emplacement de"
+    },
+    "maps_text_3": {
+        "en": " Correct Quarter Name",
+        "ar": " اسم الحي الصحيح",
+        "fr": " Nom de quartier correct"
+    },
+    "back": {
+        "en": "Back",
+        "ar": "العودة",
+        "fr": "Retour"
+    },
+    "save": {
+        "en": "Save",
+        "ar": "حفظ",
+        "fr": "Sauvegarder"
+    },
+    "dashboard_text": {
+        "en": "Manage Your Store Orders And Clients!",
+        "ar": "إدارة طلباتك وعملائك في المتجر!",
+        "fr": "Gérez les commandes et les clients de votre magasin !"
+    },
+    "client_information": {
+        "en": "Client Information",
+        "ar": "معلومات العميل",
+        "fr": "Informations sur le client"
+    },
+    "order_verification": {
+        "en": "Order Verification",
+        "ar": "التحقق من الطلب",
+        "fr": "Vérification de commande"
+    },
+    "receiver_calls": {
+        "en": "Receiver Calls",
+        "ar": "مكالمات المستلم",
+        "fr": "Appels du destinataire"
+    },
+    "try": {
+        "en": "Try",
+        "ar": "حاول",
+        "fr": "Essayer"
+    },
+    "verify": {
+        "en": "Verify",
+        "ar": "التحقق",
+        "fr": "Vérifier"
+    },
+    "decline": {
+        "en": "Decline",
+        "ar": "انحسار",
+        "fr": "Déclin"
+    },
+    "not_verified": {
+        "en": "Not verified",
+        "ar": "غير متحقق",
+        "fr": "Non vérifié"
+    },
+    "not_accurate": {
+        "en": "Not Accurate",
+        "ar": "غير دقيق",
+        "fr": "Pas précis"
+    },
+    "accurate": {
+        "en": "Accurate",
+        "ar": "دقيق",
+        "fr": "Précis"
+    },
+    "order_information": {
+        "en": "Order Information",
+        "ar": "معلومات الطلب",
+        "fr": "Informations sur la commande"
+    },
+    "new_product": {
+        "en": "New Product",
+        "ar": "منتج جديد",
+        "fr": "Nouveau produit"
+    },
+    "delete_product": {
+        "en": "Delete Product",
+        "ar": "حذف المنتج",
+        "fr": "Supprimer le produit"
+    },
+    "product_info": {
+        "en": "Product info",
+        "ar": "معلومات المنتج",
+        "fr": "Informations sur le produit"
+    },
+    "product_title": {
+        "en": "Product Title",
+        "ar": "عنوان المنتج",
+        "fr": "Titre du produit"
+    },
+    "description": {
+        "en": "Description",
+        "ar": "الوصف",
+        "fr": "Description"
+    },
+    "category": {
+        "en": "Category",
+        "ar": "الفئة",
+        "fr": "Catégorie"
+    },
+    "no_category_found": {
+        "en": "No Category Found",
+        "ar": "لم يتم العثور على فئة",
+        "fr": "Aucune catégorie trouvée"
+    },
+    "add_to_menu": {
+        "en": "Add to Menu",
+        "ar": "أضف إلى القائمة",
+        "fr": "Ajouter au menu"
+    },
+    "category_title": {
+        "en": "Category Title",
+        "ar": "عنوان الفئة",
+        "fr": "Titre de la catégorie"
+    },
+    "sub_title": {
+        "en": "Sub Title",
+        "ar": "العنوان الفرعي",
+        "fr": "Sous-titre"
+    },
+    "category_image": {
+        "en": "Category Image",
+        "ar": "صورة الفئة",
+        "fr": "Image de catégorie"
+    },
+    "cancel": {
+        "en": "Cancel",
+        "ar": "إلغاء",
+        "fr": "Annuler"
+    },
+    "uploading": {
+        "en": "Uploading",
+        "ar": "جاري التحميل",
+        "fr": "Téléchargement"
+    },
+    "receipt": {
+        "en": "Receipt",
+        "ar": "إيصال",
+        "fr": "Reçu"
+    },
+    "extra_products": {
+        "en": "Extra Products",
+        "ar": "منتجات إضافية",
+        "fr": "Produits supplémentaires"
+    },
+    "add_extra": {
+        "en": "Add Extra",
+        "ar": "إضافة إضافية",
+        "fr": "Ajouter supplémentaire"
+    },
+    "update": {
+        "en": "Update",
+        "ar": "تحديث",
+        "fr": "Mettre à jour"
+    },
+    "delete_offer": {
+        "en": "Delete Offer",
+        "ar": "حذف العرض",
+        "fr": "Supprimer l'offre"
+    },
+    "offer_products": {
+        "en": "Offer Products",
+        "ar": "منتجات العرض",
+        "fr": "Produits de l'offre"
+    },
+    "offer_info": {
+        "en": "Offer Info",
+        "ar": "معلومات العرض",
+        "fr": "Informations sur l'offre"
+    },
+    "offer_title": {
+        "en": "Offer Title",
+        "ar": "عنوان العرض",
+        "fr": "Titre de l'offre"
+    },
+    "offer_meta": {
+        "en": "Offer Meta",
+        "ar": "ميتا العرض",
+        "fr": "Offre Meta"
+    },
+    "meta": {
+        "en": "Meta",
+        "ar": "ميتا",
+        "fr": "Meta"
+    },
+    "old_price": {
+        "en": "Old Price",
+        "ar": "السعر القديم",
+        "fr": "Ancien prix"
+    },
+    "new_price": {
+        "en": "New Price",
+        "ar": "السعر الجديد",
+        "fr": "Nouveau prix"
+    },
+    "products_list": {
+        "en": "Products List",
+        "ar": "قائمة المنتجات",
+        "fr": "Liste des produits"
+    },
+    "search_title_id": {
+        "en": "Search by title or ID",
+        "ar": "البحث حسب العنوان أو الهوية",
+        "fr": "Rechercher par titre ou ID"
+    },
+    "add": {
+        "en": "Add",
+        "ar": "أضف",
+        "fr": "Ajouter"
+    },
+    "offer_admin_msg_1": {
+        "en": "Offer Updated Successfully!",
+        "ar": "تم تحديث العرض بنجاح!",
+        "fr": "Offre mise à jour avec succès !"
+    },
+    "offer_admin_msg_2": {
+        "en": "Do you want to back to offers page ?",
+        "ar": "هل تريد العودة إلى صفحة العروض؟",
+        "fr": "Voulez-vous revenir à la page des offres ?"
+    },
+    "img_upload_msg_1": {
+        "en": "Cant Upload Image!",
+        "ar": "لا يمكن تحميل الصورة!",
+        "fr": "Impossible de télécharger l'image !"
+    },
+    "img_upload_msg_2": {
+        "en": "Please check the image you upload ore change it ?",
+        "ar": "يرجى التحقق من الصورة التي قمت بتحميلها أو تغييرها؟",
+        "fr": "Veuillez vérifier l'image que vous avez téléchargée ou la modifier ?"
+    },
+    "please_confirm": {
+        "en": "Please Confirm !",
+        "ar": "يرجى التأكيد !",
+        "fr": "Veuillez confirmer !"
+    },
+    "offer_delete_msg_1": {
+        "en": "Do you Want Delete This Offer ?",
+        "ar": "هل تريد حذف هذا العرض؟",
+        "fr": "Voulez-vous supprimer cette offre ?"
+    },
+    "product_delete_msg_1": {
+        "en": "Do you Want Delete This Product ?",
+        "ar": "هل تريد حذف هذا المنتج؟",
+        "fr": "Voulez-vous supprimer ce produit ?"
+    },
+    "offer_not_found": {
+        "en": "Offer Not Found",
+        "ar": "العرض غير موجود",
+        "fr": "Offre non trouvée"
+    },
+    "product_delete_success": {
+        "en": "Product Deleted Successfully!",
+        "ar": "تم حذف المنتج بنجاح!",
+        "fr": "Produit supprimé avec succès !"
+    },
+    "product_not_found": {
+        "en": "Product Not Found",
+        "ar": "المنتج غير موجود",
+        "fr": "Produit non trouvé"
+    },
+    "product_submitted_success": {
+        "en": "Product Submitted Successfully!",
+        "ar": "تم تقديم المنتج بنجاح!",
+        "fr": "Produit soumis avec succès !"
+    },
+    "product_updated_success": {
+        "en": "Product Updated Successfully!",
+        "ar": "تم تحديث المنتج بنجاح!",
+        "fr": "Produit mis à jour avec succès !"
+    },
+    "do_you_want_to_back_product": {
+        "en": "Do you want to back to products page ?",
+        "ar": "هل تريد العودة إلى صفحة المنتجات؟",
+        "fr": "Voulez-vous revenir à la page des produits ?"
+    },
+    "store_name": {
+        "en": "Store Name",
+        "ar": "اسم المتجر",
+        "fr": "Nom du magasin"
+    },
+    "store_colors": {
+        "en": "Store Colors",
+        "ar": "ألوان المتجر",
+        "fr": "Couleurs du magasin"
+    },
+    "buttons_color": {
+        "en": "Buttons Color",
+        "ar": "لون الأزرار",
+        "fr": "Couleur des boutons"
+    },
+    "buttons_color_test": {
+        "en": "Color hex or Name",
+        "ar": "اللون هكس أو الاسم",
+        "fr": "Couleur hexadécimale ou nom"
+    },
+    "buttons_view": {
+        "en": "Buttons View",
+        "ar": "عرض الأزرار",
+        "fr": "Vue des boutons"
+    },
+    "button_test": {
+        "en": "Button Test",
+        "ar": "اختبار الزر",
+        "fr": "Test de bouton"
+    },
+    "text_color": {
+        "en": "Text Color",
+        "ar": "لون النص",
+        "fr": "Couleur du texte"
+    },
+    "text_view": {
+        "en": "Text View",
+        "ar": "عرض النص",
+        "fr": "Vue du texte"
+    },
+    "text_test": {
+        "en": "Text Test",
+        "ar": "اختبار النص",
+        "fr": "Test de texte"
+    },
+    "background_color": {
+        "en": "Background Color",
+        "ar": "لون الخلفية",
+        "fr": "Couleur de fond"
+    },
+    "background_view": {
+        "en": "Background View",
+        "ar": "عرض الخلفية",
+        "fr": "Vue de fond"
+    },
+    "background_test": {
+        "en": "Background Test",
+        "ar": "اختبار الخلفية",
+        "fr": "Test de fond"
+    },
+    "store_status": {
+        "en": "Store Status",
+        "ar": "حالة المتجر",
+        "fr": "Statut du magasin"
+    },
+    "pre_order": {
+        "en": "Pre Order",
+        "ar": "طلب مسبق",
+        "fr": "Pré-commande"
+    },
+    "store_location": {
+        "en": "Store Location",
+        "ar": "موقع المتجر",
+        "fr": "Emplacement du magasin"
+    },
+    "region": {
+        "en": "Region",
+        "ar": "المنطقة",
+        "fr": "Région"
+    },
+    "city": {
+        "en": "City",
+        "ar": "مدينة",
+        "fr": "Ville"
+    },
+    "quarter": {
+        "en": "Quarter",
+        "ar": "الحي",
+        "fr": "Quartier"
+    },
+    "post_code": {
+        "en": "Post Code",
+        "ar": "الرمز البريدي",
+        "fr": "Code postal"
+    },
+    "full_address": {
+        "en": "Full Address",
+        "ar": "العنوان بالكامل",
+        "fr": "Adresse complète"
+    },
+    "edit_location": {
+        "en": "Edit Location",
+        "ar": "تحرير الموقع",
+        "fr": "Modifier l'emplacement"
+    },
+    "store_logo": {
+        "en": "Store Logo",
+        "ar": "شعار المتجر",
+        "fr": "Logo du magasin"
+    },
+    "save_changes": {
+        "en": "Save Changes",
+        "ar": "حفظ التغييرات",
+        "fr": "Sauvegarder les modifications"
+    },
+    "close": {
+        "en": "Close",
+        "ar": "أغلق",
+        "fr": "Fermer"
+    },
+    "store_info_msg_1": {
+        "en": "Store Info Updated Successfully!",
+        "ar": "تم تحديث معلومات المتجر بنجاح!",
+        "fr": "Informations sur le magasin mises à jour avec succès !"
+    },
+    "store_info_msg_2": {
+        "en": "Do you want to back to Dashboard page ?",
+        "ar": "هل تريد العودة إلى صفحة لوحة التحكم؟",
+        "fr": "Voulez-vous revenir à la page du tableau de bord ?"
+    },
+    "store_info_msg_3": {
+        "en": "Do you want to change the address to",
+        "ar": "هل تريد تغيير العنوان إلى",
+        "fr": "Voulez-vous changer l'adresse en"
+    },
+    "image_problem": {
+        "en": "Problem in Image",
+        "ar": "مشكلة في الصورة",
+        "fr": "Problème dans l'image"
+    },
+    "update_save": {
+        "en": "Update Saved!",
+        "ar": "تم حفظ التحديث!",
+        "fr": "Mise à jour sauvegardée !"
+    },
+    "shop_header": {
+        "en": "Shop Header",
+        "ar": "رأس المتجر",
+        "fr": "En-tête de la boutique"
+    },
+    "offer_header": {
+        "en": "Offer Header",
+        "ar": "رأس العرض",
+        "fr": "En-tête de l'offre"
+    },
+    "order_header": {
+        "en": "Order Header",
+        "ar": "رأس الطلب",
+        "fr": "En-tête de la commande"
+    },
+    "cart_header": {
+        "en": "Cart Header",
+        "ar": "رأس السلة",
+        "fr": "En-tête du panier"
+    },
+    "checkout_header": {
+        "en": "Checkout Header",
+        "ar": "رأس الدفع",
+        "fr": "En-tête de paiement"
+    },
+    "status_changed": {
+        "en": "Status Changed",
+        "ar": "تم تغيير الحالة",
+        "fr": "Statut modifié"
+    },
+    "order_detail_message_1": {
+        "en": "Please Pick Location on the Maps",
+        "ar": "يرجى اختيار الموقع على الخرائط",
+        "fr": "Veuillez choisir l'emplacement sur les cartes"
+    },
+    "order_detail_message_2": {
+        "en": "Location Saved",
+        "ar": "تم حفظ الموقع",
+        "fr": "Emplacement enregistré"
+    },
+    "order_detail_message_3": {
+        "en": "Order Verified Successfully!",
+        "ar": "تم التحقق من الطلب بنجاح!",
+        "fr": "Commande vérifiée avec succès !"
+    },
+    "order_detail_message_4": {
+        "en": "Order Declined !",
+        "ar": "تم رفض الطلب!",
+        "fr": "Commande refusée !"
+    },
+    "changes_saved": {
+        "en": "Changes Saved",
+        "ar": "تم حفظ التغييرات",
+        "fr": "Modifications sauvegardées"
+    },
+    "client_details": {
+        "en": "Client Details",
+        "ar": "تفاصيل العميل",
+        "fr": "Détails du client"
+    },
+    "edit_headers": {
+        "en": "Edit Headers",
+        "ar": "تحرير العناوين",
+        "fr": "Modifier les en-têtes"
+    },
+    "offers_list": {
+        "en": "Offers List",
+        "ar": "قائمة العروض",
+        "fr": "Liste des offres"
+    },
+    "details": {
+        "en": "Details",
+        "ar": "التفاصيل",
+        "fr": "Détails"
+    },
+    "pending": {
+        "en": "Pending",
+        "ar": "قيد الانتظار",
+        "fr": "En attente"
+    },
+    "declined": {
+        "en": "Declined",
+        "ar": "مرفوض",
+        "fr": "Refusé"
+    },
+    "confirmed": {
+        "en": "Confirmed",
+        "ar": "مؤكد",
+        "fr": "Confirmé"
+    },
+    "shipped": {
+        "en": "Shipped",
+        "ar": "تم الشحن",
+        "fr": "Expédié"
+    },
+    "Delivered": {
+        "en": "Delivered",
+        "ar": "تم التوصيل",
+        "fr": "Livré"
+    },
+    "Canceled": {
+        "en": "Canceled",
+        "ar": "ملغاة",
+        "fr": "Annulée"
+    },
+    "dispute": {
+        "en": "Dispute",
+        "ar": "نزاع",
+        "fr": "Litige"
+    },
+    "return": {
+        "en": "Return",
+        "ar": "إرجاع",
+        "fr": "Retour"
+    },
+    "coming": {
+        "en": "coming",
+        "ar": "قادم",
+        "fr": "à venir"
+    },
+
+    "caisse_order_submit": {
+        "en": "Do you want to Submit this order?",
+        "ar": "هل ترغب في تقديم هذا الطلب؟",
+        "fr": "Voulez-vous soumettre cette commande ?"
+    },
+    "caisse_order_success": {
+        "en": "Order Submitted Successfully!",
+        "ar": "تم تقديم الطلب بنجاح!",
+        "fr": "Commande soumise avec succès !"
+    },
+    "print": {
+        "en": "Print",
+        "ar": "طباعة",
+        "fr": "Imprimer"
+    },
+    "all": {
+        "en": "All",
+        "ar": "الكل",
+        "fr": "Tout"
+    },
+    "selected_products": {
+        "en": "Selected Products",
+        "ar": "المنتجات المحددة",
+        "fr": "Produits sélectionnés"
+    },
+    "caisse_orders": {
+        "en": "Caisse Orders"
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    }
+
+
+}
