@@ -1151,10 +1151,14 @@
         "fr": "Produits sélectionnés"
     },
     "caisse_orders": {
-        "en": "Caisse Orders"
+        "en": "Caisse Orders",
+        "ar": "طلبات الكاشير",
+        "fr": "Commandes de caisse"
     },
-    "": {
-        "en": ""
+    "caisse": {
+        "en": "Caisse",
+        "ar": "كاونتر الدفع",
+        "fr": "la caisse"
     },
     "": {
         "en": ""

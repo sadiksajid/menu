@@ -42,6 +42,17 @@
                     <span class="side-menu__label"> {{ $translations['dashboard'] }}  </span></a>
             </li>
 
+            <li class="slide">
+                <a class="side-menu__item" href="{{ url('/admin/caisse') }}">
+                    <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24"
+                        width="24">
+                        <line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    </svg>
+                    <span class="side-menu__label"> {{ $translations['caisse'] }}  </span></a>
+            </li>
+
+
+
             <li class="slide mt-3">
                 <a class="side-menu__item" href="{{ url('/admin/products') }}">
                     <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 16 16 "
