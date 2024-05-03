@@ -3,8 +3,8 @@
 # /public/storage
 /bootstrap/cache/*.php
 
-# /storage/*.key
-storage/logs/*
+/storage/*.key
+/storage/logs
 /vendor
 /config/geoip/GeoLite2-City.mmdb
 .env.backup
