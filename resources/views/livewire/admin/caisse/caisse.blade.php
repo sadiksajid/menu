@@ -155,8 +155,33 @@
 
     $(document).ready(function() {
        
+        window.addEventListener('pdfRendered', event => {
+             var pdfData = event.detail.pdfData
+             console.log(pdfData)
+
+            //  console.log(pdfData)
+             // Create a Blob object from the PDF data
+             var win = window.open("", "_blank");
+            win.document.write("<iframe src='data:application/pdf;base64,"+pdfData+"' width='100%' height='100%'></iframe>");
+            win.focus();
+
+            
+             // Create a Blob object from the PDF data
+            //  const blob = new Blob([pdfData], { type: 'application/pdf' });
+            //     const url = URL.createObjectURL(blob);
+
+            //     // Open a new window with the PDF
+            //     const newWindow = window.open(url);
+
+            //     // When the window finishes loading, trigger the print dialog
+            //     newWindow.onload = function () {
+            //         newWindow.print();
+            //     };
+
+        });
+
+
         window.addEventListener('swip', event => {
-                console.log('ok')
 
                 // $(".list-card").each(function() {
                 //     var hammer = new Hammer(this);

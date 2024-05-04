@@ -180,6 +180,8 @@ return [
         // Intervention\Image\ImageServiceProvider::class,
         App\Providers\TranslationServiceProvider::class,
         App\Providers\TranslationAdminServiceProvider::class,
+        Milon\Barcode\BarcodeServiceProvider::class,
+
     ],
 
     /*
@@ -235,6 +237,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Location' => 'Stevebauman\Location\Facades\Location',
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
+        'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
         // 'Image' => Intervention\Image\Facades\Image::class,
     ],
 

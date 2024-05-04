@@ -6,8 +6,12 @@ use App\Models\CategoryToStore;
 use App\Models\OrderProducte;
 use App\Models\StoreOrder;
 use App\Models\StoreProduct;
+// use charlieuki\ReceiptPrinter\ReceiptPrinter as ReceiptPrinter;
+use DNS1D;
+use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Symfony\Component\Intl\Currencies;
@@ -172,8 +176,66 @@ class Caisse extends Component
 
     }
 
+    public function generateReceiptPDF()
+    {
+        // $pdf->stream('receipt_n_' . $order_id . '_' . $date . '.pdf');
+        $order_id = 123;
+        $date = now()->format('d-m-Y H:i');
+        $products = $this->getReceiptItems();
+        $barcode = DNS1D::getBarcodeHTML($order_id, 'C39+');
+
+        // Ensure $date is UTF-8 encoded
+        $date = utf8_encode($date);
+
+        $data = [
+            'items' => $products,
+            'barcode' => $barcode,
+            'date' => $date,
+            'order' => ['id' => $order_id, 'total_price' => array_sum(array_column($products, 'total'))],
+        ];
+
+        $pdf = new Dompdf();
+        $pdf->loadHtml(View::make('livewire.admin.caisse.receipt', $data));
+        $pdf->setPaper([0, 0, 226.77, 283.46], 'portrait'); // Set the paper size to match the width of an 80mm POS printer
+        $pdf->render();
+
+        // Instead of directly downloading the PDF, you can return it as a response
+        // $response = $pdf->stream();
+        // $response = $pdf->output();
+
+        // return $response;
+
+        // dd($pdf->output())
+        $this->dispatchBrowserEvent('pdfRendered', [
+            'pdfData' => base64_encode($pdf->output()),
+        ]);
+
+        // return response()->streamDownload(function () use ($pdf) {
+        //     echo $pdf->stream();
+        // }, 'name.pdf');
+
+    }
+
+    private function getReceiptItems()
+    {
+        $items = [];
+
+        foreach ($this->selected_products as $key => $product) {
+            $items[] = [
+                'name' => $product['title'],
+                'qty' => $this->selected_products_qty[$product['id']],
+                'price' => $product['price'],
+                'total' => $product['price'] * $this->selected_products_qty[$product['id']],
+            ];
+        }
+
+        return $items;
+    }
+
     public function confirmed()
     {
+
+        $this->generateReceiptPDF();
 
         if (count($this->selected_products) > 0) {
 
@@ -245,6 +307,7 @@ class Caisse extends Component
             'type' => 'success',
             'message' => $this->translations['caisse_order_success'],
         ]);
+        $this->generateReceiptPDF();
 
     }
 
