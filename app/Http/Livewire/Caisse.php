@@ -164,18 +164,6 @@ class Caisse extends Component
         $this->calculTotal();
     }
 
-    public function ValidCheckout()
-    {
-        if (count($this->selected_products) > 0) {
-            $this->dispatchBrowserEvent('swal:confirm', [
-                'type' => 'warning',
-                'title' => $this->translations['please_confirm'],
-                'message' => $this->translations['caisse_order_submit'],
-            ]);
-        }
-
-    }
-
     public function generateReceiptPDF()
     {
         // $pdf->stream('receipt_n_' . $order_id . '_' . $date . '.pdf');
@@ -192,6 +180,8 @@ class Caisse extends Component
             'barcode' => $barcode,
             'date' => $date,
             'order' => ['id' => $order_id, 'total_price' => array_sum(array_column($products, 'total'))],
+            'store' => ['name' => $this->store_info->title, 'logo' => $this->store_info->logo],
+            'currency' => $this->currency,
         ];
 
         $pdf = new Dompdf();
@@ -199,20 +189,9 @@ class Caisse extends Component
         $pdf->setPaper([0, 0, 226.77, 283.46], 'portrait'); // Set the paper size to match the width of an 80mm POS printer
         $pdf->render();
 
-        // Instead of directly downloading the PDF, you can return it as a response
-        // $response = $pdf->stream();
-        // $response = $pdf->output();
-
-        // return $response;
-
-        // dd($pdf->output())
         $this->dispatchBrowserEvent('pdfRendered', [
             'pdfData' => base64_encode($pdf->output()),
         ]);
-
-        // return response()->streamDownload(function () use ($pdf) {
-        //     echo $pdf->stream();
-        // }, 'name.pdf');
 
     }
 
@@ -230,6 +209,18 @@ class Caisse extends Component
         }
 
         return $items;
+    }
+
+    public function ValidCheckout()
+    {
+        if (count($this->selected_products) > 0) {
+            $this->dispatchBrowserEvent('swal:confirm', [
+                'type' => 'warning',
+                'title' => $this->translations['please_confirm'],
+                'message' => $this->translations['caisse_order_submit'],
+            ]);
+        }
+
     }
 
     public function confirmed()

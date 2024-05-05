@@ -6,12 +6,13 @@
         /* Define your CSS styles for the receipt */
         body {
             font-family: Arial, sans-serif;
-            font-size: 10px;
+            font-size: 12px;
             line-height: 1.2;
+            width: 70mm;
         }
 
         table {
-            width: 100%;
+            width: 70mm;
             border-collapse: collapse;
         }
 
@@ -28,7 +29,7 @@
 
         .store-name {
             text-align: center;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: bold;
             margin-bottom: 5px;
         }
@@ -53,20 +54,20 @@
 
         .thanks-msg {
             text-align: center;
-            font-size: 12px;
+            font-size: 14px;
             margin-bottom: 20px;
         }
 
         /* Add more CSS rules as needed */
     </style>
 </head>
-<body>
+<body style="margin-left:-7mm">
     <div class="logo">
-        <img src="path_to_your_logo.png" alt="Logo">
+        <img src="{{$store['logo']}}" alt="Logo">
     </div>
     
     <div class="store-name">
-        Your Store Name
+        {{ $store['name'] }}
     </div>
     
     <div class="order-info">
@@ -89,14 +90,14 @@
                     <td>{{ $item['name'] }}</td>
                     <td>{{ $item['qty'] }}</td>
                     <td>{{ $item['price'] }}</td>
-                    <td>{{ $item['qty'] * $item['price'] }}</td>
+                    <td>{{ $item['qty'] * $item['price'] }} {{$currency}}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
     
     <div class="total-price">
-        Total Price: {{ $order['total_price'] }}
+        Total Price: {{ $order['total_price'] }} {{$currency}}
     </div>
 
     <div class="barcode-container">
