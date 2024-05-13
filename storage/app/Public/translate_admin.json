@@ -1160,9 +1160,10 @@
         "ar": "كاونتر الدفع",
         "fr": "la caisse"
     },
-    "": {
-        "en": ""
+    "quartier": {
+        "en": "quartier",
+        "ar": "الحي",
+        "fr": "quartier"
     }
-
 
 }
