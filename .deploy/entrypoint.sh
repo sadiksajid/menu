@@ -18,6 +18,15 @@ echo "🎬 artisan commands"
 php artisan migrate --no-interaction --force
 # php artisan websocket:serve
 echo "🎬 start supervisord"
-php artisan optimize
+
+# 💡 Group into a custom command e.g. php artisan app:on-deploy
+# php artisan migrate --no-interaction --force
+php artisan storage:link
+php artisan cache:clear
+php artisan config:cache
 php artisan config:clear
+php artisan optimize
+sed -i  's/abort_unless(request()->hasValidSignature(), 401);//g' ../vendor/livewire/livewire/src/Controllers/FileUploadHandler.php
+
+
 supervisord -c $LARAVEL_PATH/.deploy/config/supervisor.conf

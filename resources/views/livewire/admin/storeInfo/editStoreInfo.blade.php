@@ -323,7 +323,7 @@
 
             <div class="col-12">
                 <div class="col-12">
-                    <button class="btn btn-success" wire:click="updateInfo"> {{ $translations['shop_header'] }} <i class="zmdi zmdi-save"
+                    <button class="btn btn-success" wire:click="updateInfo"> {{ $translations['save'] }} <i class="zmdi zmdi-save"
                             data-toggle="tooltip" title="" data-original-title="zmdi zmdi-save"></i></button>
                 </div>
             </div>
