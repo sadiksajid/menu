@@ -26,6 +26,7 @@ php artisan cache:clear
 php artisan config:cache
 php artisan config:clear
 php artisan optimize
+php artisan storage:link
 sed -i  's/abort_unless(request()->hasValidSignature(), 401);//g' ../vendor/livewire/livewire/src/Controllers/FileUploadHandler.php
 
 
