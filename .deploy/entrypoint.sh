@@ -29,7 +29,8 @@ php artisan optimize
 
 rm -rf /public/livewire-tmp
 mkdir /storege/app/Public
-mv /public/storage/* /storege/app/Public
+mv /public/Public/* /storege/app/Public
+rm -rf /public/Public
 rm -rf /public/storage
 
 php artisan storage:link

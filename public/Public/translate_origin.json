@@ -1,0 +1,215 @@
+{
+    "login": {
+      "en": "Login"
+    },
+    "sing_in": {
+        "en": "Sing In"
+      },
+    "logout": {
+      "en": "Logout"
+    },
+    "singup": {
+        "en": "Singup"
+    },
+    "home": {
+        "en": "Home"
+    },
+    "shop": {
+        "en": "Shop"
+    },
+    "menu": {
+        "en": "Menu"
+    },
+    "search": {
+        "en": "Search"
+    },
+    "read_more": {
+        "en": "Read More"
+    },
+    "see_more": {
+        "en": "See More"
+    },
+    "visit_our_shop": {
+        "en": "Visit Our Shop"
+    },
+    "address": {
+        "en": "Address"
+    },
+    "contact_us": {
+        "en": "Contact Us"
+    },
+    "opening_hours": {
+        "en": "Opening Hours"
+    },
+    "all_rights_reserved": {
+        "en": "All rights reserved"
+    },
+    "add_to_cart": {
+        "en": "Add To Cart"
+    },
+    "your_bag": {
+        "en": "Your Bag"
+    },
+    "cart": {
+        "en": "Cart"
+    },
+    "offer": {
+        "en": "Offer"
+    },
+    "remove": {
+        "en": "Remove"
+    },
+    "subtotal": {
+        "en": "Subtotal"
+    },
+    "checkout": {
+        "en": "Checkout"
+    },
+    "store": {
+        "en": "Store"
+    },
+    "load_more": {
+        "en": "Load More"
+    },
+    "image": {
+        "en": "Image"
+    },
+    "product_name": {
+        "en": "Product Name"
+    },
+    "price": {
+        "en": "Price"
+    },
+    "quantity": {
+        "en": "Quantity"
+    },
+    "actions": {
+        "en": "Actions"
+    },
+    "total": {
+        "en": "Total"
+    },
+    "total_price": {
+        "en": "Total Price"
+    },
+    "continue_shopping": {
+        "en": "Continue Shopping"
+    },
+    "loading": {
+        "en": "loading"
+    },
+    "billing_details": {
+        "en": "Billing Details"
+    },
+    "first_name": {
+        "en": "First Name"
+    },
+    "last_name": {
+        "en": "Last Name"
+    },
+    "phone": {
+        "en": "Phone"
+    },
+    "email": {
+        "en": "Email"
+    },
+    "password": {
+        "en": "Password"
+    },
+    "password_meta": {
+        "en": "To keep your data safe"
+    },
+    "repeat_password": {
+        "en": "Repeat Password"
+    },
+    "next": {
+        "en": "Next"
+    },
+    "sellect_address": {
+        "en": "Sellect Address"
+    },
+    "new_address": {
+        "en": "New Address"
+    },
+    "town_city": {
+        "en": "Town/City"
+    },
+    "quarter": {
+        "en": "Quarter"
+    },
+    "use": {
+        "en": "Use"
+    },
+    "you_have_to_select_one_address": {
+        "en": "You have to select One address"
+    },
+    "time": {
+        "en": "Time"
+    },
+    "comment": {
+        "en": "Comment"
+    },
+    "shipping": {
+        "en": "Shipping"
+    },
+    "im_coming": {
+        "en": "I'm Coming"
+    },
+    "cod": {
+        "en": "Cash On Delivery"
+    },
+    "product": {
+        "en": "Product"
+    },
+    "place_order": {
+        "en": "Place Order"
+    },
+    "ship_it_to_me": {
+        "en": "Ship it to me"
+    },
+    "cart_is_empty": {
+        "en": "Cart is Empty!"
+    },
+    "order_submit_success": {
+        "en": "Order  Submitted  Successfully!"
+    },
+    "login_error": {
+        "en": "Phone Or Password Incorrect!"
+    },
+    "my_orders": {
+        "en": "My Orders"
+    },
+    "order": {
+        "en": "Order"
+    },
+    "type": {
+        "en": "Type"
+    },
+    "status": {
+        "en": "Status"
+    },
+    "previous": {
+        "en": "Previous"
+    },
+    "buy_now": {
+        "en": "Buy Now"
+    },
+    "product_details": {
+        "en": "Product Details"
+    },
+    "share_it": {
+        "en": "Share it"
+    },
+    "add_to_wishList": {
+        "en": "Add To WishList"
+    },
+    "off": {
+        "en": "Off"
+    },
+    "offer_products": {
+        "en": "Offer Products"
+    },
+    "offer_details": {
+        "en": "Offer Details"
+    }
+}
