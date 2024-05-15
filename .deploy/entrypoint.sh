@@ -26,6 +26,12 @@ php artisan cache:clear
 php artisan config:cache
 php artisan config:clear
 php artisan optimize
+
+rm -rf /public/livewire-tmp
+mkdir /storege/app/Public
+mv /public/storage/* /storege/app/Public
+rm -rf /public/storage
+
 php artisan storage:link
 sed -i  's/abort_unless(request()->hasValidSignature(), 401);//g' ../vendor/livewire/livewire/src/Controllers/FileUploadHandler.php
 
