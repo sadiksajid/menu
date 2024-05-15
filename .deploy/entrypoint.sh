@@ -9,9 +9,9 @@ echo "🎬 entrypoint.sh: [$(whoami)] [PHP $(php -r 'echo phpversion();')]"
 # find $LARAVEL_PATH/storage -type d -exec chmod 755 {} \;
 # find $LARAVEL_PATH/storage -type f -exec chmod 755 {} \;
 
-mkdir /storege/app/Public
-mv /public/Public/* /storege/app/Public
-rm -rf /public/Public
+mkdir ../storege/app/Public
+mv ../public/Public/* ../storege/app/Public
+rm -rf ../public/Public
 
 composer dump-autoload --no-interaction --no-dev --optimize
 
@@ -30,9 +30,9 @@ php artisan config:cache
 php artisan config:clear
 php artisan optimize
 
-rm -rf /public/livewire-tmp
+rm -rf ../public/livewire-tmp
 
-rm -rf /public/storage
+rm -rf ../public/storage
 
 php artisan storage:link
 sed -i  's/abort_unless(request()->hasValidSignature(), 401);//g' ../vendor/livewire/livewire/src/Controllers/FileUploadHandler.php
