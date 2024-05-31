@@ -107,5 +107,14 @@
     <div class="thanks-msg">
         Thank you for your purchase!
     </div>
+
+    <div class="barcode-container">
+        <div class="barcode">
+            {!! $qr_code !!}
+        </div>
+    </div>
+    <div class="thanks-msg">
+       Scan the QR code and join us <br> next sunday to Goodfohealth pullUp Competition! 
+    </div>
 </body>
 </html>

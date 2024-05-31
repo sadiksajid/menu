@@ -242,6 +242,19 @@ Route::group(['middleware' => ['fw-block-blacklisted', 'fw-block-attacks', 'web'
         return view('livewire.checkout.checkout_route');
     });
 
+    Route::get('/to_competition', function () {
+        $store_info = Store::where('store_meta', env('STOR_NAME'))->first();
+        if (!empty($store_info)) {
+            if ($store_info->status == 1) {
+                return view('livewire.index1.index_route', ['scroll' => true]);
+            } else {
+                return view('desabled');
+            }
+        } else {
+            return view('404');
+        }
+    })->name('to_competition');
+
     Route::get('/', function () {
         $store_info = Store::where('store_meta', env('STOR_NAME'))->first();
         if (!empty($store_info)) {

@@ -41,11 +41,14 @@ class IndexHome extends Component
     public $translations_resto;
     public $qr_code = null;
     public $user_details = null;
+    public $scroll = false;
 
     protected $listeners = ['indexRender' => 'renderComponent'];
 
-    public function mount()
+    public function mount($scroll = false)
     {
+        $this->scroll = $scroll;
+
         $json = app('translations');
         $this->translations = $json['system'];
         $this->translations_resto = $json['resto'];

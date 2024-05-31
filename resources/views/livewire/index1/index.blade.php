@@ -215,7 +215,7 @@
     </div>
     <!--/call_section-->
     
-    <div class="pattern_2">
+    <div class="pattern_2" id='competition_form'>
         <div class="container margin_120_100 pb-0">
             <div class="row justify-content-center">
                 <div class="col-lg-6 text-center d-none d-lg-block" data-cue="slideInUp" wire:ignore>
@@ -452,4 +452,16 @@
     
     });
 </script>
+@if($scroll)
+    <script>
+
+        $(document).ready(function(){
+                $('html, body').animate({
+                    scrollTop: $("#competition_form").offset().top
+                }, 2000); // The duration (1000) is in milliseconds
+            
+        });
+    </script>
+    
+@endif
 @endsection

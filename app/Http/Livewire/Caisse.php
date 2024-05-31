@@ -8,6 +8,7 @@ use App\Models\StoreOrder;
 use App\Models\StoreProduct;
 // use charlieuki\ReceiptPrinter\ReceiptPrinter as ReceiptPrinter;
 use DNS1D;
+use DNS2D;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -171,6 +172,7 @@ class Caisse extends Component
         $date = now()->format('d-m-Y H:i');
         $products = $this->getReceiptItems();
         $barcode = DNS1D::getBarcodeHTML($order_id, 'C39+');
+        $qr_code = DNS2D::getBarcodeHTML(url('/to_competition'), 'QRCODE', 5, 5);
 
         // Ensure $date is UTF-8 encoded
         $date = utf8_encode($date);
@@ -183,6 +185,7 @@ class Caisse extends Component
         $data = [
             'items' => $products,
             'barcode' => $barcode,
+            'qr_code' => $qr_code,
             'date' => $date,
             'order' => ['id' => $order_id, 'total_price' => array_sum(array_column($products, 'total'))],
             'store' => ['name' => $this->store_info->title, 'logo' => $this->store_info->logo],

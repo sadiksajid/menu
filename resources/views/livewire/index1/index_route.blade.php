@@ -4,7 +4,7 @@
 @section('content')
     <div>
 
-        @livewire('index-home')
+        @livewire('index-home',['scroll'=>$scroll ?? false])
 
     </div>
 @endsection
