@@ -102,6 +102,7 @@ return [
         public_path('storage/offer_images') => storage_path('app/Public/offer_images'),
         public_path('storage/pdf') => storage_path('app/Public/pdf'),
         public_path('livewire-tmp') => storage_path('app/livewire-tmp'),
+        public_path('storage/receipts') => storage_path('app/receipts'),
 
     ],
     // after that run php artisan storage:link

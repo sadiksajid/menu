@@ -214,14 +214,14 @@
         </div>
     </div>
     <!--/call_section-->
-{{--     
+    
     <div class="pattern_2">
         <div class="container margin_120_100 pb-0">
             <div class="row justify-content-center">
-                <div class="col-lg-6 text-center d-none d-lg-block" data-cue="slideInUp">
+                <div class="col-lg-6 text-center d-none d-lg-block" data-cue="slideInUp" wire:ignore>
 
-                    @if (isset($images['img_8']))
-                    <img src="{{ get_image($images['img_8'])}}" width="420" height="770" alt=""
+                    @if (isset($competition_img))
+                    <img src="{{ get_image($competition_img ?? '') }}" width="420" height="770" alt=""
                         class="img-fluid">
                     @else
                     <img src="{{ URL::asset('index1/img/chef.png') }}" width="420" height="770" alt=""
@@ -229,18 +229,30 @@
                     @endif
 
                 </div>
-                <div class="col-lg-6 col-md-8" data-cue="slideInUp">
+                <div class="col-lg-6 col-md-8" >
                     <div class="main_title">
                         <span><em></em></span>
-                        <h2>Reserve a table</h2>
-                        <p>or Call us at 0344 32423453</p>
+                        <h2>{{$translations_resto['competition_join']}}</h2>
+                        <p>{{$translations_resto['competition_join_text']}}</p>
+
                     </div>
                     <div id="wizard_container">
-                        <form id="wrapped" method="POST">
+                        @if ( $this->qr_code )
+                        <center>
+                            <h1>{{$translations_resto['competition_thanks']}}</h1>
+                            <h4>{{$translations_resto['competition_thanks_msg']}}</h4>
+                            {!! $qr_code !!}
+
+
+                            <button type="button" name="process" class="submit mt-4" wire:click="DownloadQR()"  style='background-color:{{$store_info->btn_color}}' wire:loading.remove > {{$translations_resto['competition_qrcode']}}</button>
+                            <button type="button" name="process" class="submit mt-4 d-none"  style='background-color:{{$store_info->btn_color}}' wire:loading.class.remove="d-none"  {{$translations['downloading']}}  ...</button>
+                            
+                        </center>
+                        @else
                             <input id="website" name="website" type="text" value="">
                             <!-- Leave for security protection, read docs for details -->
                             <div id="middle-wizard">
-                                <div class="step">
+                                {{-- <div class="step">
                                     <h3 class="main_question"><strong>1/3</strong> Please Select a date</h3>
                                     <div class="form-group">
                                         <input type="hidden" name="datepicker_field" id="datepicker_field"
@@ -329,53 +341,66 @@
                                         <!-- /people_select -->
                                     </div>
                                     <!-- /step_wrapper -->
-                                </div>
+                                </div> --}}
                                 <!-- /step-->
                                 <div class="submit step">
-                                    <h3 class="main_question"><strong>3/3</strong> Please fill with your
-                                        details</h3>
+                                    <h3 class="main_question">{{$translations_resto['competition_fill_detais']}}</h3>
                                     <div class="form-group">
                                         <input type="text" name="name_reserve" class="form-control required"
-                                            placeholder="First and Last Name">
+                                            placeholder="{{$translations['fullname']}}" style='background-color: white;' wire:model.defer='fullname'>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-6">
+                                        {{-- <div class="col-lg-6">
                                             <div class="form-group">
                                                 <input type="email" name="email_reserve" class="form-control required"
                                                     placeholder="Your Email">
                                             </div>
-                                        </div>
-                                        <div class="col-lg-6">
+                                        </div> --}}
+                                        <div class="col-lg-12">
                                             <div class="form-group">
                                                 <input type="text" name="telephone_reserve"
-                                                    class="form-control required" placeholder="Your Telephone">
+                                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
+                                                    class="form-control required" placeholder="{{$translations['phone']}}" style='background-color: white;' wire:model.defer='phone'>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <textarea class="form-control" name="opt_message_reserve"
                                             placeholder="Please provide any additional info"></textarea>
-                                    </div>
-                                    <div class="form-group terms">
+                                    </div> --}}
+                                    {{-- <div class="form-group terms">
                                         <label class="container_check">Please accept our <a href="#"
                                                 data-bs-toggle="modal" data-bs-target="#terms-txt">Terms and
                                                 conditions</a>
                                             <input type="checkbox" name="terms" value="Yes" class="required">
                                             <span class="checkmark"></span>
                                         </label>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <!-- /step-->
+                                <div class="col-12">
+                                    @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                            <li>OMG!!! {{ $error }} Fix that!!!</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    @endif
+                                </div>
                             </div>
                             <!-- /middle-wizard -->
                             <div id="bottom-wizard">
-                                <button type="button" name="backward" class="backward">Prev</button>
-                                <button type="button" name="forward" class="forward">Next</button>
-                                <button type="submit" name="process" class="submit">Submit</button>
+                                {{-- <button type="button" name="backward" class="backward">Prev</button>
+                                <button type="button" name="forward" class="forward">Next</button> --}}
+                                <button type="button" name="process" class="submit" wire:click="CompetitionRegister()"  style='background-color:{{$store_info->btn_color}}' wire:loading.remove>{{$translations_resto['competition_coming']}}</button>
+                                <button type="button" name="process" class="submit d-none"  style='background-color:{{$store_info->btn_color}}'  wire:loading.class.remove="d-none">{{$translations['saving']}} ...</button>
                             </div>
+
+                            @endif
                             <!-- /bottom-wizard -->
-                        </form>
                     </div>
                     <!-- /Wizard container -->
                 </div>
@@ -384,7 +409,7 @@
         </div>
         <!-- /container -->
     </div>
-    <!-- /pattern_2 --> --}}
+    <!-- /pattern_2 -->
     <div class="pattern_2">
         <div class="container margin_120_100 pb-0">
             <div class="row justify-content-center" style="margin-bottom: 100px">
@@ -416,6 +441,15 @@
             videoTrigger: $("#video-trigger"),
             autoPlayVideo: true
         });
+
+        window.addEventListener('swal:modal', event => {
+        Swal.fire({
+            title: event.detail.message,
+            text: event.detail.text,
+            icon: event.detail.type,
+        });
+    });
+    
     });
 </script>
 @endsection

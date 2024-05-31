@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,12 +8,11 @@
             font-family: Arial, sans-serif;
             font-size: 12px;
             line-height: 1.2;
-            margin-left: -12mm;
             margin-top: -10mm;
         }
 
         table {
-            width: 70mm;
+            width: 100%;
             border-collapse: collapse;
         }
 
@@ -69,43 +69,19 @@
     </div>
     
     <div class="order-info">
-        Order ID: {{ $order['id'] }}<br>
-        Date/Time: {{ $date }}
-    </div>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Qty</th>
-                <th>Price</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($items as $item)
-                <tr>
-                    <td>{{ $item['name'] }}</td>
-                    <td>{{ $item['qty'] }}</td>
-                    <td>{{ $item['price'] }}</td>
-                    <td>{{ $item['qty'] * $item['price'] }} {{ $currency }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-    
-    <div class="total-price">
-        Total Price: {{ $order['total_price'] }} {{ $currency }}
+        <h3> Name : {{ $data['name'] }}</h3>
+        <h3> Phone: {{ $data['phone'] }}</h3>
+        <h3>Date: {{ $date }}</h3>
     </div>
 
     <div class="barcode-container">
         <div class="barcode">
-            {!! $barcode !!}
+            {!! $qrcode !!}
         </div>
     </div>
 
     <div class="thanks-msg">
-        Thank you for your purchase!
+        <h2>Welcome to the competition!</h2>
     </div>
 </body>
 </html>

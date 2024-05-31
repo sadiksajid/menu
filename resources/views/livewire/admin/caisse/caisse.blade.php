@@ -132,20 +132,22 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6">
-                        <button class="btn btn-dark btn-lg" style="width:100%" wire:click="ValidCheckout()">{{$translations['checkout']}} <i
+                    <div class="col-12">
+                        <button class="btn btn-dark btn-lg" style="width:100%" wire:click="ValidCheckout()" id='checkout'>{{$translations['checkout']}} <i
                                 class="fe fe-dollar-sign me-1 d-inline-flex"></i>
 
                         </button>
                     </div>
-                    <div class="col-6">
+                    {{-- <div class="col-6">
                         <button class="btn btn-info btn-lg " style="width:100%">{{$translations['print']}}  <i
                                 class="fe fe-printer me-1 d-inline-flex"></i></button>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
     </div>
+    <a  href="#" class="d-none " id='wait_print'  ></a>
+
 </div>
 @section('js')
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -154,29 +156,70 @@
 
 
     $(document).ready(function() {
-       
-        window.addEventListener('pdfRendered', event => {
-             var pdfData = event.detail.pdfData
-             console.log(pdfData)
 
-            //  console.log(pdfData)
-             // Create a Blob object from the PDF data
-             var win = window.open("", "_blank");
-            win.document.write("<iframe src='data:application/pdf;base64,"+pdfData+"' width='100%' height='100%'></iframe>");
-            win.focus();
+        window.addEventListener('pdfRendered', event => {
 
             
-             // Create a Blob object from the PDF data
-            //  const blob = new Blob([pdfData], { type: 'application/pdf' });
-            //     const url = URL.createObjectURL(blob);
+            var url = event.detail.url;
+            
+            $("#wait_print").attr("href", url);
 
-            //     // Open a new window with the PDF
-            //     const newWindow = window.open(url);
+            $('#wait_print').addClass("print_python");
 
-            //     // When the window finishes loading, trigger the print dialog
-            //     newWindow.onload = function () {
-            //         newWindow.print();
-            //     };
+            // var pdfData = event.detail.pdfData;
+            // // Decode the base64 string to binary data
+            // var binary = atob(pdfData);
+            // var len = binary.length;
+            // var buffer = new ArrayBuffer(len);
+            // var view = new Uint8Array(buffer);
+
+            // for (var i = 0; i < len; i++) {
+            //     view[i] = binary.charCodeAt(i);
+            // }
+
+            // // Create a Blob object from the binary data
+            // var blob = new Blob([view], { type: 'application/pdf' });
+            // var url = URL.createObjectURL(blob);
+
+            // console.log(blob,view,url)
+
+            ////////////////////////////////////////////
+
+
+
+            // // Open a new window and write an iframe to display the PDF
+            // var win = window.open("", "_blank");
+            // win.document.write("<iframe src='" + url + "' width='100%' height='100%'></iframe>");
+            // win.focus();
+
+            
+            // var pdfData = event.detail.pdfData;
+            // console.log(pdfData);
+
+            // // Decode the base64 string to binary data
+            // var binary = atob(pdfData);
+            // var len = binary.length;
+            // var buffer = new ArrayBuffer(len);
+            // var view = new Uint8Array(buffer);
+
+            // for (var i = 0; i < len; i++) {
+            //     view[i] = binary.charCodeAt(i);
+            // }
+
+            // // Create a Blob object from the binary data
+            // var blob = new Blob([view], { type: 'application/pdf' });
+            // var url = URL.createObjectURL(blob);
+
+            // // Create an iframe to embed the PDF
+            // var iframe = document.createElement('iframe');
+            // iframe.style.display = 'none';
+            // iframe.src = url;
+            // document.body.appendChild(iframe);
+
+            // iframe.onload = function() {
+            //     // Wait for the iframe to load, then trigger the print dialog
+            //     iframe.contentWindow.print();
+            // };
 
         });
 

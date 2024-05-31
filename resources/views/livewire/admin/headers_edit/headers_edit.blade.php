@@ -518,6 +518,179 @@
                             </div>
                         </div>
                         {{-- ///////////////////////////////////////////////////////////////////////////// --}}
+
+                        {{-- ///////////////////////////////////////////////////////////////////////////// --}}
+                        <div class="col-12">
+                            <div class="e-panel card">
+                                <div class="card-header">
+                                    <h3 class="card-title">{{ $translations['competition_header'] }} </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        @isset ($upload_image['competition_header'])
+                                        <div class="col-12">
+
+                                            <div class="dropify-wrapper" style="height: auto">
+                                                @if ($to_delete_image_tm == 'competition_header')
+                                                <button style="position: absolute;margin-left: 10px;"
+                                                    class="btn-sm btn-success mt-2"
+                                                    wire:click.prevent="delete_image_tm('competition_header')"><i
+                                                        class="fa fa-check" data-toggle="tooltip"></i></button>
+                                                <button style="position: absolute;margin-left: 50px;"
+                                                    class="btn-sm btn-danger mt-2"
+                                                    wire:click.prevent="no_delete_image_tm('competition_header')"><i
+                                                        class="fa fa-times" data-toggle="tooltip" title=""
+                                                        data-original-title="fa fa-times"></i></button>
+                                                @else
+                                                <button style="position: absolute;margin-left: 10px;"
+                                                    class="btn-sm btn-danger mt-2"
+                                                    wire:click.prevent="to_delete_image_tm('competition_header')"><i
+                                                        class="fa fa-trash-o" data-toggle="tooltip" title=""
+                                                        data-original-title="fa fa-trash-o"></i></button>
+
+                                                @endif
+
+                                                <img src="{{ request()->getSchemeAndHttpHost() }}/livewire-tmp/{{ $upload_image['competition_header']->getFileName() }}"
+                                                    style="height: 100%;width:100%">
+
+                                            </div>
+                                        </div>
+                                        @elseif ($images_competition_header)
+                                        <div class="col-12">
+
+                                            <div class="dropify-wrapper" style="height: auto">
+                                                @if ($to_delete_image_edit == 'competition_header')
+                                                <button style="position: absolute;margin-left: 10px;"
+                                                    class="btn-sm btn-success mt-2"
+                                                    wire:click.prevent="delete_image_edit('competition_header')"><i
+                                                        class="fa fa-check" data-toggle="tooltip"></i></button>
+                                                <button style="position: absolute;margin-left: 50px;"
+                                                    class="btn-sm btn-danger mt-2"
+                                                    wire:click.prevent="no_delete_image_edit('competition_header')"><i
+                                                        class="fa fa-times" data-toggle="tooltip" title=""
+                                                        data-original-title="fa fa-times"></i></button>
+                                                @else
+                                                <button style="position: absolute;margin-left: 10px;"
+                                                    class="btn-sm btn-danger mt-2"
+                                                    wire:click.prevent="to_delete_image_edit('competition_header')"><i
+                                                        class="fa fa-trash-o" data-toggle="tooltip" title=""
+                                                        data-original-title="fa fa-trash-o"></i></button>
+
+                                                @endif
+                                                <img src="{{ get_image($images_competition_header) }}"
+                                                    style="height: 100%;width:100%">
+
+                                            </div>
+                                        </div>
+                                        @else
+                                        <div class="col-12">
+
+                                            <div class="dropify-wrapper" style="height: 210px">
+
+                                                <img src="{{ URL::asset('assets/images/small_site_logo.png') }}"
+                                                    style="height: 100%;width:100%">
+                                                <div class="dropify-loader">
+
+                                                </div>
+
+                                                <input type="file" class="dropify" wire:model="upload_image.competition_header"
+                                                    data-height="210px">
+                                                <div wire:loading wire:target="upload_image">{{ $translations['uploading'] }}...</div>
+
+                                            </div>
+                                        </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- ///////////////////////////////////////////////////////////////////////////// --}}
+                         {{-- ///////////////////////////////////////////////////////////////////////////// --}}
+                         <div class="col-12">
+                            <div class="e-panel card">
+                                <div class="card-header">
+                                    <h3 class="card-title">{{ $translations['competition_home'] }} </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        @isset ($upload_image['competition_home'])
+                                        <div class="col-12">
+
+                                            <div class="dropify-wrapper" style="height: auto">
+                                                @if ($to_delete_image_tm == 'competition_home')
+                                                <button style="position: absolute;margin-left: 10px;"
+                                                    class="btn-sm btn-success mt-2"
+                                                    wire:click.prevent="delete_image_tm('competition_home')"><i
+                                                        class="fa fa-check" data-toggle="tooltip"></i></button>
+                                                <button style="position: absolute;margin-left: 50px;"
+                                                    class="btn-sm btn-danger mt-2"
+                                                    wire:click.prevent="no_delete_image_tm('competition_home')"><i
+                                                        class="fa fa-times" data-toggle="tooltip" title=""
+                                                        data-original-title="fa fa-times"></i></button>
+                                                @else
+                                                <button style="position: absolute;margin-left: 10px;"
+                                                    class="btn-sm btn-danger mt-2"
+                                                    wire:click.prevent="to_delete_image_tm('competition_home')"><i
+                                                        class="fa fa-trash-o" data-toggle="tooltip" title=""
+                                                        data-original-title="fa fa-trash-o"></i></button>
+
+                                                @endif
+
+                                                <img src="{{ request()->getSchemeAndHttpHost() }}/livewire-tmp/{{ $upload_image['competition_home']->getFileName() }}"
+                                                    style="height: 100%;width:100%">
+
+                                            </div>
+                                        </div>
+                                        @elseif ($images_competition_home)
+                                        <div class="col-12">
+
+                                            <div class="dropify-wrapper" style="height: auto">
+                                                @if ($to_delete_image_edit == 'competition_home')
+                                                <button style="position: absolute;margin-left: 10px;"
+                                                    class="btn-sm btn-success mt-2"
+                                                    wire:click.prevent="delete_image_edit('competition_home')"><i
+                                                        class="fa fa-check" data-toggle="tooltip"></i></button>
+                                                <button style="position: absolute;margin-left: 50px;"
+                                                    class="btn-sm btn-danger mt-2"
+                                                    wire:click.prevent="no_delete_image_edit('competition_home')"><i
+                                                        class="fa fa-times" data-toggle="tooltip" title=""
+                                                        data-original-title="fa fa-times"></i></button>
+                                                @else
+                                                <button style="position: absolute;margin-left: 10px;"
+                                                    class="btn-sm btn-danger mt-2"
+                                                    wire:click.prevent="to_delete_image_edit('competition_home')"><i
+                                                        class="fa fa-trash-o" data-toggle="tooltip" title=""
+                                                        data-original-title="fa fa-trash-o"></i></button>
+
+                                                @endif
+                                                <img src="{{ get_image($images_competition_home) }}"
+                                                    style="height: 100%;width:100%">
+
+                                            </div>
+                                        </div>
+                                        @else
+                                        <div class="col-12">
+
+                                            <div class="dropify-wrapper" style="height: 210px">
+
+                                                <img src="{{ URL::asset('assets/images/small_site_logo.png') }}"
+                                                    style="height: 100%;width:100%">
+                                                <div class="dropify-loader">
+
+                                                </div>
+
+                                                <input type="file" class="dropify" wire:model="upload_image.competition_home"
+                                                    data-height="210px">
+                                                <div wire:loading wire:target="upload_image">{{ $translations['uploading'] }}...</div>
+
+                                            </div>
+                                        </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- ///////////////////////////////////////////////////////////////////////////// --}}
                     </div>
 
                 </div>

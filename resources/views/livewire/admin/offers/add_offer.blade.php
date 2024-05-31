@@ -16,7 +16,7 @@
                         <div class="col-12">
                             <div class="e-panel card">
                                 <div class="card-header">
-                                    <h3 class="card-title">{{ $translations['offer_roducts'] }} </h3>
+                                    <h3 class="card-title">{{ $translations['offer_roducts'] ?? '[]' }} </h3>
                                     <span class="badge badge-warning" role="button" style="right: 10px;position: absolute;color: black;" >
                                        <h4 class="mb-0"><strong>{{ strtoupper($translations['total']) }} : {{array_sum(array_column($selected_products_info, 'total'));}} {{$currency}}</strong></h4>
                                     </span>

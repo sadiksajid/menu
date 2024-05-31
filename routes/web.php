@@ -268,6 +268,10 @@ Route::group(['middleware' => ['fw-block-blacklisted', 'fw-block-attacks', 'web'
         }
     });
 
+    Route::get('/competition/{id?}', function ($id = null) {
+        return view('livewire.competition.competition_route', ['id' => $id]);
+    });
+
     Route::get('/login', 'Auth\LoginController@showLoginForm')->name('show-login');
     Route::post('/login', 'Auth\LoginController@login')->name('login');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');

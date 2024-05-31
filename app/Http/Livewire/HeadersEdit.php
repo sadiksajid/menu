@@ -37,6 +37,12 @@ class HeadersEdit extends Component
     public $images_checkout;
     public $old_data = [];
 
+    public $competition_header;
+    public $images_competition_header;
+
+    public $competition_home;
+    public $images_competition_home;
+
     public $store_id;
     public $store_info;
 
@@ -62,7 +68,7 @@ class HeadersEdit extends Component
 
         $this->store_id = Auth::user()->store_id;
         $this->store_info = Auth::user()->store;
-        $this->data = Index::where('store_id', $this->store_id)->whereIn('name', ['shop1', 'offers1', 'orders1', 'cart1', 'checkout1'])->get();
+        $this->data = Index::where('store_id', $this->store_id)->whereIn('name', ['shop1', 'offers1', 'orders1', 'cart1', 'checkout1', 'competition_header1', 'competition_home1'])->get();
 
         if (!empty($this->data)) {
             $this->shop = $this->data->where('name', 'shop1')->first();
@@ -70,6 +76,9 @@ class HeadersEdit extends Component
             $this->orders = $this->data->where('name', 'orders1')->first();
             $this->cart = $this->data->where('name', 'cart1')->first();
             $this->checkout = $this->data->where('name', 'checkout1')->first();
+            $this->competition_header = $this->data->where('name', 'competition_header1')->first();
+            $this->competition_home = $this->data->where('name', 'competition_home1')->first();
+
         }
 
         if (!empty($this->shop)) {
@@ -141,6 +150,18 @@ class HeadersEdit extends Component
             $this->images_checkout = json_decode($this->images_checkout, true);
             $this->images_checkout = $this->images_checkout['img_1'] ?? null;
         }
+        if (!empty($this->competition_header)) {
+
+            $this->images_competition_header = $this->competition_header->images;
+            $this->images_competition_header = json_decode($this->images_competition_header, true);
+            $this->images_competition_header = $this->images_competition_header['img_1'] ?? null;
+        }
+        if (!empty($this->competition_home)) {
+
+            $this->images_competition_home = $this->competition_home->images;
+            $this->images_competition_home = json_decode($this->images_competition_home, true);
+            $this->images_competition_home = $this->images_competition_home['img_1'] ?? null;
+        }
     }
 
     public function render()
@@ -195,6 +216,12 @@ class HeadersEdit extends Component
                     break;
                 case 'cart':
                     $this->images_cart = '';
+                    break;
+                case 'competition_header':
+                    $this->images_competition_header = '';
+                    break;
+                case 'competition_home':
+                    $this->images_competition_home = '';
                     break;
 
             }
@@ -434,6 +461,73 @@ class HeadersEdit extends Component
             }
             $checkout->store_id = $this->store_id;
             $checkout->save();
+        }
+        /////////////////////////////////////////////////////////////
+
+        $images = [];
+        if (!empty($this->upload_image['competition_header'])) {
+            $img_link = 'competition_header1_' . md5(microtime()) . '.webp';
+            $image = File::get($this->upload_image['competition_header']->getRealPath());
+            $save_result = save_livewire_filetocdn($image, 'competition_header1', $img_link);
+            $img_link = 'competition_header1/' . $img_link;
+
+            if ($save_result) {
+                $images['img_1'] = $img_link;
+            }
+
+        }
+
+        if (!isset($this->competition_header)) {
+
+            $competition_header = new Index();
+            $competition_header->language = 'EN';
+            $competition_header->name = 'competition_header1';
+
+        } elseif (!empty($this->upload_image['competition_header'])) {
+            $competition_header = Index::where('store_id', $this->store_id)->where('name', 'competition_header1')->first();
+
+        }
+
+        if (isset($competition_header)) {
+            if (isset($images['img_1'])) {
+                $competition_header->images = json_encode($images);
+            }
+            $competition_header->store_id = $this->store_id;
+            $competition_header->save();
+        }
+
+        /////////////////////////////////////////////////////////////
+
+        $images = [];
+        if (!empty($this->upload_image['competition_home'])) {
+            $img_link = 'competition_home1_' . md5(microtime()) . '.webp';
+            $image = File::get($this->upload_image['competition_home']->getRealPath());
+            $save_result = save_livewire_filetocdn($image, 'competition_home1', $img_link);
+            $img_link = 'competition_home1/' . $img_link;
+
+            if ($save_result) {
+                $images['img_1'] = $img_link;
+            }
+
+        }
+
+        if (!isset($this->competition_home)) {
+
+            $competition_home = new Index();
+            $competition_home->language = 'EN';
+            $competition_home->name = 'competition_home1';
+
+        } elseif (!empty($this->upload_image['competition_home'])) {
+            $competition_home = Index::where('store_id', $this->store_id)->where('name', 'competition_home')->first();
+
+        }
+
+        if (isset($competition_home)) {
+            if (isset($images['img_1'])) {
+                $competition_home->images = json_encode($images);
+            }
+            $competition_home->store_id = $this->store_id;
+            $competition_home->save();
         }
 
         $this->dispatchBrowserEvent('swal:modal', [
