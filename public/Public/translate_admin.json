@@ -1164,6 +1164,25 @@
         "en": "quartier",
         "ar": "الحي",
         "fr": "quartier"
+    },
+    "fullname": {
+        "en": "Fullname",
+        "ar": "الاسم الكامل",
+        "fr": "Nom complet"
+    },
+    "downloading": {
+        "en": "Downloading",
+        "ar": "جارٍ التنزيل",
+        "fr": "Téléchargement"
+    },
+    "competition_header": {
+        "en": "Competition Page",
+        "ar": "صفحة المنافسة",
+        "fr": "Page de la compétition"
+    },
+    "competition_home": {
+        "en": "Competition Home",
+        "ar": "الصفحة الرئيسية للمسابقة",
+        "fr": "Accueil de la compétition"
     }
-
 }

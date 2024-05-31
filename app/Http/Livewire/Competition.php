@@ -52,8 +52,11 @@ class Competition extends Component
         ////////////////////////////////////////
 
         $this->competition_img = Index::where('store_id', $this->store_id)->where('name', 'competition_header1')->first()?->images;
-        $this->competition_img = json_decode($this->competition_img, true);
-        $this->competition_img = $this->competition_img['img_1'];
+        if( $this->competition_img){
+            $this->competition_img = json_decode($this->competition_img, true);
+            $this->competition_img = $this->competition_img['img_1'];
+        }
+
 
         if (!Auth::check()) {
             $this->store_info = Store::where('store_meta', env('STOR_NAME'))->first();

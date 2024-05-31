@@ -65,8 +65,10 @@ class IndexHome extends Component
         $this->store_id = $this->store_info->id;
 
         $this->competition_img = Index::where('store_id', $this->store_id)->where('name', 'competition_home1')->first()?->images;
-        $this->competition_img = json_decode($this->competition_img, true);
-        $this->competition_img = $this->competition_img['img_1'];
+        if ($this->competition_img) {
+            $this->competition_img = json_decode($this->competition_img, true);
+            $this->competition_img = $this->competition_img['img_1'];
+        }
 
         $this->data = Index::where('store_id', $this->store_id)->where('name', 'index1')->first();
         if (empty($this->data)) {

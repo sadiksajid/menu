@@ -363,5 +363,20 @@
         "en": "View Detail",
         "ar": "عرض التفاصيل",
         "fr": "Voir le détail"
+    },
+    "fullname": {
+        "en": "Fullname",
+        "ar": "الاسم الكامل",
+        "fr": "Nom complet"
+    },
+    "downloading": {
+        "en": "Downloading",
+        "ar": "جارٍ التنزيل",
+        "fr": "Téléchargement"
+    },
+    "saving": {
+        "en": "Saving",
+        "ar": "جارٍ الحفظ",
+        "fr": "Enregistrement"
     }
 }
