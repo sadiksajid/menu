@@ -517,7 +517,6 @@
               </div>
               <div class="body2 text-placehover mt-16">{{ $translations['Feature3_text'] ?? 'text'}}</div>
 
-              <div class="button-block mt-32"><a class="button button-blue-hover" href="about.html"><span> <span></span></span><span class="pt-16 pb-16 bg-blue">Find out more<i class="ph-bold ph-arrow-up-right fs-18 flex-center"></i></span></a></div>
             </div>
             <div class="col-12 col-xl-6">
               <div class="bg w-100 h-100"></div>
@@ -540,52 +539,7 @@
       
 
       
-      <div class="service-block list-service style-one pt-100"> 
-        <div class="container"> 
-          <div class="heading text-center"> 
-            <div class="heading3 text-center">Find an AI solution for your business</div>
-            <div class="body2 text-placehover mt-12 text-center">Experience the future of communication with our AI-powered chat solution.</div>
-          </div>
-          <div class="list row row-gap-32 mt-40">
-            <div class="col-lg-3 col-sm-6 scroll-bottom-to-top1">
-                    <div class="service-item hover-box-shadow pl-32 pr-32 pt-24 pb-24 bora-24 h-100"><a class="service-item-main" href="services-detail.html">
-                        <div class="heading"><i class="icon-chart icon-white fs-60"></i></div>
-                        <div class="desc mt-24">
-                          <div class="heading7">Analytics and Insights</div>
-                          <div class="text-placehover mt-4">Gain valuable insights into customer behavior, preferences</div>
-                        </div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 scroll-bottom-to-top2">
-                    <div class="service-item hover-box-shadow pl-32 pr-32 pt-24 pb-24 bora-24 h-100"><a class="service-item-main" href="services-detail.html">
-                        <div class="heading"><i class="icon-message icon-white fs-60"></i></div>
-                        <div class="desc mt-24">
-                          <div class="heading7">Chat Bot AI</div>
-                          <div class="text-placehover mt-4">Engage and assist your website visitors with our intelligent </div>
-                        </div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 scroll-bottom-to-top3">
-                    <div class="service-item hover-box-shadow pl-32 pr-32 pt-24 pb-24 bora-24 h-100"><a class="service-item-main" href="services-detail.html">
-                        <div class="heading"><i class="icon-flash icon-white fs-60"></i></div>
-                        <div class="desc mt-24">
-                          <div class="heading7">Multilingual Support</div>
-                          <div class="text-placehover mt-4">Expand your reach and cater to a global audience ...</div>
-                        </div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 scroll-bottom-to-top4">
-                    <div class="service-item hover-box-shadow pl-32 pr-32 pt-24 pb-24 bora-24 h-100"><a class="service-item-main" href="services-detail.html">
-                        <div class="heading"><i class="icon-chart-box icon-white fs-60"></i></div>
-                        <div class="desc mt-24">
-                          <div class="heading7">AI-Powered Chatbots</div>
-                          <div class="text-placehover mt-4">Engage and assist your website visitors with our intelligent</div>
-                        </div></a>
-                    </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      
       
       <div class="testimonial-block style-one">
         <div class="container">
@@ -654,276 +608,37 @@
           </div>
         </div>
       </div>
-      <div class="projects-block pt-100"> 
+      <div class="our-leader pb-100 mt-5"> 
         <div class="container"> 
-          <div class="bg-blur"></div>
-          <div class="heading text-center">
-            <div class="heading3 text-center">Our Gallery of Innovative Artworks</div>
-            <div class="list-nav flex-center mt-24">
-              <div class="nav-item text-button pt-8 pb-8 pl-16 pr-16 bora-44 pointer" data-name="all">All</div>
-              <div class="nav-item text-button pt-8 pb-8 pl-16 pr-16 bora-44 pointer" data-name="anime">Anime</div>
-              <div class="nav-item text-button pt-8 pb-8 pl-16 pr-16 bora-44 pointer active" data-name="creative">Creative</div>
-              <div class="nav-item text-button pt-8 pb-8 pl-16 pr-16 bora-44 pointer" data-name="pixel">Pixel</div>
-              <div class="nav-item text-button pt-8 pb-8 pl-16 pr-16 bora-44 pointer" data-name="illustration">Illustration</div>
-            </div>
-          </div>
-          <div class="list row row-gap-32 mt-40">
-            <div class="col-lg-3 col-sm-6 item-filter scroll-bottom-to-top1" data-name="creative">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
+          <div class="row"> 
+            <div class="heading3">Meet our leader</div>
+            <div class="col-xl-6 col-lg-7 body1 text-placehover mt-24">For now, there is just me! And no, I hope to be more.</div>
+            <div class="list-our-team mt-40"> 
+              <div class="row row-gap-32">
+                <div class="col-lg-3 col-sm-6" style='    background-color: #2A2A2D; border-top-left-radius: 50px;border-bottom-left-radius: 50px;border-bottom-right-radius: 50px;padding:0px'>
+                  <div class="item"> 
+                    <div class="bg-img" style='border: 2px solid white;border-top-left-radius: 50px;border-bottom-left-radius: 50px;border-bottom-right-radius: 50px;'> <img class="w-100 d-block" src="https://minio-api.sys.coolrasto.com/general/images/sadik.jpeg" alt=""/></div>
+                    <div class="infor mt-16 mb-2"> 
+                     <center>
+                     <div class="heading7">SADIK SAJID</div>
+                      <div class="text-placehover mt-8">Full Stack Developer</div>
+                     </center>
                     </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter scroll-bottom-to-top2" data-name="creative">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
+                    <div class="list-social bg-white"><a href="www.linkedin.com/in/sadik-sajid" target="_blank"> <i class="icon-linkedin fs-14"></i></a><a href="http://facebook.com/sadiksajid" target="_blank"> <i class="icon-facebook fs-14"></i></a>
+                    <!-- <a href="http://twitter.com" target="_blank"> <i class="icon-twitter fs-12"></i></a><a href="http://instagram.com" target="_blank"> <i class="icon-instagram fs-12"></i></a> -->
                     </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter scroll-bottom-to-top3" data-name="creative">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter scroll-bottom-to-top4" data-name="creative">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter scroll-bottom-to-top5" data-name="creative">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter scroll-bottom-to-top6" data-name="creative">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter scroll-bottom-to-top7" data-name="creative">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter scroll-bottom-to-top8" data-name="creative">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="anime">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="anime">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="anime">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="anime">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="pixel">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="pixel">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="pixel">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="pixel">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="illustration">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="illustration">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="illustration">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="illustration">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="illustration">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="illustration">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="illustration">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="illustration">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="all">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="all">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="all">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="all">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="all">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="all">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="all">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="all">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="all">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="all">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="all">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 item-filter hide" data-name="all">
-                    <div class=" item">
-                      <div class="bg-img bora-20 overflow-hidden"><img class="w-100" src="assets_home/images/projects/300x300.png" alt="AI financial management"/></div><a class="infor p-12" href="project-detail.html">
-                        <div class="text-button-uppercase text-secondary">Marketting</div>
-                        <div class="heading7 text-on-surface mt-4">AI financial management</div></a>
-                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+  
+      
+          
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="section-pricing style-one pt-100">
+      <div class="section-pricing style-one pt-100 mb-5">
         <div class="bg-blur"></div>
         <div class="container"> 
           <div class="bg-blur"></div>
@@ -945,7 +660,7 @@
                     <div class="pricing-item bg-line-dark p-40 bora-20 h-100">
                       <div class="heading5 text-white">Freebie</div>
                       <div class="body3 text-placehover mt-12">Ideal for individuals who need quick access to basic features.</div>
-                      <div class="heading2 text-white mt-20">Free</div><a class="button text-white w-100 mt-24" href="pricing.html"> <span> <span> </span></span><span class="bg-line-dark">Get Started</span></a>
+                      <div class="heading2 text-white mt-20">Free</div><a class="button text-white w-100 mt-24 register_popup" href="#"> <span> <span> </span></span><span class="bg-line-dark">Get Started</span></a>
                       <div class="list-feature d-flex flex-column gap-12 mt-40">
                         <div class="item flex-item-center gap-16"> <i class="ph-bold ph-check fs-12 text-white p-8 bora-50 bg-blue"></i>
                           <div class="feature text-white">20,000+ of PNG & SVG graphics</div>
@@ -966,7 +681,7 @@
                       <div class="price d-flex mt-20">
                         <div class="heading2 text-white">$9.99</div>
                         <div class="text-white">/month</div>
-                      </div><a class="button text-white w-100 mt-24" href="pricing.html"> <span> <span> </span></span><span class="bg-line-dark">Get Started</span></a>
+                      </div><a class="button text-white w-100 mt-24 register_popup" href="#"> <span> <span> </span></span><span class="bg-line-dark">Get Started</span></a>
                       <div class="list-feature d-flex flex-column gap-12 mt-40">
                         <div class="item flex-item-center gap-16"> <i class="ph-bold ph-check fs-12 text-white p-8 bora-50 bg-blue"></i>
                           <div class="feature text-white">20,000+ of PNG & SVG graphics</div>
@@ -988,7 +703,7 @@
                     <div class="pricing-item bg-line-dark p-40 bora-20 h-100">
                       <div class="heading5 text-white">Freebie</div>
                       <div class="body3 text-placehover mt-12">Ideal for individuals who need quick access to basic features.</div>
-                      <div class="heading2 text-white text-white mt-20">Free</div><a class="button text-white w-100 mt-24" href="pricing.html"> <span> <span> </span></span><span class="bg-line-dark">Get Started</span></a>
+                      <div class="heading2 text-white text-white mt-20">Free</div><a class="button text-white w-100 mt-24 register_popup" href="#"> <span> <span> </span></span><span class="bg-line-dark">Get Started</span></a>
                       <div class="list-feature d-flex flex-column gap-12 mt-40">
                         <div class="item flex-item-center gap-16"> <i class="ph-bold ph-check fs-12 text-white p-8 bora-50 bg-blue"></i>
                           <div class="feature text-white">20,000+ of PNG & SVG graphics</div>
@@ -1009,7 +724,7 @@
                       <div class="price d-flex mt-20">
                         <div class="heading2 text-white">$89.99</div>
                         <div class="text-white">/year</div>
-                      </div><a class="button text-white w-100 mt-24" href="pricing.html"> <span> <span> </span></span><span class="bg-line-dark">Get Started</span></a>
+                      </div><a class="button text-white w-100 mt-24 register_popup" href="#"> <span> <span> </span></span><span class="bg-line-dark">Get Started</span></a>
                       <div class="list-feature d-flex flex-column gap-12 mt-40">
                         <div class="item flex-item-center gap-16"> <i class="ph-bold ph-check fs-12 text-white p-8 bora-50 bg-blue"></i>
                           <div class="feature text-white">20,000+ of PNG & SVG graphics</div>
@@ -1029,58 +744,7 @@
           </div>
         </div>
       </div>
-      <div class="our-leader pb-100"> 
-        <div class="container"> 
-          <div class="row"> 
-            <div class="heading3">Meet our leader</div>
-            <div class="col-xl-6 col-lg-7 body1 text-placehover mt-24">Beratung’s global leadership is comprised of several key entities, including the managing partner, the Shareholders Council (elected board of directors), the Acceleration Team (global leadership team), and the leaders of various offices and practices.</div>
-            <div class="list-our-team mt-40"> 
-              <div class="row row-gap-32">
-                <div class="col-lg-3 col-sm-6">
-                  <div class="item"> 
-                    <div class="bg-img"> <img class="w-100 d-block" src="assets/images/avatar/300x400.png" alt=""/></div>
-                    <div class="infor mt-16"> 
-                      <div class="heading7">Maverick Nguyen</div>
-                      <div class="text-placehover mt-8">Graphic Designer</div>
-                    </div>
-                    <div class="list-social bg-white"><a href="http://facebook.com" target="_blank"> <i class="icon-facebook fs-14"></i></a><a href="http://linkedin.com" target="_blank"> <i class="icon-linkedin fs-14"></i></a><a href="http://twitter.com" target="_blank"> <i class="icon-twitter fs-12"></i></a><a href="http://instagram.com" target="_blank"> <i class="icon-instagram fs-12"></i></a></div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                  <div class="item"> 
-                    <div class="bg-img"> <img class="w-100" src="assets/images/avatar/300x400.png" alt=""/></div>
-                    <div class="infor mt-16"> 
-                      <div class="heading7">Georgina Smith</div>
-                      <div class="text-placehover mt-8">CEO - Marketting</div>
-                    </div>
-                    <div class="list-social bg-white"><a href="http://facebook.com" target="_blank"> <i class="icon-facebook fs-14"></i></a><a href="http://linkedin.com" target="_blank"> <i class="icon-linkedin fs-14"></i></a><a href="http://twitter.com" target="_blank"> <i class="icon-twitter fs-12"></i></a><a href="http://instagram.com" target="_blank"> <i class="icon-instagram fs-12"></i></a></div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                  <div class="item"> 
-                    <div class="bg-img"> <img class="w-100" src="assets/images/avatar/300x400.png" alt=""/></div>
-                    <div class="infor mt-16"> 
-                      <div class="heading7">Benjamin Pavard</div>
-                      <div class="text-placehover mt-8">CEM - digiNova</div>
-                    </div>
-                    <div class="list-social bg-white"><a href="http://facebook.com" target="_blank"> <i class="icon-facebook fs-14"></i></a><a href="http://linkedin.com" target="_blank"> <i class="icon-linkedin fs-14"></i></a><a href="http://twitter.com" target="_blank"> <i class="icon-twitter fs-12"></i></a><a href="http://instagram.com" target="_blank"> <i class="icon-instagram fs-12"></i></a></div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                  <div class="item"> 
-                    <div class="bg-img"> <img class="w-100" src="assets/images/avatar/300x400.png" alt=""/></div>
-                    <div class="infor mt-16"> 
-                      <div class="heading7">Christina Rodriguez</div>
-                      <div class="text-placehover mt-8">Photographer</div>
-                    </div>
-                    <div class="list-social bg-white"><a href="http://facebook.com" target="_blank"> <i class="icon-facebook fs-14"></i></a><a href="http://linkedin.com" target="_blank"> <i class="icon-linkedin fs-14"></i></a><a href="http://twitter.com" target="_blank"> <i class="icon-twitter fs-12"></i></a><a href="http://instagram.com" target="_blank"> <i class="icon-instagram fs-12"></i></a></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+     
       <div class="style-blue">
         <div id="preload"> 
           <div class="main-content flex-center">

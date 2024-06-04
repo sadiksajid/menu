@@ -44,7 +44,7 @@ class Products extends Component
     public $cat_title;
     public $cat_s_title;
     public $cat_image;
-    public $status;
+    public $status = 1;
     public $to_menu;
 
     public $product_images = [];
