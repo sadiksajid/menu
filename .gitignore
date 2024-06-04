@@ -1,0 +1,20 @@
+/node_modules
+# /public/hot
+# /public/storage
+/bootstrap/cache/*.php
+/public/livewire-tmp
+/public/storage
+/storage/*.key
+/storage/logs
+/vendor
+/config/geoip/GeoLite2-City.mmdb
+.env.backup
+.phpunit.result.cache
+docker-compose.override.yml
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+/.idea
+/.vscode
+node_modules
