@@ -8,6 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Store extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'store_meta',
+        'last_name',
+        'country',
+        'country_id',
+        'currency',
+        'phone',
+
+    ];
 
     public function products()
     {

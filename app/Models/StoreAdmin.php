@@ -21,6 +21,8 @@ class StoreAdmin extends Authenticatable
         'created_at',
         'is_admin',
         'status',
+        'store_id',
+
     ];
 
     protected $hidden = [

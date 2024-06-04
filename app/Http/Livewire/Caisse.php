@@ -106,7 +106,7 @@ class Caisse extends Component
         $product = $this->products->where('id', $id)->first();
         if (!in_array($id, $this->selected_products_ids)) {
             $this->selected_products[$id] = array(
-                'image' => $product->media[0]->media,
+                'image' => $product?->media[0]->media ?? 'pngs/food-icon.jpg',
                 'price' => $product->price,
                 'type' => 'product',
                 'title' => $product->title,

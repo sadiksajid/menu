@@ -60,7 +60,7 @@
                                         <h6 class="card-title ">{{$product->title }}</h6>
                                     </center>
                                 </div>
-                                <img src="{{ get_image('tmb/'.$product->media[0]->media) }}" lass="card-image1 "
+                                <img src="{{ get_image('tmb/'.$product?->media[0]->media ?? 'pngs/food-icon.jpg') }}" onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';" lass="card-image1 "
                                     style='height: 100%;width: 100%;'>
                             </div>
                         </div>

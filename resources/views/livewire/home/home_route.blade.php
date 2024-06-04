@@ -1,0 +1,9 @@
+
+
+    <div>
+
+        @livewire('home')
+
+    </div>
+
+

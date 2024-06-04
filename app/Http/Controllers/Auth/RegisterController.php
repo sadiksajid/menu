@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Models\Store;
+use App\Models\Country;
+use App\Models\StoreAdmin;
+use Illuminate\Http\Request;
+use App\Rules\NotEqualToNone;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -29,7 +34,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -41,6 +46,12 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function RegisterForm()
+    {
+        return view('auth.register');
+    }
+
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -49,11 +60,16 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+
+        $validation = Validator::make($data, [
+            'fullname' => ['required', 'string', 'max:50'],
+            'country_code' => ['required', 'string', 'max:10'],
+            'store_meta' => ['required', 'string', 'max:50', 'unique:stores'],
+            'telephone' => ['required', 'string', 'max:50', 'unique:store_admins', new NotEqualToNone],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
+
+        return $validation ;
     }
 
     /**
@@ -64,10 +80,37 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
+        $country = Country::where('iso',strtoupper($data['country_code']))->first();
+        $store = Store::create([
+            'store_meta' => $data['store_meta'],
+            'phone' => $data['telephone'],
+            // 'emial' => $data['email'],
+            'country' => $country->name,
+            'country_id' => $country->id ,
+            'currency' => $country->currency,
+        ]) ; 
+        $user = StoreAdmin::create([
+            'name' => $data['fullname'],
+            // 'email' => $data['email'],
+            'telephone' => $data['telephone'],
+            'country' => $country->name,
+            'country_id' => $country->id ,
+            'store_id' => $store->id,
+            'is_admin' => 1,
             'password' => Hash::make($data['password']),
-        ]);
+        ]) ; 
+        return $user;
     }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        $this->create($request->all());
+
+        // Instead of logging in the user, redirect to login page
+        return back()->with('success_login', 'Your account has been created. Please log in.');
+    }
+
+
 }

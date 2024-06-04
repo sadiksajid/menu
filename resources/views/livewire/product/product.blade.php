@@ -9,7 +9,7 @@
         <!-- section start -->
 
         <div wire:ignore class="hero_single inner_pages background-image" style="height:260px"
-        @if (isset($product->media[0]->media ))   data-background="url({{ get_image('moyen/'.($product->media[0]?->media))  }})" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif >
+        @if (isset($product?->media[0]->media ?? 'pngs/food-icon.jpg' ))   data-background="url({{ get_image('moyen/'.($product->media[0]?->media))  }})" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif >
     
             <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
                 <div class="container">

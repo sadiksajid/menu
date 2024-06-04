@@ -125,8 +125,8 @@
     </div>
     <!-- Row-3 -->
     <div class="row">
-        <div class="col-xl-4 col-md-12">
-            <div class="card">
+        <div class="col-xl-6 col-md-12">
+            <div class="card" style='    height: 93%;'>
                 <div class="card-header">
                     <h3 class="card-title">{{ $translations['recent_orders'] }}</h3>
                     <div class="card-options">
@@ -177,7 +177,7 @@
             </div>
         </div>
 
-        <div class="col-xl-4  col-md-12">
+        <div class="col-xl-6  col-md-12">
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex align-items-end justify-content-between">

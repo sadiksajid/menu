@@ -165,11 +165,11 @@
                 <div class="col-lg-6" data-cue="slideInUp">
                     <div class="menu_item">
                         <figure style="border:1px solid black" >
-                            <a href="{{ get_image('moyen/'.$product->media[0]->media) }}"
+                            <a href="{{ get_image('moyen/'.$product?->media[0]->media ?? 'pngs/food-icon.jpg') }}" onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';"
                                 title="Summer Berry" data-effect="mfp-zoom-in">
 
                                 <img src="{{ URL::asset('index1/img/menu_items/menu_items_placeholder.png') }}"
-                                    data-src="{{ get_image('moyen/'.$product->media[0]->media) }}"
+                                    data-src="{{ get_image('moyen/'.$product?->media[0]->media ?? 'pngs/food-icon.jpg') }}" onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';"
                                     class="lazy " alt="">
                             </a>
                         </figure>

@@ -2,57 +2,90 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\JsonResponse;
+use App\Models\User;
+use App\Models\Client;
+use App\Models\StoreAdmin;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-     */
 
-    use AuthenticatesUsers {
-        logout as performLogout;
+    use AuthenticatesUsers;
+    protected $redirectTo = '/admin';
+
+    public function login(Request $request)
+    {
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        $this->validateLogin($request);
+
+        if (method_exists($this, 'hasTooManyLoginAttempts') &&
+            $this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
+        }
+
+        if ($this->attemptLogin($request)) {
+            if ($request->hasSession()) {
+                $request->session()->put('auth.password_confirmed_at', time());
+            }
+
+            return $this->sendLoginResponse($request);
+        }
+
+        // If the login attempt was unsuccessful we will increment the number of attempts
+        // to login and redirect the user back to the login form. Of course, when this
+        // user surpasses their maximum number of attempts they will get locked out.
+        $this->incrementLoginAttempts($request);
+
+        return $this->sendFailedLoginResponse($request);
     }
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::Dashboard;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
-        $this->middleware('guest:web')->except('logout');
-        //Session::put('backUrl', URL::previous());
+
+        $this->middleware('web')->except('logout');
     }
 
-    protected function guard()
+    protected function credentials(Request $request)
     {
-        return Auth()->guard('web');
-    }
 
+        if (is_numeric($request->input('email'))) {
+            return ['telephone' => $request->input('email'), 'password' => $request->input('password')];
+        } elseif (filter_var($request->input('email'), FILTER_VALIDATE_EMAIL)) {
+            return ['email' => $request->input('email'), 'password' => $request->input('password')];
+        } else {
+            $this->validateLogin($request);
+        }
+
+    }
+    protected function validateLogin(Request $request)
+    {
+
+        $request->validate([
+            $this->username() => 'required|string',
+            'password' => 'required',
+        ]);
+
+        $user = null;
+        if (is_numeric($request->input('email'))) {
+            $user = StoreAdmin::where('telephone', '=', $request->input('email'))->where('status', 1)->first();
+
+        } elseif (filter_var($request->input('email'), FILTER_VALIDATE_EMAIL)) {
+            $user = StoreAdmin::where('email', '=', $request->input('email'))->where('status', 1)->first();
+        }
+        if (!$user) {
+            return redirect()->back()->with('error', 'Email-Address Or Password Are Wrong !');
+        } 
+    }
     public function logout(Request $request)
     {
-        $this->guard()->logout();
+
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
@@ -61,7 +94,6 @@ class LoginController extends Controller
             return $response;
         }
 
-        return $request->wantsJson()
-        ? new JsonResponse([], 204) : redirect('/');
+        return redirect('/');
     }
 }

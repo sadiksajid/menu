@@ -137,7 +137,7 @@
                                             @endphp
                                             @foreach ($products as $product)
                                                 @php
-                                                    $products_images[$loop->index] = $product->media[0]->media;
+                                                    $products_images[$loop->index] = $product?->media[0]->media ?? 'pngs/food-icon.jpg';
                                                 @endphp
                                                 <div class="col-xl-3 col-md-4 col-6 col-grid-box four"  style="padding-left:6px;padding-right:6px" >
                                                     <div class="product-box ">
@@ -147,13 +147,13 @@
                                                                 <a
                                                                     href="/shop/product/{{ $product->product_meta }}"><img
                                                                         alt="" class="img-fluid"
-                                                                        src="{{ get_image('moyen/'.$product->media[0]->media) }}"></a>
+                                                                        src="{{ get_image('moyen/'.$product?->media[0]->media ?? 'pngs/food-icon.jpg') }}" onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';"></a>
                                                             </div>
                                                             <div class="back">
                                                                 <a
                                                                     href="/shop/product/{{ $product->product_meta }}"><img
                                                                         alt="" class="img-fluid"
-                                                                        src="{{ get_image('moyen/'.($product->media[1]->media ?? $product->media[0]->media)) }}"></a>
+                                                                        src="{{ get_image('moyen/'.($product->media[1]->media ?? $product?->media[0]->media ?? 'pngs/food-icon.jpg')) }}"></a>
                                                             </div>
                                                             <div class="cart-info cart-wrap gray-bg-color"
                                                                 style='border-radius:8px'>
