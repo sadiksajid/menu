@@ -208,7 +208,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => '/var/www/html/storage/framework/cache/data',
+        'path' => 'C:\\web\\menu\\menu\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -299,11 +299,11 @@
       array (
         'driver' => 'mysql',
         'url' => NULL,
-        'host' => 'mariadb',
+        'host' => 'localhost',
         'port' => '3306',
         'database' => 'menu',
         'username' => 'root',
-        'password' => 'password',
+        'password' => '',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -319,11 +319,11 @@
       array (
         'driver' => 'pgsql',
         'url' => NULL,
-        'host' => 'mariadb',
+        'host' => 'localhost',
         'port' => '3306',
         'database' => 'menu',
         'username' => 'root',
-        'password' => 'password',
+        'password' => '',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -334,11 +334,11 @@
       array (
         'driver' => 'sqlsrv',
         'url' => NULL,
-        'host' => 'mariadb',
+        'host' => 'localhost',
         'port' => '3306',
         'database' => 'menu',
         'username' => 'root',
-        'password' => 'password',
+        'password' => '',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -481,10 +481,10 @@
     'convert_entities' => true,
     'options' => 
     array (
-      'font_dir' => '/var/www/html/storage/fonts',
-      'font_cache' => '/var/www/html/storage/fonts',
-      'temp_dir' => '/tmp',
-      'chroot' => '/var/www/html',
+      'font_dir' => 'C:\\web\\menu\\menu\\storage\\fonts',
+      'font_cache' => 'C:\\web\\menu\\menu\\storage\\fonts',
+      'temp_dir' => 'C:\\Users\\ADMINI~1\\AppData\\Local\\Temp',
+      'chroot' => 'C:\\web\\menu\\menu',
       'allowed_protocols' => 
       array (
         'file://' => 
@@ -529,12 +529,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => '/var/www/html/storage/app',
+        'root' => 'C:\\web\\menu\\menu\\storage\\app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => '/var/www/html/storage/app/public',
+        'root' => 'C:\\web\\menu\\menu\\storage\\app/public',
         'url' => 'http://localhost/storage',
         'visibility' => 'public',
       ),
@@ -564,15 +564,15 @@
     ),
     'links' => 
     array (
-      '/var/www/html/public/storage' => '/var/www/html/storage/app/Public',
-      '/var/www/html/public/storage/product_extras' => '/var/www/html/storage/app/Public/product_extras',
-      '/var/www/html/public/storage/categories' => '/var/www/html/storage/app/Public/categories',
-      '/var/www/html/public/storage/product_images' => '/var/www/html/storage/app/Public/product_images',
-      '/var/www/html/public/storage/extra_images' => '/var/www/html/storage/app/Public/extra_images',
-      '/var/www/html/public/storage/store_logo' => '/var/www/html/storage/app/Public/store_logo',
-      '/var/www/html/public/storage/offer_images' => '/var/www/html/storage/app/Public/offer_images',
-      '/var/www/html/public/storage/pdf' => '/var/www/html/storage/app/Public/pdf',
-      '/var/www/html/public/livewire-tmp' => '/var/www/html/storage/app/livewire-tmp',
+      'C:\\web\\menu\\menu\\public\\storage' => 'C:\\web\\menu\\menu\\storage\\app/Public',
+      'C:\\web\\menu\\menu\\public\\storage/product_extras' => 'C:\\web\\menu\\menu\\storage\\app/Public/product_extras',
+      'C:\\web\\menu\\menu\\public\\storage/categories' => 'C:\\web\\menu\\menu\\storage\\app/Public/categories',
+      'C:\\web\\menu\\menu\\public\\storage/product_images' => 'C:\\web\\menu\\menu\\storage\\app/Public/product_images',
+      'C:\\web\\menu\\menu\\public\\storage/extra_images' => 'C:\\web\\menu\\menu\\storage\\app/Public/extra_images',
+      'C:\\web\\menu\\menu\\public\\storage/store_logo' => 'C:\\web\\menu\\menu\\storage\\app/Public/store_logo',
+      'C:\\web\\menu\\menu\\public\\storage/offer_images' => 'C:\\web\\menu\\menu\\storage\\app/Public/offer_images',
+      'C:\\web\\menu\\menu\\public\\storage/pdf' => 'C:\\web\\menu\\menu\\storage\\app/Public/pdf',
+      'C:\\web\\menu\\menu\\public\\livewire-tmp' => 'C:\\web\\menu\\menu\\storage\\app/livewire-tmp',
     ),
   ),
   'firewall' => 
@@ -613,7 +613,7 @@
     'use_database' => true,
     'firewall_model' => 'PragmaRX\\Firewall\\Vendor\\Laravel\\Models\\Firewall',
     'session_binding' => 'session',
-    'geoip_database_path' => '/var/www/html/config/geoip',
+    'geoip_database_path' => 'C:\\web\\menu\\menu\\config/geoip',
     'attack_blocker' => 
     array (
       'enabled' => 
@@ -778,7 +778,7 @@
   'livewire' => 
   array (
     'class_namespace' => 'App\\Http\\Livewire',
-    'view_path' => '/var/www/html/resources/views/livewire',
+    'view_path' => 'C:\\web\\menu\\menu\\resources\\views/livewire',
     'layout' => 'layouts.app',
     'asset_url' => NULL,
     'app_url' => NULL,
@@ -860,13 +860,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => '/var/www/html/storage/logs/laravel.log',
+        'path' => 'C:\\web\\menu\\menu\\storage\\logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => '/var/www/html/storage/logs/laravel.log',
+        'path' => 'C:\\web\\menu\\menu\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -917,7 +917,12 @@
       ),
       'emergency' => 
       array (
-        'path' => '/var/www/html/storage/logs/laravel.log',
+        'path' => 'C:\\web\\menu\\menu\\storage\\logs/laravel.log',
+      ),
+      'deprecations' => 
+      array (
+        'driver' => 'monolog',
+        'handler' => 'Monolog\\Handler\\NullHandler',
       ),
     ),
   ),
@@ -983,7 +988,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => '/var/www/html/resources/views/vendor/mail',
+        0 => 'C:\\web\\menu\\menu\\resources\\views/vendor/mail',
       ),
     ),
   ),
@@ -1014,23 +1019,9 @@
     'cache' => 
     array (
       'expiration_time' => 
-      DateInterval::__set_state(array(
-         'y' => 0,
-         'm' => 0,
-         'd' => 0,
-         'h' => 24,
-         'i' => 0,
-         's' => 0,
-         'f' => 0.0,
-         'weekday' => 0,
-         'weekday_behavior' => 0,
-         'first_last_day_of' => 0,
-         'invert' => 0,
-         'days' => false,
-         'special_type' => 0,
-         'special_amount' => 0,
-         'have_weekday_relative' => 0,
-         'have_special_relative' => 0,
+      \DateInterval::__set_state(array(
+         'from_string' => true,
+         'date_string' => '24 hours',
       )),
       'key' => 'spatie.permission.cache',
       'model_key' => 'name',
@@ -1144,7 +1135,7 @@
     'lifetime' => '525600',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => '/var/www/html/storage/framework/sessions',
+    'files' => 'C:\\web\\menu\\menu\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -1164,9 +1155,9 @@
   array (
     'paths' => 
     array (
-      0 => '/var/www/html/resources/views',
+      0 => 'C:\\web\\menu\\menu\\resources\\views',
     ),
-    'compiled' => '/var/www/html/storage/framework/views',
+    'compiled' => 'C:\\web\\menu\\menu\\storage\\framework\\views',
   ),
   'flare' => 
   array (
@@ -1241,7 +1232,7 @@
     array (
     ),
     'enable_runnable_solutions' => NULL,
-    'remote_sites_path' => '/var/www/html',
+    'remote_sites_path' => 'C:\\web\\menu\\menu',
     'local_sites_path' => '',
     'housekeeping_endpoint_prefix' => '_ignition',
     'settings_file_path' => '',
@@ -1289,7 +1280,7 @@
       'local' => 
       array (
         'type' => 'city',
-        'path' => '/var/www/html/database/maxmind/GeoLite2-City.mmdb',
+        'path' => 'C:\\web\\menu\\menu\\database\\maxmind/GeoLite2-City.mmdb',
       ),
     ),
     'ip_api' => 

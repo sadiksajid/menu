@@ -35,10 +35,19 @@
           color:white;
 
         }
+        .iti__dropdown-content{
+          margin-left: -32px;
+          width: 410px !important;
+          height: 500px;
+        }
         .iti--inline-dropdown{
           width: 100%!important;
           color:black;
+          z-index:9999;
         }
+
+          
+          
         .select2-container--default .select2-selection--single{
             padding:6px;
             padding-top:10px;
@@ -340,8 +349,8 @@
             <div class="row"> 
               <div class="col-xl-6">
                 <div class="text-content"> 
-                  <div class="heading1 scroll-bottom-to-top2">{{ $translations['title1'] }}</div>
-                  <div class="body2 text-placehover mt-40">{{ $translations['title2'] }}</div><a class="button button-blue-hover mt-40 register_popup" href="#"> <span> <span></span></span><span class="bg-blue">{{ $translations['title3'] }}<i class="ph-bold ph-arrow-up-right fs-18 flex-center"></i></span></a>
+                  <div class="heading1 scroll-bottom-to-top2">{{ $translations['title1'] ?? 'text'}}</div>
+                  <div class="body2 text-placehover mt-40">{{ $translations['title2'] ?? 'text'}}</div><a class="button button-blue-hover mt-40 register_popup" href="#"> <span> <span></span></span><span class="bg-blue">{{ $translations['title3'] ?? 'text'}}<i class="ph-bold ph-arrow-up-right fs-18 flex-center"></i></span></a>
                 </div>
               </div>
               <div class="col-xl-6 scroll-right-to-left2">
@@ -369,7 +378,7 @@
         <div class="container"> 
           <div class="row heading flex-between row-gap-8">
             <div class="col-lg-6"> 
-              <div class="heading3">{{ $translations['title4'] }} ,{{ $translations['title5'] }} </div>
+              <div class="heading3">{{ $translations['title4'] ?? 'text'}} ,{{ $translations['title5'] ?? 'text'}} </div>
             </div>
             <div class="col-lg-5">
               <div class="body1 text-placehover">Power up your website with our advanced chat bot that offers image and video tools, as well as quick and accurate question answering capabilities</div>
@@ -380,22 +389,22 @@
               <div class="feature-item flex-item-center gap-24 scroll-bottom-to-top1">
                 <div class="icon"><i class="icon-box-group icon-white fs-40 p-16 bg-line-dark bora-50"></i></div>
                 <div class="infor"> 
-                  <div class="heading6">{{ $translations['step1'] }}</div>
-                  <div class="text-placehover mt-8">{{ $translations['step1_text'] }}</div>
+                  <div class="heading6">{{ $translations['step1'] ?? 'text'}}</div>
+                  <div class="text-placehover mt-8">{{ $translations['step1_text'] ?? 'text'}}</div>
                 </div>
               </div>
               <div class="feature-item flex-item-center gap-24 mt-40 scroll-bottom-to-top2">
                 <div class="icon"><i class="icon-chart-box icon-white fs-40 p-16 bg-line-dark bora-50"></i></div>
                 <div class="infor"> 
-                  <div class="heading6">{{ $translations['step2'] }} </div>
-                  <div class="text-placehover mt-8">{{ $translations['step2_text'] }}</div>
+                  <div class="heading6">{{ $translations['step2'] ?? 'text'}} </div>
+                  <div class="text-placehover mt-8">{{ $translations['step2_text'] ?? 'text'}}</div>
                 </div>
               </div>
               <div class="feature-item flex-item-center gap-24 mt-40 scroll-bottom-to-top3">
                 <div class="icon"><i class="icon-flash icon-white fs-40 p-16 bg-line-dark bora-50"></i></div>
                 <div class="infor"> 
-                  <div class="heading6">{{ $translations['step3'] }}</div>
-                  <div class="text-placehover mt-8">{{ $translations['step3_text'] }}</div>
+                  <div class="heading6">{{ $translations['step3'] ?? 'text'}}</div>
+                  <div class="text-placehover mt-8">{{ $translations['step3_text'] ?? 'text'}}</div>
                 </div>
               </div>
             </div>
@@ -433,9 +442,9 @@
         <div class="container pb-60">
           <div class="row row-gap-40 flex-between">
             <div class="col-12 col-lg-5 flex-column row-gap-20">
-              <div class="heading3">{{ $translations['Feature1_title'] }}</p>
+              <div class="heading3">{{ $translations['Feature1_title'] ?? 'text'}}</p>
               </div>
-              <div class="body2 text-placehover mt-16">{{ $translations['Feature1_text'] }}</div>
+              <div class="body2 text-placehover mt-16">{{ $translations['Feature1_text'] ?? 'text'}}</div>
               <!-- <div class="list-service mt-32">
                 <div class="service-item flex-item-center scroll-right-to-left1"><i class="ph-bold ph-check text-blue fs-24"> </i>
                   <div class="heading7 pl-12">Free Live Chat Software</div>
@@ -485,9 +494,9 @@
 
 
             <div class="col-12 col-lg-5 flex-column row-gap-20">
-              <div class="heading3">{{ $translations['Feature2_title'] }}</p>
+              <div class="heading3">{{ $translations['Feature2_title'] ?? 'text'}}</p>
               </div>
-              <div class="body2 text-placehover mt-16">{{ $translations['Feature2_text'] }}</div>
+              <div class="body2 text-placehover mt-16">{{ $translations['Feature2_text'] ?? 'text'}}</div>
      
               <div class="button-block mt-32"><a class="button button-blue-hover" href="about.html"><span> <span></span></span><span class="pt-16 pb-16 bg-blue">Find out more<i class="ph-bold ph-arrow-up-right fs-18 flex-center"></i></span></a></div>
             </div>
@@ -500,9 +509,9 @@
         <div class="container pb-60">
           <div class="row row-gap-40 flex-between">
             <div class="col-12 col-lg-5 flex-column row-gap-20">
-              <div class="heading3">{{ $translations['Feature3_title'] }}</p>
+              <div class="heading3">{{ $translations['Feature3_title'] ?? 'text'}}</p>
               </div>
-              <div class="body2 text-placehover mt-16">{{ $translations['Feature3_text'] }}</div>
+              <div class="body2 text-placehover mt-16">{{ $translations['Feature3_text'] ?? 'text'}}</div>
 
               <div class="button-block mt-32"><a class="button button-blue-hover" href="about.html"><span> <span></span></span><span class="pt-16 pb-16 bg-blue">Find out more<i class="ph-bold ph-arrow-up-right fs-18 flex-center"></i></span></a></div>
             </div>
