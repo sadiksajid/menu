@@ -21,8 +21,9 @@
 
 
     <style>
-
-
+        .iti__tel-input{
+          padding-top:5px!important;
+        }
         .form-input-new{
             padding:6px;
             padding-top:10px;
@@ -32,9 +33,12 @@
 
         }
         .iti__selected-dial-code{
-          color:white;
+          color:gray;
 
         }
+
+
+
         .iti__dropdown-content{
           margin-left: -32px;
           width: 410px !important;
@@ -46,7 +50,7 @@
           z-index:9999;
         }
 
-          
+
           
         .select2-container--default .select2-selection--single{
             padding:6px;
@@ -1250,7 +1254,7 @@
               @enderror
               <!-- /////////////////////////////////////////////////////////////////////////// -->
 
-              <a style='margin-top:15px' href="javascript:;" onclick="document.getElementById('Register').submit();" class="button button-blue-hover text-white text-button" href="about.html"> <span> <span></span></span><span class="bg-blue">Register</span></a>
+              <a style='margin-top:15px' href="javascript:;" id='submit_register'  class="button button-blue-hover text-white text-button" href="about.html"> <span> <span></span></span><span class="bg-blue">Register</span></a>
 
               <!-- <div class="flex-item-center gap-8 mt-12">
                 <input class="prevent-popup-input" type="checkbox" name="prevent"/>
@@ -1350,6 +1354,7 @@
                         console.log("Invalid phone number");
                         input.value = 'none';
                     }
+
                 } else {
                     console.log("Phone input is empty");
                 }
@@ -1358,7 +1363,7 @@
             // Listen for the 'countrychange' event
             input.addEventListener('countrychange', function() {
                 getCountryName()
-                updateInputValue();
+                // updateInputValue();
             });
 
             function getCountryName() {
@@ -1369,14 +1374,18 @@
             }
 
             // Update the input value on form submit
-            $('#Register').on('submit', function() {
+            // $('#Register').on('submit', function() {
+            //     updateInputValue();
+            //     getCountryName();
+            // });
+            $('#submit_register').on('click', function() {
                 updateInputValue();
                 getCountryName();
+                document.getElementById('Register').submit();
             });
             
 
             $('#phone').on('blur', function() {
-                updateInputValue();
                 getCountryName();
             });
              // Populate the input field if there is an old value
