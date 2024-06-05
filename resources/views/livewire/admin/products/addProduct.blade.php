@@ -183,7 +183,6 @@
                         <div class="e-panel card">
                             <div class="card-body">
                                 <div class="row">
-
                                     @if ($edit_product_images)
                                     @foreach ($edit_product_images as $image)
                                         <div class="col-6">
@@ -209,7 +208,7 @@
                                                             title=""
                                                             data-original-title="fa fa-times"></i></button>
                                                 @endif
-                                                    <img src="{{ get_image($image->media) }}"
+                                                    <img src="{{ get_image('moyen/'.$image->media) }}"
                                                         style="height: 100%;width:100%">
                                        
                                             </div>

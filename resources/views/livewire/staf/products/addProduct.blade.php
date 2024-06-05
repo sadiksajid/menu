@@ -97,18 +97,7 @@
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
-                                        <div class="col-md-4 col-6">
-                                            <label class="col-md-12 form-label">{{ $translations['add_to_menu'] }} <span
-                                                    class="text-red">*</span></label>
-                                            <label class="custom-switch" style=" cursor:pointer ;padding: 8px;">
-                                                <input type="checkbox" name="custom-switch-checkbox" wire:model='to_menu'
-                                                    class="custom-switch-input">
-                                                <span class="custom-switch-indicator"></span>
-                                            </label>
-                                            @error('to_menu')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
+                          
                                     </div>
                             </div>
                         @else
@@ -209,7 +198,7 @@
                                                             title=""
                                                             data-original-title="fa fa-times"></i></button>
                                                 @endif
-                                                    <img src="{{ get_image($image->media) }}"
+                                                    <img src="{{ get_image('moyen/'.$image->media) }}"
                                                         style="height: 100%;width:100%">
                                        
                                             </div>

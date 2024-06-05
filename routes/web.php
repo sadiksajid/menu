@@ -247,6 +247,10 @@ Route::group(['middleware' => ['fw-block-blacklisted', 'fw-block-attacks', 'web'
         return view('livewire.home.home_route');
     })->name('index');
 
+    Route::get('/contact-us', function () {
+        return view('livewire.contact.contact_route');
+    })->name('contact-us');
+
 
     Route::get('/home', function () {
         $store_info = Store::where('store_meta', env('STOR_NAME'))->first();
