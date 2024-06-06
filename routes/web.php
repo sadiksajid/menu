@@ -73,6 +73,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'fw-block-blackl
     });
 
     Route::get('/dashboard', function () {
+        if(Auth::user()->store == null){
+            Auth::logout();
+            return redirect('/');
+
+        }
         return view('livewire.admin.dashboard.dashboard_route');
     });
 
@@ -292,6 +297,7 @@ Route::group(['middleware' => ['fw-block-blacklisted', 'fw-block-attacks', 'web'
     // Route::post('/cient_register', [ClientRegisterController::class, 'clientRegister'])->name('client.register.post');
     Route::get('/staf_login', [StafAuthController::class, 'showLoginForm'])->name('staf-show-login');
     Route::post('/staf_login', [StafAuthController::class, 'login'])->name('staf_login');
+    Route::post('/staf_logout', [StafAuthController::class, 'logout'])->name('staf_logout');
 
 
 });

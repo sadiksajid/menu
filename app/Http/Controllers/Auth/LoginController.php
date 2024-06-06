@@ -18,7 +18,6 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         $this->validateLogin($request);
@@ -55,10 +54,10 @@ class LoginController extends Controller
     protected function credentials(Request $request)
     {
 
-        if (is_numeric($request->input('email'))) {
-            return ['telephone' => $request->input('email'), 'password' => $request->input('password')];
-        } elseif (filter_var($request->input('email'), FILTER_VALIDATE_EMAIL)) {
-            return ['email' => $request->input('email'), 'password' => $request->input('password')];
+        if (is_numeric($request->input('login_email'))) {
+            return ['telephone' => $request->input('login_email'), 'password' => $request->input('login_password')];
+        } elseif (filter_var($request->input('login_email'), FILTER_VALIDATE_EMAIL)) {
+            return ['email' => $request->input('login_email'), 'password' => $request->input('login_password')];
         } else {
             $this->validateLogin($request);
         }
@@ -68,19 +67,20 @@ class LoginController extends Controller
     {
 
         $request->validate([
-            $this->username() => 'required|string',
-            'password' => 'required',
+            'login_email' => 'required|string',
+            'login_password' => 'required',
         ]);
 
         $user = null;
-        if (is_numeric($request->input('email'))) {
-            $user = StoreAdmin::where('telephone', '=', $request->input('email'))->where('status', 1)->first();
+        if (is_numeric($request->input('login_email'))) {
+            $user = StoreAdmin::join('stores','stores.id','store_admins.store_id')->where('store_admins.telephone', '=', $request->input('login_email'))->where('store_admins.status', 1)->whereNotNull('stores.id')->first();
 
-        } elseif (filter_var($request->input('email'), FILTER_VALIDATE_EMAIL)) {
-            $user = StoreAdmin::where('email', '=', $request->input('email'))->where('status', 1)->first();
+        } elseif (filter_var($request->input('login_email'), FILTER_VALIDATE_EMAIL)) {
+            $user = StoreAdmin::join('stores','stores.id','store_admins.store_id')->where('store_admins.email', '=', $request->input('login_email'))->where('store_admins.status', 1)->whereNotNull('stores.id')->first();
         }
+        
         if (!$user) {
-            return redirect()->back()->with('error', 'Email-Address Or Password Are Wrong !');
+            return back()->with('error', 'Email-Address Or Password Are Wrong !');
         } 
     }
     public function logout(Request $request)

@@ -96,7 +96,7 @@ $current_lang =  Cache::get('locale_admin') ?? 'en';
                             <div class="dropdown-divider"></div>
                         </div>
 
-                        <a class="dropdown-item d-flex" href="{{ route('logout') }}"
+                        <a class="dropdown-item d-flex" href="{{ route('staf_logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <svg class="header-icon mr-3" xmlns="http://www.w3.org/2000/svg"
                                 enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24">
@@ -110,7 +110,7 @@ $current_lang =  Cache::get('locale_admin') ?? 'en';
                             </svg>
                             <div class="">{{$translations['logout']}}</div>
                         </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                        <form id="logout-form" action="{{ route('staf_logout') }}" method="POST"
                             style="display: none;">
                             @csrf
                         </form>

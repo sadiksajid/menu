@@ -12,8 +12,9 @@ class ContactUsHome extends Component
 {
     public $full_name;
     public $subject;
-    public $email;
+    public $contact_email;
     public $message;
+    public $msg_sent = false;
 
 
     ////////////////////////////
@@ -21,7 +22,8 @@ class ContactUsHome extends Component
 
     public function mount()
     {
-        $this->translations = app('translations_admin');
+        $json = app('translations');
+        $this->translations = $json['home'];
     }
     public function render()
     {
@@ -33,7 +35,7 @@ class ContactUsHome extends Component
     {
         $this->full_name = ''; 
         $this->subject = ''; 
-        $this->email = ''; 
+        $this->contact_email = ''; 
         $this->message  = ''; 
 
     }
@@ -42,17 +44,24 @@ class ContactUsHome extends Component
         $this->validate([
             'full_name' => 'required|string|max:50',
             'subject' => 'required|string|max:150',
-            'email' => 'required|email|max:150',
+            'contact_email' => 'required|email|max:150',
             'message' => 'required|string|max:1500',
         ]);
 
         $msg = new ContactUs();
         $msg->name = $this->full_name ; 
         $msg->subject = $this->subject ; 
-        $msg->email = $this->email ; 
+        $msg->email = $this->contact_email ; 
         $msg->message = $this->message ; 
         $msg->save() ; 
 
         $this->emptyInputs();
+        $this->msg_sent = true; 
+        $this->dispatchBrowserEvent('swal:timer', [
+            'type' => 'success',
+            'message' => $this->translations['contact_us_msg_sent'],
+
+        ]);
+
     }
 }

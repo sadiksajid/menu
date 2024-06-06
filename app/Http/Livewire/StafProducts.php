@@ -109,7 +109,7 @@ class StafProducts extends Component
 
             default:
                 $products = StafProduct::orderBy('id', 'DESC')
-                    ->paginate(20);
+                    ->paginate(50);
                 // foreach ($products as $value) {
                 //     add_to_tmb_if_not($value->media, 'product_images', $this->product_sizes);
                 // }

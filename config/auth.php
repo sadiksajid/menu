@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'store_admins',
         ],
         'client' => [
             'driver' => 'session',
@@ -68,7 +68,7 @@ return [
      */
 
     'providers' => [
-        'users' => [
+        'store_admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\StoreAdmin::class,
         ],

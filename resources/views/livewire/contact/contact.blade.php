@@ -49,6 +49,7 @@
               </div>
             </div>
             <div class="col-12 col-lg-5">
+              @if(!$msg_sent)
               <div class="form-block flex-columns-between gap-20 p-28">
                 <div class="row row-gap-20">
                   <div class="col-12 col-sm-6">
@@ -68,8 +69,8 @@
                     @enderror
                   </div>
                   <div class="col-12">
-                    <input class="w-100 bg-surface text-secondary caption1 pl-16 pr-16 pt-12 pb-12 bora-8" type="text" placeholder="Email" wire:model.defer='email'/>
-                    @error('email')
+                    <input class="w-100 bg-surface text-secondary caption1 pl-16 pr-16 pt-12 pb-12 bora-8" type="text" placeholder="Email" wire:model.defer='contact_email'/>
+                    @error('contact_email')
                         <span class="invalid-feedback" role="alert" style='color:red'>
                             <strong>{{ $message }}</strong>
                         </span>
@@ -88,6 +89,11 @@
                   <button class="button bg-purple button-purple-hover text-white" wire:click='Message()'> <span> <span></span></span><span class="bg-purple">Send message</span></button>
                 </div>
               </div>
+              @else
+                  <lottie-player src="{{ URL::asset('assets/SVG/sent.json') }}" class="lottie" background="transparent"
+                      speed="0.5" loop autoplay mode="bounce" style="width: 250px;margin: auto;">
+                  </lottie-player>
+              @endif
             </div>
           </div>
         </div>

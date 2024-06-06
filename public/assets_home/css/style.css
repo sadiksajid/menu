@@ -322,7 +322,7 @@ select {
 }
 
 .text-blue {
-  color: var(--blue);
+  color: #d14d00;
 }
 
 .text-blue-hover {
@@ -330,11 +330,11 @@ select {
 }
 
 .text-blue-hover:hover {
-  color: var(--blue);
+  color: #d14d00;
 }
 
 .icon-blue::before {
-  color: var(--blue);
+  color: #d14d00;
 }
 
 .text-yellow {
@@ -370,7 +370,7 @@ select {
 }
 
 .text-purple {
-  color: var(--purple);
+  color: #d14d00;
 }
 
 .text-purple-hover {
@@ -378,11 +378,11 @@ select {
 }
 
 .text-purple-hover:hover {
-  color: var(--purple);
+  color: #d14d00;
 }
 
 .icon-purple::before {
-  color: var(--purple);
+  color: #d14d00;
 }
 
 .text-white {
@@ -426,7 +426,7 @@ select {
 }
 
 .bg-blue {
-  background-color: var(--blue);
+  background-color: #d14d00;
 }
 
 .bg-yellow {
@@ -438,7 +438,7 @@ select {
 }
 
 .bg-purple {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 .bg-white {
@@ -1040,7 +1040,7 @@ select {
 }
 
 .hover-bg-purple:hover {
-  background-color: var(--purple);
+  background-color: #b34100;
 }
 
 .hover-underline:hover {
@@ -1152,7 +1152,7 @@ select {
 }
 
 .button-blue-hover:hover .bg-blue {
-  background-color: #3974ff;
+  background-color: #b34100;
 }
 
 .button-yellow-hover .bg-yellow {
@@ -1180,7 +1180,7 @@ select {
 }
 
 .button-purple-hover:hover .bg-purple {
-  background-color: #5700c9;
+  background-color: #b34100;
 }
 
 @media (max-width: 991.98px) {
@@ -1249,8 +1249,8 @@ select {
   right: 0;
   bottom: 0;
   border-radius: 0 0 200px 0;
-  border-right: 3px solid var(--purple);
-  border-bottom: 3px solid var(--purple);
+  border-right: 3px solid #d14d00;
+  border-bottom: 3px solid #d14d00;
 }
 
 #preload .main-content .circle:nth-child(1)::after {
@@ -1261,8 +1261,8 @@ select {
   left: 0;
   top: 0;
   border-radius: 200px 0 0 0;
-  border-left: 3px solid var(--purple);
-  border-top: 3px solid var(--purple);
+  border-left: 3px solid #d14d00;
+  border-top: 3px solid #d14d00;
 }
 
 #preload .main-content .circle:nth-child(1) span {
@@ -1288,8 +1288,8 @@ select {
   right: 0;
   bottom: 0;
   border-radius: 0 0 200px 0;
-  border-right: 3px solid var(--purple);
-  border-bottom: 3px solid var(--purple);
+  border-right: 3px solid #d14d00;
+  border-bottom: 3px solid #d14d00;
 }
 
 #preload .main-content .circle:nth-child(1) .circle-child::after {
@@ -1300,8 +1300,8 @@ select {
   left: 0;
   top: 0;
   border-radius: 200px 0 0 0;
-  border-left: 3px solid var(--purple);
-  border-top: 3px solid var(--purple);
+  border-left: 3px solid #d14d00;
+  border-top: 3px solid #d14d00;
 }
 
 #preload .main-content .circle:nth-child(2) {
@@ -1400,23 +1400,23 @@ select {
 }
 
 .style-blue #preload .main-content .circle:nth-child(1)::before {
-  border-right: 3px solid var(--blue);
-  border-bottom: 3px solid var(--blue);
+  border-right: 3px solid #d14d00;
+  border-bottom: 3px solid #d14d00;
 }
 
 .style-blue #preload .main-content .circle:nth-child(1)::after {
-  border-left: 3px solid var(--blue);
-  border-top: 3px solid var(--blue);
+  border-left: 3px solid #d14d00;
+  border-top: 3px solid #d14d00;
 }
 
 .style-blue #preload .main-content .circle:nth-child(1) .circle-child::before {
-  border-right: 3px solid var(--blue);
-  border-bottom: 3px solid var(--blue);
+  border-right: 3px solid #d14d00;
+  border-bottom: 3px solid #d14d00;
 }
 
 .style-blue #preload .main-content .circle:nth-child(1) .circle-child::after {
-  border-left: 3px solid var(--blue);
-  border-top: 3px solid var(--blue);
+  border-left: 3px solid #d14d00;
+  border-top: 3px solid #d14d00;
 }
 
 .style-blue #preload .main-content .circle:nth-child(2)::before {
@@ -1554,7 +1554,7 @@ Popup Newsletter: Start
 }
 
 .popup-block .popup-newsletter-main .content form .form-input button:hover {
-  background-color: var(--blue);
+  background-color: #b34100;
 }
 
 .popup-block .popup-newsletter-main .content form .form-input button:hover i {
@@ -1635,7 +1635,7 @@ Popup Newsletter: End
 }
 
 .top-nav.style-four .right-block .list-social a:hover i::before {
-  color: var(--purple);
+  color: #d14d00;
 }
 
 .top-nav.style-four .right-block .list-social a:nth-child(3) i,
@@ -1752,7 +1752,7 @@ Menu header: Start
   bottom: -2px;
   width: 0;
   height: 2px;
-  background-color: var(--blue);
+  background-color: #d14d00;
   transition: all ease 0.4s;
 }
 
@@ -1815,7 +1815,7 @@ Menu header: Start
 }
 
 .header-menu>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .list-home .item:hover .text-button {
-  color: var(--blue);
+  color: #d14d00;
 }
 
 .header-menu>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .list-home .item:hover .bg-img img {
@@ -1827,7 +1827,7 @@ Menu header: Start
 }
 
 .header-menu>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .list-pages a:hover .text-button {
-  color: var(--blue);
+  color: #d14d00;
 }
 
 .header-menu>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .banner-infor {
@@ -1853,7 +1853,7 @@ Menu header: Start
 }
 
 .header-menu>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .explore-block .list-social a:hover {
-  background-color: #3974ff;
+  background-color: #d14d00;
 }
 
 .header-menu>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .explore-block .phone i {
@@ -2228,27 +2228,27 @@ Menu header: Start
 }
 
 .header-menu.style-four>.container .header-main .menu-main>ul li>a::before {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 .header-menu.style-four>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .list-home .item:hover .text-button {
-  color: var(--purple);
+  color: #d14d00;
 }
 
 .header-menu.style-four>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .list-pages a i::before {
-  color: var(--purple);
+  color: #d14d00;
 }
 
 .header-menu.style-four>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .list-pages a:hover .text-button {
-  color: var(--purple);
+  color: #d14d00;
 }
 
 .header-menu.style-four>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .explore-block a {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 .header-menu.style-four>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .explore-block a:hover {
-  background-color: #5700c9;
+  background-color: #d14d00;
 }
 
 @media (max-width: 575.98px) {
@@ -2258,15 +2258,15 @@ Menu header: Start
 }
 
 .header-menu.style-four>.container #menu-mobile-block .logo svg g path:first-child {
-  fill: var(--purple);
+  fill: #d14d00;
 }
 
 .header-menu.style-four>.container #menu-mobile-block .bg-blue {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 .header-menu.style-four>.container #menu-mobile-block .icon-blue::before {
-  color: var(--purple);
+  color: #d14d00;
 }
 
 /*
@@ -2276,63 +2276,63 @@ Menu header: Start
 *** Menu Style Subpage: Start
 */
 .style-purple .header-menu>.container .header-main .menu-main>ul li>a::before {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 .style-purple .header-menu>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .list-home .item:hover .text-button {
-  color: var(--purple);
+  color: #d14d00;
 }
 
 .style-purple .header-menu>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .list-pages a i::before {
-  color: var(--purple);
+  color: #d14d00;
 }
 
 .style-purple .header-menu>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .list-pages a:hover .text-button {
-  color: var(--purple);
+  color: #d14d00;
 }
 
 .style-purple .header-menu>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .banner-infor a,
 .style-purple .header-menu>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .explore-block a {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 .style-purple .header-menu>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .banner-infor a span:nth-child(2),
 .style-purple .header-menu>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .explore-block a span:nth-child(2) {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 .style-purple .header-menu>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .banner-infor a:hover,
 .style-purple .header-menu>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .explore-block a:hover {
-  background-color: #5700c9;
+  background-color: #d14d00;
 }
 
 .style-purple .header-menu>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .banner-infor a:hover span:nth-child(2),
 .style-purple .header-menu>.container .header-main .menu-main>ul li .sub-nav .sub-nav-main .row .explore-block a:hover span:nth-child(2) {
-  background-color: #5700c9;
+  background-color: #d14d00;
 }
 
 .style-purple .header-menu>.container .header-main .logo svg g path:first-child {
-  fill: var(--purple);
+  fill: #d14d00;
 }
 
 .style-purple .header-menu>.container .header-main .right-block a span:nth-child(2) {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 .style-purple .header-menu>.container .header-main .right-block a:hover span:nth-child(2) {
-  background-color: #5700c9;
+  background-color: #d14d00;
 }
 
 .style-purple .header-menu>.container #menu-mobile-block .logo svg g path:first-child {
-  fill: var(--purple);
+  fill: #d14d00;
 }
 
 .style-purple .header-menu>.container #menu-mobile-block .bg-blue {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 .style-purple .header-menu>.container #menu-mobile-block .icon-blue::before {
-  color: var(--purple);
+  color: #d14d00;
 }
 
 .style-purple.style-service .header-menu>.container .header-main .menu-main>ul li>a.active::before {
@@ -3175,7 +3175,7 @@ Menu header: End
 }
 
 .slider-block.style-two.style-four .slider-main .container .row>div:first-child .trust-block .avatar:nth-child(4) {
-  background: var(--purple);
+  background: #d14d00;
   margin-left: -10px;
   z-index: 1;
 }
@@ -3208,7 +3208,7 @@ Menu header: End
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--purple);
+  background-color: #d14d00;
   border-radius: 50%;
   opacity: 0.5;
   z-index: -1;
@@ -3548,7 +3548,7 @@ Bread crum: End
 *** List partner autoplay Home4: Start
 */
 .style-four .list-partner-slide {
-  background-color: var(--purple);
+  background-color: #d14d00;
   padding-top: 36px;
   padding-bottom: 36px;
 }
@@ -3669,7 +3669,7 @@ Bread crum: End
 }
 
 .section-form-chat .form-chat-block .form-content .form-chat span i:hover {
-  background: var(--blue);
+  background: #d14d00;
 }
 
 .section-form-chat .form-chat-block .form-content .form-chat:focus-within {
@@ -4119,7 +4119,7 @@ Bread crum: End
 }
 
 .about-block.style-four .container .row .bg-img .play-btn:hover i {
-  color: var(--purple);
+  color: #d14d00;
 }
 
 @media (max-width: 991.98px) {
@@ -4180,7 +4180,7 @@ Bread crum: End
   bottom: -22px;
   height: 30px;
   background-color: transparent;
-  border: 3px solid var(--purple);
+  border: 3px solid #d14d00;
   border-radius: 30%;
 }
 
@@ -4237,7 +4237,7 @@ Bread crum: End
   bottom: -22px;
   height: 30px;
   background-color: transparent;
-  border: 3px solid var(--purple);
+  border: 3px solid #d14d00;
   border-radius: 30%;
 }
 
@@ -4474,7 +4474,7 @@ Bread crum: End
 }
 
 .list-service .list .service-item:hover {
-  background-color: var(--purple);
+  background-color: #d14d00;
   margin-top: -8px;
 }
 
@@ -4513,7 +4513,7 @@ Bread crum: End
 *** Style service page (service-one.html): Start
 */
 .style-service .list-service.style-one .list .service-item:hover {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 /*
@@ -4598,7 +4598,7 @@ Bread crum: End
 }
 
 .style-purple .col-lg-7 .bg-blue {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 /*
@@ -4671,7 +4671,7 @@ Testimonial Home1: Start
 
 .testimonial-block.style-one .container .row>div .list-avatar .prev-btn:hover,
 .testimonial-block.style-one .container .row>div .list-avatar .next-btn:hover {
-  border: 1px solid var(--blue) !important;
+  border: 1px solid #d14d00 !important;
 }
 
 .testimonial-block.style-one .container .row>div .list-avatar .prev-btn {
@@ -5168,7 +5168,7 @@ Testimonial Home4: End
 
 .projects-block .container .heading .list-nav .nav-item:hover,
 .projects-block .container .heading .list-nav .nav-item.active {
-  background-color: var(--blue);
+  background-color: #d14d00;
 }
 
 @media (max-width: 575.98px) {
@@ -5463,7 +5463,7 @@ List pricing: Start
 }
 
 .section-pricing .container>.row>div:first-child button.active {
-  background-color: var(--blue);
+  background-color: #d14d00;
 }
 
 .section-pricing .container>.row .list-pricing .price,
@@ -5480,7 +5480,7 @@ List pricing: Start
 
 .section-pricing .container>.row .list-pricing .pricing-item a span:nth-child(2),
 .section-pricing .container>.row .list-pricing-year .pricing-item a span:nth-child(2) {
-  border: 2px solid var(--blue);
+  border: 2px solid #d14d00;
   display: block;
   width: 100%;
   text-align: center;
@@ -5489,7 +5489,7 @@ List pricing: Start
 
 .section-pricing .container>.row .list-pricing .pricing-item a:hover span:nth-child(2),
 .section-pricing .container>.row .list-pricing-year .pricing-item a:hover span:nth-child(2) {
-  background-color: var(--blue);
+  background-color: #d14d00;
 }
 
 .section-pricing .container>.row .list-pricing .pricing-item i.ph-x,
@@ -5500,12 +5500,12 @@ List pricing: Start
 .section-pricing .container>.row .list-pricing .pricing-item:hover,
 .section-pricing .container>.row .list-pricing-year .pricing-item:hover {
   background-color: var(--on-surface);
-  border: 2px solid var(--blue);
+  border: 2px solid #d14d00;
 }
 
 .section-pricing .container>.row .list-pricing .pricing-item:hover a span:nth-child(2),
 .section-pricing .container>.row .list-pricing-year .pricing-item:hover a span:nth-child(2) {
-  background-color: var(--blue);
+  background-color: #d14d00;
 }
 
 .section-pricing .container .list-more-feature .row {
@@ -5598,15 +5598,15 @@ List pricing: Start
 }
 
 .style-pricing .section-pricing .container>.row>div:first-child button.active {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 .style-pricing .section-pricing .container>.row .list-pricing .pricing-item a span:nth-child(2) {
-  border: 2px solid var(--purple);
+  border: 2px solid #d14d00;
 }
 
 .style-pricing .section-pricing .container>.row .list-pricing .pricing-item a:hover span:nth-child(2) {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 .style-pricing .section-pricing .container>.row .list-pricing .pricing-item i.ph-x {
@@ -5614,11 +5614,11 @@ List pricing: Start
 }
 
 .style-pricing .section-pricing .container>.row .list-pricing .pricing-item:hover {
-  border: 2px solid var(--purple);
+  border: 2px solid #d14d00;
 }
 
 .style-pricing .section-pricing .container>.row .list-pricing .pricing-item:hover a span:nth-child(2) {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 /*
@@ -5919,7 +5919,7 @@ Our Blog Home1: Start
 }
 
 .style-blog-detail .list-blog .heading a u:hover {
-  color: var(--purple);
+  color: #d14d00;
 }
 
 /*
@@ -6108,7 +6108,7 @@ Our Blog Home1: End
 }
 
 .style-purple .counter .item .icon {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 .style-purple .counter .text-on-surface {
@@ -6293,7 +6293,7 @@ Our Blog Home1: End
 }
 
 .faqs-block.style-four .list-question>div .question-item-main i {
-  color: var(--purple);
+  color: #d14d00;
 }
 
 .faqs-block.style-four .list-question>div:last-child {
@@ -6427,12 +6427,12 @@ Our Blog Home1: End
 *** Form contact Service Page: Start
 */
 .style-service .form-contact .button.bg-yellow {
-  background-color: var(--purple);
+  background-color: #d14d00;
   color: var(--white);
 }
 
 .style-service .form-contact .button.bg-yellow .bg-yellow {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 .style-service .form-contact .button.bg-yellow i {
@@ -6440,11 +6440,11 @@ Our Blog Home1: End
 }
 
 .style-service .form-contact .button.bg-yellow:hover {
-  background-color: #5700c9;
+  background-color: #d14d00;
 }
 
 .style-service .form-contact .button.bg-yellow:hover .bg-yellow {
-  background-color: #5700c9;
+  background-color: #d14d00;
 }
 
 /*
@@ -6459,7 +6459,7 @@ Form contact (Contact page): Start
 }
 
 .form-contact.style-contact .list-social a:hover {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 .form-contact.style-contact .container>.row .form-block {
@@ -6517,7 +6517,7 @@ Form contact (Contact page): End
   bottom: 0;
   width: 0;
   height: 100%;
-  background-color: var(--purple);
+  background-color: #d14d00;
   transition: all ease 0.3s;
 }
 
@@ -6526,7 +6526,7 @@ Form contact (Contact page): End
 }
 
 .our-benefit .list-benefit .row>a:hover .heading6 {
-  color: var(--purple);
+  color: #d14d00;
 }
 
 .our-benefit .list-benefit .row>a:hover .line-dark::before {
@@ -6582,7 +6582,7 @@ Form contact (Contact page): End
 }
 
 .our-leader .container .list-our-team .item .list-social a:hover {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 .our-leader .container .list-our-team .item .list-social a:hover i::before {
@@ -6697,7 +6697,7 @@ Form contact (Contact page): End
 }
 
 .blog-list .container>.row .search-block i:hover {
-  background-color: var(--purple);
+  background-color: #d14d00;
   color: var(--white);
 }
 
@@ -6712,11 +6712,11 @@ Form contact (Contact page): End
 
 .blog-list .container>.row .cate-block .list-cate .nav-item.active .left .text-button,
 .blog-list .container>.row .cate-block .list-cate .nav-item:hover .left .text-button {
-  color: var(--purple);
+  color: #d14d00;
 }
 
 .blog-list .container>.row .tags-popular-block .list-tag a:hover {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 .blog-list .container>.row .recent-post-block .recent-post-item .item-img img {
@@ -6727,7 +6727,7 @@ Form contact (Contact page): End
 }
 
 .blog-list .container>.row .recent-post-block .recent-post-item:hover .text-button {
-  color: var(--purple);
+  color: #d14d00;
 }
 
 @media (max-width: 991.98px) {
@@ -6835,7 +6835,7 @@ Form contact (Contact page): End
 }
 
 .blog-detail .container>.row>div:last-child .author-infor .list-social a:hover {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 .blog-detail .container>.row>div:last-child .newsletter input {
@@ -6854,7 +6854,7 @@ Form contact (Contact page): End
 *** Project Detail: Start
 */
 .project-detail-block .container>.row .more-infor .row .item {
-  border-bottom: 2px solid var(--purple);
+  border-bottom: 2px solid #d14d00;
 }
 
 @media (max-width: 1400px) {
@@ -6936,7 +6936,7 @@ Form contact (Contact page): End
 
 .video-block.style-four .play-btn {
   border: none;
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 .video-block.style-four .play-btn:hover {
@@ -6944,7 +6944,7 @@ Form contact (Contact page): End
 }
 
 .video-block.style-four .play-btn:hover i {
-  color: var(--purple);
+  color: #d14d00;
 }
 
 .video-block.style-four .heading3 {
@@ -7163,7 +7163,7 @@ Footer: Start
 }
 
 #footer .footer-block .heading .list-social .item:hover {
-  background-color: #3974ff;
+  background-color: #d14d00;
 }
 
 #footer .footer-block .company-contact .mail span {
@@ -7270,15 +7270,15 @@ Footer: Start
 }
 
 #footer .style-four .footer-block .logo svg path:nth-child(1) {
-  fill: var(--purple);
+  fill: #d14d00;
 }
 
 #footer .style-four .footer-block .heading .list-social .item {
-  background-color: var(--purple);
+  background-color: #d14d00;
 }
 
 #footer .style-four .footer-block .heading .list-social .item:hover {
-  background-color: #5700c9;
+  background-color: #d14d00;
 }
 
 /*
