@@ -593,28 +593,3 @@
 
 
 
-
-
-@if (\Session::has('error'))
-<script>
-      if (popupLoginBlock) {
-            popupLoginBlock.classList.add('open');
-      }
-
-      const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 10000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.onmouseenter = Swal.stopTimer;
-        toast.onmouseleave = Swal.resumeTimer;
-      }
-    });
-    Toast.fire({
-      icon: "error",
-      title: "{!! \Session::get('error') !!}"
-    });
-</script>
-@endif

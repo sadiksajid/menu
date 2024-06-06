@@ -30,13 +30,13 @@
                 </span>
                 @enderror
 
-                @error('email')
+                @if(session()->has('error'))
                 <div class="col-md-12" style='margin-top: 15px;color: #ff9900;background-color: rgb(255, 255, 255, 0.2);border-radius: 10px;padding: 13px'>
                     <div class="form-check-label" >
-                        {{ $message}}
+                        {{ session()->get('error')}}
                     </div>
                 </div>
-                @enderror
+                @endif
                 
                 <a style='margin-top:15px' href="javascript:;" onclick="document.getElementById('Login').submit();"
                     class="button button-blue-hover text-white text-button" href="about.html"> <span>

@@ -7,6 +7,8 @@ use App\Models\Client;
 use App\Models\StoreAdmin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
+use Symfony\Component\Console\Input\Input;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -20,7 +22,13 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        $this->validateLogin($request);
+
+        if(!$this->validateLogin($request)        ){
+            return redirect()->back()->with('error', 'Email-Address Or Password Are Wrong !');
+        }
+
+
+
 
         if (method_exists($this, 'hasTooManyLoginAttempts') &&
             $this->hasTooManyLoginAttempts($request)) {
@@ -80,8 +88,11 @@ class LoginController extends Controller
         }
         
         if (!$user) {
-            return back()->with('error', 'Email-Address Or Password Are Wrong !');
-        } 
+            // return Redirect::to('/')->with(['type' => 'error','message' => 'Email-Address Or Password Are Wrong !']);
+            return false;
+        } else{
+            return true ;
+        }
     }
     public function logout(Request $request)
     {

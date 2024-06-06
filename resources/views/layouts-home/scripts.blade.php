@@ -116,6 +116,7 @@
             event.stopPropagation();
         });
         }
+
         ////////////////////////////////// popup register
 
         var popupRegisterBlock = document.querySelector('#popup-register-block');
@@ -137,51 +138,50 @@
         });
         }
 
-////////////////////////////////// news
-      $('.register_popup').click(function(){
-          if (popupRegisterBlock) {
-            popupRegisterBlock.classList.add('open');
-          }
-      });
-      $('#login_popup').click(function(){
-          if (popupLoginBlock) {
+    ////////////////////////////////// news
+        $('.register_popup').click(function(){
+            if (popupRegisterBlock) {
+                popupRegisterBlock.classList.add('open');
+            }
+        });
+        $('#login_popup').click(function(){
+            if (popupLoginBlock) {
+                popupLoginBlock.classList.add('open');
+            }
+        });
+
+
+        @if(session()->has('errors'))
+        @php
+            $is_login = false ;
+            foreach(session()->get('errors')->keys() as $key){
+                if($key == 'login_password' or $key == 'login_email'){
+                    $is_login = true ;
+                }
+
+            }
+        @endphp
+
+        @if ($is_login)
             popupLoginBlock.classList.add('open');
-          }
-      });
+
+        @else
+            popupRegisterBlock.classList.add('open');
+        @endif
+
+        @endif
+        @if(session()->has('error'))
+            popupLoginBlock.classList.add('open');
+        @endif
 
 
+        
     });
     
     
 </script>
 
-@if($errors->any())
-    @php
-        $is_login = false ;
-        foreach($errors->keys() as $key){
-            if($key == 'login_password' or $key == 'login_email'){
-                $is_login = true ;
-            }
 
-        }
-    @endphp
-    @error('email')
-    @php
-        $is_login = true ;
-    @endphp
-
-    @enderror
-    @if ($is_login)
-        <script>
-            popupLoginBlock.classList.add('open');
-        </script>
-    @else
-        <script>
-            popupRegisterBlock.classList.add('open');
-        </script>
-    @endif
-
-@endif
 
 @if(session('success_login'))
 <script>
