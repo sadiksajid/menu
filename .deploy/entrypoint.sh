@@ -8,9 +8,9 @@ echo "🎬 entrypoint.sh: [$(whoami)] [PHP $(php -r 'echo phpversion();')]"
 
 # find $LARAVEL_PATH/storage -type d -exec chmod 755 {} \;
 # find $LARAVEL_PATH/storage -type f -exec chmod 755 {} \;
-mkdir storage/app/Public
-mv public/Public/* storage/app/Public
-rm -rf public/Public
+# mkdir storage/app/Public
+# mv public/Public/* storage/app/Public
+# rm -rf public/Public
 
 composer dump-autoload --no-interaction --no-dev --optimize
 
