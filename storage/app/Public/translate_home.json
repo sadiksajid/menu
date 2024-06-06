@@ -77,103 +77,106 @@
         "en": "To make it very easy for you , we provide a very large library of drinks and meals that helps you to build easy you menu in a very short time."
     },
     "Feature3_title": {
-        "en": "A very Helpful Dashboard with you Buseniss"
+        "en": "A very Helpful Dashboard with you Buseniss business"
     },
     "Feature3_text": {
         "en": "also we provide you a very helpful and beautiful dashboard to help you to push your business to the height levels."
     },
-    "": {
-        "en": ""
+    "contact_us_msg_sent": {
+        "en": "Your Message sent successfully!"
     },
-    "": {
-        "en": ""
+    "contact_us": {
+        "en": "Contact Us"
     },
-    "": {
-        "en": ""
+    "start_free": {
+        "en": "Start For Free"
     },
-    "": {
-        "en": ""
+    "dashboard": {
+        "en": "Dashboard"
     },
-    "": {
-        "en": ""
+    "menu": {
+        "en": "Menu"
     },
-    "": {
-        "en": ""
+    "trusted_by": {
+        "en": "Trusted by 1700+ Restorant"
     },
-    "": {
-        "en": ""
+    "people_say": {
+        "en": "What’s people say’s"
     },
-    "": {
-        "en": ""
+    "meet_leader": {
+        "en": "Meet our leader"
     },
-    "": {
-        "en": ""
+    "leader_hope": {
+        "en": "For now, there is just me! And I hope we be more inchaallah."
     },
-    "": {
-        "en": ""
+    "plan_title": {
+        "en": "Find Your Right Plan"
     },
-    "": {
-        "en": ""
+    "plan_meta": {
+        "en": "We offer a variety of pricing packages to meet the unique needs of our services. Contact us today to discuss which package is right for you."
     },
-    "": {
-        "en": ""
+    "plan_monthly": {
+        "en": "Pay Monthly"
     },
-    "": {
-        "en": ""
+    "plan_yearly": {
+        "en": "Pay Yearly"
     },
-    "": {
-        "en": ""
+    "plan_start": {
+        "en": "Get Started"
     },
-    "": {
-        "en": ""
+    "plan_free": {
+        "en": "Freebie"
     },
-    "": {
-        "en": ""
+    "plan_free_meta": {
+        "en": "Ideal for New Business who need quick access to basic features."
     },
-    "": {
-        "en": ""
+    "free": {
+        "en": "Free"
     },
-    "": {
-        "en": ""
+    "plan_list1": {
+        "en": "One Menu page"
     },
-    "": {
-        "en": ""
+    "plan_list2": {
+        "en": "Dashboard Analytics"
     },
-    "": {
-        "en": ""
+    "plan_list3": {
+        "en": "Access to meals library"
     },
-    "": {
-        "en": ""
+    "plan_list4": {
+        "en": "Limited Products you can add to menu"
     },
-    "": {
-        "en": ""
+    "plan_list5": {
+        "en": "limited Offers you can create"
     },
-    "": {
-        "en": ""
+    "plan_list6": {
+        "en": "Multiple Menu page"
     },
-    "": {
-        "en": ""
+    "plan_list7": {
+        "en": "Unlimited Products you can add to menu"
     },
-    "": {
-        "en": ""
+    "plan_list8": {
+        "en": "Unlimited Offers you can create"
     },
-    "": {
-        "en": ""
+    "plan_list9": {
+        "en": "Create Store"
     },
-    "": {
-        "en": ""
+    "plan_list10": {
+        "en": "Get Orders Online"
     },
-    "": {
-        "en": ""
+    "plan_list11": {
+        "en": "Manage Clients"
     },
-    "": {
-        "en": ""
+    "month": {
+        "en": "Month"
     },
-    "": {
-        "en": ""
+    "premium": {
+        "en": "Premium"
     },
-    "": {
-        "en": ""
+    "premium_meta": {
+        "en": "Ideal for Advanced Busines who need advanced features and tools."
+    },
+    "year": {
+        "en": "Year"
     },
     "": {
         "en": ""
