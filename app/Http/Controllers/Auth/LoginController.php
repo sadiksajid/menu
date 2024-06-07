@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use GeoIP;
 use App\Models\User;
 use App\Models\Client;
+use App\Models\Country;
 use App\Models\StoreAdmin;
 use Illuminate\Http\Request;
+use libphonenumber\PhoneNumberUtil;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Symfony\Component\Console\Input\Input;
@@ -19,6 +22,54 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+
+
+        $phoneNumber = $request->input('login_email');
+        $phoneUtil = PhoneNumberUtil::getInstance();
+
+        if(!empty($_SERVER['HTTP_CLIENT_IP'])) {   
+            $ip = $_SERVER['HTTP_CLIENT_IP'];   
+        }   
+        //if user is from the proxy   
+        elseif (!empty($_SERVER['HTTP_X_REAL_IP'])) {   
+            $ip = $_SERVER['HTTP_X_REAL_IP'];   
+        }  
+        //if user is from the proxy   
+        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {   
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];   
+        }   
+        //if user is from the remote address   
+        else{   
+            $ip = $_SERVER['REMOTE_ADDR'];   
+        }  
+        dd($clientIp);
+        
+        $location = GeoIP::getLocation($clientIp);
+    
+        // Country code
+        $countryCode = $location->getAttribute('iso_code');
+        
+        dd($countryCode);
+
+
+        $defaultRegions = Country::select('iso')->get()->pluck('iso')->toArray();
+        foreach ($defaultRegions as $region) {
+                $numberProto = $phoneUtil->parse($phoneNumber, $region);
+                $countryCode = $numberProto->getCountryCode();
+
+                // Validate the parsed number
+                if ($phoneUtil->isValidNumber($numberProto)) {
+                    dd( $countryCode );
+                }
+           
+        }
+
+
+
+       
+
+
+        
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
@@ -61,7 +112,8 @@ class LoginController extends Controller
 
     protected function credentials(Request $request)
     {
-
+    
+        
         if (is_numeric($request->input('login_email'))) {
             return ['telephone' => $request->input('login_email'), 'password' => $request->input('login_password')];
         } elseif (filter_var($request->input('login_email'), FILTER_VALIDATE_EMAIL)) {
