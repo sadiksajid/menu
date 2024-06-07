@@ -9,8 +9,8 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-xl-9 col-lg-10 col-md-8">
-                            <h1  > {{ $titles['title-1'] ?? 'Menu thumbs' }}  </h1>
-                            <p  >{{ $titles['title-2'] ?? 'Cooking delicious and tasty food since 2005' }} </p>
+                            <h1  > {{ $titles['title-1'] ?? $translations_resto['our_menu'] }}  </h1>
+                            <p  >{{ $titles['title-2'] ?? $translations_resto['our_menu_text'] }} </p>
                         </div>
                     </div>
                     <!-- /row -->
@@ -26,8 +26,8 @@
               @foreach ( $products as $product)
                 <div class="main_title center">
                     <span><em></em></span>
-                    <h2>{{ $product[0]['category']['title']}}</h2>
-                    <p>{{ $product[0]['category']['s_title']}}</p>
+                    <h2>{{ $product[0]['category']['title'][app()->getLocale()]}}</h2>
+                    <p>{{ $product[0]['category']['s_title'][app()->getLocale()]}}</p>
                 </div>
                 <div class="row add_bottom_45 menu-gallery">
 
@@ -35,19 +35,19 @@
                         <div class="col-lg-6" data-cue="slideInUp">
                             <div class="menu_item order">
                                 <figure style='border:1px solid black'>
-                                    <a href="{{ get_image($prod['media'][0]['media'])}}" title="Summer Berry"
+                                    <a href="{{ get_image('moyen/'.$prod['media'][0]['media'])}}" title="Summer Berry"
                                         data-effect="mfp-zoom-in">
                                         
                                         <img src="{{ URL::asset('index1/img/menu_items/menu_items_placeholder.png') }}"
-                                            data-src="{{ get_image($prod['media'][0]['media'])}}" class="lazy"
+                                            data-src="{{ get_image('moyen/'.$prod['media'][0]['media'])}}" class="lazy"
                                             alt="">
                                     </a>
                                 </figure>
                                 <div class="menu_title">
-                                    <h3>{{$prod['title']}}</h3><em>{{ $prod['price']}} {{ $currency }}</em>
+                                    <h3>{{$prod['title'][app()->getLocale()]}}</h3><em>{{ $prod['price']}} {{ $currency }}</em>
                                 </div>
-                                <p>{{ substr($prod['description'], 0, 40) }}</p>
-                                <a href="#0" class="add_to_cart" style="margin-left: 5px;background-color:{{$store_info->btn_color}}" wire:click="addToCart({{ $prod['id'] }},0)">Add To Cart</a>
+                                <p>{{ substr($prod['description'][app()->getLocale()], 0, 40) }}</p>
+                                <a href="#0" class="add_to_cart" style="margin-left: 5px;background-color:{{$store_info->btn_color}}" wire:click="addToCart({{ $prod['id'] }},0)">{{$translations['add_to_cart']}}</a>
                             </div>
                         </div>
                     @endforeach

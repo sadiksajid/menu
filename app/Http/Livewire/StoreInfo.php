@@ -3,14 +3,13 @@
 namespace App\Http\Livewire;
 
 use App\Models\City;
-use App\Models\Store;
-use App\Models\Region;
-use Livewire\Component;
 use App\Models\Quartier;
-use Livewire\WithFileUploads;
+use App\Models\Region;
+use App\Models\Store;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class StoreInfo extends Component
 {
@@ -53,7 +52,8 @@ class StoreInfo extends Component
     public $background_color = 'white';
 
     protected $listeners = ['getlocal', 'confirmed', 'getCity'];
-
+    ////////////////////////////////
+    public $translations;
     public function getlocal($post)
     {
         $this->edit_longitude = $post['longitude'];
@@ -72,7 +72,7 @@ class StoreInfo extends Component
 
         $this->dispatchBrowserEvent('swal:confirm', [
             'type' => 'success',
-            'title' => 'Do you want to change the address to ',
+            'title' => $this->translations['store_info_msg_3'],
             'message' => $this->edit_address,
         ]);
 
@@ -83,7 +83,9 @@ class StoreInfo extends Component
     }
     public function mount()
     {
-        
+
+        $this->translations = app('translations_admin');
+        ///////////////////////////////////
         $this->store_id = Auth::user()->store_id;
         $this->regions = Region::orderBy('region', 'ASC')->get();
         $this->editStoreInfo();
@@ -229,19 +231,18 @@ class StoreInfo extends Component
             $this->img_link = 'Logo_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.' . $this->edit_logo->extension();
             // $this->edit_logo->storeAs('Public/store_logo', $this->img_link);
             $localFilee = File::get($this->edit_logo->getRealPath());
-            $path = '/store_info/store_logo' ; 
+            $path = '/store_info/store_logo';
             // Minio($localFilee, $path,$this->img_link,false);
-            $save_result = save_livewire_filetocdn($localFilee, $path , $this->img_link);
+            $save_result = save_livewire_filetocdn($localFilee, $path, $this->img_link);
 
-
-            $this->store_info->logo =  $path.'/'.$this->img_link;
+            $this->store_info->logo = $path . '/' . $this->img_link;
         }
         $this->store_info->save();
 
         $this->dispatchBrowserEvent('swal:confirm_redirect', [
             'type' => 'success',
-            'title' => 'Store Info Updated Successfully!',
-            'message' => 'Do you want to back to Dashboard page ?',
+            'title' => $this->translations['store_info_msg_1'],
+            'message' => $this->translations['store_info_msg_2'],
             'url' => '/admin/dashboard',
 
         ]);

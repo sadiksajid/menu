@@ -22,6 +22,8 @@ class OrdersDataTable extends DataTable
 
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
+        $translations = app('translations_admin');
+
         return (new EloquentDataTable($query))
         // ->addColumn('action', 'orders.action')
             ->addColumn('cleint', function ($query) {
@@ -33,35 +35,35 @@ class OrdersDataTable extends DataTable
             ->addColumn('total', function ($query) {
                 return ($query->total . ' ' . $query->currency);
             })
-            ->addColumn('type', function ($query) {
+            ->addColumn('type', function ($query) use ($translations) {
                 if ($query->order_type == 'shipping') {
-                    return ('<span class="badge badge-primary badge-pill">' . $query->order_type . '</span>');
+                    return ('<span class="badge badge-primary badge-pill">' . $translations[$query->order_type] . '</span>');
 
                 } else {
-                    return ('<span class="badge badge-info badge-pill">' . $query->order_type . '</span>');
+                    return ('<span class="badge badge-info badge-pill">' . $translations[$query->order_type] . '</span>');
                 }
             })
-            ->addColumn('status', function ($query) {
+            ->addColumn('status', function ($query) use ($translations) {
                 if ($query->status == 'pending') {
-                    return ('<span class="badge badge-warning badge-pill">' . $query->status . '</span>');
+                    return ('<span class="badge badge-warning badge-pill">' . $translations[$query->status] . '</span>');
 
                 } elseif ($query->status == 'verified') {
-                    return ('<span class="badge badge-success badge-pill">' . $query->status . '</span>');
+                    return ('<span class="badge badge-success badge-pill">' . $translations[$query->status] . '</span>');
                 } elseif ($query->status == 'confirmed') {
-                    return ('<span class="badge badge-success badge-pill">' . $query->status . '</span>');
+                    return ('<span class="badge badge-success badge-pill">' . $translations[$query->status] . '</span>');
                 } elseif ($query->status == 'shipped') {
-                    return ('<span class="badge badge-primary badge-pill">' . $query->status . '</span>');
+                    return ('<span class="badge badge-primary badge-pill">' . $translations[$query->status] . '</span>');
                 } elseif ($query->status == 'delivered') {
-                    return ('<span class="badge badge-primary badge-pill">' . $query->status . '</span>');
+                    return ('<span class="badge badge-primary badge-pill">' . $translations[$query->status] . '</span>');
                 } elseif ($query->status == 'canceled') {
-                    return ('<span class="badge badge-secondary badge-pill">' . $query->status . '</span>');
+                    return ('<span class="badge badge-secondary badge-pill">' . $translations[$query->status] . '</span>');
                 } else {
-                    return ('<span class="badge badge-danger badge-pill">' . $query->status . '</span>');
+                    return ('<span class="badge badge-danger badge-pill">' . $translations[$query->status] . '</span>');
                 }
 
             })
-            ->addColumn('actions', function ($query) {
-                return '<a href="/admin/orders/details/' . $query->id . '" class="badge badge-info">View</a>';
+            ->addColumn('actions', function ($query) use ($translations) {
+                return '<a href="/admin/orders/details/' . $query->id . '" class="badge badge-info">' . $translations['details'] . '</a>';
             })
             ->orderColumn('date', 'store_orders.created_at $1')
             ->filterColumn('date', function ($query, $keyword) {
@@ -138,19 +140,21 @@ class OrdersDataTable extends DataTable
      */
     public function getColumns(): array
     {
+        $translations = app('translations_admin');
         return [
             // Column::computed('action')
             //     ->exportable(false)
             //     ->printable(false)
             //     ->width(60)
             //     ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('cleint')->orderable(false),
-            Column::make('type'),
-            Column::make('status'),
-            Column::make('total'),
-            Column::make('date')->orderable(false),
-            Column::make('actions')->orderable(false),
+
+            Column::make('id')->title($translations['id']),
+            Column::make('cleint')->title($translations['client'])->orderable(false),
+            Column::make('type')->title($translations['type']),
+            Column::make('status')->title($translations['status']),
+            Column::make('total')->title($translations['total']),
+            Column::make('date')->title($translations['date'])->orderable(false),
+            Column::make('actions')->title($translations['actions'])->orderable(false),
         ];
     }
 

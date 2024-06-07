@@ -49,9 +49,13 @@ class AdminOffers extends Component
     public $offer = [];
     // public $offer_sizes = ['tmb' => ['w' => 300, 'h' => 300], 'moyen' => ['w' => 600, 'h' => 600], 'origin' => ['w' => 1000, 'h' => 1000]];
     protected $listeners = ['confirmed'];
+    ////////////////////////////
+    public $translations;
 
     public function mount($url = null, $id = null)
     {
+        $this->translations = app('translations_admin');
+
         $this->store_info = Auth::user()->store;
         $this->store_id = $this->store_info->id;
         $this->url = $url;
@@ -218,12 +222,12 @@ class AdminOffers extends Component
         $link = 'offer_image_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.webp';
         $image = File::get($this->offer_image->getRealPath());
         $save_result = save_livewire_filetocdn($image, 'offer_images', $link);
-        $link = 'offer_images/'.$link ; 
+        $link = 'offer_images/' . $link;
 
         $link2 = 'offer_image_squad_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.webp';
         $image = File::get($this->offer_image_squad->getRealPath());
         $save_result2 = save_livewire_filetocdn($image, 'offer_images', $link2);
-        $link = 'offer_images/'.$link2 ; 
+        $link = 'offer_images/' . $link2;
 
         if ($save_result and $save_result2) {
             $offer = new Offer();
@@ -329,7 +333,7 @@ class AdminOffers extends Component
             $link = 'offer_image_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.webp';
             $image = File::get($this->offer_image->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'offer_images', $link);
-            $link = 'offer_images/'.$link ;
+            $link = 'offer_images/' . $link;
 
             if (!$save_result) {
                 $check = false;
@@ -340,11 +344,10 @@ class AdminOffers extends Component
         if (!empty($this->offer_image_squad)) {
             delete_file($this->offer_image_squad_deleted);
 
-
             $link2 = 'offer_image_squad_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.webp';
             $image = File::get($this->offer_image_squad->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'offer_images', $link2);
-            $link2 = 'offer_images/'.$link2 ;
+            $link2 = 'offer_images/' . $link2;
 
             if (!$save_result) {
                 $check = false;
@@ -381,16 +384,16 @@ class AdminOffers extends Component
 
             $this->dispatchBrowserEvent('swal:confirm_redirect', [
                 'type' => 'success',
-                'title' => 'Offer Updated Successfully!',
-                'message' => 'Do you want to back to offers page ?',
+                'title' => $this->translations['offer_admin_msg_1'],
+                'message' => $this->translations['offer_admin_msg_2'],
                 'url' => '/admin/offers',
 
             ]);
         } else {
             $this->dispatchBrowserEvent('swal:alert', [
                 'type' => 'warning',
-                'title' => 'Cant Upload Image!',
-                'message' => 'Please check the image you upload ore change it ?',
+                'title' => $this->translations['img_upload_msg_1'],
+                'message' => $this->translations['img_upload_msg_2'],
 
             ]);
         }
@@ -402,8 +405,8 @@ class AdminOffers extends Component
 
         $this->dispatchBrowserEvent('swal:confirm', [
             'type' => 'warning',
-            'title' => 'Please Confirm !',
-            'message' => 'Do you Want Delete This Offer ?',
+            'title' => $this->translations['please_confirm'],
+            'message' => $this->translations['offer_delete_msg_1'],
         ]);
 
     }
@@ -448,8 +451,7 @@ class AdminOffers extends Component
     {
         $this->dispatchBrowserEvent('swal:modal_back', [
             'type' => 'success',
-            'title' => 'Offer Not Found',
-            // 'message' => 'Do you want to back to offers page ?',
+            'title' => $this->translations['offer_not_nound'],
             'url' => '/admin/offers',
 
         ]);

@@ -1,12 +1,12 @@
 <div>
     <div wire:ignore class="hero_single inner_pages background-image" style="height:260px"
-    @if (isset($images_checkout))   data-background="url({{ get_image($images_checkout}})" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif >
+    @if (isset($images_checkout))   data-background="url({{ get_image($images_checkout)}})" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif >
 
         <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-xl-9 col-lg-10 col-md-8">
-                        <h1  > {{ $titles_checkout ?? 'Cart' }}  </h1>
+                        <h1  > {{ $titles_checkout ?? $translations['checkout'] }}  </h1>
                         {{-- <p  >{{ $titles['title-2'] ?? 'Cooking delicious and tasty food since 2005' }} </p> --}}
                     </div>
                 </div>
@@ -24,13 +24,13 @@
                             <div class="row">
                                 <div class="col-lg-6 col-sm-12 col-12">
                                     <div class="checkout-title">
-                                        <h3>Billing Details
+                                        <h3>{{$translations['billing_details']}}
                                             <div wire:loading.class.remove="d-none"
                                                 class="spinner-border text-secondary d-none" role="status"
                                                 style="    font-size: 11px;
                                             width: 25px;
                                             height: 25px;">
-                                                <span class="sr-only">Loading...</span>
+                                                <span class="sr-only">{{$translations['loading']}}...</span>
                                             </div>
                                         </h3>
 
@@ -39,7 +39,7 @@
                                         @if (Auth::guard('client')->check() == false and $step == 1)
 
                                             <div class="form-group col-sm-6 col-12">
-                                                <div class="field-label text-secondary">First Name</div>
+                                                <div class="field-label text-secondary">{{$translations['first_name']}}</div>
                                                 <input name="field-name" placeholder="FirstName" type="text"
                                                     wire:model='client_firstname'>
                                                 @error('client_firstname')
@@ -47,7 +47,7 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group col-sm-6 col-12">
-                                                <div class="field-label text-secondary">Last Name</div>
+                                                <div class="field-label text-secondary">{{$translations['last_name']}}</div>
                                                 <input name="field-name" placeholder="LastName" type="text"
                                                     wire:model='client_lastname'>
                                                 @error('client_lastname')
@@ -55,7 +55,7 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group col-sm-6 col-12">
-                                                <div class="field-label text-secondary">Phone</div>
+                                                <div class="field-label text-secondary">{{$translations['phone']}}</div>
                                                 <input name="field-name" placeholder="Phone" type="text"
                                                     wire:model='client_phone'
                                                     oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
@@ -64,7 +64,7 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group col-sm-6 col-12">
-                                                <div class="field-label text-secondary">Email Address</div>
+                                                <div class="field-label text-secondary">{{$translations['email']}}</div>
                                                 <input name="field-name" placeholder="Email" type="text"
                                                     wire:model='client_email'>
                                                 @error('client_email')
@@ -73,9 +73,9 @@
 
                                             </div>
                                             <div class="form-group col-sm-6 col-12">
-                                                <div class="field-label text-secondary ">Password <span
-                                                        style="color: gray ; font-size:10px">( To keep your data safe
-                                                        )</span> </div>
+                                                <div class="field-label text-secondary ">{{$translations['password']}}  
+                                                    <span style="color: gray ; font-size:10px">( {{$translations['password_meta']}} )</span>
+                                                </div>
                                                 <input name="field-name" placeholder="Password" type="password"
                                                     wire:model='password'>
                                                 @error('password')
@@ -85,7 +85,7 @@
                                             </div>
 
                                             <div class="form-group col-sm-6 col-12">
-                                                <div class="field-label text-secondary">Repeat Password </div>
+                                                <div class="field-label text-secondary">{{$translations['repeat_password']}} </div>
                                                 <input name="field-name" placeholder="Repeat Password" type="password"
                                                     wire:model='password_confirmation'>
                                                 @error('password_confirmation')
@@ -95,7 +95,7 @@
                                             </div>
 
                                             <div class="text-end"><a class="btn btn-default primary-btn radius-0"
-                                                    Wire:click='Step1()'>Next</a>
+                                                    Wire:click='Step1()'>{{$translations['next']}}</a>
                                             </div>
                                         @else
                                             <div class="row" style="color: rgb(60, 60, 60)">
@@ -114,19 +114,19 @@
                                                 @if ($new_address == true)
                                                     <div class="col-12">
                                                         <button class="btn btn-primary btn-sm mb-2" style="float: right"
-                                                            wire:click='addAddress(0)'>Sellect Address</button>
+                                                            wire:click='addAddress(0)'>{{$translations['sellect_address']}}</button>
                                                     </div>
                                                 @else
                                                     <div class="col-12">
                                                         <button class="btn btn-primary btn-sm mb-2" style="float: right"
-                                                            wire:click='addAddress(1)'>New Address</button>
+                                                            wire:click='addAddress(1)'>{{$translations['new_address']}}</button>
                                                     </div>
                                                 @endif
                                                 @if ($new_address == true)
 
                                                     <div class="form-group col-md-6 col-sm-6 col-12">
-                                                        <div class="field-label text-secondary">Town/City</div>
-                                                        <input name="field-name" placeholder="Town/City" type="text"
+                                                        <div class="field-label text-secondary">{{$translations['town_city']}}</div>
+                                                        <input name="field-name" placeholder="{{$translations['town_city']}}" type="text"
                                                             wire:model='client_city' id="city_name">
                                                         <center>
                                                             <div class="dropdown-menu" aria-labelledby="citiesDrop"
@@ -145,8 +145,8 @@
                                                         @enderror
                                                     </div>
                                                     <div class="form-group col-md-6 col-sm-6 col-12">
-                                                        <div class="field-label text-secondary">Quarter</div>
-                                                        <input name="field-name" placeholder="Quartier" type="text"
+                                                        <div class="field-label text-secondary">{{$translations['quarter']}}</div>
+                                                        <input name="field-name" placeholder="{{$translations['quarter']}}" type="text"
                                                             wire:model='client_quarter' id="qaurter_name">
                                                         <center>
                                                             <div class="dropdown-menu" aria-labelledby="quartersDrop"
@@ -164,8 +164,8 @@
                                                     </div>
 
                                                     <div class="form-group col-md-12 col-sm-12 col-12">
-                                                        <div class="field-label text-secondary">Address</div>
-                                                        <input name="field-name" placeholder="Street address"
+                                                        <div class="field-label text-secondary">{{$translations['address']}}</div>
+                                                        <input name="field-name" placeholder="{{$translations['address']}}"
                                                             type="text" wire:model='client_address'>
                                                         @error('client_address')
                                                             <span class="text-danger">{{ $message }}</span>
@@ -176,7 +176,7 @@
                                                     @if (testMobile())
                                                         <div class="text-end">
                                                             <a class="btn btn-default primary-btn radius-0"
-                                                                id='finishOrder'>Next</a>
+                                                                id='finishOrder'>{{$translations['next']}}</a>
                                                         </div>
                                                     @endif
                                                 @else
@@ -193,7 +193,7 @@
                                                                         <button
                                                                             class="btn @if ($address_id == $address->id) btn-success  @else btn-light @endif btn-sm border"
                                                                             wire:click="selectAddress({{ $address->id }})">
-                                                                            Use
+                                                                            {{$translations['use']}}
                                                                         </button>
                                                                     </td>
                                                                 </tr>
@@ -203,13 +203,13 @@
                                                     </table>
 
                                                     @error('address_id')
-                                                        <span class="text-danger">You have to select One address</span>
+                                                        <span class="text-danger">{{$translations['you_have_to_select_one_address']}}</span>
                                                     @enderror
 
                                                 @endif
                                             @else
                                                 <div class="col-12">
-                                                    <div class="field-label text-secondary">Time</div>
+                                                    <div class="field-label text-secondary">{{$translations['time']}}</div>
                                                     <input name="field-name" class="form-control" type="time"
                                                         wire:model.defer='coming_time'>
                                                     @error('coming_time')
@@ -218,7 +218,7 @@
                                                 </div>
                                             @endif
                                             <div class=" col-12 mt-3">
-                                                <div class="field-label text-secondary">Comment</div>
+                                                <div class="field-label text-secondary">{{$translations['comment']}}</div>
                                                 <textarea wire:model='comment' class="form-control" cols="30" rows="10" style="min-height: 130px"></textarea>
                                                 @error('comment')
                                                     <span class="text-danger">{{ $message }}</span>
@@ -234,7 +234,7 @@
                                     <div class="checkout-details">
                                         <div class="order-box">
                                             <div class="title-box">
-                                                <div>Product <span>Total</span></div>
+                                                <div>{{$translations['product']}} <span>{{$translations['total']}}</span></div>
                                             </div>
                                             <ul class="qty">
                                                 @foreach ($my_cart as $store_meta => $store)
@@ -255,36 +255,31 @@
                                                 @endforeach
                                             </ul>
                                             <ul class="sub-total">
-                                                <li>Subtotal <span class="count">{{ $total }}
+                                                <li>{{$translations['subtotal']}} <span class="count">{{ $total }}
                                                         {{ $currency }}</span>
                                                 </li>
-                                                <li>Shipping
+                                                <li>{{$translations['shipping']}}
                                                     <div class="row mt-3">
                                                         <div class="col-6">
-                                                            {{-- <input checked="checked" id="free-shipping"
-                                                                name="shipping" type="radio"
-                                                                wire:model='shipping_type' value='shipping'>
-                                                            <label for="shipping">Ship it to me</label> --}}
+              
 
                                                             <button
                                                                 class="border btn @if ($shipping_type == 'shipping') btn-success @else  btn-light @endif "
                                                                 style="width: 100%"
-                                                                wire:click='changeDelivery("shipping")'>Ship it
-                                                                to me</button>
+                                                                wire:click='changeDelivery("shipping")'>{{$translations['ship_it_to_me']}}</button>
                                                         </div>
                                                         <div class="col-6">
 
                                                             <button
                                                                 class=" border btn @if ($shipping_type == 'coming') btn-success @else  btn-light @endif "
                                                                 style="width: 100%"
-                                                                wire:click='changeDelivery("coming")'>I'm
-                                                                coming</button>
+                                                                wire:click='changeDelivery("coming")'>{{$translations['im_coming']}}</button>
                                                         </div>
                                                     </div>
                                                 </li>
                                             </ul>
                                             <ul class="total">
-                                                <li>Total <span class="count">{{ $total }}
+                                                <li>{{$translations['total']}} <span class="count">{{ $total }}
                                                         {{ $currency }}</span></li>
                                             </ul>
                                         </div>
@@ -297,11 +292,7 @@
                                                             <div class="radio-option">
                                                                 <input checked="checked" id="payment-2"
                                                                     name="payment-group" type="radio">
-                                                                <label for="payment-2">Cash On Delivery<span
-                                                                        class="small-text">Please send a check to
-                                                                        Store Name, Store Street, Store Town, Store
-                                                                        State / County, Store
-                                                                        Postcode.</span></label>
+                                                                <label for="payment-2">{{$translations['cod']}}</label>
                                                             </div>
                                                         </li>
 
@@ -311,8 +302,7 @@
 
                                             @if (Auth::guard('client')->check() == true and $step == 2)
                                                 <div class="text-end"><a class="btn btn-default primary-btn radius-0"
-                                                        Wire:click='Order()' id='submit'>Place
-                                                        Order</a>
+                                                        Wire:click='Order()' id='submit'>{{$translations['place_order']}} </a>
                                                 </div>
                                             @endif
                                         </div>
@@ -324,9 +314,7 @@
                 </div>
             </div>
         </div>
-        {{-- @if (!Auth::guard('client')->check())
-            @livewire('client-login')
-        @endif --}}
+
     </section>
 
 </div>
@@ -335,22 +323,7 @@
         $(document).ready(function() {
             Buttons();
             $('#modalLoginForm').modal('show')
-            // $('#closeLogin').click(function() {
-            //     $('#modalLoginForm').modal('hide')
-            // })
-            // window.addEventListener('login_success', event => {
-            //     $('#modalLoginForm').modal('hide')
-            //     Livewire.emit('renderFunc')
-            // });
-            // window.addEventListener('login_faild', event => {
-            //     $.notify({
-            //         message: event.detail.message ?? 'Phone Or Password Incorrect',
-            //     }, {
-            //         showProgressbar: true,
-            //         type: "danger"
-            //     });
-            // });
-        });
+
 
         function Buttons() {
             let typingTimer;
@@ -383,5 +356,6 @@
         window.addEventListener('runDropQuartier', event => {
             $('#quartersDrop').addClass('show');
         });
+        })
     </script>
 @endsection

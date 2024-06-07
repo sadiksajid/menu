@@ -27,11 +27,16 @@ class EditMenu extends Component
     public $upload_image;
     public $products;
     public $currency;
+    public $langs = [];
 
     protected $listeners = ['editText', 'editBtn', 'editImg'];
-
+    ////////////////////////////
+    public $translations;
     public function mount()
     {
+        $this->langs = languages()['langs'];
+        $this->translations = app('translations_admin');
+
         $this->store_id = Auth::user()->store_id;
         $this->store_info = Auth::user()->store;
         $this->data = Menu::where('store_id', $this->store_id)->where('name', 'menu1')->first();
@@ -39,20 +44,23 @@ class EditMenu extends Component
             $this->data = new Menu();
             $this->data->name = 'menu1';
             $this->data->store_id = $this->store_id;
-            $this->data->language = 'EN';
             $this->data->save();
         } else {
-            $this->titles = $this->data->titles;
-            $this->titles = json_decode($this->titles, true);
 
-            $this->buttons = $this->data->buttons;
-            $this->buttons = json_decode($this->buttons, true);
+            foreach ($this->langs as $lang) {
+
+                $titles = $this->data->getTranslation('titles', $lang);
+                $this->titles[$lang] = json_decode($titles, true);
+                $buttons = $this->data->getTranslation('buttons', $lang);
+                $this->buttons[$lang] = json_decode($buttons, true);
+
+                $texts = $this->data->getTranslation('texts', $lang);
+                $this->texts[$lang] = json_decode($texts, true);
+
+            }
 
             $this->images = $this->data->images;
             $this->images = json_decode($this->images, true);
-
-            $this->texts = $this->data->texts;
-            $this->texts = json_decode($this->texts, true);
 
             $this->urls = $this->data->urls;
             $this->urls = json_decode($this->urls, true);
@@ -87,14 +95,30 @@ class EditMenu extends Component
     public function editText($type, $id, $text)
     {
         if ($type == 'title') {
-            $this->titles[$id] = $text;
-            $this->data->titles = json_encode($this->titles);
+            foreach ($this->langs as $lang) {
+                if ($lang == 'en') {
+                    $this->titles['en'][$id] = $text;
+                } else {
+                    $this->titles[$lang][$id] = translate($text, $lang);
+                }
+
+                $this->data->setTranslation('titles', $lang, json_encode($this->titles[$lang], JSON_UNESCAPED_UNICODE));
+
+            }
         } else if ($type == 'url') {
             $this->urls[$id] = $text;
             $this->data->urls = json_encode($this->urls);
         } else {
-            $this->texts[$id] = $text;
-            $this->data->texts = json_encode($this->texts);
+            foreach ($this->langs as $lang) {
+                if ($lang == 'en') {
+                    $this->texts['en'][$id] = $text;
+                } else {
+                    $this->texts[$lang][$id] = translate($text, $lang);
+                }
+
+                $this->data->setTranslation('texts', $lang, json_encode($this->texts[$lang], JSON_UNESCAPED_UNICODE));
+
+            }
         }
 
         $this->data->save();
@@ -102,12 +126,23 @@ class EditMenu extends Component
 
     public function editBtn($id, $data)
     {
-        $this->buttons[$id] = array(
-            'title' => $data[0],
-            'url' => $data[1],
-        );
+        foreach ($this->langs as $lang) {
+            if ($lang == 'en') {
+                $this->buttons['en'][$id] = array(
+                    'title' => $data[0],
+                    'url' => $data[1],
+                );
+            } else {
+                $this->buttons[$lang][$id] = array(
+                    'title' => translate($data[0], $lang),
+                    'url' => $data[1],
+                );
 
-        $this->data->buttons = json_encode($this->buttons);
+            }
+
+            $this->data->setTranslation('buttons', $lang, json_encode($this->buttons[$lang], JSON_UNESCAPED_UNICODE));
+
+        }
         $this->data->save();
     }
 
@@ -117,7 +152,7 @@ class EditMenu extends Component
             $img_link = 'menu1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'menu1', $img_link);
-            $img_link = 'menu1/'.$img_link ;
+            $img_link = 'menu1/' . $img_link;
 
             if ($save_result) {
                 $this->images[$id] = $img_link;
@@ -127,7 +162,7 @@ class EditMenu extends Component
             } else {
                 $this->dispatchBrowserEvent('swal:modal', [
                     'type' => 'warning',
-                    'message' => 'Problem in Image',
+                    'message' => $this->translations['image_problem'],
                 ]);
             }
 

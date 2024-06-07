@@ -1,11 +1,14 @@
 @extends('admin.layouts.master')
+@php
+$translations = app('translations_admin');
+@endphp
 
 
 @section('page-header')
     <!--Page header-->
     <div class="page-header">
         <div class="page-leftheader">
-            <h4 class="page-title mb-0">Products List</h4>
+            <h4 class="page-title mb-0">{{$translations['products_list']}}</h4>
         </div>
     </div>
     <!--End Page header-->

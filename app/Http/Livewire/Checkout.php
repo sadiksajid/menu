@@ -57,8 +57,14 @@ class Checkout extends Component
 
     protected $listeners = ['getCity', 'getQuarter', 'renderFunc'];
 
+    //////////////////////////
+    public $translations;
+    public $translations_resto;
+
     public function mount()
     {
+        $json = app('translations');
+        $this->translations = $json['system'];
         // $this->cities = City::where('status', 1)->get();
         if (Auth::guard('client')->check()) {
             $user = Auth::guard('client')->user();
@@ -231,7 +237,7 @@ class Checkout extends Component
         if (count($my_cart) == 0) {
             $this->dispatchBrowserEvent('swal:confirm_redirect', [
                 'type' => 'warning',
-                'title' => 'Cart is Empty!',
+                'title' => $this->translations['cart_is_empty'],
                 'cancle' => false,
                 'confirmBtn' => 'Ok',
                 // 'url' => '/store/' . Cache::get('last_store'),
@@ -401,7 +407,7 @@ class Checkout extends Component
         // Cache::clear('my_cart');
         $this->dispatchBrowserEvent('swal:confirm_redirect', [
             'type' => 'success',
-            'title' => 'Order  Submitted  Successfully!',
+            'title' => $this->translations['order_submit_success'],
             'cancle' => false,
             'confirmBtn' => 'Ok',
             // 'url' => '/store/' . Cache::get('last_store'),

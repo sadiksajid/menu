@@ -50,7 +50,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-xl-9 col-lg-10 col-md-8">
-                        <h1> {{ $titles_orders ?? 'My Orders' }} </h1>
+                        <h1> {{ $titles_orders ?? $translations['my_orders']}} </h1>
                     </div>
                 </div>
                 <!-- /row -->
@@ -90,7 +90,7 @@
                                                     <center>
                                                         <h5 style=";margin:0px" class="mb-1 mt-1">
                                                             <span
-                                                                class="badge badge-dark"> Order : REF-0{{ $order->id }}
+                                                                class="badge badge-dark"> {{$translations['order']}} : REF-0{{ $order->id }}
                                                             </span>
                                                             <span
                                                                     class="badge badge-dark ">{{ $order->created_at->format('d-m-Y h:m') }}
@@ -107,7 +107,7 @@
                                                             @foreach ( $order->products->where('is_offer',1)->groupBy('offer_id')  as $key => $offer)
                                                                <div class="p-2 mb-2 " style="border:2px solid #ffc107 ; border-radius:10px ;    padding-top: 20px !important;">
                                                                 <span class="badge badge-warning  " style="color: black;position: absolute;margin-top: -30px;">
-                                                                    Offer : {{ $offers[$key]['price'] }} {{ $currency }} /  <del>{{ $offers[$key]['old_price'] }} {{ $currency }} </del>
+                                                                    {{$translations['offer']}} : {{ $offers[$key]['price'] }} {{ $currency }} /  <del>{{ $offers[$key]['old_price'] }} {{ $currency }} </del>
                                                                 </span>
                                                                 @foreach ($offer as $o_prod)
                                                                     @php
@@ -117,11 +117,10 @@
                                                                     <div class="col-12">
                                                                         <div class="menu_item order mb-0">
                                                                             <figure class="order_imgs">
-                                                                                <a href="{{ get_image($prod['media'][0]['media'])}}"
-                                                                                    title="Summer Berry" data-effect="mfp-zoom-in">
+                                                                                <a href="{{ get_image('moyen/'.$prod['media'][0]['media'])}}"  data-effect="mfp-zoom-in">
                 
                                                                                     <img src="{{ URL::asset('index1/img/menu_items/menu_items_placeholder.png') }}"
-                                                                                        data-src="{{ get_image($prod['media'][0]['media'])}}"
+                                                                                        data-src="{{ get_image('moyen/'.$prod)}}"
                                                                                         class="lazy" alt="">
                                                                                 </a>
                                                                             </figure>
@@ -142,11 +141,11 @@
                                                             <div class="col-12">
                                                                 <div class="menu_item order mb-0">
                                                                     <figure class="order_imgs">
-                                                                        <a href="{{ get_image($prod['media'][0]['media'])}}"
+                                                                        <a href="{{ get_image('moyen/'.$prod['media'][0]['media'])}}"
                                                                             title="Summer Berry" data-effect="mfp-zoom-in">
         
                                                                             <img src="{{ URL::asset('index1/img/menu_items/menu_items_placeholder.png') }}"
-                                                                                data-src="{{ get_image($prod['media'][0]['media'])}}"
+                                                                                data-src="{{ get_image('moyen/'.$prod['media'][0]['media'])}}"
                                                                                 class="lazy" alt="">
                                                                         </a>
                                                                     </figure>
@@ -174,36 +173,36 @@
                                                         </div>
                                                     </h5>
         
-                                                    <h5 style=";margin:0px" class="mb-2"><span class="badge badge-primary">Type
+                                                    <h5 style=";margin:0px" class="mb-2"><span class="badge badge-primary">{{$translations['type']}}
                                                             :
                                                             {{ $order->order_type }}</span></h5>
         
                                                     <h5 style=";margin:0px" class="mb-2">
                                                         @if($order->status == 'pending')
-                                                        <span class="badge badge-dark">Status :
+                                                        <span class="badge badge-dark">{{$translations['status']}} :
                                                             {{ $order->status }}
                                                         </span>
                                                         @elseif($order->status == 'confirmed')
-                                                        <span class="badge badge-primary">Status :
+                                                        <span class="badge badge-primary">{{$translations['status']}}  :
                                                             {{ $order->status }}
                                                         </span>
                                                         @elseif($order->status == 'shipped')
-                                                        <span class="badge badge-info">Status :
+                                                        <span class="badge badge-info">{{$translations['status']}}  :
                                                             {{ $order->status }}
                                                         </span>
                                                         @elseif($order->status == 'declined' or $order->status == 'canceled')
-                                                        <span class="badge badge-danger">Status :
+                                                        <span class="badge badge-danger">{{$translations['status']}}  :
                                                             {{ $order->status }}
                                                         </span>
                                                         @elseif($order->status == 'ready' or $order->status == 'delivered')
-                                                        <span class="badge badge-success">Status :
+                                                        <span class="badge badge-success">{{$translations['status']}}  :
                                                             {{ $order->status }}
                                                         </span>
                                                         @endif
                                                     </h5>
         
                                                     <h4 style=" margin: 0px" class="mb-2"><span class="badge badge-warning "
-                                                            style="color: rgba(0, 0, 0, 0.591) ; width:100%"><strong>Total :
+                                                            style="color: rgba(0, 0, 0, 0.591) ; width:100%"><strong>{{$translations['total']}}  :
                                                                 {{ $order->total }}
                                                                 {{ $order->currency }}</strong></span></h4>
                                                 </div>
@@ -227,21 +226,21 @@
                         <ul class="pagination justify-content-center">
                             @if ($orders->onFirstPage())
                             <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                <a class="page-link" href="#" tabindex="-1">{{$translations['previous']}}</a>
                             </li>
                             @else
                             <li class="page-item"><a class="page-link" href="{{ $orders->previousPageUrl() }}">
-                                    Previous</a>
+                                {{$translations['previous']}}</a>
                             </li>
                             @endif
 
                             @if ($orders->hasMorePages())
                             <li class="page-item">
-                                <a class="page-link" href="{{ $orders->nextPageUrl() }}" rel="next">Next</a>
+                                <a class="page-link" href="{{ $orders->nextPageUrl() }}" rel="next">{{$translations['next']}}</a>
                             </li>
                             @else
                             <li class="page-item disabled">
-                                <a class="page-link" href="#">Next</a>
+                                <a class="page-link" href="#">{{$translations['next']}}</a>
                             </li>
                             @endif
                         </ul>

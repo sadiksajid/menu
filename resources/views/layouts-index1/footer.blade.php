@@ -1,18 +1,21 @@
 <footer>
+@php
+$translations = app('translations')['system'];
+@endphp
   <div class="frame black"></div>
   <div class="container">
       <div class="row">
           <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
               <div class="footer_wp">
                   <i class="icon_pin_alt"></i>
-                  <h3>Address</h3>
+                  <h3> {{$translations['address']}}</h3>
                   <p>{{$this->store_info->address}}</p>
               </div>
           </div>
           <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
               <div class="footer_wp">
                   <i class="icon_tag_alt"></i>
-                  <h3>Reservations</h3>
+                  <h3>{{$translations['contact_us']}}</h3>
                   <p><a href="tel:{{$this->store_info->phone}}">{{$this->store_info->phone}}</a><br><a
                           href="#0">{{$this->store_info->email}}</a></p>
               </div>
@@ -20,14 +23,14 @@
           <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
               <div class="footer_wp">
                   <i class="icon_clock_alt"></i>
-                  <h3>Opening Hours</h3>
+                  <h3>{{$translations['opening_hours']}}</h3>
                   <ul>
                       <li>Mon - Sat: 10am - 11pm</li>
-                      <li>Sunday: Closed</li>
+                      {{-- <li>Sunday: Closed</li> --}}
                   </ul>
               </div>
           </div>
-          <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+          {{-- <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
               <h3>Keep in touch</h3>
               <div id="newsletter">
                   <div id="message-newsletter"></div>
@@ -41,13 +44,13 @@
                       </div>
                   </form>
               </div>
-          </div>
+          </div> --}}
       </div>
       <!-- /row-->
       <hr>
       <div class="row">
           <div class="col-sm-5">
-              <p class="copy">© Sadik Sajid  - All rights reserved</p>
+              <p class="copy">© Sadik Sajid  - {{$translations['all_rights_reserved']}}</p>
           </div>
           <div class="col-sm-7">
               <div class="follow_us">
@@ -85,4 +88,5 @@
       </div>
       <p class="text-center"></p>
   </div>
+
 </footer>

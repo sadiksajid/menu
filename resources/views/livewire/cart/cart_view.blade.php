@@ -1,12 +1,13 @@
 <div>
+    
     <div wire:ignore class="hero_single inner_pages background-image" style="height:260px"
-    @if (isset($images_cart))   data-background=" {{ get_image($images_cart}} " @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif >
+    @if (isset($images_cart))   data-background=" {{ get_image($images_cart)}} " @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif >
 
         <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-xl-9 col-lg-10 col-md-8">
-                        <h1  > {{ $titles_cart ?? 'Cart' }}  </h1>
+                        <h1  > {{ $titles_cart ?? $translations['cart'] }}  </h1>
                         {{-- <p  >{{ $titles['title-2'] ?? 'Cooking delicious and tasty food since 2005' }} </p> --}}
                     </div>
                 </div>
@@ -22,12 +23,12 @@
                     <table class="table cart-table table-responsive-xs">
                         <thead>
                         <tr class="table-head">
-                            <th scope="col">image</th>
-                            <th scope="col">product name</th>
-                            <th scope="col">price</th>
-                            <th scope="col">quantity</th>
-                            <th scope="col">action</th>
-                            <th scope="col">total</th>
+                            <th scope="col">{{$translations['image']}}</th>
+                            <th scope="col">{{$translations['product_name']}}</th>
+                            <th scope="col">{{$translations['price']}}</th>
+                            <th scope="col">{{$translations['quantity']}}</th>
+                            <th scope="col">{{$translations['actions']}}</th>
+                            <th scope="col">{{$translations['total']}}</th>
                         </tr>
                         </thead>
                         @foreach ($my_cart as $store_name => $store)    
@@ -46,10 +47,10 @@
                                         <td>
 
                                             @if($product['type']=='product')
-                                            <a href="#"><img alt="" src="{{ get_image($product['image']) }}" class="rounded-circle"></a>
+                                            <a href="#"><img alt="" src="{{ get_image('tmb/'.$product['image']) }}" class="rounded-circle"></a>
                                             @else
-                                            <a href="#"><img alt="" src="{{ get_image($product['image']) }}" class="rounded-circle" width="90px"></a>
-                                            <span class="badge badge-info" style="width: 80%;">Offer</span>
+                                            <a href="#"><img alt="" src="{{ get_image('tmb/'.$product['image']) }}" class="rounded-circle" width="90px"></a>
+                                            <span class="badge badge-info" style="width: 80%;">{{$translations['offer']}}</span>
 
                                             @endif
 
@@ -101,8 +102,9 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <del><h2 class="td-color">{{ $product['qte'] * $product['product']->old_price}} {{$currency}}</h2>                                            </del>
-
+                                            @if ($product['type'] == 'offer')
+                                                <del><h2 class="td-color">{{ $product['qte'] * $product['product']->old_price}} {{$currency}}</h2>                                            </del>
+                                            @endif
                                             <h2 class="td-color">{{ $product['qte'] * $product['product']->price}} {{$currency}}</h2>
                                         </td>
                                     </tr>
@@ -114,7 +116,7 @@
                     <table class="table cart-table table-responsive-md">
                         <tfoot>
                         <tr>
-                            <td>total price :</td>
+                            <td>{{$translations['total_price']}} :</td>
                             <td>
                                 <h2>{{$total}}  {{$currency}}</h2></td>
                         </tr>
@@ -124,8 +126,8 @@
             </div>
             <div class="row cart-buttons">
                 {{-- <div class="col-6"><a class="btn primary-btn btn-default" href="/store/{{Cache::get('last_store')}}">continue shopping</a></div> --}}
-                <div class="col-6"><a class="btn primary-btn btn-default" href="/shop">continue shopping</a></div>
-                <div class="col-6"><a class="btn primary-btn btn-default" href="/client/checkout">check out</a></div>
+                <div class="col-6"><a class="btn primary-btn btn-default" href="/shop">{{$translations['continue_shopping']}}</a></div>
+                <div class="col-6"><a class="btn primary-btn btn-default" href="/client/checkout">{{$translations['checkout']}}</a></div>
             </div>
         </div>
     </section>

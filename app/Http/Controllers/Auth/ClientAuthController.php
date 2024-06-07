@@ -104,6 +104,6 @@ class ClientAuthController extends Controller
             return $response;
         }
 
-        return redirect('/login');
+        return redirect('/');
     }
 }

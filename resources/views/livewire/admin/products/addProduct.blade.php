@@ -6,7 +6,7 @@
             @if($editProduct)
                 <div class="col-12">
                     <button class="btn btn-danger float-right mb-3" wire:click='DeleteProduct()'>
-                            Delete Product
+                        {{ $translations['delete_product'] }} 
                     </button>
                 </div>
             @endif
@@ -15,12 +15,12 @@
                     <div class="col-12">
                         <div class="e-panel card">
                             <div class="card-header">
-                                <h3 class="card-title">Product info </h3>
+                                <h3 class="card-title">{{ $translations['product_info'] }}  </h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12">
-                                        <label class="col-md-12 form-label">Product Title <span
+                                        <label class="col-md-12 form-label">{{ $translations['product_title'] }}   <span
                                                 class="text-red">*</span></label>
                                         <input class="form-control mb-4" placeholder="Title" type="text"
                                             wire:model='title'>
@@ -30,7 +30,7 @@
                                     </div>
 
                                     <div class="col-12">
-                                        <label class="col-md-12 form-label">Description<span
+                                        <label class="col-md-12 form-label">{{ $translations['description'] }}<span
                                                 class="text-red">*</span></label>
                                         <textarea class="form-control mb-4" placeholder="Description" wire:model='description' style="height: 200px"></textarea>
                                         @error('description')
@@ -48,11 +48,11 @@
 
                                     <div class="row">
                                         <div class="col-10">
-                                            <label class="col-md-12 form-label">Category<span
+                                            <label class="col-md-12 form-label">{{ $translations['category'] }}<span
                                                     class="text-red">*</span></label>
                                             @if (count($categories) == 0)
                                                 <input class="form-control mb-4" type="text"
-                                                    value="No Category Found" readonly>
+                                                    value="{{ $translations['no_category_found'] }}" readonly>
                                             @else
                                                 <select class="form-control" wire:model="category_id">
                                                     @foreach ($categories as $category)
@@ -77,7 +77,7 @@
                                         </div>
 
                                         <div class="col-md-4 col-12">
-                                            <label class="col-md-12 form-label">Price<span
+                                            <label class="col-md-12 form-label">{{ $translations['price'] }}<span
                                                     class="text-red">*</span></label>
                                             <input class="form-control mb-4" placeholder="Price" type="number"
                                                 pattern="[0-9]+([\.,][0-9]+)?" step="0.01" wire:model='price'>
@@ -86,7 +86,7 @@
                                             @enderror
                                         </div>
                                         <div class="col-md-4 col-6">
-                                            <label class="col-md-12 form-label">status <span
+                                            <label class="col-md-12 form-label">{{ $translations['status'] }} <span
                                                     class="text-red">*</span></label>
                                             <label class="custom-switch" style=" cursor:pointer ;padding: 8px; ">
                                                 <input type="checkbox" name="custom-switch-checkbox" wire:model='status'
@@ -98,7 +98,7 @@
                                             @enderror
                                         </div>
                                         <div class="col-md-4 col-6">
-                                            <label class="col-md-12 form-label">Add to Menu <span
+                                            <label class="col-md-12 form-label">{{ $translations['add_to_menu'] }} <span
                                                     class="text-red">*</span></label>
                                             <label class="custom-switch" style=" cursor:pointer ;padding: 8px;">
                                                 <input type="checkbox" name="custom-switch-checkbox" wire:model='to_menu'
@@ -117,7 +117,7 @@
                                 <div class="col-md-7 col-12">
                                     <div class="row">
                                         <div class="col-12">
-                                            <label class="col-md-12 form-label">Category Title<span
+                                            <label class="col-md-12 form-label">{{ $translations['category_title'] }} <span
                                                     class="text-red">*</span></label>
                                             <input class="form-control mb-4" placeholder="Category" type="text"
                                                 wire:model='cat_title'>
@@ -126,7 +126,7 @@
                                             @enderror
                                         </div>
                                         <div class="col-12">
-                                            <label class="col-md-12 form-label">Sub Title</label>
+                                            <label class="col-md-12 form-label">{{ $translations['sub_title'] }} </label>
 
                                             <textarea class="form-control mb-4" rows="3" wire:model='cat_s_title'></textarea>
                                             @error('cat_s_title')
@@ -136,7 +136,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-5 col-12">
-                                    <label class="col-md-12 form-label">Category Image</label>
+                                    <label class="col-md-12 form-label">{{ $translations['category_image'] }}</label>
 
                                     <div class="dropify-wrapper" style="height:auto;border: none;">
                                         @if (isset($cat_image) and $cat_image != null)
@@ -164,14 +164,14 @@
                                         <span wire:loading wire:target="submitCategory"
                                             style="height: 20px;width:20px;transition: 0.5s;margin-right: 10px;"
                                             class="spinner-border spinner-border-sm ml-3"></span>
-                                        <span wire:loading.remove wire:target="submitCategory">Save</span>
+                                        <span wire:loading.remove wire:target="submitCategory">{{ $translations['save'] }}</span>
                                     </button>
                                     <button type="button" class="btn btn-icon btn-danger mb-4 "
                                         wire:click="cancelCategory()">
                                         <span wire:loading wire:target="cancelCategory"
                                             style="height: 20px;width:20px;transition: 0.5s;margin-right: 10px;"
                                             class="spinner-border spinner-border-sm ml-3"></span>
-                                        <span wire:loading.remove wire:target="cancelCategory">Cancel</span>
+                                        <span wire:loading.remove wire:target="cancelCategory">{{ $translations['cancel'] }}</span>
                                     </button>
                                 </div>
 
@@ -183,7 +183,6 @@
                         <div class="e-panel card">
                             <div class="card-body">
                                 <div class="row">
-
                                     @if ($edit_product_images)
                                     @foreach ($edit_product_images as $image)
                                         <div class="col-6">
@@ -209,7 +208,7 @@
                                                             title=""
                                                             data-original-title="fa fa-times"></i></button>
                                                 @endif
-                                                    <img src="{{ get_image($image->media) }}"
+                                                    <img src="{{ get_image('moyen/'.$image->media) }}"
                                                         style="height: 100%;width:100%">
                                        
                                             </div>
@@ -263,7 +262,7 @@
 
                                             <input type="file" class="dropify" wire:model="product_images"
                                                 data-height="210">
-                                            <div wire:loading wire:target="product_images">Uploading...</div>
+                                            <div wire:loading wire:target="product_images">{{ $translations['uploading'] }}...</div>
 
                                         </div>
                                     </div>
@@ -280,7 +279,7 @@
                 <div class="col-12">
                     <div class="e-panel card">
                         <div class="card-header">
-                            <h3 class="card-title">Receipt</h3>
+                            <h3 class="card-title">{{ $translations['receipt'] }}</h3>
                             <button type="button" class="btn btn-icon btn-info float-right ml-auto"
                                 wire:click="addReceipt()">
                                 <span wire:loading wire:target="addReceipt"
@@ -295,7 +294,7 @@
                                 @foreach ($receipts as $key => $receipt)
                                     {{-- @dd($receipt) --}}
                                     <div class="col-10">
-                                        <input class="form-control mb-4" placeholder="Receipt" type="text"
+                                        <input class="form-control mb-4" placeholder="{{ $translations['receipt'] }}" type="text"
                                             wire:model='receipts.{{ $key }}'>
                                         @error('receipts.{{ $key }}')
                                             <span class="text-danger">{{ $message }}</span>
@@ -321,13 +320,13 @@
 
                     <div class="e-panel card mb-1">
                         <div class="card-header">
-                            <h3 class="card-title">Extra Products</h3>
+                            <h3 class="card-title">{{ $translations['extra_products'] }}</h3>
                             <button type="button" class="btn btn-icon btn-info float-right ml-auto"
                                 wire:click="addExtra()">
                                 <span wire:loading wire:target="addExtra"
                                     style="height: 20px;width:20px;transition: 0.5s;margin-right: 10px;"
                                     class="spinner-border spinner-border-sm ml-3"></span>
-                                <span wire:loading.remove wire:target="addExtra">Add Extra</span>
+                                <span wire:loading.remove wire:target="addExtra">{{ $translations['add_extra'] }}</span>
                             </button>
                         </div>
                     </div>
@@ -344,14 +343,14 @@
                                     <div class="col-8">
                                         <div class="row">
                                             <div class="col-12">
-                                                <input class="form-control mb-4 mt-1" placeholder="Title"
+                                                <input class="form-control mb-4 mt-1" placeholder="{{ $translations['title'] }}"
                                                     type="text" wire:model='extras.{{ $key }}.title'>
                                                 @error('extras.{{ $key }}.title')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
                                             <div class="col-8">
-                                                <input class="form-control mb-4" placeholder="Price" type="number"
+                                                <input class="form-control mb-4" placeholder="{{ $translations['price'] }}" type="number"
                                                     pattern="[0-9]+([\.,][0-9]+)?" step="0.01"
                                                     wire:model='extras.{{ $key }}.price'>
                                                 @error('extras.{{ $key }}.price')
@@ -394,7 +393,7 @@
                                                 style="height: 20px;width:20px;transition: 0.5s;margin-right: 10px;"
                                                 class="spinner-border spinner-border-sm ml-3"></span>
                                             <span wire:loading.remove
-                                                wire:target="removeExtra({{ $key }})">remove</span>
+                                                wire:target="removeExtra({{ $key }})">{{ $translations['remove'] }}</span>
                                         </button>
                                     </div>
                                 </div>
@@ -424,12 +423,12 @@
                     <div class="col-sm-12 col-md-12">
                         @if($editProduct)
                         <button type="button" class="btn btn-primary"
-                            wire:click.prevent="updateProduct()">Update</button>
+                            wire:click.prevent="updateProduct()">{{ $translations['update'] }}</button>
                         @else
                         <button type="button" class="btn btn-primary"
-                            wire:click.prevent="submitProduct()">Save</button>
+                            wire:click.prevent="submitProduct()">{{ $translations['save'] }}</button>
                         @endif
-                        <button type="button" class="btn btn-danger" wire:click.prevent="cancel()">Cancel</button>
+                        <button type="button" class="btn btn-danger" wire:click.prevent="cancel()">{{ $translations['cancel'] }}</button>
                     </div>
                 </div>
             </div>

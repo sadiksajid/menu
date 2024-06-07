@@ -21,6 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'password',
         'created_at',
         'is_admin',
@@ -45,6 +46,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function findForPassport($phone)
+    {
+        return $this->where('phone', $phone)->first();
+    }
 
     public function notification()
     {

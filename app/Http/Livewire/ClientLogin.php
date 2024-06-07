@@ -17,8 +17,14 @@ class ClientLogin extends Component
     public $login_phone;
     public $login_password;
 
+    //////////////////////////
+    public $translations;
+    public $translations_resto;
+
     public function mount()
     {
+        $json = app('translations');
+        $this->translations = $json['system'];
     }
     public function render()
     {

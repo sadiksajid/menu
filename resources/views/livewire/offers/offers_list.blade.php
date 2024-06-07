@@ -127,7 +127,7 @@
                                                                         (4.5)
                                                                     </div>
                                                                     <a class="mt-2"
-                                                                        href="offer-page(no-sidebar).html">
+                                                                        href="/shop/offer/{{ $offer->offer_meta }}">
                                                                         <h4>{{ substr($offer->title, 0, 40) }}</h4>
                                                                     </a>
                                                                     <p class="mt-2">

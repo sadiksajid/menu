@@ -8,7 +8,9 @@ echo "🎬 entrypoint.sh: [$(whoami)] [PHP $(php -r 'echo phpversion();')]"
 
 # find $LARAVEL_PATH/storage -type d -exec chmod 755 {} \;
 # find $LARAVEL_PATH/storage -type f -exec chmod 755 {} \;
-
+# mkdir storage/app/Public
+# mv public/Public/* storage/app/Public
+# rm -rf public/Public
 
 composer dump-autoload --no-interaction --no-dev --optimize
 
@@ -18,6 +20,20 @@ echo "🎬 artisan commands"
 php artisan migrate --no-interaction --force
 # php artisan websocket:serve
 echo "🎬 start supervisord"
-php artisan optimize
+
+# 💡 Group into a custom command e.g. php artisan app:on-deploy
+# php artisan migrate --no-interaction --force
+php artisan storage:link
+php artisan cache:clear
+php artisan config:cache
 php artisan config:clear
+php artisan optimize
+
+rm -rf public/livewire-tmp
+rm -rf public/storage
+
+php artisan storage:link
+sed -i  's/abort_unless(request()->hasValidSignature(), 401);//g' vendor/livewire/livewire/src/Controllers/FileUploadHandler.php
+
+
 supervisord -c $LARAVEL_PATH/.deploy/config/supervisor.conf

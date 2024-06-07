@@ -23,9 +23,15 @@ class MenuHome extends Component
     public $upload_image;
     public $products;
     public $currency;
+    //////////////////////////
+    public $translations;
+    public $translations_resto;
 
     public function mount()
     {
+        $json = app('translations');
+        $this->translations = $json['system'];
+        $this->translations_resto = $json['resto'];
 
         $this->store_meta = env('STOR_NAME');
         $stores = Cache::get('stores');
@@ -92,8 +98,6 @@ class MenuHome extends Component
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'inline', // Set to 'inline' for browser view
         ]);
-
-
 
     }
 

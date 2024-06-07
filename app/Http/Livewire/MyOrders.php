@@ -22,9 +22,14 @@ class MyOrders extends Component
     public $store_info;
     public $titles_orders;
     public $images_orders;
+    //////////////////////////
+    public $translations;
 
     public function mount()
     {
+        $json = app('translations');
+        $this->translations = $json['system'];
+
         $this->store_meta = env('STOR_NAME');
         $stores = Cache::get('stores');
 

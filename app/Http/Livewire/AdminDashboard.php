@@ -35,9 +35,13 @@ class AdminDashboard extends Component
     public $top_offers = [];
 
     public $view_week = [];
+    ////////////////////////////
+    public $translations;
 
     public function mount()
     {
+        $this->translations = app('translations_admin');
+
         $this->today = Carbon::today()->format('Y-m-d');
         $this->yasterday = Carbon::today()->subDays(1)->format('Y-m-d');
         $this->store_info = Auth::user()->store;
@@ -74,6 +78,7 @@ class AdminDashboard extends Component
                 }]);
             }])
             ->whereIn('status', ['pending'])
+            ->whereNot('order_type', 'caisse')
             ->select('store_orders.id', 'store_orders.store_id', 'store_orders.client_id', 'store_orders.currency', 'store_orders.total', 'store_orders.status', 'store_orders.order_type', 'store_orders.created_at')
             ->orderBy('store_orders.created_at', 'DESC')
             ->limit(10)->get();
@@ -100,15 +105,12 @@ class AdminDashboard extends Component
     }
     public function getOrdersCounts()
     {
-        $this->statusCounts = StoreOrder::select('status', \DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') as date"), \DB::raw('COUNT(id) as status_count'))
-            ->selectRaw('sum(total) as total')
+        $this->statusCounts = StoreOrder::select('status', \DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') as date"))
+            ->selectRaw('COUNT(id) as status_count, SUM(total) as total')
             ->where('store_id', $this->store_info->id)
             ->whereDate('created_at', '>=', Carbon::now()->subDays(30))
-        // ->whereIn('status', ['pending', 'declined', 'confirmed'])
-        // \DB::raw("SUM(total) as total"),
-
             ->groupBy('status', 'date')
-            ->orderBy('date', 'DESC') // Optionally order by status
+            ->orderBy('date', 'DESC')
             ->get();
 
         $this->total_incum = $this->statusCounts->sum('total');
@@ -135,16 +137,22 @@ class AdminDashboard extends Component
         $this_week_orders['pending'] = 0;
         $this_week_orders['declined'] = 0;
         $this_week_orders['confirmed'] = 0;
+        $this_week_orders['delivered'] = 0;
+        $this_week_orders['caisse_delivered'] = 0;
 
         $last_week_orders['all'] = 0;
         $last_week_orders['pending'] = 0;
         $last_week_orders['declined'] = 0;
         $last_week_orders['confirmed'] = 0;
+        $last_week_orders['delivered'] = 0;
+        $last_week_orders['caisse_delivered'] = 0;
 
         $this->res_orders['all'] = 0;
         $this->res_orders['pending'] = 0;
         $this->res_orders['declined'] = 0;
         $this->res_orders['confirmed'] = 0;
+        $this->res_orders['delivered'] = 0;
+        $this->res_orders['caisse_delivered'] = 0;
 
         for ($i = 29; $i >= 0; $i--) {
             $day = Carbon::today()->subDays($i)->format('Y-m-d');
@@ -152,6 +160,8 @@ class AdminDashboard extends Component
             $this->orders['pending'][$day] = 0;
             $this->orders['declined'][$day] = 0;
             $this->orders['confirmed'][$day] = 0;
+            $this->orders['delivered'][$day] = 0;
+            $this->orders['caisse_delivered'][$day] = 0;
         }
 
         foreach ($this->statusCounts as $key => $value) {

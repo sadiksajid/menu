@@ -22,6 +22,5 @@ class ClientAuthMiddleware
         }
         return $next($request);
 
-        // return redirect('/client/login');
     }
 }

@@ -4,12 +4,12 @@
 		<!-- Meta data -->
 		<meta charset="UTF-8">
 		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
-		<meta content="APPIINO - Admin Panel" name="description">
-		<meta content="infodat" name="author">
-		<meta name="keywords" content="APPIINO admin panel"/>
+		<meta content="Exxpress" name="description">
+		<meta content="Exxpress" name="author">
+		<meta name="keywords" content="Express ma"/>
 		@include('admin.layouts.custom-head')
 	</head>
-	<body class="h-100vh page-style1">
+	<body>
 		@yield('content')
 		@include('admin.layouts.custom-footer-scripts')
 	</body>

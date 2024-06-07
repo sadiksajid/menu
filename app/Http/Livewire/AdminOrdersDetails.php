@@ -30,9 +30,14 @@ class AdminOrdersDetails extends Component
     public $time_left;
 
     protected $listeners = ['getRoutInfo', 'getlocal', 'changeCity', 'getQuarter', 'changeQuartier', 'Save', 'Next', 'showMap'];
+    ////////////////////////////
+    public $translations;
+    public $currentLocale;
 
     public function mount($id)
     {
+        $this->translations = app('translations_admin');
+
         $this->order = StoreOrder::where('id', $id)
             ->with(['products' => function ($q) {
                 $q->with(['product' => function ($q) {
@@ -119,7 +124,7 @@ class AdminOrdersDetails extends Component
         } else {
             $this->dispatchBrowserEvent('swal:modal', [
                 'type' => 'warning',
-                'message' => 'Please Pick Location on the Maps',
+                'message' => $this->translations['order_detail_message_1'],
 
             ]);
         }
@@ -184,7 +189,7 @@ class AdminOrdersDetails extends Component
 
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',
-            'message' => 'Location Saved',
+            'message' => $this->translations['order_detail_message_2'],
         ]);
 
         $this->fix_longitude = $this->longitude;
@@ -230,7 +235,7 @@ class AdminOrdersDetails extends Component
 
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',
-            'message' => 'Changes saved!',
+            'message' => $this->translations['changes_saved'],
         ]);
     }
 
@@ -252,12 +257,12 @@ class AdminOrdersDetails extends Component
         if ($status == 'confirmed') {
             $this->dispatchBrowserEvent('swal:modal', [
                 'type' => 'success',
-                'message' => 'Order Verified Successfully!',
+                'message' => $this->translations['order_detail_message_3'],
             ]);
         } else {
             $this->dispatchBrowserEvent('swal:modal', [
                 'type' => 'warning',
-                'message' => 'Order Declined !',
+                'message' => $this->translations['order_detail_message_4'],
             ]);
         }
     }

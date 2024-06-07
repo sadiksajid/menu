@@ -1,4 +1,11 @@
 
+@php
+$translations = app('translations_admin');
+$languages = array('ma' => 'عربية', 'en' => 'English', 'fr' => 'Français');
+$flag = array('ar' => 'ma', 'en' => 'en', 'fr' => 'fr');
+$current_lang =  Cache::get('locale_admin') ?? 'en';
+@endphp
+
 
 <div class="app-header header">
     <div class="container-fluid">
@@ -26,7 +33,18 @@
                 </a>
             </div>
 
+
             <div class="d-flex order-lg-2 ml-auto">
+
+
+            
+                <div class="dropdown   header-fullscreen">
+                    <li class="submenu">
+                        <a href="#" data-toggle="modal" data-target="#select_modal_language" ><img class="card-img-top" src="{{ asset('assets/countries/' . $flag[$current_lang] . '.svg') }}"
+                            style="height: 20px" class="card-img-top" ></a>
+                    </li>
+                </div>
+
                 <div class="dropdown   header-fullscreen">
                     <a class="nav-link icon full-screen-link p-0" id="fullscreen-button">
                         <svg xmlns="http://www.w3.org/2000/svg" class="header-icon" width="24" height="24"
@@ -90,7 +108,7 @@
                                         d="M11,7L9.6,8.4l2.6,2.6H2v2h10.2l-2.6,2.6L11,17l5-5L11,7z M20,19h-8v2h8c1.1,0,2-0.9,2-2V5c0-1.1-0.9-2-2-2h-8v2h8V19z" />
                                 </g>
                             </svg>
-                            <div class="">Sign Out</div>
+                            <div class="">{{$translations['logout']}}</div>
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
                             style="display: none;">
@@ -101,5 +119,56 @@
             </div>
         </div>
     </div>
+
+  
+
+
 </div>
 <!--/app header-->
+  <!-- /header -->
+  <div wire:ignore class="modal fade bd-example-modal-lg" id="select_modal_language" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content" style="border:5px solid #262626;background-color:#f7f8fc;z-index:999">
+  
+          <div class="modal-body pb-0">
+              <div class="container text-center">
+                  <lottie-player src="{{ URL::asset('assets/SVG/world.json') }}" class="lottie" background="transparent"
+                      speed="0.5" loop autoplay mode="bounce" style="width: 250px;margin: auto;">
+                  </lottie-player>
+                  <h3>
+                      Feel free to choose your language
+                  </h3>
+                  <form  action="{{ route('change_lang') }}" method="POST">
+                  @csrf
+                
+                    <div class="row px-md-5 mb-4 d-flex justify-content-center">
+                        @foreach ($languages as $lang => $language)
+                     
+                        <div class="col-md-4 col-4 mt-2" wire:click="changeLang('{{ $lang }}','{{url()->current()}}')" 
+                            style="cursor: pointer">
+                            <button type="submit" name='lang' value='{{ $lang }}' class="card p-0" style="box-shadow: 3px 2px 13px -4px rgba(0,0,0,0.75); ">
+                                <img class="card-img-top mt-2" src="{{ asset('assets/countries/' . $lang . '.svg') }}"
+                                style="height: 60px" class="card-img-top" alt="{{ $language }} flag">
+                            <p class="card-text mt-2 p-0 fs-13" style="  margin: auto;  font-weight: bold;color: #626262;">{{ $language }}</p>
+                            </button>
+                            {{-- <div class="card p-0" style="box-shadow: 3px 2px 13px -4px rgba(0,0,0,0.75); ">
+                                <img class="card-img-top mt-2" src="{{ asset('assets/countries/' . $lang . '.svg') }}"
+                                    style="height: 60px" class="card-img-top" alt="{{ $language }} flag">
+                                <p class="card-text mt-2 p-0 fs-13" style="    font-weight: bold;color: #626262;">{{ $language }}</p>
+                            </div> --}}
+                        </div>
+                        @endforeach
+                    </div>
+                </form>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn  mx-auto" aria-label="Close" class="close"
+                  data-dismiss="modal" wire:click="changeLang('en')" style='  background-color: #262626;color: #fff;    width: 130px;'>
+                  <span>Close</span>
+              </button>
+          </div>
+      </div>
+  </div>
+  </div>

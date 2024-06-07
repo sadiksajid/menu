@@ -47,11 +47,19 @@ class HeadersEdit extends Component
     public $to_delete_image_tm = 0;
     public $to_delete_image_edit = 0;
     public $offer_image_deleted = [];
+    public $langs = [];
 
     protected $listeners = ['editText', 'editBtn', 'editImg'];
 
+    ////////////////////////////////
+    public $translations;
+
     public function mount()
     {
+        $this->langs = languages()['langs'];
+        $this->translations = app('translations_admin');
+        ///////////////////////////////////
+
         $this->store_id = Auth::user()->store_id;
         $this->store_info = Auth::user()->store;
         $this->data = Index::where('store_id', $this->store_id)->whereIn('name', ['shop1', 'offers1', 'orders1', 'cart1', 'checkout1'])->get();
@@ -65,43 +73,46 @@ class HeadersEdit extends Component
         }
 
         if (!empty($this->shop)) {
-            $this->titles_shop = $this->shop->titles;
-            $this->titles_shop = json_decode($this->titles_shop, true);
-            $this->titles_shop = $this->titles_shop['title-1'];
+
+            $titles_shop = $this->shop->getTranslation('titles', 'en');
+            $this->titles_shop = json_decode($titles_shop, true);
+
+            $this->titles_shop = $this->titles_shop['title-1'] ?? '';
             $this->old_data['titles_shop'] = $this->titles_shop ?? '';
+
+            $texts_shop = $this->shop->getTranslation('texts', 'en');
+            $this->texts_shop = json_decode($texts_shop, true);
+
+            $this->texts_shop = $this->texts_shop['texts-1'] ?? '';
+            $this->old_data['texts_shop'] = $this->texts_shop ?? '';
 
             $this->images_shop = $this->shop->images;
             $this->images_shop = json_decode($this->images_shop, true);
             $this->images_shop = $this->images_shop['img_1'];
 
-            $this->texts_shop = $this->shop->texts;
-            $this->texts_shop = json_decode($this->texts_shop, true);
-            $this->texts_shop = $this->texts_shop['texts-1'];
-            $this->old_data['texts_shop'] = $this->texts_shop ?? '';
-
         }
 
         // dd($this->offers);
         if (!empty($this->offers)) {
-            $this->titles_offers = $this->offers->titles;
-            $this->titles_offers = json_decode($this->titles_offers, true);
-            $this->titles_offers = $this->titles_offers['title-1'];
+            $titles_offers = $this->offers->getTranslation('titles', 'en');
+            $this->titles_offers = json_decode($titles_offers, true);
+            $this->titles_offers = $this->titles_offers['title-1'] ?? '';
             $this->old_data['titles_offers'] = $this->titles_offers ?? '';
 
             $this->images_offers = $this->offers->images;
             $this->images_offers = json_decode($this->images_offers, true);
             $this->images_offers = $this->images_offers['img_1'] ?? null;
 
-            $this->texts_offers = $this->offers->texts;
-            $this->texts_offers = json_decode($this->texts_offers, true);
-            $this->texts_offers = $this->texts_offers['texts-1'];
+            $texts_offers = $this->offers->getTranslation('texts', 'en');
+            $this->texts_offers = json_decode($texts_offers, true);
+            $this->texts_offers = $this->texts_offers['texts-1'] ?? '';
             $this->old_data['texts_offers'] = $this->texts_offers ?? '';
 
         }
         if (!empty($this->orders)) {
-            $this->titles_orders = $this->orders->titles;
-            $this->titles_orders = json_decode($this->titles_orders, true);
-            $this->titles_orders = $this->titles_orders['title-1'];
+            $titles_orders = $this->orders->getTranslation('titles', 'en');
+            $this->titles_orders = json_decode($titles_orders, true);
+            $this->titles_orders = $this->titles_orders['title-1'] ?? '';
             $this->old_data['titles_orders'] = $this->titles_orders ?? '';
 
             $this->images_orders = $this->orders->images;
@@ -110,9 +121,9 @@ class HeadersEdit extends Component
 
         }
         if (!empty($this->cart)) {
-            $this->titles_cart = $this->cart->titles;
-            $this->titles_cart = json_decode($this->titles_cart, true);
-            $this->titles_cart = $this->titles_cart['title-1'];
+            $titles_cart = $this->cart->getTranslation('titles', 'en');
+            $this->titles_cart = json_decode($titles_cart, true);
+            $this->titles_cart = $this->titles_cart['title-1'] ?? '';
             $this->old_data['titles_cart'] = $this->titles_cart ?? '';
 
             $this->images_cart = $this->cart->images;
@@ -121,9 +132,9 @@ class HeadersEdit extends Component
 
         }
         if (!empty($this->checkout)) {
-            $this->titles_checkout = $this->checkout->titles;
-            $this->titles_checkout = json_decode($this->titles_checkout, true);
-            $this->titles_checkout = $this->titles_checkout['title-1'];
+            $titles_checkout = $this->checkout->getTranslation('titles', 'en');
+            $this->titles_checkout = json_decode($titles_checkout, true);
+            $this->titles_checkout = $this->titles_checkout['title-1'] ?? '';
             $this->old_data['titles_checkout'] = $this->titles_checkout ?? '';
 
             $this->images_checkout = $this->checkout->images;
@@ -151,7 +162,7 @@ class HeadersEdit extends Component
 
     public function delete_image_tm($index)
     {
-        $this->upload_image[$index] = '';
+        $this->upload_image[$index] = null;
         $this->to_delete_image_tm = -1;
     }
 
@@ -200,15 +211,13 @@ class HeadersEdit extends Component
             $img_link = 'shop1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image['shop']->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'shop1', $img_link);
-            $img_link = 'shop1/'.$img_link ;
+            $img_link = 'shop1/' . $img_link;
 
             if ($save_result) {
                 $images['img_1'] = $img_link;
             }
 
         }
-        $titles['title-1'] = $this->titles_shop;
-        $texts['texts-1'] = $this->texts_shop;
 
         if (!isset($this->old_data['titles_shop'])) {
 
@@ -221,8 +230,24 @@ class HeadersEdit extends Component
 
         }
         if (isset($shop)) {
-            $shop->titles = json_encode($titles);
-            $shop->texts = json_encode($texts);
+
+            $titles = [];
+            $texts = [];
+
+            foreach ($this->langs as $lang) {
+                if ($lang == 'en') {
+                    $titles['en']['title-1'] = $this->titles_shop;
+                    $texts['en']['texts-1'] = $this->texts_shop;
+                } else {
+                    $titles[$lang]['title-1'] = translate($this->titles_shop, $lang);
+                    $texts[$lang]['texts-1'] = translate($this->texts_shop, $lang);
+                }
+
+                $shop->setTranslation('titles', $lang, json_encode($titles[$lang], JSON_UNESCAPED_UNICODE));
+                $shop->setTranslation('texts', $lang, json_encode($texts[$lang], JSON_UNESCAPED_UNICODE));
+
+            }
+
             if (isset($images['img_1'])) {
                 $shop->images = json_encode($images);
             }
@@ -236,15 +261,13 @@ class HeadersEdit extends Component
             $img_link = 'offers1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image['offers']->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'offers1', $img_link);
-            $img_link = 'offers1/'.$img_link ;
+            $img_link = 'offers1/' . $img_link;
 
             if ($save_result) {
                 $images['img_1'] = $img_link;
             }
 
         }
-        $titles['title-1'] = $this->titles_offers;
-        $texts['texts-1'] = $this->texts_offers;
 
         if (!isset($this->old_data['titles_offers'])) {
 
@@ -255,8 +278,23 @@ class HeadersEdit extends Component
             $offers = Index::where('store_id', $this->store_id)->where('name', 'offers1')->first();
         }
         if (isset($offers)) {
-            $offers->titles = json_encode($titles);
-            $offers->texts = json_encode($texts);
+
+            $titles = [];
+            $texts = [];
+            foreach ($this->langs as $lang) {
+                if ($lang == 'en') {
+                    $titles['en']['title-1'] = $this->titles_offers;
+                    $texts['en']['texts-1'] = $this->texts_offers;
+                } else {
+                    $titles[$lang]['title-1'] = translate($this->titles_offers, $lang);
+                    $texts[$lang]['texts-1'] = translate($this->texts_offers, $lang);
+                }
+
+                $offers->setTranslation('titles', $lang, json_encode($titles[$lang], JSON_UNESCAPED_UNICODE));
+                $offers->setTranslation('texts', $lang, json_encode($texts[$lang], JSON_UNESCAPED_UNICODE));
+
+            }
+
             if (isset($images['img_1'])) {
                 $offers->images = json_encode($images);
             }
@@ -271,15 +309,13 @@ class HeadersEdit extends Component
             $img_link = 'orders1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image['orders']->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'orders1', $img_link);
-            $img_link = 'orders1/'.$img_link ;
-
+            $img_link = 'orders1/' . $img_link;
 
             if ($save_result) {
                 $images['img_1'] = $img_link;
             }
 
         }
-        $titles['title-1'] = $this->titles_orders;
 
         if (!isset($this->old_data['titles_orders'])) {
 
@@ -292,7 +328,17 @@ class HeadersEdit extends Component
 
         }
         if (isset($orders)) {
-            $orders->titles = json_encode($titles);
+            $titles = [];
+            foreach ($this->langs as $lang) {
+                if ($lang == 'en') {
+                    $titles['en']['title-1'] = $this->titles_orders;
+                } else {
+                    $titles[$lang]['title-1'] = translate($this->titles_orders, $lang);
+                }
+                $orders->setTranslation('titles', $lang, json_encode($titles[$lang], JSON_UNESCAPED_UNICODE));
+
+            }
+
             if (isset($images['img_1'])) {
                 $orders->images = json_encode($images);
             }
@@ -307,15 +353,13 @@ class HeadersEdit extends Component
             $img_link = 'cart1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image['cart']->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'cart1', $img_link);
-            $img_link = 'cart1/'.$img_link ;
-
+            $img_link = 'cart1/' . $img_link;
 
             if ($save_result) {
                 $images['img_1'] = $img_link;
             }
 
         }
-        $titles['title-1'] = $this->titles_cart;
 
         if (!isset($this->old_data['titles_cart'])) {
 
@@ -327,9 +371,19 @@ class HeadersEdit extends Component
             $cart = Index::where('store_id', $this->store_id)->where('name', 'cart1')->first();
 
         }
-
+        $titles = [];
         if (isset($cart)) {
-            $cart->titles = json_encode($titles);
+            $titles = [];
+            foreach ($this->langs as $lang) {
+                if ($lang == 'en') {
+                    $titles['en']['title-1'] = $this->titles_cart;
+                } else {
+                    $titles[$lang]['title-1'] = translate($this->titles_cart, $lang);
+                }
+                $cart->setTranslation('titles', $lang, json_encode($titles[$lang], JSON_UNESCAPED_UNICODE));
+
+            }
+
             if (isset($images['img_1'])) {
                 $cart->images = json_encode($images);
             }
@@ -344,15 +398,13 @@ class HeadersEdit extends Component
             $img_link = 'checkout1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image['checkout']->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'checkout1', $img_link);
-            $img_link = 'checkout1/'.$img_link ;
-
+            $img_link = 'checkout1/' . $img_link;
 
             if ($save_result) {
                 $images['img_1'] = $img_link;
             }
 
         }
-        $titles['title-1'] = $this->titles_checkout;
 
         if (!isset($this->old_data['titles_checkout'])) {
 
@@ -366,7 +418,17 @@ class HeadersEdit extends Component
         }
 
         if (isset($checkout)) {
-            $checkout->titles = json_encode($titles);
+            foreach ($this->langs as $lang) {
+                $titles = [];
+
+                if ($lang == 'en') {
+                    $titles['en']['title-1'] = $this->titles_checkout;
+                } else {
+                    $titles[$lang]['title-1'] = translate($this->titles_checkout, $lang);
+                }
+                $checkout->setTranslation('titles', $lang, json_encode($titles[$lang], JSON_UNESCAPED_UNICODE));
+            }
+
             if (isset($images['img_1'])) {
                 $checkout->images = json_encode($images);
             }
@@ -376,20 +438,9 @@ class HeadersEdit extends Component
 
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',
-            'message' => 'Update Saved!',
+            'message' => $this->translations['update_save'],
         ]);
 
-    }
-
-    public function editBtn($id, $data)
-    {
-        $this->buttons[$id] = array(
-            'title' => $data[0],
-            'url' => $data[1],
-        );
-
-        $this->data->buttons = json_encode($this->buttons);
-        $this->data->save();
     }
 
     public function editImg($id)
@@ -398,8 +449,7 @@ class HeadersEdit extends Component
             $img_link = 'index1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'index1', $img_link);
-            $img_link = 'index1/'.$img_link ;
-
+            $img_link = 'index1/' . $img_link;
 
             if ($save_result) {
                 $this->images[$id] = $img_link;
@@ -409,7 +459,7 @@ class HeadersEdit extends Component
             } else {
                 $this->dispatchBrowserEvent('swal:modal', [
                     'type' => 'warning',
-                    'message' => 'Problem in Image',
+                    'message' => $this->translations['image_problem'],
                 ]);
             }
 

@@ -71,8 +71,8 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-xl-9 col-lg-10 col-md-8">
-                            <h1  > {{ $titles_shop ?? 'Store' }}  </h1>
-                            <p  >{{ $texts_shop ?? 'Cooking delicious and tasty food since 2005' }} </p>
+                            <h1  > {{ $titles_shop ?? $translations['store'] }}  </h1>
+                            <p  >{{ $texts_shop ?? $translations_resto['store_meta']  }} </p>
                         </div>
                     </div>
                     <!-- /row -->
@@ -95,8 +95,8 @@
                               <div style="height: 150px">
                                   {{-- <a href="/store/goodforhealth/{{ $category->category_meta }}" > --}}
                                     <a href="/shop/{{ $category->category_meta }}" >
-                                        <div class="item hover-overlay pt-2 cat_div background-image rounded-circle shadow border border-dark"
-                                            data-background="url({{ get_image($category->image )}})">
+                                        <div class=" item hover-overlay pt-2 cat_div background-image rounded-circle shadow border border-dark"
+                                            data-background="url({{ get_image('tmb/'.$category->image )}})">
                                             <div class="over_cat">
                                                 <h5  class="cat_titel align-self-center">
                                                     <strong>{{ $category->title }}</strong>
@@ -137,7 +137,7 @@
                                             @endphp
                                             @foreach ($products as $product)
                                                 @php
-                                                    $products_images[$loop->index] = $product->media[0]->media;
+                                                    $products_images[$loop->index] = $product?->media[0]->media ?? 'pngs/food-icon.jpg';
                                                 @endphp
                                                 <div class="col-xl-3 col-md-4 col-6 col-grid-box four"  style="padding-left:6px;padding-right:6px" >
                                                     <div class="product-box ">
@@ -147,13 +147,13 @@
                                                                 <a
                                                                     href="/shop/product/{{ $product->product_meta }}"><img
                                                                         alt="" class="img-fluid"
-                                                                        src="{{ get_image('moyen/'.$product->media[0]->media) }}"></a>
+                                                                        src="{{ get_image('moyen/'.$product?->media[0]->media ?? 'pngs/food-icon.jpg') }}" onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';"></a>
                                                             </div>
                                                             <div class="back">
                                                                 <a
                                                                     href="/shop/product/{{ $product->product_meta }}"><img
                                                                         alt="" class="img-fluid"
-                                                                        src="{{ get_image('moyen/'.($product->media[1]->media ?? $product->media[0]->media)) }}"></a>
+                                                                        src="{{ get_image('moyen/'.($product->media[1]->media ?? $product?->media[0]->media ?? 'pngs/food-icon.jpg')) }}"></a>
                                                             </div>
                                                             <div class="cart-info cart-wrap gray-bg-color"
                                                                 style='border-radius:8px'>
@@ -189,7 +189,7 @@
                                                                     </div>
                                                                     {{ $product->category->title }}
                                                                     <a class="mt-2"
-                                                                        href="product-page(no-sidebar).html">
+                                                                        href="/shop/product/{{ $product->product_meta }}">
                                                                         <h4>{{ substr($product->title, 0, 40) }}</h4>
                                                                     </a>
                                                                     <p class="mt-2">
@@ -197,18 +197,14 @@
                                                                     <h6 class="mt-2 " style='color:{{$store_info->btn_color}}'>{{ $product->price }}
                                                                         {{ $currency }}</h6>
                                                                 </center>
-
-
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             @endforeach
-
                                         </div>
                                     </div>
-                                    <div class="load-more-sec"><a wire:click="nextPage()">load
-                                            more</a></div>
+                                    <div class="load-more-sec"><a wire:click="nextPage()">{{$translations['load_more'] }}</a></div>
                                 </div>
                             </div>
                         </div>
@@ -237,21 +233,14 @@
                                 <h3 id='detail_price'>$32.96</h3>
 
                                 <div class="border-product">
-                                    <h6 class="product-title">product details</h6>
+                                    <h6 class="product-title">{{$translations['product_details']}}</h6>
                                     <p id='detail_description'>Sed ut perspiciatis, unde omnis iste natus error sit
                                         voluptatem accusantium
                                         doloremque laudantium</p>
                                 </div>
                                 <div class="product-description border-product">
-                                    {{-- <div class="size-box">
-                                        <ul class="d-flex">
-                                            <li class="active"><a href="#">s</a></li>
-                                            <li><a href="#">m</a></li>
-                                            <li><a href="#">l</a></li>
-                                            <li><a href="#">xl</a></li>
-                                        </ul>
-                                    </div> --}}
-                                    <h6 class="product-title">quantity</h6>
+                       
+                                    <h6 class="product-title">{{$translations['quantity']}}</h6>
                                     <div class="qty-box">
                                         <div class="input-group"><span class="input-group-prepend"><button
                                                     class="btn quantity-left-minus" data-field="" data-type="minus"
@@ -269,10 +258,10 @@
 
                                 <div class="product-buttons">
                                     <a class="btn btn-default primary-btn radius-0" href="#" id='add_to_cart'>
-                                        add to cart
+                                        {{$translations['add_to_cart']}} 
                                     </a>
                                     <a class="btn btn-default primary-btn radius-0" href="#"id='pop_up_url'>
-                                        view detail
+                                        {{$translations['view_detail']}} 
                                     </a>
                                 </div>
                             </div>

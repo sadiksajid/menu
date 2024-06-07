@@ -1,8 +1,10 @@
 /node_modules
 # /public/hot
 # /public/storage
+/bootstrap/cache
 /bootstrap/cache/*.php
-
+/public/livewire-tmp
+/public/storage
 /storage/*.key
 /storage/logs
 /vendor
@@ -17,4 +19,5 @@ yarn-error.log
 /.idea
 /.vscode
 node_modules
-pdf.zip
+node_modules
+node_modules

@@ -20,9 +20,13 @@ class ClientOffer extends Component
     public $store_meta;
 
     protected $listeners = ['changeQte'];
-
+////////////////////////////
+    public $translations;
     public function mount($store_info, $offer)
     {
+        $json = app('translations');
+        $this->translations = $json['system'];
+
         $this->store_meta = $store_info->store_meta;
         $this->store_info = $store_info;
         $this->offer = $offer;

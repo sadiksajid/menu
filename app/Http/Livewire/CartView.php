@@ -23,9 +23,14 @@ class CartView extends Component
     public $store_meta;
     public $titles_cart;
     public $images_cart;
-
+    //////////////////////////
+    public $translations;
+    public $translations_resto;
     public function mount()
     {
+        $json = app('translations');
+        $this->translations = $json['system'];
+        $this->translations_resto = $json['resto'];
         // $this->store_info = $store_info;
         // $this->store_meta = $store_info->store_meta;
 
