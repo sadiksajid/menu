@@ -62,10 +62,10 @@ class LoginController extends Controller
     protected function credentials(Request $request)
     {
 
-        if (is_numeric($request->input('login_email'))) {
-            return ['telephone' => $request->input('login_email'), 'password' => $request->input('login_password')];
-        } elseif (filter_var($request->input('login_email'), FILTER_VALIDATE_EMAIL)) {
-            return ['email' => $request->input('login_email'), 'password' => $request->input('login_password')];
+        if (is_numeric($request->input('login_phone'))) {
+            return ['telephone' => $request->input('login_phone'), 'password' => $request->input('login_password')];
+        } elseif (filter_var($request->input('login_phone'), FILTER_VALIDATE_EMAIL)) {
+            return ['email' => $request->input('login_phone'), 'password' => $request->input('login_password')];
         } else {
             $this->validateLogin($request);
         }
@@ -75,16 +75,16 @@ class LoginController extends Controller
     {
 
         $request->validate([
-            'login_email' => 'required|string',
+            'login_phone' => 'required|string',
             'login_password' => 'required',
         ]);
 
         $user = null;
-        if (is_numeric($request->input('login_email'))) {
-            $user = StoreAdmin::join('stores','stores.id','store_admins.store_id')->where('store_admins.telephone', '=', $request->input('login_email'))->where('store_admins.status', 1)->whereNotNull('stores.id')->first();
+        if (!empty($request->input('login_phone'))) {
+            $user = StoreAdmin::join('stores','stores.id','store_admins.store_id')->where('store_admins.telephone', '=', $request->input('login_phone'))->where('store_admins.status', 1)->whereNotNull('stores.id')->first();
 
-        } elseif (filter_var($request->input('login_email'), FILTER_VALIDATE_EMAIL)) {
-            $user = StoreAdmin::join('stores','stores.id','store_admins.store_id')->where('store_admins.email', '=', $request->input('login_email'))->where('store_admins.status', 1)->whereNotNull('stores.id')->first();
+        } elseif (filter_var($request->input('login_phone'), FILTER_VALIDATE_EMAIL)) {
+            $user = StoreAdmin::join('stores','stores.id','store_admins.store_id')->where('store_admins.email', '=', $request->input('login_phone'))->where('store_admins.status', 1)->whereNotNull('stores.id')->first();
         }
         
         if (!$user) {

@@ -24,7 +24,10 @@ class CreateStoreAdminsTable extends Migration
             $table->string('remember_token',200)->nullable();
 
             $table->boolean('status')->default(1);
-
+            $table->string('phone_code',5)->nullable();
+            $table->foreignId('country_id');
+            $table->string('country',50)->nullable();
+            
             $table->timestamps();
         });
     }

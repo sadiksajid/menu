@@ -65,6 +65,7 @@ class RegisterController extends Controller
             'country_code' => ['required', 'string', 'max:10'],
             'store_meta' => ['required', 'string', 'max:50', 'unique:stores'],
             'telephone' => ['required', 'string', 'max:50', 'unique:store_admins', new NotEqualToNone],
+            'phone_code' => ['required', 'string', 'max:5'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
@@ -96,6 +97,7 @@ class RegisterController extends Controller
             'country_id' => $country->id ,
             'store_id' => $store->id,
             'is_admin' => 1,
+            'phone_code' => $data['phone_code'],
             'password' => Hash::make($data['password']),
         ]) ; 
         return $user;

@@ -14,12 +14,12 @@ class Home extends Component
     public $translations;
     public $countries;
 
-
     public function mount()
     {
         $json = app('translations');
         $this->translations = $json['home'];
         $this->countries = Country::select('id','name','currency')->orderBy('name','asc')->get();
+
 
     }
 
