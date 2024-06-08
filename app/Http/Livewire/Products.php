@@ -37,6 +37,7 @@ class Products extends Component
     public $edit_extra = [];
     public $extra_is_new = [];
     public $extra_deleted = [];
+    public $product_meta;
 
     public $categories;
     public $category_id;
@@ -308,16 +309,29 @@ class Products extends Component
 
 ////////////////////////////////////////////////////////////////////////////////////
 
+    function sanitizeString($string) {
+        // Replace spaces with underscores
+        $string = str_replace(' ', '_', $string);
+        
+        // Remove any character that is not a letter, number, hyphen, or underscore
+        $sanitizedString = preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
+        
+        return $sanitizedString;
+    }
+
     public function submitProduct()
     {
+        if($this->newCategory == false){
+            $this->product_meta =   $this->sanitizeString($this->title);
         $this->validate([
-            'title' => 'required|string|max:100',
-            'description' => 'required|string|max:15000',
+            'title' => 'required|string|max:250',
+            'product_meta' => 'required|string|max:250|unique:staf_products,product_meta',
+            'description' => 'required|string|max:3500',
             'status' => 'required|boolean',
             'price' => 'required|integer',
             'category_id' => 'required|integer',
 
-            'receipts.*' => 'nullable|string|max:15000',
+            'receipts.*' => 'nullable|string|max:3500',
             // 'extras.title.*' => 'nullable|string|max:50',
             // 'extras.price.*' => 'nullable|integer',
             'product_images.*' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
@@ -352,6 +366,8 @@ class Products extends Component
         $product->store_id = $this->store_id;
         $product->product_category_id = $this->category_id;
         $product->save();
+
+        $images = array();
         foreach ($this->product_images as $img) {
 
             $link = 'product_image_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.webp';
@@ -438,6 +454,17 @@ class Products extends Component
 
         ]);
 
+
+    }else{
+        $this->dispatchBrowserEvent('swal:modal', [
+            'type' => 'warning',
+            'message' => 'Save Category First!',
+            'text' => 'You can\'t save the product if you didn\'t save the category',
+
+        ]);
+    }
+
+
     }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -483,6 +510,8 @@ class Products extends Component
 ////////////////////////////////////////////////////////////////////////////////////
     public function updateProduct()
     {
+        if($this->newCategory == false){
+
         $this->validate([
             'title' => 'required|string|max:100',
             'description' => 'required|string|max:15000',
@@ -525,6 +554,16 @@ class Products extends Component
         }
 
         $product = StoreProduct::find($this->product_id);
+        $product = StoreProduct::find($this->product_id);
+        if($product->title != $this->title){
+            $this->product_meta =   $this->sanitizeString($this->title);
+            $this->validate([
+                'product_meta' => 'required|string|max:250|unique:store_products,product_meta',
+            ]);
+        }elseif(empty($product->product_meta)){
+            $product->product_meta =$this->sanitizeString($this->title);
+        }
+        
         $product->title = $this->title;
         $product->description = $this->description;
         $product->status = $this->status;
@@ -534,7 +573,8 @@ class Products extends Component
         $product->save();
 
         $x = 0;
-        $images = [];
+
+        $images = array();
         foreach ($this->product_images as $img) {
 
             $this->validate([
@@ -696,6 +736,16 @@ class Products extends Component
             'url' => '/admin/products',
 
         ]);
+
+           }else{
+                $this->dispatchBrowserEvent('swal:modal', [
+                    'type' => 'warning',
+                    'message' => 'Save Category First!',
+                    'text' => 'You can\'t save the product if you didn\'t save the category',
+
+                ]);
+            }
+    
 
     }
 

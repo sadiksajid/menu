@@ -27,6 +27,9 @@
                                         @error('title')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
+                                        @error('product_meta')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
                                     <div class="col-12">

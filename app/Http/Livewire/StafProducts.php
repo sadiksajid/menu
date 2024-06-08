@@ -4,12 +4,13 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\StafProduct;
+use App\Models\StoreProduct;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use App\Models\CategoryToStore;
 use App\Models\ProductCategory;
-use App\Models\StafProductMedia;
 use App\Models\StafProductExtra;
+use App\Models\StafProductMedia;
 use App\Models\StafProductRecipe;
 use App\Models\StafExtraToProduct;
 use Illuminate\Support\Facades\DB;
@@ -37,6 +38,7 @@ class StafProducts extends Component
     public $edit_extra = [];
     public $extra_is_new = [];
     public $extra_deleted = [];
+    public $product_meta;
 
     public $categories;
     public $category_id;
@@ -91,6 +93,20 @@ class StafProducts extends Component
                 $this->editProduct();
                 break;
         }
+
+
+        $products = StoreProduct::whereNull('product_meta')->get();
+        foreach ($products as $product) {
+            $product->product_meta = $this->sanitizeString( $product->title);
+            $product->save();
+        }
+
+        $products = StafProduct::whereNull('product_meta')->get();
+        foreach ($products as $product) {
+            $product->product_meta = $this->sanitizeString( $product->title);
+            $product->save();
+        }
+
 
     }
     public function render()
@@ -296,134 +312,163 @@ class StafProducts extends Component
 
 ////////////////////////////////////////////////////////////////////////////////////
 
+    function sanitizeString($string) {
+        // Replace spaces with underscores
+        $string = str_replace(' ', '_', $string);
+        
+        // Remove any character that is not a letter, number, hyphen, or underscore
+        $sanitizedString = preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
+        
+        return $sanitizedString;
+    }
+
+
     public function submitProduct()
     {
-        $this->validate([
-            'title' => 'required|string|max:100',
-            'description' => 'required|string|max:15000',
-            'status' => 'required|boolean',
-            'price' => 'required|integer',
-            'category_id' => 'required|integer',
 
-            'receipts.*' => 'nullable|string|max:15000',
-            // 'extras.title.*' => 'nullable|string|max:50',
-            // 'extras.price.*' => 'nullable|integer',
-            'product_images.*' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
-        ]);
+        if($this->newCategory == false ){
+            $this->product_meta =   $this->sanitizeString($this->title);
 
-        if (count($this->extras) != 0 and (!empty($this->extras['0']['title']) or !empty($this->extras['0']['price']) or !empty($this->extras['0']['image']))) {
             $this->validate([
-                'extras.*.title' => 'required|string|max:50',
-                'extras.*.price' => 'required|integer',
-                'extras.*.image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+                'title' => 'required|string|max:250',
+                'product_meta' => 'required|string|max:250|unique:staf_products,product_meta',
+                'description' => 'required|string|max:3500',
+                'status' => 'required|boolean',
+                'price' => 'required|integer',
+                'category_id' => 'required|integer',
+                'receipts.*' => 'nullable|string|max:3500',
+                'product_images.*' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
             ]);
-        }
-        $product = new StafProduct();
 
-        foreach ($this->langs as $lang) {
-            if ($lang == 'en') {
-                $title = $this->title;
-                $description = $this->description;
-            } else {
-                $title = translate($this->title, $lang);
-                $description = translate($this->description, $lang);
+            if (count($this->extras) != 0 and (!empty($this->extras['0']['title']) or !empty($this->extras['0']['price']) or !empty($this->extras['0']['image']))) {
+                $this->validate([
+                    'extras.*.title' => 'required|string|max:50',
+                    'extras.*.price' => 'required|integer',
+                    'extras.*.image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+                ]);
+            }
+            $product = new StafProduct();
+
+            foreach ($this->langs as $lang) {
+                if ($lang == 'en') {
+                    $title = $this->title;
+                    $description = $this->description;
+                } else {
+                    $title = translate($this->title, $lang);
+                    $description = translate($this->description, $lang);
+                }
+
+                $product->setTranslation('title', $lang, $title, JSON_UNESCAPED_UNICODE);
+                $product->setTranslation('description', $lang, $description, JSON_UNESCAPED_UNICODE);
+
+            }
+            $product->product_meta = str_replace(' ','-', $this->title);
+
+            $product->status = $this->status;
+            $product->price = $this->price;
+            $product->user_id = Auth::guard('staf')->id() ;
+            $product->staf_product_category_id = $this->category_id;
+            $product->save();
+
+            $images = array();
+            foreach ($this->product_images as $img) {
+
+                $link = 'product_image_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.webp';
+                $image = File::get($img->getRealPath());
+                $save_result = save_livewire_filetocdn($image, 'staf_product_images', $link, $this->product_sizes);
+
+                $link = 'staf_product_images/' . $link;
+
+                if ($save_result) {
+                    $images[] = $link;
+                }
+
             }
 
-            $product->setTranslation('title', $lang, $title, JSON_UNESCAPED_UNICODE);
-            $product->setTranslation('description', $lang, $description, JSON_UNESCAPED_UNICODE);
-
-        }
-        $product->product_meta = str_replace(' ','-', $this->title);
-
-        $product->status = $this->status;
-        $product->price = $this->price;
-        $product->user_id = Auth::guard('staf')->id() ;
-        $product->staf_product_category_id = $this->category_id;
-        $product->save();
-        foreach ($this->product_images as $img) {
-
-            $link = 'product_image_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.webp';
-            $image = File::get($img->getRealPath());
-            $save_result = save_livewire_filetocdn($image, 'staf_product_images', $link, $this->product_sizes);
-
-            $link = 'staf_product_images/' . $link;
-
-            if ($save_result) {
-                $images[] = $link;
-            }
-
-        }
-
-        $images_set = [];
-        foreach ($images as $image) {
-            $images_set[] = [
-                'media' => $image,
-                "staf_product_id" => $product->id,
-                "created_at" => now(),
-                "updated_at" => now(),
-            ];
-        }
-
-        StafProductMedia::insert($images_set);
-
-        $receipts_set = [];
-        if (count($this->receipts) != 0) {
-            foreach ($this->receipts as $receipt) {
-                $receipts_set[] = [
-                    'element' => $receipt,
+            if( count( $images) > 0){
+                $images_set = [];
+                foreach ($images as $image) {
+                    $images_set[] = [
+                    'media' => $image,
                     "staf_product_id" => $product->id,
                     "created_at" => now(),
                     "updated_at" => now(),
                 ];
             }
 
-            StafProductRecipe::insert($receipts_set);
-        }
-        if (count($this->extras) != 0 and (!empty($this->extras['0']['title']) or !empty($this->extras['0']['price']) or !empty($this->extras['0']['image']))) {
-            $extras_set = [];
-            $extra_ids = [];
-            foreach ($this->extras as $extra) {
-                if (!empty($extra)) {
-                    if (!empty($extra['image'])) {
+            StafProductMedia::insert($images_set);
+            }
 
-                        $link = 'extra_image_' . str_replace(' ', '_', $extra['title']) . md5(microtime()) . '.webp';
-                        $image = File::get($extra['image']->getRealPath());
-                        $save_result = save_livewire_filetocdn($image, 'staf_extra_images', $link, $this->extras_sizes);
-
-                        $link = 'extra_images/' . $link;
-
-                    } else {
-                        $link = '';
-                    }
-
-                    $extras_set = [
-                        'image' => $link,
-                        'title' => $extra['title'],
-                        'price' => $extra['price'],
-                        "created_at" => now(),
-                        "updated_at" => now(),
-                    ];
-
-                    $extra_ids[] = [
-                        'staf_product_extra_id' => StafProductExtra::insertGetId($extras_set),
-                        'staf_product_id' => $product->id,
+            $receipts_set = [];
+            if (count($this->receipts) != 0) {
+                foreach ($this->receipts as $receipt) {
+                    $receipts_set[] = [
+                        'element' => $receipt,
+                        "staf_product_id" => $product->id,
                         "created_at" => now(),
                         "updated_at" => now(),
                     ];
                 }
 
+                StafProductRecipe::insert($receipts_set);
+            }
+            if (count($this->extras) != 0 and (!empty($this->extras['0']['title']) or !empty($this->extras['0']['price']) or !empty($this->extras['0']['image']))) {
+                $extras_set = [];
+                $extra_ids = [];
+                foreach ($this->extras as $extra) {
+                    if (!empty($extra)) {
+                        if (!empty($extra['image'])) {
+
+                            $link = 'extra_image_' . str_replace(' ', '_', $extra['title']) . md5(microtime()) . '.webp';
+                            $image = File::get($extra['image']->getRealPath());
+                            $save_result = save_livewire_filetocdn($image, 'staf_extra_images', $link, $this->extras_sizes);
+
+                            $link = 'extra_images/' . $link;
+
+                        } else {
+                            $link = '';
+                        }
+
+                        $extras_set = [
+                            'image' => $link,
+                            'title' => $extra['title'],
+                            'price' => $extra['price'],
+                            "created_at" => now(),
+                            "updated_at" => now(),
+                        ];
+
+                        $extra_ids[] = [
+                            'staf_product_extra_id' => StafProductExtra::insertGetId($extras_set),
+                            'staf_product_id' => $product->id,
+                            "created_at" => now(),
+                            "updated_at" => now(),
+                        ];
+                    }
+
+                }
+
+                StafExtraToProduct::insert($extra_ids);
             }
 
-            StafExtraToProduct::insert($extra_ids);
+            $this->dispatchBrowserEvent('swal:modal_back', [
+                'type' => 'success',
+                'title' => $this->translations['product_submitted_success'],
+                // 'message' => 'Do you want to back to products page ?',
+                'url' => '/staf/products',
+
+            ]);
+
+
+        }else{
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'warning',
+                'message' => 'Save Category First!',
+                'text' => 'You can\'t save the product if you didn\'t save the category',
+
+            ]);
         }
 
-        $this->dispatchBrowserEvent('swal:modal_back', [
-            'type' => 'success',
-            'title' => $this->translations['product_submitted_success'],
-            // 'message' => 'Do you want to back to products page ?',
-            'url' => '/staf/products',
 
-        ]);
 
     }
 
@@ -469,6 +514,8 @@ class StafProducts extends Component
 ////////////////////////////////////////////////////////////////////////////////////
     public function updateProduct()
     {
+        if($this->newCategory == false){
+
         $this->validate([
             'title' => 'required|string|max:100',
             'description' => 'required|string|max:15000',
@@ -511,6 +558,17 @@ class StafProducts extends Component
         }
 
         $product = StafProduct::find($this->product_id);
+
+        $product = StoreProduct::find($this->product_id);
+        if($product->title != $this->title){
+            $this->product_meta =   $this->sanitizeString($this->title);
+            $this->validate([
+                'product_meta' => 'required|string|max:250|unique:store_products,product_meta',
+            ]);
+        }elseif(empty($product->product_meta)){
+            $product->product_meta =$this->sanitizeString($this->title);
+        }
+            
         $product->title = $this->title;
         $product->description = $this->description;
         $product->status = $this->status;
@@ -519,7 +577,8 @@ class StafProducts extends Component
         $product->save();
 
         $x = 0;
-        $images = [];
+
+        $images = array();
         foreach ($this->product_images as $img) {
 
             $this->validate([
@@ -680,6 +739,17 @@ class StafProducts extends Component
             'url' => '/staf/products',
 
         ]);
+
+
+        }else{
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'warning',
+                'message' => 'Save Category First!',
+                'text' => 'You can\'t save the product if you didn\'t save the category',
+
+            ]);
+        }
+
 
     }
 
