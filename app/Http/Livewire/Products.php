@@ -37,6 +37,7 @@ class Products extends Component
     public $edit_extra = [];
     public $extra_is_new = [];
     public $extra_deleted = [];
+    public $product_meta;
 
     public $categories;
     public $category_id;
@@ -44,7 +45,7 @@ class Products extends Component
     public $cat_title;
     public $cat_s_title;
     public $cat_image;
-    public $status;
+    public $status = true;
     public $to_menu;
 
     public $product_images = [];
@@ -98,6 +99,12 @@ class Products extends Component
                 break;
         }
 
+        $products = StoreProduct::whereNull('product_meta')->get();
+        foreach ($products as $product) {
+            $product->product_meta = $this->sanitizeString( $product->title);
+            $product->save();
+        }
+
     }
     public function render()
     {
@@ -132,7 +139,7 @@ class Products extends Component
 
         $this->categories = CategoryToStore::Join('product_categories as cat', 'category_to_stores.product_category_id', 'cat.id')
             ->where('category_to_stores.store_id', $this->store_id)
-            ->select('cat.id', 'cat.title->' . $currentLocale . ' as title')->get();
+            ->select('cat.id', 'cat.title->' . $currentLocale . ' as title')->get()->toArray();
     }
 
     public function TranslateAll()
@@ -202,6 +209,7 @@ class Products extends Component
     {
         $this->newCategory = false;
     }
+    
 
     public function submitCategory()
     {
@@ -308,135 +316,156 @@ class Products extends Component
 
 ////////////////////////////////////////////////////////////////////////////////////
 
+function sanitizeString($string) {
+    // Replace spaces with underscores
+    $string = str_replace(' ', '_', $string);
+    
+    // Remove any character that is not a letter, number, hyphen, or underscore
+    $sanitizedString = preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
+    
+    return $sanitizedString;
+}
     public function submitProduct()
     {
-        $this->validate([
-            'title' => 'required|string|max:100',
-            'description' => 'required|string|max:15000',
-            'status' => 'required|boolean',
-            'price' => 'required|integer',
-            'category_id' => 'required|integer',
 
-            'receipts.*' => 'nullable|string|max:15000',
-            // 'extras.title.*' => 'nullable|string|max:50',
-            // 'extras.price.*' => 'nullable|integer',
-            'product_images.*' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
-        ]);
-
-        if (count($this->extras) != 0 and (!empty($this->extras['0']['title']) or !empty($this->extras['0']['price']) or !empty($this->extras['0']['image']))) {
+        if($this->newCategory == false ){
+            $this->product_meta =   $this->sanitizeString($this->title);
+            
             $this->validate([
-                'extras.*.title' => 'required|string|max:50',
-                'extras.*.price' => 'required|integer',
-                'extras.*.image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+                'title' => 'required|string|max:250',
+                'product_meta' => 'required|string|max:250|unique:store_products,product_meta',
+                'description' => 'required|string|max:3500',
+                'status' => 'required|boolean',
+                'price' => 'required|integer',
+                'category_id' => 'required|integer',
+                'receipts.*' => 'nullable|string|max:15000',
+                'product_images.*' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
             ]);
-        }
-        $product = new StoreProduct();
-
-        foreach ($this->langs as $lang) {
-            if ($lang == 'en') {
-                $title = $this->title;
-                $description = $this->description;
-            } else {
-                $title = translate($this->title, $lang);
-                $description = translate($this->description, $lang);
+    
+            if (count($this->extras) != 0 and (!empty($this->extras['0']['title']) or !empty($this->extras['0']['price']) or !empty($this->extras['0']['image']))) {
+                $this->validate([
+                    'extras.*.title' => 'required|string|max:50',
+                    'extras.*.price' => 'required|integer',
+                    'extras.*.image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+                ]);
             }
-
-            $product->setTranslation('title', $lang, $title, JSON_UNESCAPED_UNICODE);
-            $product->setTranslation('description', $lang, $description, JSON_UNESCAPED_UNICODE);
-
-        }
-
-        $product->status = $this->status;
-        $product->to_menu = $this->to_menu;
-        $product->price = $this->price;
-        $product->store_id = $this->store_id;
-        $product->product_category_id = $this->category_id;
-        $product->save();
-        foreach ($this->product_images as $img) {
-
-            $link = 'product_image_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.webp';
-            $image = File::get($img->getRealPath());
-            $save_result = save_livewire_filetocdn($image, 'product_images', $link, $this->product_sizes);
-
-            $link = 'product_images/' . $link;
-
-            if ($save_result) {
-                $images[] = $link;
+            $product = new StoreProduct();
+    
+            foreach ($this->langs as $lang) {
+                if ($lang == 'en') {
+                    $title = $this->title;
+                    $description = $this->description;
+                } else {
+                    $title = translate($this->title, $lang);
+                    $description = translate($this->description, $lang);
+                }
+    
+                $product->setTranslation('title', $lang, $title, JSON_UNESCAPED_UNICODE);
+                $product->setTranslation('description', $lang, $description, JSON_UNESCAPED_UNICODE);
+    
             }
+    
+            $product->status = $this->status;
+            $product->to_menu = $this->to_menu;
+            $product->price = $this->price;
+            $product->store_id = $this->store_id;
+            $product->product_category_id = $this->category_id;
+            $product->save();
 
-        }
-
-        $images_set = [];
-        foreach ($images as $image) {
-            $images_set[] = [
-                'media' => $image,
-                "store_product_id" => $product->id,
-                "created_at" => now(),
-                "updated_at" => now(),
-            ];
-        }
-
-        ProductMedia::insert($images_set);
-
-        $receipts_set = [];
-        if (count($this->receipts) != 0) {
-            foreach ($this->receipts as $receipt) {
-                $receipts_set[] = [
-                    'element' => $receipt,
+            $images = array();
+            foreach ($this->product_images as $img) {
+    
+                $link = 'product_image_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.webp';
+                $image = File::get($img->getRealPath());
+                $save_result = save_livewire_filetocdn($image, 'product_images', $link, $this->product_sizes);
+    
+                $link = 'product_images/' . $link;
+    
+                if ($save_result) {
+                    $images[] = $link;
+                }
+    
+            }
+    
+            $images_set = [];
+            foreach ($images as $image) {
+                $images_set[] = [
+                    'media' => $image,
                     "store_product_id" => $product->id,
                     "created_at" => now(),
                     "updated_at" => now(),
                 ];
             }
-
-            ProductRecipe::insert($receipts_set);
-        }
-        if (count($this->extras) != 0 and (!empty($this->extras['0']['title']) or !empty($this->extras['0']['price']) or !empty($this->extras['0']['image']))) {
-            $extras_set = [];
-            $extra_ids = [];
-            foreach ($this->extras as $extra) {
-                if (!empty($extra)) {
-                    if (!empty($extra['image'])) {
-
-                        $link = 'extra_image_' . str_replace(' ', '_', $extra['title']) . md5(microtime()) . '.webp';
-                        $image = File::get($extra['image']->getRealPath());
-                        $save_result = save_livewire_filetocdn($image, 'extra_images', $link, $this->extras_sizes);
-
-                        $link = 'extra_images/' . $link;
-
-                    } else {
-                        $link = '';
-                    }
-
-                    $extras_set = [
-                        'image' => $link,
-                        'title' => $extra['title'],
-                        'price' => $extra['price'],
-                        "store_id" => $this->store_id,
-                        "created_at" => now(),
-                        "updated_at" => now(),
-                    ];
-
-                    $extra_ids[] = [
-                        'product_extra_id' => ProducteExtra::insertGetId($extras_set),
-                        'store_product_id' => $product->id,
+    
+            ProductMedia::insert($images_set);
+    
+            $receipts_set = [];
+            if (count($this->receipts) != 0) {
+                foreach ($this->receipts as $receipt) {
+                    $receipts_set[] = [
+                        'element' => $receipt,
+                        "store_product_id" => $product->id,
                         "created_at" => now(),
                         "updated_at" => now(),
                     ];
                 }
-
+    
+                ProductRecipe::insert($receipts_set);
             }
-
-            ExtraToProduct::insert($extra_ids);
+            if (count($this->extras) != 0 and (!empty($this->extras['0']['title']) or !empty($this->extras['0']['price']) or !empty($this->extras['0']['image']))) {
+                $extras_set = [];
+                $extra_ids = [];
+                foreach ($this->extras as $extra) {
+                    if (!empty($extra)) {
+                        if (!empty($extra['image'])) {
+    
+                            $link = 'extra_image_' . str_replace(' ', '_', $extra['title']) . md5(microtime()) . '.webp';
+                            $image = File::get($extra['image']->getRealPath());
+                            $save_result = save_livewire_filetocdn($image, 'extra_images', $link, $this->extras_sizes);
+    
+                            $link = 'extra_images/' . $link;
+    
+                        } else {
+                            $link = '';
+                        }
+    
+                        $extras_set = [
+                            'image' => $link,
+                            'title' => $extra['title'],
+                            'price' => $extra['price'],
+                            "store_id" => $this->store_id,
+                            "created_at" => now(),
+                            "updated_at" => now(),
+                        ];
+    
+                        $extra_ids[] = [
+                            'product_extra_id' => ProducteExtra::insertGetId($extras_set),
+                            'store_product_id' => $product->id,
+                            "created_at" => now(),
+                            "updated_at" => now(),
+                        ];
+                    }
+    
+                }
+    
+                ExtraToProduct::insert($extra_ids);
+            }
+    
+            $this->dispatchBrowserEvent('swal:modal_back', [
+                'type' => 'success',
+                'title' => $this->translations['product_submitted_success'],
+                // 'message' => 'Do you want to back to products page ?',
+                'url' => '/admin/products',
+    
+            ]);
+        }else{
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'warning',
+                'message' => 'Save Category First!',
+                'text' => 'You can\'t save the product if you didn\'t save the category',
+    
+            ]);
         }
-
-        $this->dispatchBrowserEvent('swal:modal_back', [
-            'type' => 'success',
-            'title' => $this->translations['product_submitted_success'],
-            // 'message' => 'Do you want to back to products page ?',
-            'url' => '/admin/products',
-
-        ]);
 
     }
 
@@ -483,220 +512,243 @@ class Products extends Component
 ////////////////////////////////////////////////////////////////////////////////////
     public function updateProduct()
     {
-        $this->validate([
-            'title' => 'required|string|max:100',
-            'description' => 'required|string|max:15000',
-            'status' => 'required|boolean',
-            'price' => 'required|integer',
-            'category_id' => 'required|integer',
+        if($this->newCategory == false){
 
-            'receipts.*' => 'nullable|string|max:15000',
-            // 'extras.title.*' => 'nullable|string|max:50',
-            // 'extras.price.*' => 'nullable|integer',
-            'product_images.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-        ]);
-
-        if (count($this->extras) != 0 and (!empty($this->extras['0']['title']) or !empty($this->extras['0']['price']) or !empty($this->extras['0']['image']))) {
-
-            foreach ($this->extras as $key => $extra) {
-                if ($this->extra_is_new[$key] != 0) {
-                    try {
-                        $this->validate([
-                            'extras.' . $key . '.image' => 'required|string|max:250',
-                        ]);
-                    } catch (\Throwable $th) {
+            $this->validate([
+                'title' => 'required|string|max:100',
+                'description' => 'required|string|max:15000',
+                'status' => 'required|boolean',
+                'price' => 'required|integer',
+                'category_id' => 'required|integer',
+    
+                'receipts.*' => 'nullable|string|max:15000',
+                // 'extras.title.*' => 'nullable|string|max:50',
+                // 'extras.price.*' => 'nullable|integer',
+                'product_images.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            ]);
+    
+            if (count($this->extras) != 0 and (!empty($this->extras['0']['title']) or !empty($this->extras['0']['price']) or !empty($this->extras['0']['image']))) {
+    
+                foreach ($this->extras as $key => $extra) {
+                    if ($this->extra_is_new[$key] != 0) {
+                        try {
+                            $this->validate([
+                                'extras.' . $key . '.image' => 'required|string|max:250',
+                            ]);
+                        } catch (\Throwable $th) {
+                            $this->validate([
+                                'extras.' . $key . '.image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+                            ]);
+                        }
+                    } else {
                         $this->validate([
                             'extras.' . $key . '.image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
                         ]);
                     }
-                } else {
-                    $this->validate([
-                        'extras.' . $key . '.image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-                    ]);
+    
                 }
-
+    
+                $this->validate([
+                    'extras.*.title' => 'required|string|max:50',
+                    'extras.*.price' => 'required|integer',
+                ]);
+    
             }
-
-            $this->validate([
-                'extras.*.title' => 'required|string|max:50',
-                'extras.*.price' => 'required|integer',
-            ]);
-
-        }
-
-        $product = StoreProduct::find($this->product_id);
-        $product->title = $this->title;
-        $product->description = $this->description;
-        $product->status = $this->status;
-        $product->to_menu = $this->to_menu;
-        $product->price = $this->price;
-        $product->product_category_id = $this->category_id;
-        $product->save();
-
-        $x = 0;
-        $images = [];
-        foreach ($this->product_images as $img) {
-
-            $this->validate([
-                'product_images.' . $x => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            ]);
-
-            $link = 'product_image_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.webp';
-            $image = File::get($img->getRealPath());
-            $save_result = save_livewire_filetocdn($image, 'product_images', $link, $this->product_sizes);
-            $link = 'product_images/' . $link;
-
-            if ($save_result) {
-                $images[] = $link;
+    
+            $product = StoreProduct::find($this->product_id);
+            if($product->title != $this->title){
+                $this->product_meta =   $this->sanitizeString($this->title);
+                $this->validate([
+                    'product_meta' => 'required|string|max:250|unique:store_products,product_meta',
+                ]);
+            }elseif(empty($product->product_meta)){
+                $product->product_meta =$this->sanitizeString($this->title);
             }
-
-        }
-
-        $images_set = [];
-        foreach ($images as $image) {
-            $images_set[] = [
-                'media' => $image,
-                "store_product_id" => $product->id,
-                "created_at" => now(),
-                "updated_at" => now(),
-            ];
-        }
-        if (!empty($this->product_images_deleted)) {
-            foreach ($this->product_images_deleted as $image) {
-                foreach ($this->product_sizes as $key => $size) {
-
-                    delete_file($key . '/' . $image['media']);
-
-                    $old_image = ProductMedia::find($image['id']);
-                    if (!empty($old_image)) {
-                        $old_image->delete();
-                    }
-                }
-
-            }
-        }
-
-        if (!empty($images_set)) {
-            ProductMedia::insert($images_set);
-        }
-
-        $receipts_set = [];
-
-        if (count($this->receipts) != 0) {
+            $product->title = $this->title;
+            $product->description = $this->description;
+            $product->status = $this->status;
+            $product->to_menu = $this->to_menu;
+            $product->price = $this->price;
+            $product->product_category_id = $this->category_id;
+            $product->save();
+    
             $x = 0;
-            foreach ($this->receipt_is_new as $key => $id) {
-                if ($id == 0) {
-                    $receipts_set[] = [
-                        'element' => $this->receipts[$key],
-                        "store_product_id" => $product->id,
-                        "created_at" => now(),
-                        "updated_at" => now(),
-                    ];
-                } else {
-                    ProductRecipe::find($id)->update(['element' => $this->receipts[$key], "updated_at" => now()]);
+            $images = array();
+            foreach ($this->product_images as $img) {
+    
+                $this->validate([
+                    'product_images.' . $x => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+                ]);
+    
+                $link = 'product_image_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.webp';
+                $image = File::get($img->getRealPath());
+                $save_result = save_livewire_filetocdn($image, 'product_images', $link, $this->product_sizes);
+                $link = 'product_images/' . $link;
+    
+                if ($save_result) {
+                    $images[] = $link;
                 }
-
-                $x++;
+    
             }
-            if (!empty($receipts_set)) {
-                ProductRecipe::insert($receipts_set);
+    
+            $images_set = [];
+            foreach ($images as $image) {
+                $images_set[] = [
+                    'media' => $image,
+                    "store_product_id" => $product->id,
+                    "created_at" => now(),
+                    "updated_at" => now(),
+                ];
             }
-        }
-
-        if (!empty($this->receipt_deleted)) {
-            ProductRecipe::whereIn('id', $this->receipt_deleted)->delete();
-        }
-
-        if (count($this->extras) != 0 and (!empty($this->extras['0']['title']) or !empty($this->extras['0']['price']) or !empty($this->extras['0']['image']))) {
-            $extras_set = [];
-            $extra_ids = [];
-            $x = 0;
-
-            foreach ($this->extras as $key => $extra) {
-                if (!empty($extra)) {
-                    $link = '';
-                    if ($this->extra_is_new[$key] == 0) {
-
-                        if (!empty($extra['image'])) {
-
-                            $link = 'extra_image_' . str_replace(' ', '_', $extra['title']) . md5(microtime()) . '.webp';
-                            $image = File::get($extra['image']->getRealPath());
-                            $save_result = save_livewire_filetocdn($image, 'extra_images', $link, $this->extras_sizes);
-                            $link = 'extra_images/' . $link;
-
+            if (!empty($this->product_images_deleted)) {
+                foreach ($this->product_images_deleted as $image) {
+                    foreach ($this->product_sizes as $key => $size) {
+    
+                        delete_file($key . '/' . $image['media']);
+    
+                        $old_image = ProductMedia::find($image['id']);
+                        if (!empty($old_image)) {
+                            $old_image->delete();
                         }
-
-                        $extras_set = [
-                            'image' => $link,
-                            'title' => $extra['title'],
-                            'price' => $extra['price'],
-                            "store_id" => $this->store_id,
-                            "created_at" => now(),
-                            "updated_at" => now(),
-                        ];
-                        $extra_ids[] = [
-                            'product_extra_id' => ProducteExtra::insertGetId($extras_set),
-                            'store_product_id' => $product->id,
+                    }
+    
+                }
+            }
+    
+            if (!empty($images_set)) {
+                ProductMedia::insert($images_set);
+            }
+    
+            $receipts_set = [];
+    
+            if (count($this->receipts) != 0) {
+                $x = 0;
+                foreach ($this->receipt_is_new as $key => $id) {
+                    if ($id == 0) {
+                        $receipts_set[] = [
+                            'element' => $this->receipts[$key],
+                            "store_product_id" => $product->id,
                             "created_at" => now(),
                             "updated_at" => now(),
                         ];
                     } else {
-
-                        if (!empty($extra['image']) and is_string($extra['image']) != true) {
-
-                            $link = 'extra_image_' . str_replace(' ', '_', $extra['title']) . md5(microtime()) . '.webp';
-                            $image = File::get($extra['image']->getRealPath());
-                            $save_result = save_livewire_filetocdn($image, 'extra_images', $link, $this->extras_sizes);
-                            $link = 'extra_images/' . $link;
-
-                            $delete_img = $this->edit_extra->where('product_extra_id', $this->extra_is_new[$key])->first();
-                            foreach ($this->extras_sizes as $key_extra => $size) {
-                                delete_file($key_extra . '/' . $delete_img->image);
-
+                        ProductRecipe::find($id)->update(['element' => $this->receipts[$key], "updated_at" => now()]);
+                    }
+    
+                    $x++;
+                }
+                if (!empty($receipts_set)) {
+                    ProductRecipe::insert($receipts_set);
+                }
+            }
+    
+            if (!empty($this->receipt_deleted)) {
+                ProductRecipe::whereIn('id', $this->receipt_deleted)->delete();
+            }
+    
+            if (count($this->extras) != 0 and (!empty($this->extras['0']['title']) or !empty($this->extras['0']['price']) or !empty($this->extras['0']['image']))) {
+                $extras_set = [];
+                $extra_ids = [];
+                $x = 0;
+    
+                foreach ($this->extras as $key => $extra) {
+                    if (!empty($extra)) {
+                        $link = '';
+                        if ($this->extra_is_new[$key] == 0) {
+    
+                            if (!empty($extra['image'])) {
+    
+                                $link = 'extra_image_' . str_replace(' ', '_', $extra['title']) . md5(microtime()) . '.webp';
+                                $image = File::get($extra['image']->getRealPath());
+                                $save_result = save_livewire_filetocdn($image, 'extra_images', $link, $this->extras_sizes);
+                                $link = 'extra_images/' . $link;
+    
                             }
+    
+                            $extras_set = [
+                                'image' => $link,
+                                'title' => $extra['title'],
+                                'price' => $extra['price'],
+                                "store_id" => $this->store_id,
+                                "created_at" => now(),
+                                "updated_at" => now(),
+                            ];
+                            $extra_ids[] = [
+                                'product_extra_id' => ProducteExtra::insertGetId($extras_set),
+                                'store_product_id' => $product->id,
+                                "created_at" => now(),
+                                "updated_at" => now(),
+                            ];
                         } else {
-                            $link = $extra['image'];
+    
+                            if (!empty($extra['image']) and is_string($extra['image']) != true) {
+    
+                                $link = 'extra_image_' . str_replace(' ', '_', $extra['title']) . md5(microtime()) . '.webp';
+                                $image = File::get($extra['image']->getRealPath());
+                                $save_result = save_livewire_filetocdn($image, 'extra_images', $link, $this->extras_sizes);
+                                $link = 'extra_images/' . $link;
+    
+                                $delete_img = $this->edit_extra->where('product_extra_id', $this->extra_is_new[$key])->first();
+                                foreach ($this->extras_sizes as $key_extra => $size) {
+                                    delete_file($key_extra . '/' . $delete_img->image);
+    
+                                }
+                            } else {
+                                $link = $extra['image'];
+                            }
+    
+                            $extras_update = [
+                                'image' => $link,
+                                'title' => $extra['title'],
+                                'price' => $extra['price'],
+    
+                            ];
+                            // dd($this->extra_is_new[$key],$extras_update);
+                            $extra_p = ProducteExtra::find($this->extra_is_new[$key]);
+                            $extra_p->image = $link;
+                            $extra_p->title = $extra['title'];
+                            $extra_p->price = $extra['price'];
+                            $extra_p->save();
+    
                         }
-
-                        $extras_update = [
-                            'image' => $link,
-                            'title' => $extra['title'],
-                            'price' => $extra['price'],
-
-                        ];
-                        // dd($this->extra_is_new[$key],$extras_update);
-                        $extra_p = ProducteExtra::find($this->extra_is_new[$key]);
-                        $extra_p->image = $link;
-                        $extra_p->title = $extra['title'];
-                        $extra_p->price = $extra['price'];
-                        $extra_p->save();
-
                     }
                 }
-            }
-
-            if (!empty($extra_ids)) {
-
-                ExtraToProduct::insert($extra_ids);
-            }
-
-            if (!empty($this->extra_deleted)) {
-                foreach ($this->extra_deleted as $id) {
-                    $delete_extra[] = $this->edit_extra->where('product_extra_id', $id)->first()->id;
+    
+                if (!empty($extra_ids)) {
+    
+                    ExtraToProduct::insert($extra_ids);
                 }
-
-                ExtraToProduct::whereIn('id', $delete_extra)->delete();
+    
+                if (!empty($this->extra_deleted)) {
+                    foreach ($this->extra_deleted as $id) {
+                        $delete_extra[] = $this->edit_extra->where('product_extra_id', $id)->first()->id;
+                    }
+    
+                    ExtraToProduct::whereIn('id', $delete_extra)->delete();
+                }
             }
+    
+            $this->dispatchBrowserEvent('swal:confirm_redirect', [
+                'type' => 'success',
+                'title' => $this->translations['product_updated_success'],
+                'message' => $this->translations['do_you_want_to_back_product'],
+                'url' => '/admin/products',
+    
+            ]);
+    
+
+    
+
+        }else{
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'warning',
+                'message' => 'Save Category First!',
+                'text' => 'You can\'t save the product if you didn\'t save the category',
+    
+            ]);
         }
 
-        $this->dispatchBrowserEvent('swal:confirm_redirect', [
-            'type' => 'success',
-            'title' => $this->translations['product_updated_success'],
-            'message' => $this->translations['do_you_want_to_back_product'],
-            'url' => '/admin/products',
-
-        ]);
-
+        
     }
 
     public function DeleteProduct()
