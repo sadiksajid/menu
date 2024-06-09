@@ -16,8 +16,8 @@ class CreateProductRecipesTable extends Migration
         Schema::create('product_recipes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('store_product_id');
-            $table->string('element');
-            $table->string('image',150)->nullable();
+            $table->string('element',1500);
+            $table->string('image',250)->nullable();
             $table->timestamps();
         });
     }

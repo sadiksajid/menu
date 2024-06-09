@@ -47,6 +47,7 @@ class StafProducts extends Component
     public $cat_s_title;
     public $cat_image;
     public $status = 1;
+    public $search_products = null ;
 
     public $product_images = [];
     public $edit_product_images = [];
@@ -63,7 +64,7 @@ class StafProducts extends Component
     public $catigory_sizes = ['tmb' => ['w' => 150, 'h' => 150], 'origin' => ['w' => 300, 'h' => 300]];
     public $product_sizes = ['tmb' => ['w' => 300, 'h' => 300], 'moyen' => ['w' => 600, 'h' => 600], 'origin' => ['w' => 1000, 'h' => 1000]];
     public $extras_sizes = ['tmb' => ['w' => 150, 'h' => 150], 'small' => ['w' => 300, 'h' => 300], 'moyen' => ['w' => 600, 'h' => 600], 'origin' => ['w' => 1000, 'h' => 1000]];
-    protected $listeners = ['confirmed'];
+    protected $listeners = ['confirmed','checkUniqueTitle','render'];
 ////////////////////////////////
     public $translations;
     public $langs = [];
@@ -125,16 +126,23 @@ class StafProducts extends Component
 
             default:
                 $products = StafProduct::orderBy('id', 'DESC')
+                    ->when($this->search_products,function($q){
+                        $q->where('title','LIKE','%'.$this->search_products.'%');
+                    })
                     ->paginate(50);
-                // foreach ($products as $value) {
-                //     add_to_tmb_if_not($value->media, 'product_images', $this->product_sizes);
-                // }
 
                 return view('livewire.staf.products.table', ['products' => $products]);
                 break;
         }
 
     }
+
+    public function clearSearch()
+    {
+        $this->search_products = null;
+
+    }
+
     public function getCategories()
     {
         $currentLocale = app()->getLocale();
@@ -311,6 +319,18 @@ class StafProducts extends Component
     }
 
 ////////////////////////////////////////////////////////////////////////////////////
+    function checkUniqueTitle() {
+        if(!empty($this->title)){
+            $this->product_meta =   $this->sanitizeString($this->title);
+
+            $this->validate([
+                'product_meta' => 'required|string|max:250|unique:staf_products,product_meta',
+            ]);
+        }
+       
+    }
+
+
 
     function sanitizeString($string) {
         // Replace spaces with underscores
@@ -336,7 +356,7 @@ class StafProducts extends Component
                 'status' => 'required|boolean',
                 'price' => 'required|integer',
                 'category_id' => 'required|integer',
-                'receipts.*' => 'nullable|string|max:3500',
+                'receipts.*' => 'nullable|string|max:1500',
                 'product_images.*' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
             ]);
 
@@ -523,7 +543,7 @@ class StafProducts extends Component
             'price' => 'required|integer',
             'category_id' => 'required|integer',
 
-            'receipts.*' => 'nullable|string|max:15000',
+            'receipts.*' => 'nullable|string|max:1500',
             // 'extras.title.*' => 'nullable|string|max:50',
             // 'extras.price.*' => 'nullable|integer',
             'product_images.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
@@ -558,8 +578,6 @@ class StafProducts extends Component
         }
 
         $product = StafProduct::find($this->product_id);
-
-        $product = StoreProduct::find($this->product_id);
         if($product->title != $this->title){
             $this->product_meta =   $this->sanitizeString($this->title);
             $this->validate([
