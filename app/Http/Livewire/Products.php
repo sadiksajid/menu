@@ -38,6 +38,7 @@ class Products extends Component
     public $extra_is_new = [];
     public $extra_deleted = [];
     public $product_meta;
+    public $search_products = null ;
 
     public $categories;
     public $category_id;
@@ -64,7 +65,7 @@ class Products extends Component
     public $catigory_sizes = ['tmb' => ['w' => 150, 'h' => 150], 'origin' => ['w' => 300, 'h' => 300]];
     public $product_sizes = ['tmb' => ['w' => 300, 'h' => 300], 'moyen' => ['w' => 600, 'h' => 600], 'origin' => ['w' => 1000, 'h' => 1000]];
     public $extras_sizes = ['tmb' => ['w' => 150, 'h' => 150], 'small' => ['w' => 300, 'h' => 300], 'moyen' => ['w' => 600, 'h' => 600], 'origin' => ['w' => 1000, 'h' => 1000]];
-    protected $listeners = ['confirmed'];
+    protected $listeners = ['confirmed','checkUniqueTitle','render'];
 ////////////////////////////////
     public $translations;
     public $langs = [];
@@ -122,6 +123,9 @@ class Products extends Component
 
             default:
                 $products = StoreProduct::where('store_id', $this->store_id)
+                    ->when($this->search_products,function($q){
+                        $q->where('title','LIKE','%'.$this->search_products.'%');
+                    })
                     ->orderBy('id', 'DESC')
                     ->paginate(20);
                 // foreach ($products as $value) {
@@ -131,6 +135,12 @@ class Products extends Component
                 return view('livewire.admin.products.table', ['products' => $products]);
                 break;
         }
+
+    }
+
+    public function clearSearch()
+    {
+        $this->search_products = null;
 
     }
     public function getCategories()
@@ -316,6 +326,21 @@ class Products extends Component
 
 ////////////////////////////////////////////////////////////////////////////////////
 
+
+function checkUniqueTitle() {
+    if(!empty($this->title)){
+        $this->product_meta =   $this->sanitizeString($this->title);
+
+        $this->validate([
+            'product_meta' => 'required|string|max:250|unique:store_products,product_meta',
+        ]);
+    }
+
+}
+
+
+
+
 function sanitizeString($string) {
     // Replace spaces with underscores
     $string = str_replace(' ', '_', $string);
@@ -338,7 +363,7 @@ function sanitizeString($string) {
                 'status' => 'required|boolean',
                 'price' => 'required|integer',
                 'category_id' => 'required|integer',
-                'receipts.*' => 'nullable|string|max:15000',
+                'receipts.*' => 'nullable|string|max:1500',
                 'product_images.*' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
             ]);
     
@@ -521,7 +546,7 @@ function sanitizeString($string) {
                 'price' => 'required|integer',
                 'category_id' => 'required|integer',
     
-                'receipts.*' => 'nullable|string|max:15000',
+                'receipts.*' => 'nullable|string|max:1500',
                 // 'extras.title.*' => 'nullable|string|max:50',
                 // 'extras.price.*' => 'nullable|integer',
                 'product_images.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',

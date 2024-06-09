@@ -1,10 +1,19 @@
 <div>
     <div class="container-fluid mb-3">
-        <div class="col-md-3 col-6 ">
-            <a href="/admin/products/addProduct">
-                <button class="btn btn-info" >{{ $translations['new_product'] }}</button>
-            </a>
-        </div>
+        <div class="col-md-2 col-1 ">
+                <a href="/admin/products/addProduct">
+                    <button class="btn btn-info">{{ $translations['new_product'] }}</button>
+                </a>
+
+            </div>
+
+            <div class="col-1 ">
+              
+                <div class="spinner-border text-info" role="status" style='width:30px;height:30px' wire:loading>
+                    <span class="sr-only">Loading...</span>
+                </div>
+                
+            </div>
     </div>
     <div class="container-fluid">
         <div class="row">
@@ -49,3 +58,10 @@
 
     </div>
 </div>
+@section('js')
+<script>
+$('#button_saerch').on('click', function() {
+    Livewire.emit('render')
+});
+</script>
+@endsection
