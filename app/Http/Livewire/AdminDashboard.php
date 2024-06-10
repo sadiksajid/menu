@@ -34,7 +34,7 @@ class AdminDashboard extends Component
     public $top_products = [];
     public $top_offers = [];
 
-    public $view_week = [];
+    public $shart_data = [];
     ////////////////////////////
     public $translations;
 
@@ -236,7 +236,7 @@ class AdminDashboard extends Component
 
     public function getViews()
     {
-        $this->view_week = array();
+        $this->shart_data = array();
         $last7days = Carbon::today()->subDays(7)->format('Y-m-d');
         $store_view = StoreView::where('store_id', $this->store_info->id)
             ->select(\DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') as date"), \DB::raw('COUNT(id) as views'))
@@ -251,11 +251,11 @@ class AdminDashboard extends Component
 
         for ($i = 6; $i >= 0; $i--) {
             $day = Carbon::today()->subDays($i)->format('Y-m-d');
-            $this->view_week[$i]['d'] = $day;
+            $this->shart_data[$i]['d'] = $day;
 
-            $this->view_week[$i]['orders'] = $this->orders['all'][$day] ?? 0;
-            $this->view_week[$i]['store'] = $store_view->where('date', $day)->first()->views ?? 0;
-            $this->view_week[$i]['product'] = $product_view->where('date', $day)->first()->views ?? 0;
+            $this->shart_data[$i]['orders'] = $this->orders['all'][$day] ?? 0;
+            $this->shart_data[$i]['store'] = $store_view->where('date', $day)->first()->views ?? 0;
+            $this->shart_data[$i]['product'] = $product_view->where('date', $day)->first()->views ?? 0;
 
         }
     }

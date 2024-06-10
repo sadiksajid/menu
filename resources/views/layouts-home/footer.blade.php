@@ -1,6 +1,6 @@
 <!-- ///////////////////////////////////////////////// login -->
 <div id="popup-login-block" class='popup-block'>
-    <div class="popup-newsletter-main">
+    <div class="popup-newsletter-main" style='height:520px'>
         <div class="bg-img"> <img class="w-100 h-100" src="assets_home/images/components/bg-popup-newsletter.png"
                 alt="" /></div>
         <div class="content p-40 bg-on-surface">
@@ -11,8 +11,6 @@
                 @csrf
                 <label style='margin-left:10px'>Phone:</label>
                 <div class="">
-                    <!-- <input class="bg-line-dark text-white" type="text" placeholder="Phone" name="login_phone"
-                        value="{{ old('login_phone') }}" required autocomplete="login_phone" autofocus id='login_phone' /> -->
 
                     <input class="bg-line-dark text-white form-input-new" type="tel" name="login_phone" required
                         id='login_phone' />    
@@ -43,7 +41,7 @@
                 </div>
                 @endif
                 
-                <a style='margin-top:15px' id='submit_login' class="button button-blue-hover text-white text-button" style='cursor:pointer'> <span>
+                <a style='margin-top:15px' id='submit_login' class="button button-blue-hover text-white text-button mt-3" style='cursor:pointer'> <span>
                         <span></span></span><span class="bg-blue">Login</span></a>
 
                 <!-- <div class="flex-item-center gap-8 mt-12">

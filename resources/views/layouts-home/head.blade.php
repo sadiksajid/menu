@@ -41,9 +41,10 @@
 
 
         .iti__dropdown-content{
-          margin-left: -32px;
-          width: 410px !important;
-          height: 500px;
+          width: 314px;
+          border-radius: 30px;
+          padding: 10px;
+
         }
         .iti--inline-dropdown{
           width: 100%!important;

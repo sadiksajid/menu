@@ -312,12 +312,12 @@
     <script>
         $(document).ready(function() {
 
-            var views = <?php echo json_encode($view_week); ?>;
+            var shart_data = <?php echo json_encode($shart_data); ?>;
             var weekdays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
             new Morris.Line({
                 element: 'morrisLine1',
-                data: Object.values(views),
+                data: Object.values(shart_data),
                 xkey: 'd',
                 ykeys: ['store', 'product', 'orders'],
                 xLabels: 'day',

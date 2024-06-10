@@ -11,7 +11,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-<script type="text/javascript" src="https://rawgit.com/Bluefieldscom/intl-tel-input/master/lib/libphonenumber/build/utils.js"></script>
+<!-- <script type="text/javascript" src="https://rawgit.com/Bluefieldscom/intl-tel-input/master/lib/libphonenumber/build/utils.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.10/build/js/intlTelInput.min.js"></script>
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
@@ -24,7 +24,21 @@
 
 <!-- ///////////////////////////////////////////////////////////// for register -->
 <script>
+
+    const preload = document.querySelector('#preload')
+    window.addEventListener('load', () => {
+    setTimeout(() => {
+        if (preload) {
+        preload.classList.add('disable')
+        }
+    }, 0)
+    })
+
+
+
     $(document).ready(function() {
+
+ 
     const input = document.querySelector("#phone");
     const input_country = document.querySelector("#country_code");
     const phone_code = document.querySelector("#phone_code");
@@ -245,7 +259,7 @@
         @php
             $is_login = false ;
             foreach(session()->get('errors')->keys() as $key){
-                if($key == 'login_password' or $key == 'login_email'){
+                if($key == 'login_password' or $key == 'login_phone'){
                     $is_login = true ;
                 }
 
