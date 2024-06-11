@@ -10,7 +10,8 @@ RUN apk add --no-cache util-linux-dev e2fsprogs-dev
 # Optional: Install uuid extension via PECL (if available)
 RUN pecl install uuid && docker-php-ext-enable uuid || true
 
-RUN pecl update-channels
+RUN pecl channel-update pecl.php.net || true
+
 RUN mkdir -p /usr/src/php/ext/redis; \
 	curl -fsSL https://pecl.php.net/get/redis --ipv4 | tar xvz -C "/usr/src/php/ext/redis" --strip 1; \
 	docker-php-ext-install redis;
@@ -18,7 +19,7 @@ RUN mkdir -p /usr/src/php/ext/redis; \
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 RUN install-php-extensions intl bcmath gd pdo_mysql pdo_pgsql opcache
 
-RUN pecl channel-update pecl.php.net
+RUN pecl channel-update pecl.php.net || true
 RUN install-php-extensions   exif pcntl zip calendar
 
 # Install supervisord implementation
