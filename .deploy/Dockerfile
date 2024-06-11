@@ -1,92 +1,64 @@
-ARG PHP_VERSION=${PHP_VERSION:-8.1}
-FROM php:${PHP_VERSION}-fpm-alpine3.16 AS php-system-setup
-# Install system dependencies
-RUN apk add --no-cache dcron busybox-suid libcap curl zip unzip git nano mc npm php-calendar
+FROM ubuntu:22.04
+
+LABEL maintainer="Taylor Otwell"
+
+ARG WWWGROUP
+ARG NODE_VERSION=20
+ARG POSTGRES_VERSION=15
+
+WORKDIR /var/www/html
+
+ENV DEBIAN_FRONTEND noninteractive
+ENV TZ=UTC
+ENV SUPERVISOR_PHP_COMMAND="/usr/bin/php -d variables_order=EGPCS /var/www/html/artisan serve --host=0.0.0.0 --port=80"
+
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN apt-get update \
+    && mkdir -p /etc/apt/keyrings \
+    && apt-get install -y gnupg gosu curl ca-certificates zip unzip git supervisor sqlite3 libcap2-bin libpng-dev python2 dnsutils librsvg2-bin fswatch ffmpeg \
+    && curl -sS 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x14aa40ec0831756756d7f66c4f4ea0aae5267a6c' | gpg --dearmor | tee /usr/share/keyrings/ppa_ondrej_php.gpg > /dev/null \
+    && echo "deb [signed-by=/usr/share/keyrings/ppa_ondrej_php.gpg] https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy main" > /etc/apt/sources.list.d/ppa_ondrej_php.list \
+    && apt-get update \
+    && apt-get install -y php8.1-cli php8.1-dev \
+       php8.1-pgsql php8.1-sqlite3 php8.1-gd php8.1-imagick \
+       php8.1-curl \
+       php8.1-imap php8.1-mysql php8.1-mbstring \
+       php8.1-xml php8.1-zip php8.1-bcmath php8.1-soap \
+       php8.1-intl php8.1-readline \
+       php8.1-ldap \
+       php8.1-msgpack php8.1-igbinary php8.1-redis php8.1-swoole \
+       php8.1-memcached php8.1-pcov php8.1-xdebug \
+    && curl -sLS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer \
+    && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
+    && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_VERSION.x nodistro main" > /etc/apt/sources.list.d/nodesource.list \
+    && apt-get update \
+    && apt-get install -y nodejs \
+    && npm install -g npm \
+    && npm install -g bun \
+    && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarn.gpg >/dev/null \
+    && echo "deb [signed-by=/usr/share/keyrings/yarn.gpg] https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list \
+    && curl -sS https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | tee /usr/share/keyrings/pgdg.gpg >/dev/null \
+    && echo "deb [signed-by=/usr/share/keyrings/pgdg.gpg] http://apt.postgresql.org/pub/repos/apt jammy-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
+    && apt-get update \
+    && apt-get install -y yarn \
+    && apt-get install -y mysql-client \
+    && apt-get install -y postgresql-client-$POSTGRES_VERSION \
+    && apt-get -y autoremove \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN setcap "cap_net_bind_service=+ep" /usr/bin/php8.1
+
+RUN groupadd --force -g $WWWGROUP sail
+RUN useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u 1337 sail
+
+COPY start-container /usr/local/bin/start-container
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY php.ini /etc/php/8.1/cli/conf.d/99-sail.ini
+RUN chmod +x /usr/local/bin/start-container
 
 
-# Install PHP extensions
-COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
-RUN install-php-extensions intl bcmath gd pdo_mysql pdo_pgsql opcache redis uuid exif pcntl zip calendar
-
-# Install supervisord implementation
-COPY --from=ochinchina/supervisord:latest /usr/local/bin/supervisord /usr/local/bin/supervisord
-
-# Install caddy
-COPY --from=caddy:2.5.1 /usr/bin/caddy /usr/local/bin/caddy
-RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/caddy
-
-# Install composer
-COPY --from=composer/composer:2.3.7 /usr/bin/composer /usr/local/bin/composer
-
-FROM php-system-setup AS app-setup
-
-# Set working directory
-ENV LARAVEL_PATH=/srv/app
-WORKDIR $LARAVEL_PATH
-
-# Add non-root user: 'app'
-ARG NON_ROOT_GROUP=${NON_ROOT_GROUP:-app}
-ARG NON_ROOT_USER=${NON_ROOT_USER:-app}
-RUN addgroup -S $NON_ROOT_GROUP && adduser -S $NON_ROOT_USER -G $NON_ROOT_GROUP
-RUN addgroup $NON_ROOT_USER wheel
-
-# Set cron job
-COPY ./.deploy/config/crontab /etc/crontabs/$NON_ROOT_USER
-RUN chmod 777 /usr/sbin/crond
-RUN chown -R $NON_ROOT_USER:$NON_ROOT_GROUP /etc/crontabs/$NON_ROOT_USER && setcap cap_setgid=ep /usr/sbin/crond
-
-# Switch to non-root 'app' user & install app dependencies
-COPY composer.json composer.lock ./
-RUN chown -R $NON_ROOT_USER:$NON_ROOT_GROUP $LARAVEL_PATH
-USER $NON_ROOT_USER
-RUN composer install --prefer-dist --no-scripts --no-dev --no-autoloader
-RUN rm -rf /home/$NON_ROOT_USER/.composer
-# RUN php artisan websocket:serve
-
-# Copy app
-COPY --chown=$NON_ROOT_USER:$NON_ROOT_GROUP . $LARAVEL_PATH/
-COPY ./.deploy/config/php/local.ini /usr/local/etc/php/conf.d/local.ini
-
-# Set any ENVs
-ARG APP_KEY=${APP_KEY}
-ARG APP_NAME=${APP_NAME}
-ARG APP_URL=${APP_URL}
-ARG APP_ENV=${APP_ENV}
-ARG APP_DEBUG=${APP_DEBUG}
-
-ARG LOG_CHANNEL=${LOG_CHANNEL}
-
-ARG DB_CONNECTION=${DB_CONNECTION}
-ARG DB_HOST=${DB_HOST}
-ARG DB_PORT=${DB_PORT}
-ARG DB_DATABASE=${DB_DATABASE}
-ARG DB_USERNAME=${DB_USERNAME}
-ARG DB_PASSWORD=${DB_PASSWORD}
-
-ARG BROADCAST_DRIVER=${BROADCAST_DRIVER}
-ARG CACHE_DRIVER=${CACHE_DRIVER}
-ARG QUEUE_CONNECTION=${QUEUE_CONNECTION}
-ARG SESSION_DRIVER=${SESSION_DRIVER}
-ARG SESSION_LIFETIME=${SESSION_LIFETIME}
-
-ARG REDIS_HOST=${REDIS_HOST}
-ARG REDIS_PASSWORD=${REDIS_PASSWORD}
-ARG REDIS_PORT=${REDIS_PORT}
-
-ARG MAIL_MAILER=${MAIL_MAILER}
-ARG MAIL_HOST=${MAIL_HOST}
-ARG MAIL_PORT=${MAIL_PORT}
-ARG MAIL_USERNAME=${MAIL_USERNAME}
-ARG MAIL_PASSWORD=${MAIL_PASSWORD}
-ARG MAIL_ENCRYPTION=${MAIL_ENCRYPTION}
-ARG MAIL_FROM_ADDRESS=${MAIL_FROM_ADDRESS}
-ARG MAIL_ENCRYPTION=${MAIL_ENCRYPTION}
-ARG MAIL_FROM_NAME=${APP_NAME}
-
-ARG PUSHER_APP_ID=${PUSHER_APP_ID}
-ARG PUSHER_APP_KEY=${PUSHER_APP_KEY}
-ARG PUSHER_APP_SECRET=${PUSHER_APP_SECRET}
-ARG PUSHER_APP_CLUSTER=${PUSHER_APP_CLUSTER}
 RUN mkdir $LARAVEL_PATH/bootstrap/cache
 
 RUN chmod 777 -R $LARAVEL_PATH/bootstrap

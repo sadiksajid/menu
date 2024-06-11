@@ -72,7 +72,6 @@
                     data-src="{{ URL::asset('index1/img/banner_1.jpg') }}" @endif alt="" class="lazy">
 
                 <div wire:ignore class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
-
                     <h3 class='' data-id='title-7'> {{ $titles['title-7'] ??  $translations_resto['inside_foores'] }} </h3>
                     <p class='' data-id='title-8'>
                         {{ $titles['title-8'] ??  $translations_resto['view_the_gallery'] }}
