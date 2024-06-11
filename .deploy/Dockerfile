@@ -15,7 +15,7 @@ COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr
 RUN install-php-extensions intl bcmath gd pdo_mysql pdo_pgsql opcache
 
 RUN pecl channel-update pecl.php.net
-RUN redis  exif pcntl zip calendar
+RUN nstall-php-extensions  redis  exif pcntl zip calendar
 
 # Install supervisord implementation
 COPY --from=ochinchina/supervisord:latest /usr/local/bin/supervisord /usr/local/bin/supervisord
