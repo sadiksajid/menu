@@ -1,10 +1,17 @@
 ARG PHP_VERSION=${PHP_VERSION:-8.1}
 FROM php:${PHP_VERSION}-fpm-alpine3.16 AS php-system-setup
 # Install system dependencies
-RUN apk add --no-cache dcron busybox-suid libcap curl zip unzip git nano mc npm php-calendar php-uuid
+RUN apk add --no-cache dcron busybox-suid libcap curl zip unzip git nano mc npm php-calendar
 
 RUN pecl channel-update pecl.php.net
 # Install PHP extensions
+
+
+# Install uuid C library
+RUN apk add --no-cache util-linux-dev e2fsprogs-dev
+
+# Optional: Install uuid extension via PECL (if available)
+RUN pecl install uuid && docker-php-ext-enable uuid || true
 
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
