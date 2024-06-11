@@ -115,8 +115,12 @@
 
             })
             .then((result) => {
-                if (result.isConfirmed) {
+                if (result.isConfirmed && event.detail.function == undefined) {
                     Livewire.emit('confirmed');
+                }else if(result.isConfirmed && event.detail.function != undefined){
+                    console.log(event.detail.function);
+
+                    Livewire.emit(event.detail.function);
                 }
             });
     });

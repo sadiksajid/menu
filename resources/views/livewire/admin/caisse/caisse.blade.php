@@ -62,7 +62,7 @@
                     </li>
                     @foreach ( $categories as $category)
                     <li class="slide" style="cursor: pointer">
-                        <a class="side-menu__item p-0" rol="button" wire:click='SelectCat({{$category['id']}})'>
+                        <a class="side-menu__item p-0" rol="button" wire:click='SelectCat({{$category["id"]}})'>
                             <img src="{{ get_image('tmb/'.$category['image']) }}" alt="..."
                                 style='    width: 70px;
                             height: 70px;object-fit: cover; @if($selected_cat == $category["id"] )  border: 3px solid black;  @endif' class='img-thumbnail rounded-pill'>
@@ -105,6 +105,9 @@
             <div class="col-md-4 col-12">
                 <!-- ///////////////////////////////////////////////////////// -->
                 <div class='collapse_div'>
+                    @php
+                        krsort($new_orders);
+                    @endphp
                     @foreach ( $new_orders as $order )
 
                     <div class="list-card pb-0" style="padding: 9px 11px;width: 410px!important ;border-top: 2px solid #524f4f;border-bottom: 2px solid #524f4f;border-right: 2px solid #524f4f;border-radius: 0px 20px 20px 0px;"> 

@@ -28,6 +28,7 @@ class Caisse extends Component
     public $new_orders;
     public $update_order = false ;
     public $update_order_id = null ;
+    public $order_to_delete = null ;
 
     public $categories;
     public $products;
@@ -39,7 +40,7 @@ class Caisse extends Component
     public $selected_products_ids = [];
     public $selected_products_qty = [];
 
-    protected $listeners = ['RemoveProd', 'confirmed'];
+    protected $listeners = ['RemoveProd', 'confirmed','confirmDelete'];
 ////////////////////////////////
     public $translations;
     public $langs = [];
@@ -120,10 +121,15 @@ class Caisse extends Component
 
 
         $this->new_orders = StoreOrder::where('store_id', $this->store_id)
-        ->where('order_type','caisse')
-        // ->whereDate('created_at', '>=', $lastTime)
-        ->orderBy('created_at','desc')
-        ->get()->toArray();
+        ->select('id','total','created_at')
+        ->where('order_type', 'caisse')
+        ->whereDate('created_at', '>=', $lastTime)
+        ->orderBy('created_at', 'desc')
+        ->get()
+        ->keyBy('id')
+        ->toArray();
+
+       
     }
 
 
@@ -329,6 +335,14 @@ class Caisse extends Component
                 $order->offers = json_encode($order_offers);
                 $order->save();
             }
+
+            $this->new_orders[ $order->id] = array(
+                "id" => $order->id ,
+                "created_at" => $order->created_at ,
+                "total" => $order->total ,
+            );
+            
+
             OrderProducte::insert($products);
             $this->generateReceiptPDF($order->id);
 
@@ -357,7 +371,10 @@ class Caisse extends Component
 
         foreach ($products as $product ) {
             $this->SelectProd($product->store_product_id);
+            $this->selected_products_qty[$product->store_product_id] = $product->qte;
+
         }
+
 
 
     }
@@ -422,11 +439,19 @@ class Caisse extends Component
             OrderProducte::where('store_order_id',$this->update_order_id)->delete();
 
             OrderProducte::insert($products);
+
+            $this->new_orders[ $order->id] = array(
+                "id" => $order->id ,
+                "created_at" => $order->created_at ,
+                "total" => $order->total ,
+            );
+
+
             $this->generateReceiptPDF($order->id,' - Updated');
 
         }
 
-        $this->ResetAll();
+        $this->cancelUpdate();
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',
             'message' => $this->translations['caisse_order_success'],
@@ -449,16 +474,31 @@ class Caisse extends Component
 
     public function deleteOrder($id)
     {
-        $currentLocale = app()->getLocale();
+        $this->order_to_delete = $id ; 
+        
+        $this->dispatchBrowserEvent('swal:confirm', [
+            'type' => 'warning',
+            'title' => $this->translations['please_confirm'],
+            'message' => "Do you want to delete The order ID : ".$id,
+            'function' => 'confirmDelete',
+        ]);
 
-        if (Cache::has('caisse_categories')) {
-            $this->categories = Cache::get('caisse_categories');
-        } else {
-            $this->categories = CategoryToStore::Join('product_categories as cat', 'category_to_stores.product_category_id', 'cat.id')
-                ->where('category_to_stores.store_id', $this->store_id)
-                ->select('cat.id', 'cat.image', 'cat.title->' . $currentLocale . ' as title')->get()->toArray();
-            Cache::put('caisse_categories', $this->categories, 86400);
-        }
+
+    }
+
+    public function confirmDelete()
+    {
+
+        StoreOrder::find($this->order_to_delete)->delete();
+        OrderProducte::where('store_order_id',$this->order_to_delete)->delete();
+        unset($this->new_orders[$this->order_to_delete]);
+
+        $this->order_to_delete = null ; 
+        $this->dispatchBrowserEvent('swal:modal', [
+            'type' => 'success',
+            'message' => 'Order Deleted!',
+        ]);
+
 
     }
 

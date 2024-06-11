@@ -4,16 +4,18 @@ FROM php:${PHP_VERSION}-fpm-alpine3.16 AS php-system-setup
 RUN apk add --no-cache dcron busybox-suid libcap curl zip unzip git nano mc npm php-calendar
 
 
-# Install PHP extensions
+# Install uuid C library
+RUN apk add --no-cache util-linux-dev e2fsprogs-dev
+
+# Optional: Install uuid extension via PECL (if available)
+RUN pecl install uuid && docker-php-ext-enable uuid || true
+
+
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
+RUN install-php-extensions intl bcmath gd pdo_mysql pdo_pgsql opcache
 
-# Manually install redis extension
-RUN apk add --no-cache libressl-dev libcurl curl-dev \
-    && pecl install redis \
-    && docker-php-ext-enable redis \
-    && apk del libressl-dev curl-dev
-
-RUN install-php-extensions intl bcmath gd pdo_mysql pdo_pgsql opcache  uuid exif pcntl zip calendar
+RUN pecl channel-update pecl.php.net
+RUN redis  exif pcntl zip calendar
 
 # Install supervisord implementation
 COPY --from=ochinchina/supervisord:latest /usr/local/bin/supervisord /usr/local/bin/supervisord
