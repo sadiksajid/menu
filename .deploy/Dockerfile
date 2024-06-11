@@ -11,7 +11,7 @@ RUN apk add --no-cache util-linux-dev e2fsprogs-dev
 RUN pecl install uuid && docker-php-ext-enable uuid || true
 
 RUN pecl update-channels
-RUN apk add --no-cache pcre-dev $PHPIZE_DEPS && pecl -o -f install redis && docker-php-ext-enable redis.so
+RUN apk add --no-cache pcre-dev $PHPIZE_DEPS && pecl -f install redis && docker-php-ext-enable redis.so
 
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
