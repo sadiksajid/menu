@@ -6,7 +6,7 @@
                 <div class="col-12">
                     <button class="btn btn-danger float-right mb-3" wire:click='DeleteOffer()'>
                         
-                        {{ $translations['save'] }}
+                        {{ $translations['delete'] }}
                     </button>
                 </div>
                 @endif

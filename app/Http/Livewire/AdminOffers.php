@@ -410,43 +410,42 @@ class AdminOffers extends Component
         ]);
 
     }
-    // public function confirmed()
-    // {
-    //     $offer = Offer::where('id', $this->offer_id)->withCount('order_offers')->first();
-    //     if (!empty($offer)) {
-    //         if ($offer->order_offers_count > 0) {
-    //             $offer->delete();
-    //             OfferMedia::where('store_offer_id', $this->offer_id)->delete();
-    //             OfferRecipe::where('store_offer_id', $this->offer_id)->delete();
-    //             ExtraToOffer::where('store_offer_id', $this->offer_id)->delete();
-    //             OfferView::where('store_offer_id', $this->offer_id)->delete();
-    //         } else {
-    //             $offer->forceDelete();
-    //             $offer_image = OfferMedia::where('store_offer_id', $this->offer_id)->get();
-    //             foreach ($offer_image as $image) {
-    //                 foreach ($this->offer_sizes as $key => $size) {
-    //                     File::delete(storage_path('app') . '/public/offer_image/' . $key . '/' . $image->media);
+    public function confirmed()
+    {
+        $offer = Offer::where('id', $this->offer_id)->withCount('order_offers')->first();
+        if (!empty($offer)) {
+            if ($offer->order_offers_count > 0) {
+                $offer->delete();
+                OfferMedia::where('store_offer_id', $this->offer_id)->delete();
+                OfferRecipe::where('store_offer_id', $this->offer_id)->delete();
+                ExtraToOffer::where('store_offer_id', $this->offer_id)->delete();
+                OfferView::where('store_offer_id', $this->offer_id)->delete();
+            } else {
+                $offer->forceDelete();
+                $offer_image = OfferMedia::where('store_offer_id', $this->offer_id)->get();
+                foreach ($offer_image as $image) {
+                    foreach ($this->offer_sizes as $key => $size) {
+                        File::delete(storage_path('app') . '/public/offer_image/' . $key . '/' . $image->media);
 
-    //                 }
-    //             }
-    //             OfferMedia::where('store_offer_id', $this->offer_id)->forceDelete();
-    //             OfferRecipe::where('store_offer_id', $this->offer_id)->forceDelete();
-    //             ExtraToOffer::where('store_offer_id', $this->offer_id)->forceDelete();
-    //             OfferView::where('store_offer_id', $this->offer_id)->forceDelete();
+                    }
+                }
+                OfferMedia::where('store_offer_id', $this->offer_id)->forceDelete();
+                OfferRecipe::where('store_offer_id', $this->offer_id)->forceDelete();
+                ExtraToOffer::where('store_offer_id', $this->offer_id)->forceDelete();
+                OfferView::where('store_offer_id', $this->offer_id)->forceDelete();
 
-    //         }
-    //         $this->dispatchBrowserEvent('swal:modal_back', [
-    //             'type' => 'success',
-    //             'title' => 'Offer Deleted Successfully!',
-    //             // 'message' => 'Do you want to back to offers page ?',
-    //             'url' => '/admin/offers',
+            }
+            $this->dispatchBrowserEvent('swal:modal_back', [
+                'type' => 'success',
+                'title' => 'Offer Deleted Successfully!',
+                'url' => '/admin/offers',
 
-    //         ]);
-    //     } else {
-    //         $this->NotFound();
-    //     }
+            ]);
+        } else {
+            $this->NotFound();
+        }
 
-    // }
+    }
     public function NotFound()
     {
         $this->dispatchBrowserEvent('swal:modal_back', [

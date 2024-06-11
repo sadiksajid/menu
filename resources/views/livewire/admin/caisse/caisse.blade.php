@@ -88,7 +88,7 @@
                                     <h5 class="mb-0"><strong>{{ $product['price']}} {{$currency}}</strong></h5>
                                 </span>
                                 <div
-                                    style="background-color:rgb(255,177,30,0.9);position: absolute; z-index:10;color:black;bottom:0px;width:100%">
+                                    style="background-color:rgb(0,0,0,0.6);position: absolute; z-index:10;color:white;bottom:0px;width:100%">
                                     <center>
                                         <h6 class="card-title ">{{$product->title }}</h6>
                                     </center>
