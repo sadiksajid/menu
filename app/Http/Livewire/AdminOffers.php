@@ -227,7 +227,7 @@ class AdminOffers extends Component
         $link2 = 'offer_image_squad_' . str_replace(' ', '_', $this->title) . md5(microtime()) . '.webp';
         $image = File::get($this->offer_image_squad->getRealPath());
         $save_result2 = save_livewire_filetocdn($image, 'offer_images', $link2);
-        $link = 'offer_images/' . $link2;
+        $link2 = 'offer_images/' . $link2;
 
         if ($save_result and $save_result2) {
             $offer = new Offer();

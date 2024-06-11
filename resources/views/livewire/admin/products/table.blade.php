@@ -1,6 +1,7 @@
 <div>
     <div class="container-fluid mb-3">
-        <div class="col-md-2 col-1 ">
+    <div class='row'>
+            <div class="col-md-2 col-1 ">
                 <a href="/admin/products/addProduct">
                     <button class="btn btn-info">{{ $translations['new_product'] }}</button>
                 </a>
@@ -14,6 +15,24 @@
                 </div>
                 
             </div>
+            <div class="col-md-9 col-6 ">
+                <div class="col-md-4 col-12 float-right">
+                    <div class="input-group mb-3"> 
+                        @if(!empty($search_products))
+                        <button class="btn btn-danger" type="button"
+                            wire:click='clearSearch'><i class="fa fa-close text-white-50"></i></button>
+                        @endif
+                        <input type="text" class="form-control"
+                            placeholder="Search ..." aria-label="Search"
+                            aria-describedby="button-addon2" wire:model.defer='search_products'> 
+                            <button class="btn btn-primary" type="button"
+                            id="button_saerch"><i class="fa fa-search text-white-50"></i></button> 
+                            
+                        </div>
+
+                </div>
+            </div>
+        </div>
     </div>
     <div class="container-fluid">
         <div class="row">
@@ -54,7 +73,9 @@
                 </div>
             @endforeach
         </div>
-        {{$products->links()}}
+       <center>
+       {{$products->links()}}
+       </center>
 
     </div>
 </div>

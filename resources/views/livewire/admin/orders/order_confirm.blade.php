@@ -245,7 +245,7 @@
                                     <td class="font-weight-bold">{{ $x }}</td>
                                     <td class="tx-center">
                                         <img style='width:50px;height:50px'
-                                            src="{{ get_image($product->product->media[0]->media ?? '') }}">
+                                            src="{{ get_image('tmb/'.$product->product->media[0]->media ?? '') }}">
                                     </td>
                                     <td class="tx-center">{{ $product->product->title }}</td>
                                     <td class="tx-center">{{ $product->qte }}</td>
@@ -274,7 +274,7 @@
                                         <td class="font-weight-bold">{{ $x }}</td>
                                         <td class="tx-center">
                                             <img style='width:50px;height:50px'
-                                                src="{{ get_image($product->product->media[0]->media ?? '') }}">
+                                                src="{{ get_image('tmb/'.$product->product->media[0]->media ?? '') }}">
                                         </td>
                                         <td class="tx-center">{{ $product->product->title }}</td>
                                         <td class="tx-center">{{ $product->qte }}</td>
