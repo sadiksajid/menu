@@ -5,8 +5,16 @@ RUN apk add --no-cache dcron busybox-suid libcap curl zip unzip git nano mc npm 
 
 RUN pecl channel-update pecl.php.net
 # Install PHP extensions
+
+# Manually install uuid extension
+RUN apk add --no-cache autoconf build-base e2fsprogs-dev
+RUN pecl install uuid \
+    && docker-php-ext-enable uuid \
+    && apk del autoconf build-base e2fsprogs-dev
+
+    
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
-RUN install-php-extensions intl bcmath gd pdo_mysql pdo_pgsql opcache redis uuid exif pcntl zip calendar
+RUN install-php-extensions intl bcmath gd pdo_mysql pdo_pgsql opcache redis  exif pcntl zip calendar
 
 # Install supervisord implementation
 COPY --from=ochinchina/supervisord:latest /usr/local/bin/supervisord /usr/local/bin/supervisord
