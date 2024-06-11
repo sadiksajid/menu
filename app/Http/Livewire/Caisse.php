@@ -136,7 +136,7 @@ class Caisse extends Component
 
     public function SelectProd($id)
     {
-        
+
         $product = $this->products->where('id', $id)->first();
         if (!in_array($id, $this->selected_products_ids)) {
             $this->selected_products[$id] = array(
@@ -362,6 +362,10 @@ class Caisse extends Component
 
     public function editOrder($id)
     {
+
+        $this->products = Cache::get('caisse_products');
+
+
         $this->update_order = true ;    
         $this->update_order_id = $id ;  
         
@@ -482,7 +486,7 @@ class Caisse extends Component
             'message' => "Do you want to delete The order ID : ".$id,
             'function' => 'confirmDelete',
         ]);
-
+        $this->cancelUpdate();
 
     }
 
