@@ -10,8 +10,9 @@ RUN apk add --no-cache util-linux-dev e2fsprogs-dev
 # Optional: Install uuid extension via PECL (if available)
 RUN pecl install uuid && docker-php-ext-enable uuid || true
 
+RUN pecl update-channels
 RUN apk add --no-cache libressl-dev libcurl curl-dev \
-    && pecl install redis \
+    && pecl  -o -f install redis \
     && docker-php-ext-enable redis \
     && apk del libressl-dev curl-dev
 
