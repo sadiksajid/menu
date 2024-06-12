@@ -88,7 +88,7 @@
                                     <h5 class="mb-0"><strong>{{ $product['price']}} {{$currency}}</strong></h5>
                                 </span>
                                 <div
-                                    style="background-color:rgb(0,0,0,0.6);position: absolute; z-index:10;color:white;bottom:0px;width:100%">
+                                    style="background-color:rgb(0,0,0,0.6);position: absolute; z-index:10;color:white;bottom:0px;width:100%;height: 30%;">
                                     <center>
                                         <h6 class="card-title ">{{$product->title }}</h6>
                                     </center>
@@ -105,17 +105,21 @@
             <div class="col-md-4 col-12">
                 <!-- ///////////////////////////////////////////////////////// -->
                 <div class='collapse_div'>
+
+
+          
+
                     @php
                         krsort($new_orders);
                     @endphp
                     @foreach ( $new_orders as $order )
 
-                    <div class="list-card pb-0" style="padding: 9px 11px;width: 410px!important ;border-top: 2px solid #524f4f;border-bottom: 2px solid #524f4f;border-right: 2px solid #524f4f;border-radius: 0px 20px 20px 0px;"> 
+                    <div class="list-card pb-0" style="padding: 7px 11px;width: 410px!important;border-top: 2px solid #524f4f;border-bottom: 2px solid #524f4f;border-right: 2px solid #524f4f;border-radius: 0px 20px 20px 0px;"> 
                         <span class="bg-info list-bar"></span>
-                        <button class='btn btn-info' style='height: 100px;float: left;' wire:click='editOrder({{$order["id"]}})'>
+                        <button class='btn btn-info' style='height: 70px;float: left;' wire:click='editOrder({{$order["id"]}})'>
                             <i  class="fe fe-edit me-1 d-inline-flex"></i>
                         </button>
-                        <button class='btn btn-danger' style='height: 100px;float:right' wire:click='deleteOrder({{$order["id"]}})'>
+                        <button class='btn btn-danger' style='height: 70px;float:right' wire:click='deleteOrder({{$order["id"]}})'>
                             <i  class="fe fe-trash-2 me-1 d-inline-flex"></i>
                         </button>
                         <div class="row align-items-center">
@@ -124,17 +128,17 @@
 
                                     <div class="media-body ms-3 ">
                                         <span class="avatar avatar-rounded border border-info"
-                                            style="width: 10rem;height: 2.3rem;border-radius:50px;    border-radius: 10px;background-color:#444444;font-size:20px">
+                                            style="width: 92%;height: auto;border-radius:50px;border-radius: 10px;background-color:#444444;font-size: 17px;">
                                             Order ID : {{$order['id']}}
                                         </span>
-                                        <div class="p-0" style="float: right;margin-right: 20px; margin-top: 25px;">
-                                            <div class="text-end"> <span class="fw-semibold  fs-16 number-font">
-                                                    <center><h1>{{$order['total']  }} {{$currency}}</h1></center>
+                                        <div class="p-0" style="float: right;margin-right: 20px; margin-top: 3px;">
+                                            <div class="text-end"> <span class="fw-semibold  fs-16 number-font" >
+                                                    <center><h3 style=" margin: 0;">{{$order['total']  }} {{$currency}}</h3></center>
                                                 </span>
                                             </div>
                                         </div>
                                         <div class="d-md-flex align-items-center mt-1">
-                                            <p class="ml-1 mt-1" style='font-size: 19px;'><strong>{{\Carbon\Carbon::parse($order['created_at'])->format('Y-m-d H:i') }}</strong></p>
+                                            <p class="ml-1 mt-1" style='font-size: 14px;'><strong>{{\Carbon\Carbon::parse($order['created_at'])->format('Y-m-d H:i') }}</strong></p>
                                         </div>
                                     </div>
                                 </div>

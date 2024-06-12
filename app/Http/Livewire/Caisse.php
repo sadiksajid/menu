@@ -123,7 +123,7 @@ class Caisse extends Component
         $this->new_orders = StoreOrder::where('store_id', $this->store_id)
         ->select('id','total','created_at')
         ->where('order_type', 'caisse')
-        ->whereDate('created_at', '>=', $lastTime)
+        // ->whereDate('created_at', '>=', $lastTime)
         ->orderBy('created_at', 'desc')
         ->get()
         ->keyBy('id')
