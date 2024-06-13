@@ -24,7 +24,8 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
  */
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// admin
+ 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'fw-block-blacklisted', 'fw-block-attacks']], function () {
 
     Route::get('/', function () {
@@ -48,6 +49,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'fw-block-blackl
     Route::get('/caisse ', function () {
         return view('livewire.admin.caisse.caisse_route');
     });
+
+    Route::get('/categories ', function () {
+        return view('livewire.admin.categories.categories_route');
+    });
+
+
 
     Route::get('/MenuEdit', function () {
         return view('livewire.admin.menu1.menu_route');
@@ -97,7 +104,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'fw-block-blackl
     });
 
 });
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::group(['prefix' => 'client', 'middleware' => ['auth:client', 'fw-block-blacklisted', 'fw-block-attacks']], function () {
 
     Route::get('/my_orders', function () {

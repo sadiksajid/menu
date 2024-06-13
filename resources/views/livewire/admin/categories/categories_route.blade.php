@@ -8,7 +8,7 @@ $translations = app('translations_admin');
     <!--Page header-->
     <div class="page-header">
         <div class="page-leftheader">
-            <h4 class="page-title mb-0">{{$translations['products_list']}}</h4>
+            <h4 class="page-title mb-0">{{$translations['categories']}}</h4>
         </div>
     </div>
     <!--End Page header-->
@@ -21,8 +21,7 @@ $translations = app('translations_admin');
             </div>
         @endif
 
-        @livewire('admin-products',[$page,$id])
-
+        @livewire('admin-categories')
 
     </div>
 @endsection

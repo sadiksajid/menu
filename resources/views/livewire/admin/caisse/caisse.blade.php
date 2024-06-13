@@ -76,7 +76,7 @@
             <div class="col-md-7 col-12" style="max-height: 88vh;overflow:auto">
                 <div class="row">
                     @foreach ($products as $product)
-                    <div class="col-md-3 col-6" wire:click='SelectProd({{$product["id"]}})' style="cursor: pointer">
+                    <div class="col-xl-2  col-md-3 col-6" wire:click='SelectProd({{$product["id"]}})' style="cursor: pointer">
                         <div class="card overflow-hidden">
                             <div style="overflow: hidden;
                                             width: 100%;
@@ -88,9 +88,9 @@
                                     <h5 class="mb-0"><strong>{{ $product['price']}} {{$currency}}</strong></h5>
                                 </span>
                                 <div
-                                    style="background-color:rgb(0,0,0,0.6);position: absolute; z-index:10;color:white;bottom:0px;width:100%;height: 30%;">
+                                    style="background-color:rgb(0,0,0,0.5);position: absolute; z-index:10;color:white;bottom:0px;width:100%;height:30%;display: flex;justify-content: center;align-items: center;padding: 5px 5px 5px 5px;">
                                     <center>
-                                        <h6 class="card-title ">{{$product->title }}</h6>
+                                        <h6 class="card-title " style='font-size: 101%;'>{{$product->title }}</h6>
                                     </center>
                                 </div>
                                 <img src="{{ get_image('tmb/'.$product->media[0]->media) }}" lass="card-image1 "

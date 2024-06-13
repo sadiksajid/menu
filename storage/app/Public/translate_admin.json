@@ -1184,5 +1184,11 @@
         "en": "Competition Home",
         "ar": "الصفحة الرئيسية للمسابقة",
         "fr": "Accueil de la compétition"
+    },
+    "categories": {
+        "en": "Categories"
+    },
+    "new_category": {
+        "en": "New Category"
     }
 }

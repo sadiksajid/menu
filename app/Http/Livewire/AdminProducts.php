@@ -19,7 +19,7 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Symfony\Component\Intl\Currencies;
 
-class Products extends Component
+class AdminProducts extends Component
 {
     use WithPagination;
     use WithFileUploads;
