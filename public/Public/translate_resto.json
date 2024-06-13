@@ -1,0 +1,127 @@
+{
+    "view_our_specialites": {
+        "en": "View Our Specialites",
+        "ar": "عرض تخصصاتنا",
+        "fr": "Voir nos spécialités"
+    },
+    "our_menu": {
+        "en": "Our Menu",
+        "ar": "قائمتنا",
+        "fr": "Notre menu"
+    },
+    "our_menu_text": {
+        "en": "Cooking delicious and tasty food",
+        "ar": "طهي طعام لذيذ ولذيذ",
+        "fr": "Cuisiner des plats délicieux et savoureux"
+    },
+    "delivery": {
+        "en": "Delivery",
+        "ar": "توصيل",
+        "fr": "Livraison"
+    },
+    "home_delivery_or_take_away_food": {
+        "en": "Home delivery or take away food",
+        "ar": "توصيل للمنزل أو طعام للخارج",
+        "fr": "Livraison à domicile ou à emporter"
+    },
+    "inside_foores": {
+        "en": "Inside Foores",
+        "ar": "داخل فوريس",
+        "fr": "À l'intérieur de Foores"
+    },
+    "view_the_gallery": {
+        "en": "View the Gallery",
+        "ar": "عرض المعرض",
+        "fr": "Voir la galerie"
+    },
+    "some_words_about_us": {
+        "en": "Welcome to our world of irresistible snacking delights! ",
+        "ar": "مرحبًا بكم في عالمنا من اللذائذ اللذيذة غير قابلة للمقاومة!",
+        "fr": "Bienvenue dans notre monde de délices irrésistibles de grignotage!"
+    },
+    "some_words_about_us_meta": {
+        "en": "Cum doctus civibus efficiantur in imperdiet deterruisset.",
+        "ar": "كوم دوكتوس سيفيبوس إيفيسيانتور في إمبردييت ديتيريويسيت.",
+        "fr": "Cum doctus civibus efficiantur in imperdiet deterruisset."
+    },
+    "some_words_about_us_text": {
+        "en": "We're not just snacks; we're moments of joy, miniature marvels that ignite taste sensations and fuel happy memories. From our crunchy bites to our indulgent treats, each bite-sized delight is crafted with care to bring you satisfaction in every nibble. Join us on a journey of flavor discovery and let our small wonders brighten your day, one delicious bite at a time.",
+        "ar": "لسنا مجرد وجبات خفيفة. نحن لحظات من الفرح ، وعجائب صغيرة تثير الحواس الذواقة وتغذي الذكريات السعيدة. من لقماتنا المقرمشة إلى الحلويات اللذيذة ، تم صنع كل لذة بحجم لقمة بعناية لتوفير الرضا في كل لقمة. انضم إلينا في رحلة اكتشاف النكهة ودع عجائبنا الصغيرة تضيء يومك ، لقمة لذيذة في كل مرة.",
+        "fr": "Nous ne sommes pas juste des snacks ; nous sommes des moments de joie, de petites merveilles qui éveillent les sensations gustatives et nourrissent les souvenirs heureux. De nos bouchées croquantes à nos friandises indulgentes, chaque délice de taille bite est fabriqué avec soin pour vous apporter satisfaction à chaque bouchée. Rejoignez-nous dans un voyage de découverte des saveurs et laissez nos petites merveilles illuminer votre journée, une délicieuse bouchée à la fois."
+    },
+    "our_daily_menu": {
+        "en": "Our Daily Menu",
+        "ar": "قائمتنا اليومية",
+        "fr": "Notre menu quotidien"
+    },
+    "our_location": {
+        "en": "Our Location",
+        "ar": "موقعنا",
+        "fr": "Notre emplacement"
+    },
+    "our_location_text": {
+        "en": "Come experience the magic firsthand! Our doors are open to all snack enthusiasts looking to embark on a flavor-filled adventure.",
+        "ar": "تعال واستمتع بالسحر بنفسك! أبوابنا مفتوحة لجميع هواة الوجبات الخفيفة الذين يبحثون عن مغامرة مليئة بالنكهات.",
+        "fr": "Venez vivre la magie de première main! Nos portes sont ouvertes à tous les amateurs de snacks désireux de se lancer dans une aventure remplie de saveurs."
+    },
+    "store_meta": {
+        "en": "Step into our store and treat your taste buds to a symphony of flavors!",
+        "ar": "ادخل إلى متجرنا وعامل حواس التذوق بسمفونية من النكهات!",
+        "fr": "Entrez dans notre magasin et régalez vos papilles avec une symphonie de saveurs!"
+    },
+    "taste_unique_food": {
+        "en": "Taste Unique Food",
+        "ar": "تذوق الطعام الفريد",
+        "fr": "Goûtez une nourriture unique"
+    },
+    "competition_ready_in": {
+        "en": "You already registered!",
+        "ar": "لقد سجلت بالفعل!",
+        "fr": "Vous êtes déjà inscrit!"
+    },
+    "competition_ready_in_msg": {
+        "en": "Please contact support if you have never entered the competition!",
+        "ar": "يرجى الاتصال بالدعم إذا لم تدخل المسابقة من قبل!",
+        "fr": "Veuillez contacter le support si vous n'avez jamais participé au concours!"
+    },
+    "competition_thanks": {
+        "en": "Thank You!",
+        "ar": "شكرا لك!",
+        "fr": "Merci!"
+    },
+    "competition_thanks_msg": {
+        "en": "You are joined to the competition. See you on Sunday!",
+        "ar": "لقد انضممت إلى المسابقة. أراك يوم الأحد!",
+        "fr": "Vous êtes inscrit à la compétition. À dimanche!"
+    },
+    "competition_join": {
+        "en": "Join our Competition",
+        "ar": "انضم إلى مسابقاتنا",
+        "fr": "Rejoignez notre compétition"
+    },
+    "competition_join_text": {
+        "en": "Goodforhealth runs a competition every Sunday. Pull Up Competition in front of the store, and the winners will get various gifts from Goodforhealth. Be there!",
+        "ar": "Goodforhealth يدير مسابقة كل يوم أحد. مسابقة السحب أمام المتجر، والفائزون سيحصلون على هدايا متنوعة من Goodforhealth. كن هناك!",
+        "fr": "Goodforhealth organise un concours tous les dimanches. Concours de traction devant le magasin, et les gagnants recevront divers cadeaux de Goodforhealth. Soyez-y!"
+    },
+    "competition_qrcode": {
+        "en": "Download QrCode",
+        "ar": "تحميل رمز الاستجابة السريعة",
+        "fr": "Télécharger le QR Code"
+    },
+    "competition_fill_detais": {
+        "en": "Please fill with your details",
+        "ar": "يرجى ملء تفاصيلك",
+        "fr": "Veuillez remplir vos détails"
+    },
+    "competition_coming": {
+        "en": "I'm Coming!",
+        "ar": "أنا قادم!",
+        "fr": "J'arrive!"
+    },
+    "competition": {
+        "en": "GoodForHealth Competition",
+        "ar": "مسابقة GoodForHealth",
+        "fr": "Compétition GoodForHealth"
+    }
+}

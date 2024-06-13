@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>My Restaurant</title>
+
+  <!-- Fonts -->
+
+
+  <!-- CSS -->
+
+  <style>
+
+    @page {
+
+      size: 200mm 300mm; /* Custom paper width and height */
+
+      margin: 0;
+
+    }
+
+
+    * {
+
+      box-sizing: border-box;
+
+    }
+
+
+    body {
+
+      margin: 0;
+
+      padding: 0;
+
+      background-color: #f1f5f8;
+
+      font-family: "Zilla Slab", serif;
+
+    }
+
+
+    h2 {
+
+      font-family: "Great Vibes", cursive;
+
+      font-size: 3rem;
+
+      text-align: center;
+
+      color: #ff6a23;
+
+      padding-top: 50px;
+
+    }
+
+
+    footer>h2 {
+
+      font-family: "Great Vibes", cursive;
+
+      font-size: 2rem;
+
+      text-align: center;
+
+      color: #964b29;
+
+    }
+
+
+
+    /*inline-block*/
+
+    .inline-b {
+
+      max-width: 1200px;
+
+      margin: 0 auto;
+
+    }
+
+
+    .inline-b-item {
+
+      display: inline-block;
+
+    }
+
+
+/*float layout*/
+
+    .float {
+
+      max-width: 1200px;
+
+      margin: 0 auto;
+
+    }
+
+    .float:after {
+
+      content: ".";
+
+      display: block;
+
+      height: 0;
+
+      clear: both;
+
+      visibility: hidden;
+
+    }
+
+    .float-item {
+
+      float: left;
+
+    }
+
+
+
+
+    .menu {
+
+      margin-top: 20px;
+
+    }
+
+
+    .menu-items {
+
+      /* display: flex; */
+
+      margin: 20px 0;
+
+      padding-right: 50px;
+
+      width: 48%;
+
+
+    }
+
+
+    .menu-items .menu-info {
+
+      margin-left: 20px;
+
+      width: 100%;
+
+    }
+
+
+    .menu-title {
+
+      display: flex;
+
+      justify-content: space-between;
+
+      border-bottom: 1px solid black;
+
+    }
+
+
+    .photo {
+
+      width: 30%;
+
+      height: 175px;
+
+      object-fit: cover;
+
+      border: 0.25rem solid black;
+
+      border-radius: 10px;
+
+      box-shadow: -10px 10px 10px 0px rgba(0, 0, 0, 0.75);
+
+    }
+
+
+    h4 {
+
+      color: #e00a00;
+
+    }
+
+
+    .menu-text {
+
+      padding-top: 20px;
+
+    }
+
+
+    footer {
+
+      margin-top: 50px;
+
+      position: relative;
+
+      bottom: 30px;
+
+      width: 100%;
+
+    }
+
+
+    /* Responsive styles */
+
+    @media (max-width: 768px) {
+
+      .menu-items {
+
+        flex-direction: column;
+
+      }
+
+
+      .menu-items .photo {
+
+        width: 100%;
+
+        margin-bottom: 20px;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <div class="container">
+
+    <section class="menu">
+
+      <!-- title -->
+
+      <div class="title">
+
+        <h2>My Restaurant Menu</h2>
+
+      </div>
+
+      <!-- menu items -->
+
+      <ul class="container float">
+
+
+                <li class="menu-items col-6 float-item">
+
+          <div style="display: flex">
+
+            <img 
+
+              src="C:\web\lmahal\storage\app/Public/product_images/origin/product_image_Pumpkin_Butter8b1cd6d36d7763bcb71a17f5d3941d98.webp"
+
+              alt="Spicy lobster" class="photo">
+
+            <div class="menu-info">
+
+              <div class="menu-title">
+
+                <h4>Pumpkin Butter</h4>
+
+                <h4 class="price">160.5 MAD</h4>
+
+              </div>
+
+              <div class="menu-text">
+
+                Fruit butters contain no dairy. They are
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </li>
+
+                <li class="menu-items col-6 float-item">
+
+          <div style="display: flex">
+
+            <img 
+
+              src="C:\web\lmahal\storage\app/Public/product_images/origin/product_image_Pistachio_Butter0647b8e9baecec87c57c02fe000e6e03.webp"
+
+              alt="Spicy lobster" class="photo">
+
+            <div class="menu-info">
+
+              <div class="menu-title">
+
+                <h4>Pistachio Butter</h4>
+
+                <h4 class="price">180 MAD</h4>
+
+              </div>
+
+              <div class="menu-text">
+
+                Want a crunchy pistachio butter instead 
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </li>
+
+                <li class="menu-items col-6 float-item">
+
+          <div style="display: flex">
+
+            <img 
+
+              src="C:\web\lmahal\storage\app/Public/product_images/origin/product_image_Hazelnut_Butter09eac1f3799d6ea14f870963f4cffbef.webp"
+
+              alt="Spicy lobster" class="photo">
+
+            <div class="menu-info">
+
+              <div class="menu-title">
+
+                <h4>Hazelnut Butter</h4>
+
+                <h4 class="price">160 MAD</h4>
+
+              </div>
+
+              <div class="menu-text">
+
+                We have already featured blended hazelnu
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </li>
+
+                <li class="menu-items col-6 float-item">
+
+          <div style="display: flex">
+
+            <img 
+
+              src="C:\web\lmahal\storage\app/Public/product_images/origin/product_image_Coconut_Butterf8a3c9b834a77b99ee13e50db92b21ba.webp"
+
+              alt="Spicy lobster" class="photo">
+
+            <div class="menu-info">
+
+              <div class="menu-title">
+
+                <h4>Coconut Butter</h4>
+
+                <h4 class="price">140 MAD</h4>
+
+              </div>
+
+              <div class="menu-text">
+
+                An easy, 1-ingredient, 10-minute way to 
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </li>
+
+                <li class="menu-items col-6 float-item">
+
+          <div style="display: flex">
+
+            <img 
+
+              src="C:\web\lmahal\storage\app/Public/product_images/origin/product_image_Almond_Butter63e9f7be5ccce20ce7c3d4797090d085.webp"
+
+              alt="Spicy lobster" class="photo">
+
+            <div class="menu-info">
+
+              <div class="menu-title">
+
+                <h4>Almond Butter</h4>
+
+                <h4 class="price">150 MAD</h4>
+
+              </div>
+
+              <div class="menu-text">
+
+                ngredients · 16 ounces (3 cups) raw alm
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </li>
+
+                <li class="menu-items col-6 float-item">
+
+          <div style="display: flex">
+
+            <img 
+
+              src="C:\web\lmahal\storage\app/Public/product_images/origin/product_image_Peanut_Buttera5b35efaf63acc336aad3772b3882c7a.webp"
+
+              alt="Spicy lobster" class="photo">
+
+            <div class="menu-info">
+
+              <div class="menu-title">
+
+                <h4>Peanut Butter</h4>
+
+                <h4 class="price">150 MAD</h4>
+
+              </div>
+
+              <div class="menu-text">
+
+                 peanuts. It commonly contains additiona
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </li>
+
+                <li class="menu-items col-6 float-item">
+
+          <div style="display: flex">
+
+            <img 
+
+              src="C:\web\lmahal\storage\app/Public/product_images/origin/product_image_Cashew_Butter204e27d500607377bc69a020b37e3416.webp"
+
+              alt="Spicy lobster" class="photo">
+
+            <div class="menu-info">
+
+              <div class="menu-title">
+
+                <h4>Cashew Butter</h4>
+
+                <h4 class="price">150 MAD</h4>
+
+              </div>
+
+              <div class="menu-text">
+
+                Fruit butters contain no dairy. They are
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </li>
+
+                <li class="menu-items col-6 float-item">
+
+          <div style="display: flex">
+
+            <img 
+
+              src="C:\web\lmahal\storage\app/Public/product_images/origin/product_image_Sesame_seed_butter03079246f5a6c05695181547c7f50cd5.webp"
+
+              alt="Spicy lobster" class="photo">
+
+            <div class="menu-info">
+
+              <div class="menu-title">
+
+                <h4>Sesame seed butter</h4>
+
+                <h4 class="price">120 MAD</h4>
+
+              </div>
+
+              <div class="menu-text">
+
+                Fruit butters contain no dairy. They are
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </li>
+
+
+                <li class="menu-items col-6 float-item">
+
+          <div style="display: flex">
+
+            <img 
+
+              src="C:\web\lmahal\storage\app/Public/product_images/origin/product_image_Cookie_Doughd584d4f14820f1137743c5a656432d41.webp"
+
+              alt="Spicy lobster" class="photo">
+
+            <div class="menu-info">
+
+              <div class="menu-title">
+
+                <h4>Cookie Dough</h4>
+
+                <h4 class="price">150 MAD</h4>
+
+              </div>
+
+              <div class="menu-text">
+
+                Fruit butters contain no dairy. They are
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </li>
+
+
+      </ul>
+
+      <footer class="title">
+
+        <h2>My Restaurant Menu</h2>
+
+      </footer>
+
+    </section>
+
+  </div>
+
+</body>
+
+
+</html>
