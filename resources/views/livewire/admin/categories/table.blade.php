@@ -37,22 +37,14 @@
 
         <div class="row">
 
+        @foreach ($categories as $category)
 
-
-            @foreach ($categories as $category)
-            @php
-            if($category['image'] != null){
-            $img = $category['image'] ;
-            }else{
-            $img = $category['image_origin'] ;
-            }
-            @endphp
             <div class="col-md-3 col-12">
                 <div class="card  mb-5">
                     <div class="card-body" style='padding: 0.5rem 1rem;'>
                         <div class="media mt-0">
                             <figure class="rounded-circle align-self-start mb-0">
-                                <img src="{{ get_image('tmb/'.$img ) }}"
+                                <img src="{{ get_image('tmb/'.$category['image'] ) }}"
                                     onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';"
                                     class="avatar brround avatar-md mr-3" style='    width: 60px; height: 60px;'>
                             </figure>
@@ -70,7 +62,7 @@
 
                 </div>
             </div>
-            @endforeach
+        @endforeach
         </div>
 
 

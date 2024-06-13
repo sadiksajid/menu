@@ -12,7 +12,6 @@ use App\Models\StoreOrder;
 use App\Models\StoreProduct;
 use Livewire\WithPagination;
 use App\Models\OrderProducte;
-use App\Models\CategoryToStore;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Cache;
@@ -76,9 +75,10 @@ class Caisse extends Component
         if (Cache::has('caisse_categories')) {
             $this->categories = Cache::get('caisse_categories');
         } else {
-            $this->categories = CategoryToStore::Join('product_categories as cat', 'category_to_stores.product_category_id', 'cat.id')
-                ->where('category_to_stores.store_id', $this->store_id)
-                ->select('cat.id', 'cat.image', 'cat.title->' . $currentLocale . ' as title')->get()->toArray();
+            $this->categories = ProductCategory::where('store_id', $this->store_id)->select('id','title')->get()->toArray();
+
+
+
             Cache::put('caisse_categories', $this->categories, 86400);
         }
 

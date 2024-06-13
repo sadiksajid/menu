@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use App\Models\CategoryToStore;
+use App\Models\ProductCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
@@ -40,11 +40,9 @@ class AdminCategories extends Component
     }
     public function getCategories()
     {
-        $currentLocale = app()->getLocale();
+        app()->setLocale('en');
 
-        $this->categories = CategoryToStore::Join('product_categories as cat', 'category_to_stores.product_category_id', 'cat.id')
-            ->where('category_to_stores.store_id', $this->store_id)
-            ->select('cat.id', 'cat.title->' . $currentLocale . ' as title', 'cat.s_title->' . $currentLocale . ' as s_title','cat.image as image_origin','category_to_stores.image','category_to_stores.sort','category_to_stores.created_at','category_to_stores.updated_at')
-            ->get()->toArray();
+        $this->categories = ProductCategory::where('store_id', $this->store_id)->get();
+        dd($this->categories[0]);
     }
 }
