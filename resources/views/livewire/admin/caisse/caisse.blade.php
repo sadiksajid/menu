@@ -199,11 +199,16 @@
                     @endphp
                     @foreach ( $new_orders as $order )
                     @php
+                     if(isset($order["offers"])){
                         if($order["offers"] == null){
                             $is_offer = 0 ;
                         }else{
                             $is_offer = 1 ;
                         }
+                     }else{
+                        $is_offer = 0 ;
+                     }
+                        
                     @endphp
                     <div class="list-card pb-0" style="padding: 7px 11px;width: 410px!important;border-top: 2px solid #524f4f;border-bottom: 2px solid #524f4f;border-right: 2px solid #524f4f;border-radius: 0px 20px 20px 0px;"> 
                         <span class="bg-info list-bar"></span>
