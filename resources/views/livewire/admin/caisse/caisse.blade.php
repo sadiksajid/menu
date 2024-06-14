@@ -40,6 +40,46 @@
     .collapse_div_hover_opacity{
         opacity: 0.5!important;
     }
+
+
+
+    h2 {
+    font: 33px sans-serif;
+    margin-top: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    }   
+
+
+
+
+    h2.no-background {
+    position: relative;
+    overflow: hidden;
+    
+    span {
+        display: inline-block;
+        vertical-align: baseline;
+        zoom: 1;
+        *display: inline;
+        *vertical-align: auto;
+        position: relative;
+        padding: 0 20px;
+
+        &:before, &:after {
+            content: '';
+            display: block;
+            width: 1000px;
+            position: absolute;
+            top: 0.73em;
+            border-top: 1px solid black;
+        }
+
+        &:before { right: 100%; }
+        &:after { left: 100%; }
+    }
+}
+
     </style>
 
 
@@ -67,7 +107,7 @@
                                 style='    width: 70px;
                             height: 70px;object-fit: cover; @if($selected_cat == $category["id"] )  border: 3px solid black;  @endif' class='img-thumbnail rounded-pill'>
 
-                            <h5> {{ $category['title'] }} </h5>
+                            <h5> {{ $category['title_tr'] }} </h5>
                         </a>
                     </li>
                     @endforeach
@@ -75,29 +115,73 @@
             </div>
             <div class="col-md-7 col-12" style="max-height: 88vh;overflow:auto">
                 <div class="row">
-                    @foreach ($products as $product)
-                    <div class="col-xl-2  col-md-3 col-6" wire:click='SelectProd({{$product["id"]}})' style="cursor: pointer">
-                        <div class="card overflow-hidden">
-                            <div style="overflow: hidden;
-                                            width: 100%;
-                                            height: 150px;
-                                            position:relative;
-                                            @if(in_array($product['id'],$selected_products_ids)) border: 4px solid #343a40; @endif">
-                                <span class="badge badge-dark" role="button"
-                                    style="position: absolute; z-index:10;color:white;top:0px">
-                                    <h5 class="mb-0"><strong>{{ $product['price']}} {{$currency}}</strong></h5>
-                                </span>
-                                <div
-                                    style="background-color:rgb(0,0,0,0.5);position: absolute; z-index:10;color:white;bottom:0px;width:100%;height:30%;display: flex;justify-content: center;align-items: center;padding: 5px 5px 5px 5px;">
-                                    <center>
-                                        <h6 class="card-title " style='font-size: 101%;'>{{$product->title }}</h6>
-                                    </center>
+                        @if(count($offers) != 0)
+                        <div class="col-12">
+                                <h2 class="no-background"><span>offers </span></h2>
+                        </div>
+                        @endif
+                        @foreach ( $offers as $offer)
+                        <div class="col-xl-2  col-md-3 col-6" wire:click='SelectProd({{$offer->id}},1)' style="cursor: pointer">
+                            <div class="card overflow-hidden">
+                                <div style="overflow: hidden;
+                                                width: 100%;
+                                                height: 150px;
+                                                position:relative;
+                                                @if(in_array('o_'.$offer->id,$selected_products_ids)) border: 4px solid #343a40; @endif">
+                                    <span class="badge badge-dark" role="button"
+                                        style="position: absolute; z-index:10;color:white;top:0px">
+                                        <h5 class="mb-0"><strong>{{ $offer->price}} {{$currency}}</strong></h5>
+                                    </span>
+                                    <div
+                                        style="background-color:rgb(0,0,0,0.5);position: absolute; z-index:10;color:white;bottom:0px;width:100%;height:30%;display: flex;justify-content: center;align-items: center;padding: 5px 5px 5px 5px;">
+                                        <center>
+                                            <h6 class="card-title " style='font-size: 101%;'>{{$offer->title}}</h6>
+                                        </center>
+                                    </div>
+                                    <img src="{{ get_image('tmb/'.$offer->image) }}" lass="card-image1 "
+                                        style='height: 100%;width: 100%;'>
                                 </div>
-                                <img src="{{ get_image('tmb/'.$product->media[0]->media) }}" lass="card-image1 "
-                                    style='height: 100%;width: 100%;'>
                             </div>
                         </div>
-                    </div>
+
+                        @endforeach
+
+
+                @foreach ( $categories as $category)
+                        @php
+                            $products_cat = $products->where('product_category_id', $category["id"]) ; 
+                        @endphp
+                        @if(count($products_cat) != 0)
+                        <div class="col-12">
+                                <h2 class="no-background"><span>{{ $category['title_tr'] }} </span></h2>
+                        </div>
+                        @endif
+                        @foreach ( $products_cat as $product)
+
+                        <div class="col-xl-2  col-md-3 col-6" wire:click='SelectProd({{$product->id}})' style="cursor: pointer">
+                            <div class="card overflow-hidden">
+                                <div style="overflow: hidden;
+                                                width: 100%;
+                                                height: 150px;
+                                                position:relative;
+                                                @if(in_array($product->id,$selected_products_ids)) border: 4px solid #343a40; @endif">
+                                    <span class="badge badge-dark" role="button"
+                                        style="position: absolute; z-index:10;color:white;top:0px">
+                                        <h5 class="mb-0"><strong>{{ $product->price}} {{$currency}}</strong></h5>
+                                    </span>
+                                    <div
+                                        style="background-color:rgb(0,0,0,0.5);position: absolute; z-index:10;color:white;bottom:0px;width:100%;height:30%;display: flex;justify-content: center;align-items: center;padding: 5px 5px 5px 5px;">
+                                        <center>
+                                            <h6 class="card-title " style='font-size: 101%;'>{{$product->title }}</h6>
+                                        </center>
+                                    </div>
+                                    <img src="{{ get_image('tmb/'.$product->media[0]->media) }}" lass="card-image1 "
+                                        style='height: 100%;width: 100%;'>
+                                </div>
+                            </div>
+                        </div>
+
+                        @endforeach
                     @endforeach
 
                 </div>
@@ -113,10 +197,16 @@
                         krsort($new_orders);
                     @endphp
                     @foreach ( $new_orders as $order )
-
+                    @php
+                        if($order["offers"] == null){
+                            $is_offer = 0 ;
+                        }else{
+                            $is_offer = 1 ;
+                        }
+                    @endphp
                     <div class="list-card pb-0" style="padding: 7px 11px;width: 410px!important;border-top: 2px solid #524f4f;border-bottom: 2px solid #524f4f;border-right: 2px solid #524f4f;border-radius: 0px 20px 20px 0px;"> 
                         <span class="bg-info list-bar"></span>
-                        <button class='btn btn-info' style='height: 70px;float: left;' wire:click='editOrder({{$order["id"]}})'>
+                        <button class='btn btn-info' style='height: 70px;float: left;' wire:click='editOrder({{$order["id"]}},{{$is_offer}})'>
                             <i  class="fe fe-edit me-1 d-inline-flex"></i>
                         </button>
                         <button class='btn btn-danger' style='height: 70px;float:right' wire:click='deleteOrder({{$order["id"]}})'>
