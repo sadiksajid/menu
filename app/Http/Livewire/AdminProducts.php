@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\CategoryToStore;
 use App\Models\ExtraToProduct;
 use App\Models\ProductCategory;
 use App\Models\ProducteExtra;
@@ -147,9 +146,8 @@ class AdminProducts extends Component
     {
         $currentLocale = app()->getLocale();
 
-        $this->categories = CategoryToStore::Join('product_categories as cat', 'category_to_stores.product_category_id', 'cat.id')
-            ->where('category_to_stores.store_id', $this->store_id)
-            ->select('cat.id', 'cat.title->' . $currentLocale . ' as title')->get()->toArray();
+        $this->categories = ProductCategory::where('store_id', $this->store_id)->select('id','title->' . $currentLocale.' as title')->get()->toArray();
+
     }
 
     public function TranslateAll()
@@ -262,10 +260,6 @@ class AdminProducts extends Component
 
         }
         $cat->save();
-        $cat_store = new CategoryToStore();
-        $cat_store->store_id = $this->store_id;
-        $cat_store->product_category_id = $cat->id;
-        $cat_store->save();
         $this->getCategories();
         $this->newCategory = false;
 

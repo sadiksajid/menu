@@ -57,11 +57,6 @@
 </style>
 @endsection
 <div>
-    @php
-        $cart = Cache::get('my_cart');
-    @endphp
-   
-
 
     <div wire:ignore class="hero_single inner_pages background-image"
         @if (isset($images_shop))   data-background="url({{get_image($images_shop)}})" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif
