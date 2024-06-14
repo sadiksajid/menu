@@ -100,6 +100,7 @@
                             <h5> {{$translations['all']}}</h5>
                         </a>
                     </li>
+  
                     @foreach ( $categories as $category)
                     <li class="slide" style="cursor: pointer">
                         <a class="side-menu__item p-0" rol="button" wire:click='SelectCat({{$category["id"]}})'>

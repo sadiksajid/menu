@@ -5,6 +5,18 @@
         /* color: {{$store_info->text_color}}!important; */
     }
 </style>
+
+@isset($store_info->logo)
+
+<link rel="icon" href="{{ get_image($store_info->logo) }}" type="image/x-icon"/>
+
+@else
+
+<link rel="icon" href="{{  URL::asset('index1/img/logo.svg') }}" type="image/x-icon"/>
+
+@endisset   
+
+
 @php
 $translations = app('translations')['system'];
 @endphp
