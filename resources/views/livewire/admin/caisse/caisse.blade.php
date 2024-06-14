@@ -43,9 +43,8 @@
 
 
 
-    h2 {
-    font: 33px sans-serif;
-    margin-top: 30px;
+    h3 {
+    font: 25px sans-serif;
     text-align: center;
     text-transform: uppercase;
     }   
@@ -53,32 +52,32 @@
 
 
 
-    h2.no-background {
+    h3.no-background {
     position: relative;
-    overflow: hidden;
-    
-    span {
-        display: inline-block;
-        vertical-align: baseline;
-        zoom: 1;
-        *display: inline;
-        *vertical-align: auto;
-        position: relative;
-        padding: 0 20px;
-
-        &:before, &:after {
-            content: '';
-            display: block;
-            width: 1000px;
-            position: absolute;
-            top: 0.73em;
-            border-top: 1px solid black;
-        }
-
-        &:before { right: 100%; }
-        &:after { left: 100%; }
+    overflow: hidden; 
     }
-}
+
+    .h2-span {
+            display: inline-block;
+            vertical-align: baseline;
+            zoom: 1;
+            *display: inline;
+            *vertical-align: auto;
+            position: relative;
+            padding: 0 20px;
+
+            &:before, &:after {
+                content: '';
+                display: block;
+                width: 1000px;
+                position: absolute;
+                top: 0.73em;
+                border-top: 1px solid black;
+            }
+
+            &:before { right: 100%; }
+            &:after { left: 100%; }
+        }
 
     </style>
 
@@ -118,7 +117,7 @@
                 <div class="row">
                         @if(count($offers) != 0)
                         <div class="col-12">
-                                <h2 class="no-background"><span>offers </span></h2>
+                                <h3 class="no-background"><span class='h2-span'>offers</span></h3>
                         </div>
                         @endif
                         @foreach ( $offers as $offer)
@@ -154,7 +153,7 @@
                         @endphp
                         @if(count($products_cat) != 0)
                         <div class="col-12">
-                                <h2 class="no-background"><span>{{ $category['title_tr'] }} </span></h2>
+                                <h3 class="no-background"><span class='h2-span'>{{ $category['title_tr'] }} </span></h3>
                         </div>
                         @endif
                         @foreach ( $products_cat as $product)
