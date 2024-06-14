@@ -81,9 +81,11 @@ class Caisse extends Component
             $this->categories = Cache::get('caisse_categories');
         } else {
 
-            $this->categories = ProductCategory::where('store_id', $this->store_id)->select('*','title->' . $currentLocale.' as title_tr')->orderBy('sort','asc')->get()->toArray();
-    
-
+            $this->categories = ProductCategory::where('store_id', $this->store_id)
+            ->select('*','title->' . $currentLocale.' as title_tr')
+            ->orderBy('sort','asc')
+            ->get();
+            
             Cache::put('caisse_categories', $this->categories, 86400);
         }
 
