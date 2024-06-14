@@ -24,7 +24,7 @@
                         @endif
                         <input type="text" class="form-control" placeholder="Search ..." aria-label="Search"
                             aria-describedby="button-addon2" wire:model.defer='search_category'>
-                        <button class="btn btn-primary" type="button" id="button_saerch"><i
+                        <button class="btn btn-primary" type="button" wire:click='getCategories()'><i
                                 class="fa fa-search text-white-50"></i></button>
 
                     </div>
@@ -44,15 +44,15 @@
                     <div class="card-body" style='padding: 0.5rem 1rem;'>
                         <div class="media mt-0">
                             <figure class="rounded-circle align-self-start mb-0">
-                                <img src="{{ get_image('tmb/'.$category['image'] ) }}"
+                                <img src="{{ get_image('tmb/'.$category->image ) }}"
                                     onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';"
                                     class="avatar brround avatar-md mr-3" style='    width: 60px; height: 60px;'>
                             </figure>
                             <div class="media-body time-title1 ">
                                 <h5 class="time-title p-0 mb-0 font-weight-semibold leading-normal">
-                                    {{substr($category['title'] , 0, 40) }}</h5>
+                                    {{substr($category->title , 0, 40) }}</h5>
 
-                                {{\Carbon\Carbon::parse($category['updated_at'] ?? $category['created_at'])->format('d-m-Y');}}
+                                {{\Carbon\Carbon::parse($category->updated_at ?? $category->created_at)->format('d-m-Y');}}
                             </div>
                             <button class="btn btn-primary d-none d-sm-block mr-2"><i class="fa fa-edit"></i>
                             </button>

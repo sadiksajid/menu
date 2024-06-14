@@ -48,4 +48,10 @@ class StoreProduct extends Model
         return $this->hasMany(OrderProducte::class);
     }
 
+    public function firstMedia()
+    {
+        return $this->hasOne(ProductMedia::class, 'store_product_id')->oldest();
+    }
+    
+
 }

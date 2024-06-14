@@ -1190,5 +1190,8 @@
     },
     "new_category": {
         "en": "New Category"
+    },
+    "delete": {
+        "en": "Delete"
     }
 }

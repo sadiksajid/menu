@@ -48,7 +48,6 @@ class StoreClient extends Component
         $this->categories = ProductCategory::where('store_id', $store_info->id)
             ->select('product_categories.*')
             ->get();
-
         Cache::put('last_store', $this->store_meta);
 
         if ($category != null) {

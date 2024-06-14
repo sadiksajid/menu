@@ -144,8 +144,9 @@ class AdminProducts extends Component
     }
     public function getCategories()
     {
-       
-        $this->categories = ProductCategory::where('store_id', $this->store_id)->select('id','title')->get()->toArray();
+        $currentLocale = app()->getLocale();
+
+        $this->categories = ProductCategory::where('store_id', $this->store_id)->select('id','title->' . $currentLocale.' as title')->get()->toArray();
 
     }
 
