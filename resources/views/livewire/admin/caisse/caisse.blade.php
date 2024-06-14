@@ -105,7 +105,8 @@
                         <a class="side-menu__item p-0" rol="button" wire:click='SelectCat({{$category["id"]}})'>
                             <img src="{{ get_image('tmb/'.$category['image']) }}" alt="..."
                                 style='    width: 70px;
-                            height: 70px;object-fit: cover; @if($selected_cat == $category["id"] )  border: 3px solid black;  @endif' class='img-thumbnail rounded-pill'>
+                            height: 70px;object-fit: cover; @if($selected_cat == $category["id"] )  border: 3px solid black;  @endif' class='img-thumbnail rounded-pill'
+                            onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
 
                             <h5> {{ $category['title_tr'] }} </h5>
                         </a>
@@ -139,7 +140,7 @@
                                         </center>
                                     </div>
                                     <img src="{{ get_image('tmb/'.$offer->image) }}" lass="card-image1 "
-                                        style='height: 100%;width: 100%;'>
+                                        style='height: 100%;width: 100%;' onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
                                 </div>
                             </div>
                         </div>
@@ -176,7 +177,7 @@
                                         </center>
                                     </div>
                                     <img src="{{ get_image('tmb/'.$product->media[0]->media) }}" lass="card-image1 "
-                                        style='height: 100%;width: 100%;'>
+                                        style='height: 100%;width: 100%;' onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
                                 </div>
                             </div>
                         </div>
@@ -263,7 +264,7 @@
                                             <span class="avatar avatar-rounded border border-warning"
                                                 style="width: 2.3rem;height: 2.3rem;border-radius:50px;    border-radius: 10px">
                                                 <img src="{{ get_image('tmb/'.$product['image']) }}" alt="img"
-                                                    style="    border-radius: 10px;">
+                                                    style="    border-radius: 10px;" onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
                                             </span>
                                             <div class="p-0" style="float: right;margin-right: 50px; margin-top: 10px;">
                                                 <div class="text-end"> <span class="fw-semibold  fs-16 number-font">
