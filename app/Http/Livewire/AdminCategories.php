@@ -26,7 +26,7 @@ class AdminCategories extends Component
     public $search_category = null;
     public $cat_image = null;
 
-    protected $listeners = ['confirmed','checkUniqueTitle','render'];
+    protected $listeners = ['confirmed','checkUniqueTitle','submitCategory'];
 
     public function mount()
     {

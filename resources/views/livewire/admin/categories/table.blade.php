@@ -77,7 +77,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Create Category</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -91,18 +91,28 @@
                             </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Recipient:</label>
-                        <input type="text" class="form-control" id="recipient-name">
+                    <div class='row'>
+                        <div class='col-10'>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Title:</label>
+                                <input type="text" class="form-control" wire:model.defer="category_title">
+                            </div>
+                        </div>
+                        <div class='col-2 pl-0' >
+                        <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Sort:</label>
+                                <input type="number" class="form-control" wire:model.defer="category_sort">
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="message-text" class="col-form-label">Message:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
+                        <label for="message-text" class="col-form-label">Sub Title:</label>
+                        <textarea class="form-control" wire:model.defer="category_sub_title"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Send message</button>
+                    <button type="button" class="btn btn-primary" id='submit'>Send message</button>
                 </div>
             </div>
         </div>
@@ -117,26 +127,24 @@
 
 
 <script>
-$('#button_saerch').on('click', function() {
-    Livewire.emit('render')
+$('#submit').on('click', function() {
+    Livewire.emit('submitCategory')
 });
 
 $('#new_cat_modal').on('click', function() {
 
-            // $('#oldImages').html('')
-            $('#addImages').html(
-                '<div class="d-inline"><input type="file" class="dropify" accept=".jpg, .png, .webp, image/jpeg, image/png" name="attachment" data-height="150px" wire:model="category_image" /></div>'
-            )
-            fileUpload();
-            // for (var key in images) {
-            //     $('#oldImages').append(
-            //         '<div class="col-md-4 col-6 mt-3"><div class="d-inline"><img src="' + images[key] +
-            //         '" alt="..." class="img-thumbnail"></div></div>'
-            //     )
-            // }
- 
-            $('#modalCategory').modal('show');
+        // $('#oldImages').html('')
+        $('#addImages').html(
+            '<div class="d-inline"><input type="file" class="dropify" accept=".jpg, .png, .webp, image/jpeg, image/png" name="attachment" data-height="150px" wire:model.defer="category_image" /></div>'
+        )
+        fileUpload();
+        $('#modalCategory').modal('show');
 });
+
+
+window.addEventListener('swal:finish', event => {
+    
+})
 
 </script>
 @endsection
