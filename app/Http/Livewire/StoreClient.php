@@ -125,12 +125,15 @@ class StoreClient extends Component
             $category = $this->category_url;
         }
 
-        $data = StoreProduct::select('store_products.*')
-            ->where('store_id', $this->store_info->id)
+        $data = StoreProduct::leftJoin('product_categories','store_products.product_category_id','product_categories.id')
+        
+            ->select('store_products.*')
+            ->where('store_products.store_id', $this->store_info->id)
             ->with('media')
             ->when($category, function ($query) use ($category) {
                 $query->where('store_products.product_category_id', $category);
             })
+            ->orderBy('product_categories.sort','asc')
             ->paginate($this->paginat, ['*'], 'page', $page);
 
         if ($page > 1) {

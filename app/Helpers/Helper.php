@@ -285,10 +285,6 @@ if (!function_exists('save_livewire_filetocdn')) {
                 $path = $subfolder . '/' . $name;
                 Storage::disk('minio')->put($path, $webpContent);
 
-                $webpContent = $img->scale($width, $height)->toWebp(100);
-                $path = $subfolder . '/' . $name;
-                Storage::disk('minio')->put($path, $webpContent);
-
                 if ($height >= 1000) {
                     $webpContent = $img->scale($width / 2, $height / 2)->toWebp(100);
 
@@ -307,6 +303,40 @@ if (!function_exists('save_livewire_filetocdn')) {
 
     }
 }
+
+
+
+if (!function_exists('deleteFile')) {
+    function deleteFile($file,$sizes = null)
+    {
+        try {
+            $manager = new ImageManager(new Driver());
+
+            if ($sizes != null) {
+
+                foreach ($sizes as $key => $size) {
+                    if (Storage::disk('minio')->exists($key. '/' .$file)) {
+                        Storage::disk('minio')->delete($key. '/' .$file);
+                    }
+                }
+            } else {
+                if (Storage::disk('minio')->exists($file)) {
+                    Storage::disk('minio')->delete($file);
+                }
+                if (Storage::disk('minio')->exists('tmb/' .$file)) {
+                    Storage::disk('minio')->delete('tmb/' .$file);
+                }
+            }
+
+            return true;
+        } catch (\Throwable $th) {
+            dd($th);
+            return false;
+        }
+
+    }
+}
+
 
 if (!function_exists('add_to_tmb_if_not_products')) {
     function add_to_tmb_if_not_products($urls, $subfolder, $sizes)
