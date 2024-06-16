@@ -81,6 +81,8 @@ class HeadersEdit extends Component
 
         }
 
+        /////////////  shop
+
         if (!empty($this->shop)) {
 
             $titles_shop = $this->shop->getTranslation('titles', 'en');
@@ -97,11 +99,12 @@ class HeadersEdit extends Component
 
             $this->images_shop = $this->shop->images;
             $this->images_shop = json_decode($this->images_shop, true);
-            $this->images_shop = $this->images_shop['img_1'];
+            $this->images_shop = $this->images_shop['img_1'] ?? null;
 
         }
 
-        // dd($this->offers);
+
+        /////////////  offers
         if (!empty($this->offers)) {
             $titles_offers = $this->offers->getTranslation('titles', 'en');
             $this->titles_offers = json_decode($titles_offers, true);
@@ -118,6 +121,8 @@ class HeadersEdit extends Component
             $this->old_data['texts_offers'] = $this->texts_offers ?? '';
 
         }
+
+         /////////////  orders
         if (!empty($this->orders)) {
             $titles_orders = $this->orders->getTranslation('titles', 'en');
             $this->titles_orders = json_decode($titles_orders, true);
@@ -129,6 +134,8 @@ class HeadersEdit extends Component
             $this->images_orders = $this->images_orders['img_1'] ?? null;
 
         }
+
+         /////////////  cart
         if (!empty($this->cart)) {
             $titles_cart = $this->cart->getTranslation('titles', 'en');
             $this->titles_cart = json_decode($titles_cart, true);
@@ -140,6 +147,8 @@ class HeadersEdit extends Component
             $this->images_cart = $this->images_cart['img_1'] ?? null;
 
         }
+
+         /////////////  checkout
         if (!empty($this->checkout)) {
             $titles_checkout = $this->checkout->getTranslation('titles', 'en');
             $this->titles_checkout = json_decode($titles_checkout, true);
@@ -150,12 +159,16 @@ class HeadersEdit extends Component
             $this->images_checkout = json_decode($this->images_checkout, true);
             $this->images_checkout = $this->images_checkout['img_1'] ?? null;
         }
+
+        /////////////  competition_header
         if (!empty($this->competition_header)) {
 
             $this->images_competition_header = $this->competition_header->images;
             $this->images_competition_header = json_decode($this->images_competition_header, true);
             $this->images_competition_header = $this->images_competition_header['img_1'] ?? null;
         }
+
+        /////////////  competition_home
         if (!empty($this->competition_home)) {
 
             $this->images_competition_home = $this->competition_home->images;
@@ -199,28 +212,49 @@ class HeadersEdit extends Component
 
     public function delete_image_edit($index)
     {
+
         if ($this->to_delete_image_edit != -1) {
             $this->offer_image_deleted[] = $index;
             switch ($index) {
                 case 'shop':
+                    deleteFile($this->images_shop);
+                    $this->shop->images = '' ;
+                    $this->shop->save() ;
                     $this->images_shop = '';
                     break;
                 case 'checkout':
+                    deleteFile($this->images_checkout);
+                    $this->checkout->images = '' ;
+                    $this->checkout->save() ;
                     $this->images_checkout = '';
                     break;
                 case 'offers':
+                    deleteFile($this->images_offers);
+                    $this->offers->images = '' ;
+                    $this->offers->save() ;
                     $this->images_offers = '';
                     break;
                 case 'orders':
+                    deleteFile($this->images_orders);
                     $this->images_orders = '';
                     break;
                 case 'cart':
+                    deleteFile($this->images_cart);
+                    $this->orders->images = '' ;
+                    $this->orders->save() ;
+
                     $this->images_cart = '';
                     break;
                 case 'competition_header':
+                    deleteFile($this->images_competition_header);
+                    $this->competition_header->images = '' ;
+                    $this->competition_header->save() ;
                     $this->images_competition_header = '';
                     break;
                 case 'competition_home':
+                    deleteFile($this->images_competition_home);
+                    $this->competition_home->images = '' ;
+                    $this->competition_home->save() ;
                     $this->images_competition_home = '';
                     break;
 
@@ -237,8 +271,8 @@ class HeadersEdit extends Component
         if (!empty($this->upload_image['shop'])) {
             $img_link = 'shop1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image['shop']->getRealPath());
-            $save_result = save_livewire_filetocdn($image, 'shop1', $img_link);
-            $img_link = 'shop1/' . $img_link;
+            $save_result = save_livewire_filetocdn($image, 'web_headers/shop1', $img_link);
+            $img_link = 'web_headers/shop1/' . $img_link;
 
             if ($save_result) {
                 $images['img_1'] = $img_link;
@@ -287,8 +321,8 @@ class HeadersEdit extends Component
         if (!empty($this->upload_image['offers'])) {
             $img_link = 'offers1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image['offers']->getRealPath());
-            $save_result = save_livewire_filetocdn($image, 'offers1', $img_link);
-            $img_link = 'offers1/' . $img_link;
+            $save_result = save_livewire_filetocdn($image, 'web_headers/offers1', $img_link);
+            $img_link = 'web_headers/offers1/' . $img_link;
 
             if ($save_result) {
                 $images['img_1'] = $img_link;
@@ -335,8 +369,8 @@ class HeadersEdit extends Component
         if (!empty($this->upload_image['orders'])) {
             $img_link = 'orders1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image['orders']->getRealPath());
-            $save_result = save_livewire_filetocdn($image, 'orders1', $img_link);
-            $img_link = 'orders1/' . $img_link;
+            $save_result = save_livewire_filetocdn($image, 'web_headers/orders1', $img_link);
+            $img_link = 'web_headers/orders1/' . $img_link;
 
             if ($save_result) {
                 $images['img_1'] = $img_link;
@@ -379,8 +413,8 @@ class HeadersEdit extends Component
         if (!empty($this->upload_image['cart'])) {
             $img_link = 'cart1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image['cart']->getRealPath());
-            $save_result = save_livewire_filetocdn($image, 'cart1', $img_link);
-            $img_link = 'cart1/' . $img_link;
+            $save_result = save_livewire_filetocdn($image, 'web_headers/cart1', $img_link);
+            $img_link = 'web_headers/cart1/' . $img_link;
 
             if ($save_result) {
                 $images['img_1'] = $img_link;
@@ -424,8 +458,8 @@ class HeadersEdit extends Component
         if (!empty($this->upload_image['checkout'])) {
             $img_link = 'checkout1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image['checkout']->getRealPath());
-            $save_result = save_livewire_filetocdn($image, 'checkout1', $img_link);
-            $img_link = 'checkout1/' . $img_link;
+            $save_result = save_livewire_filetocdn($image, 'web_headers/checkout1', $img_link);
+            $img_link = 'web_headers/checkout1/' . $img_link;
 
             if ($save_result) {
                 $images['img_1'] = $img_link;
@@ -462,14 +496,13 @@ class HeadersEdit extends Component
             $checkout->store_id = $this->store_id;
             $checkout->save();
         }
-        /////////////////////////////////////////////////////////////
-
+        ///////////////////////////////////////// competition header
         $images = [];
         if (!empty($this->upload_image['competition_header'])) {
             $img_link = 'competition_header1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image['competition_header']->getRealPath());
-            $save_result = save_livewire_filetocdn($image, 'competition_header1', $img_link);
-            $img_link = 'competition_header1/' . $img_link;
+            $save_result = save_livewire_filetocdn($image, 'web_headers/competition_header1', $img_link);
+            $img_link = 'web_headers/competition_header1/' . $img_link;
 
             if ($save_result) {
                 $images['img_1'] = $img_link;
@@ -496,15 +529,14 @@ class HeadersEdit extends Component
             $competition_header->save();
         }
 
-        /////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////// competion hone
 
         $images = [];
         if (!empty($this->upload_image['competition_home'])) {
             $img_link = 'competition_home1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image['competition_home']->getRealPath());
-            $save_result = save_livewire_filetocdn($image, 'competition_home1', $img_link);
-            $img_link = 'competition_home1/' . $img_link;
-
+            $save_result = save_livewire_filetocdn($image, 'web_headers/competition_home1', $img_link);
+            $img_link = 'web_headers/competition_home1/' . $img_link;
             if ($save_result) {
                 $images['img_1'] = $img_link;
             }
@@ -518,7 +550,7 @@ class HeadersEdit extends Component
             $competition_home->name = 'competition_home1';
 
         } elseif (!empty($this->upload_image['competition_home'])) {
-            $competition_home = Index::where('store_id', $this->store_id)->where('name', 'competition_home')->first();
+            $competition_home = Index::where('store_id', $this->store_id)->where('name', 'competition_home1')->first();
 
         }
 
@@ -542,8 +574,8 @@ class HeadersEdit extends Component
         if (!empty($this->upload_image)) {
             $img_link = 'index1_' . md5(microtime()) . '.webp';
             $image = File::get($this->upload_image->getRealPath());
-            $save_result = save_livewire_filetocdn($image, 'index1', $img_link);
-            $img_link = 'index1/' . $img_link;
+            $save_result = save_livewire_filetocdn($image, 'web_headers/index1', $img_link);
+            $img_link = 'web_headers/index1/' . $img_link;
 
             if ($save_result) {
                 $this->images[$id] = $img_link;

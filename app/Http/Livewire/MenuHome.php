@@ -4,10 +4,11 @@ namespace App\Http\Livewire;
 
 use App\Models\Menu;
 use App\Models\Store;
+use Livewire\Component;
 use App\Models\StoreProduct;
+use App\Models\ProductCategory;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Cache;
-use Livewire\Component;
 use Symfony\Component\Intl\Currencies;
 
 class MenuHome extends Component
@@ -18,10 +19,11 @@ class MenuHome extends Component
     public $store_meta;
     public $store_id;
     public $store_info;
+    public $categories;
 
     public $data;
     public $upload_image;
-    public $products;
+    public $products = [];
     public $currency;
     //////////////////////////
     public $translations;
@@ -47,17 +49,20 @@ class MenuHome extends Component
 
         $this->store_id = $this->store_info->id;
 
-        $products = StoreProduct::select('store_products.*')
-            ->where('store_id', $this->store_id)
-            ->where('to_menu', 1)
-            ->with('media')
-            ->with('category')
+        $this->categories = ProductCategory::where('store_id', $this->store_id)
+            ->select('product_categories.*')
+            ->orderBy('sort','asc')
             ->get();
-
+            
+        $products = StoreProduct::select('store_products.*')
+            ->where('store_products.store_id', $this->store_id)
+            ->where('store_products.to_menu', 1)
+            ->with('media')
+            ->get();
         Cache::put('products', $products);
 
-        $this->products = $products->groupBy('product_category_id')->toArray();
-        // dd($this->products);
+        $this->products = $products ;
+
         if (isset($this->store_info->currency)) {
             $this->currency = Currencies::getSymbol($this->store_info->currency);
         } else {

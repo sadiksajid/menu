@@ -142,7 +142,7 @@ class Caisse extends Component
         $this->new_orders = StoreOrder::where('store_id', $this->store_id)
         ->select('id','total','created_at','offers')
         ->where('order_type', 'caisse')
-        ->whereDate('created_at', '>=', $lastTime)
+        // ->whereDate('created_at', '>=', $lastTime)
         ->orderBy('created_at', 'desc')
         ->get()
         ->keyBy('id')
@@ -174,7 +174,6 @@ class Caisse extends Component
 
             } else {
                 $this->selected_products_qty[$id] += 1;
-
             }
         }else{
             $offer = $this->offers->where('id', $id)->first();
@@ -445,6 +444,8 @@ class Caisse extends Component
             }
             
         }
+
+        $this->calculTotal();
 
 
     }

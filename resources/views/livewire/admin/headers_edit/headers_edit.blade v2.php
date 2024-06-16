@@ -14,80 +14,12 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                        @isset ($upload_image['shop'])
-                                        <div class="col-12">
+                                       
+                                        <div class="col-12" wire:ignore>
+                                    
+                                                <div class="d-inline"><input type="file" class="dropify" accept=".jpg, .png, .webp, image/jpeg, image/png" name="attachment" data-height="20vw" wire:model="upload_image.shop" /></div>
 
-                                            <div class="dropify-wrapper" style="height: auto ; height: 20vw;">
-                                                @if ($to_delete_image_tm == 'shop')
-                                                <button style="position: absolute;margin-left: 10px;"
-                                                    class="btn-sm btn-success mt-2"
-                                                    wire:click.prevent="delete_image_tm('shop')"><i class="fa fa-check"
-                                                        data-toggle="tooltip"></i></button>
-                                                <button style="position: absolute;margin-left: 50px;"
-                                                    class="btn-sm btn-danger mt-2"
-                                                    wire:click.prevent="no_delete_image_tm('shop')"><i
-                                                        class="fa fa-times" data-toggle="tooltip" title=""
-                                                        data-original-title="fa fa-times"></i></button>
-                                                @else
-
-                                                <button style="position: absolute;margin-left: 10px;"
-                                                    class="btn-sm btn-danger mt-2"
-                                                    wire:click.prevent="to_delete_image_tm('shop')">
-                                                    <i class="fa fa-trash-o" data-toggle="tooltip" title=""
-                                                        data-original-title="fa fa-trash-o"></i></button>
-
-                                                @endif
-
-                                                <img src="{{ request()->getSchemeAndHttpHost() }}/livewire-tmp/{{ $upload_image['shop']->getFileName() }}" 
-                                                    style="height: 100%;width:100%">
-
-                                            </div>
                                         </div>
-                                        @elseif ($images_shop)
-                                        <div class="col-12">
-
-                                            <div class="dropify-wrapper" style="height: auto ; height: 20vw;">
-                                                @if ($to_delete_image_edit == 'shop')
-                                                <button style="position: absolute;margin-left: 10px;"
-                                                    class="btn-sm btn-success mt-2"
-                                                    wire:click.prevent="delete_image_edit('shop')"><i
-                                                        class="fa fa-check" data-toggle="tooltip"></i></button>
-                                                <button style="position: absolute;margin-left: 50px;"
-                                                    class="btn-sm btn-danger mt-2"
-                                                    wire:click.prevent="no_delete_image_edit('shop')"><i
-                                                        class="fa fa-times" data-toggle="tooltip" title=""
-                                                        data-original-title="fa fa-times"></i></button>
-                                                @else
-                                                <button style="position: absolute;margin-left: 10px;"
-                                                    class="btn-sm btn-danger mt-2"
-                                                    wire:click.prevent="to_delete_image_edit('shop')"><i
-                                                        class="fa fa-trash-o" data-toggle="tooltip" title=""
-                                                        data-original-title="fa fa-trash-o"></i></button>
-
-                                                @endif
-                                                <img src="{{ get_image($images_shop) }}"
-                                                    style="height: 100%;width:100%">
-
-                                            </div>
-                                        </div>
-                                        @else
-                                        <div class="col-12">
-
-                                            <div class="dropify-wrapper" style="height: 210px">
-
-                                                <img src="{{ URL::asset('assets/images/small_site_logo.png') }}"
-                                                    style="height: 100%;width:100%">
-                                                <div class="dropify-loader">
-
-                                                </div>
-
-                                                <input type="file" class="dropify" wire:model="upload_image.shop"
-                                                    data-height="210px">
-                                                <div wire:loading wire:target="upload_image">{{ $translations['uploading'] }}...</div>
-
-                                            </div>
-                                        </div>
-                                        @endif
 
                                     </div>
                                     <div class="row">
@@ -729,3 +661,49 @@
     </div>
 </div>
 
+
+@section('js')
+
+<script src="{{ URL::asset('assets/plugins/fileuploads/js/fileupload.js') }}?v=3"></script>
+<script src="{{ URL::asset('assets/plugins/fileuploads/js/file-upload.js') }}?v=6"></script>
+
+
+<script>
+
+$( document ).ready(
+    function () {
+        console.log('asdasd');
+        fileUpload();
+    }
+)
+
+
+window.addEventListener('edit_category', event => {
+
+
+    fileUpload();
+
+    var dropifyInput = $('.dropify-render');
+
+    $('.dropify-preview').addClass('d-block')
+    $('.dropify-loader').addClass('d-none')
+    $('.dropify-wrapper').addClass('has-preview')
+
+
+    dropifyInput.html('<img src="'+event.detail.cat_image+'" style="max-height: 150px;" onerror="this.onerror=null;this.src=\'https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg\';"  >');
+
+    $('#cat_title').val(event.detail.cat_title);
+    $('#cat_sort').val(event.detail.cat_sort);
+    $('#cat_sub_title').val(event.detail.cat_sub_title);
+
+    $('#modalUpdateCategory').modal('show');
+
+})
+
+
+
+
+
+
+</script>
+@endsection
