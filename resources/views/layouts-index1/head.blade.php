@@ -11,7 +11,6 @@
 
     <link href="{{ URL::asset('assets2/css/inner-page-copy.css') }}" rel="stylesheet" type="text/css">
 
-
     <!-- GOOGLE WEB FONT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

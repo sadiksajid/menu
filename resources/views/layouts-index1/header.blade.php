@@ -9,6 +9,7 @@
 
 @isset($store_info->logo)
 
+<link rel="icon" href= "{{ get_image($store_info->logo) }}"   type="image/x-icon"> 
 
 <link rel="apple-touch-icon" type="image/x-icon"
     href="{{ get_image($store_info->logo) }} ">
