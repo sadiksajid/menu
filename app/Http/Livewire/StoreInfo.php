@@ -158,6 +158,8 @@ class StoreInfo extends Component
         $this->text_color = $this->store_info->text_color;
         $this->background_color = $this->store_info->background_color;
 
+
+        
     }
 
     public function updateInfo()

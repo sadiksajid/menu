@@ -165,6 +165,13 @@
             
                         </li>
                         <li class="slide mt-3">
+                            <a class="side-menu__item" href="/admin/HomeHeaderEdit">
+                              
+                                <i class="angle fa fa-angle-right ml-4 mr-3"></i> <span class="side-menu__label">{{ $translations['home_slide'] }}</span>
+                            </a>
+            
+                        </li>
+                        <li class="slide mt-3">
                             <a class="side-menu__item" href="/admin/HeadesEdit">
                               
                                 <i class="angle fa fa-angle-right ml-4 mr-3"></i> <span class="side-menu__label">{{ $translations['other_pages'] }}</span>

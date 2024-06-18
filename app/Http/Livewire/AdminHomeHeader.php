@@ -187,7 +187,6 @@ class AdminHomeHeader extends Component
         unset($this->btn_text[$index]) ;
         unset($this->image[$index]) ;
         unset($this->all_rows[$index]) ;
-  
 
 
     }

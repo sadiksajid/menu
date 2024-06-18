@@ -6,15 +6,25 @@
     }
 </style>
 
+
 @isset($store_info->logo)
 
-<link rel="icon" href="{{ get_image($store_info->logo) }}" type="image/x-icon"/>
+
+<link rel="apple-touch-icon" type="image/x-icon"
+    href="{{ get_image($store_info->logo) }} ">
+<link rel="apple-touch-icon" type="image/x-icon" sizes="72x72"
+    href="{{ get_image($store_info->logo) }}">
+<link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
+    href="{{ get_image($store_info->logo) }}">
+<link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
+    href="{{ get_image($store_info->logo) }}">
 
 @else
 
 <link rel="icon" href="{{  URL::asset('index1/img/logo.svg') }}" type="image/x-icon"/>
 
 @endisset   
+
 
 
 @php
@@ -32,13 +42,13 @@ $translations = app('translations')['system'];
         <div id="logo">
             <a href="/">
                 @isset($store_info->logo)
-                <img src="{{ get_image($store_info->logo) }}" height="70px" alt=""
-                class="logo_normal rounded-circle">
+                    <img src="{{ get_image($store_info->logo) }}" height="70px" alt=""
+                    class="logo_normal rounded-circle">
                 @else
-                <img src="{{ URL::asset('index1/img/logo.svg') }}" width="140" height="35" alt=""
-                class="logo_normal rounded-circle">
-                <img src="{{ URL::asset('index1/img/logo_sticky.svg') }}" width="140" height="35"
-                    alt="" class="logo_sticky">
+                    <img src="{{ URL::asset('index1/img/logo.svg') }}" width="140" height="35" alt=""
+                    class="logo_normal rounded-circle">
+                    <img src="{{ URL::asset('index1/img/logo_sticky.svg') }}" width="140" height="35"
+                        alt="" class="logo_sticky">
                 @endisset
             
             </a>

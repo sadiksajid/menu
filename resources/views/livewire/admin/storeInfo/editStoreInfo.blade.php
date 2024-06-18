@@ -290,8 +290,11 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-12">
-                                        <div class="dropify-wrapper" style="height:auto;border: none;">
+                                    <div class="col-12" wire:ignore>
+                                        <div class="d-inline"><input type="file" class="dropify" accept=".jpg, .png, .webp, image/jpeg, image/png" name="attachment" data-height="20vw" wire:model="edit_logo" /></div>
+
+
+                                        <!-- <div class="dropify-wrapper" style="height:auto;border: none;">
                                             @if (isset($edit_logo) and $edit_logo != null)
                                             <img src="{{ request()->getSchemeAndHttpHost() }}/livewire-tmp/{{ $edit_logo->getFileName() }}"
                                                 style="height: 100%;width:100%">
@@ -309,7 +312,7 @@
                                             </div>
 
                                             <input type="file" class="dropify" wire:model="edit_logo" data-height="210">
-                                        </div>
+                                        </div> -->
                                         @error('edit_logo')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -334,9 +337,35 @@
 
 </div>
 
-<script src="{{ URL::asset('assets/js/jquery-3.5.1.min.js') }}"></script>
+@section('js')
+<script src="{{ URL::asset('assets/plugins/fileuploads/js/fileupload.js') }}?v=3"></script>
+<script src="{{ URL::asset('assets/plugins/fileuploads/js/file-upload.js') }}?v=6"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script>
+
+    $( document ).ready(
+        function () {
+            console.log(@json($logo))
+
+            fileUpload();
+
+            var dropifyInput = $('.dropify-render');
+
+            $('.dropify-preview').addClass('d-block')
+            $('.dropify-loader').addClass('d-none')
+            $('.dropify-wrapper').addClass('has-preview')
+
+
+            dropifyInput.html('<img src="'+@json(get_image($logo))+'" style="max-height: 150px;" onerror="this.onerror=null;this.src=\'https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg\';"  >');
+
+
+        }
+    )
+
+
+
+
     window.addEventListener('StoreInfoModal', event => {
         var status = event.detail.status;
         $('#map_modal').modal(status);
@@ -364,3 +393,5 @@
             .append($.map(cities, (v, k) => $("<option>").val(v['id']).text(v['city'])));
     });
 </script>
+
+@endsection
