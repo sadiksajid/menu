@@ -124,4 +124,28 @@
                 }
             });
     });
+
+
+    function changeFavicon() {
+           
+           var src =  @json(get_image(\Auth::user()->store->logo)) ;
+           let link = document.getElementById('favicon');
+           if (link) {
+               console.log(link)
+               link.href = src;
+           } else {
+               link = document.createElement('link');
+               console.log(link)
+
+               link.id = 'favicon';
+               link.rel = 'icon';
+               link.href = src;
+               document.head.appendChild(link);
+           }
+       }
+
+       $(document).ready(function() {
+           changeFavicon();
+       });
+
 </script>

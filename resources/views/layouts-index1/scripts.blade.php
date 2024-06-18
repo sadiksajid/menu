@@ -186,6 +186,30 @@
     
     });
 
+
+    function changeFavicon() {
+
+            var src = $('#site_icon').attr('href');
+
+            let link = document.getElementById('favicon');
+            if (link) {
+                console.log(link)
+                link.href = src;
+            } else {
+                link = document.createElement('link');
+                console.log(link)
+
+                link.id = 'favicon';
+                link.rel = 'icon';
+                link.href = src;
+                document.head.appendChild(link);
+            }
+        }
+
+        // Example usage
+    changeFavicon();
+
+
 </script>
 @csrf
 @livewireScripts

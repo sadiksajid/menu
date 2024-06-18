@@ -16,8 +16,6 @@
 
 <!--Sidemenu js-->
 <script src="{{ URL::asset('assets/plugins/sidemenu/sidemenu.js') }}"></script>
-{{-- <script src="{{ URL::asset('assets/plugins/sidemenu/main.js') }}"></script>
-<script src="{{ URL::asset('assets/plugins/sidemenu/defaultmenu.min.js') }}"></script> --}}
 
 <!-- P-scroll js-->
 <script src="{{ URL::asset('assets/plugins/p-scrollbar/p-scrollbar.js') }}"></script>
@@ -60,7 +58,9 @@
 @livewireScripts
 
 
+
 <script>
+
     window.addEventListener('swal:modal', event => {
         Swal.fire({
             title: event.detail.message,
@@ -143,6 +143,29 @@
         
         });
 
+
+  
+        function changeFavicon() {
+           
+           var src =  @json(get_image(\Auth::user()->store->logo)) ;
+           let link = document.getElementById('favicon');
+           if (link) {
+               console.log(link)
+               link.href = src;
+           } else {
+               link = document.createElement('link');
+               console.log(link)
+
+               link.id = 'favicon';
+               link.rel = 'icon';
+               link.href = src;
+               document.head.appendChild(link);
+           }
+       }
+
+       $(document).ready(function() {
+           changeFavicon();
+       });
 
    }
 

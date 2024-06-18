@@ -9,16 +9,8 @@
 
 @isset($store_info->logo)
 
-<link rel="icon" href= "{{ get_image($store_info->logo) }}"   type="image/x-icon"> 
+<link rel="icon" id='site_icon' href= "{{ get_image($store_info->logo) }}"   type="image/x-icon"> 
 
-<link rel="apple-touch-icon" type="image/x-icon"
-    href="{{ get_image($store_info->logo) }} ">
-<link rel="apple-touch-icon" type="image/x-icon" sizes="72x72"
-    href="{{ get_image($store_info->logo) }}">
-<link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
-    href="{{ get_image($store_info->logo) }}">
-<link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
-    href="{{ get_image($store_info->logo) }}">
 
 @else
 
