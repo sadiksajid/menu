@@ -2,30 +2,35 @@
     @php
         $offer = $this->offers->random();
     @endphp
-    <div class="header-video">
-        <div id="hero_video" @if (isset($images['img_1']))
-            style='background-image:url({{ get_image($images["img_1"]) }})' @endif>
-            <div wire:ignore class="opacity-mask d-flex align-items-center  img_1"
-                data-opacity-mask="rgba(0, 0, 0, 0.6)">
-                <div class="container">
-                    <div class="row justify-content-center text-center">
-                        <div class="col-xl-8 col-lg-10 col-md-8 mt-2">
-                            <h1 class='' data-id='title-1'>
-                                {{ $titles['title-1'] ??  $translations_resto['taste_unique_food']  }}</h1>
-                            <p class='' data-id='title-2'>
-                                {{ $titles['title-2'] ?? '' }}</p>
-                            <a data-id='btn-1' class="btn_1 "
-                                href="{{ $buttons['btn-1']['url'] ?? '#menu-1.html' }}" style='background-color:{{$store_info->btn_color}}'>{{ $buttons['btn-1']['title'] ?? $translations['read_more'] }}</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <img src="{{ get_image($images['img_1'] ?? '') }}"
-            data-video-src="{{ URL::asset('index1/video/intro') }}" class="header-video--media"
-            data-teaser-source="{{ URL::asset('index1/video/intro') }}" data-provider="" data-video-width="1920"
-            data-video-height="960">
-    </div>
+    
+
+    <div id="carousel-home">
+			<div class="owl-carousel owl-theme">
+
+                @foreach($slide_data as $slide)
+                <div class="owl-slide cover lazy" data-bg="url({{get_image(json_decode($slide->images, true)['img-1'] ?? '' )}})">
+					<div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+						<div class="container">
+							<div class="row justify-content-center justify-content-md-end">
+								<div class="col-lg-6 static">
+									<div class="slide-text text-end white">
+										<h2 class="owl-slide-animated owl-slide-title">{{json_decode($slide->titles, true)['title-1'] ?? '' }}</h2>
+										<p class="owl-slide-animated owl-slide-subtitle" style='font-size: 30px;'>
+                                            {{json_decode($slide->texts, true)['texts-1'] ?? '' }}
+										</p>
+										<div class="owl-slide-animated owl-slide-cta"><a class="btn_1 btn_scroll" href="{{$slide->urls}}" role="button" style="background-color:{{$store_info->text_color}} ;color:black!important">{{json_decode($slide->buttons, true)['btn-1'] ?? '' }}</a></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+                @endforeach
+
+				</div>
+			</div>
+			<div id="icon_drag_mobile"></div>
+	</div>
     <!-- /header-video -->
 
     <ul id="banners_grid" class="clearfix">
@@ -434,12 +439,12 @@
 <script>
     // Video Header
     $(document).ready(function() {
-        HeaderVideo.init({
-            container: $('.header-video'),
-            header: $('.header-video--media'),
-            videoTrigger: $("#video-trigger"),
-            autoPlayVideo: true
-        });
+        // HeaderVideo.init({
+        //     container: $('.header-video'),
+        //     header: $('.header-video--media'),
+        //     videoTrigger: $("#video-trigger"),
+        //     autoPlayVideo: true
+        // });
 
         window.addEventListener('swal:modal', event => {
         Swal.fire({

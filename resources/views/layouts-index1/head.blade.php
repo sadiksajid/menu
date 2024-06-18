@@ -33,7 +33,7 @@
     <link href="{{ URL::asset('index1/css/style.css') }}" rel="stylesheet">
 
     <!-- SPECIFIC CSS -->
-    <link href="{{ URL::asset('index1/css/wizard.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('index1/js/vendors.min.css') }}" rel="stylesheet">
 
     <!-- YOUR CUSTOM CSS -->
     <link href="{{ URL::asset('index1/css/custom.css') }}" rel="stylesheet">
@@ -46,7 +46,6 @@
 
     <!-- Icons -->
     <link href="{{ URL::asset('assets2/css/fontawesome.css') }}" rel="stylesheet" type="text/css">
-    {{-- <link href="{{ URL::asset('assets2/css/themify.css') }}" rel="stylesheet" type="text/css"> --}}
     <link href="{{ URL::asset('assets2/css/owl.carousel.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets2/css/owl.theme.default.min.css') }}" rel="stylesheet">
 

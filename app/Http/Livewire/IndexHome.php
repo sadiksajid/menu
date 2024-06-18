@@ -22,12 +22,17 @@ class IndexHome extends Component
     public $images = [];
     public $texts = [];
     public $urls = [];
+    public $slides = [];
 
     public $store_meta;
     public $store_id;
     public $store_info;
 
-    public $data;
+    public $all_data;
+    public $slide_data;
+    public $index_data;
+    public $competion_data;
+
     public $upload_image;
     public $products;
     public $offer;
@@ -35,6 +40,7 @@ class IndexHome extends Component
     public $fullname;
     public $phone;
     public $competition_img;
+    public $slide = [];
 
     //////////////////////////
     public $translations;
@@ -67,33 +73,78 @@ class IndexHome extends Component
 
         $this->store_id = $this->store_info->id;
 
-        $this->competition_img = Index::where('store_id', $this->store_id)->where('name', 'competition_home1')->first()?->images;
+        $this->all_data = Index::where('store_id', $this->store_id)->whereIn('name', ['index1','home_header1','competition_home1'])->get();
+        $this->slide_data = $this->all_data->where('name', 'home_header1');
+        $this->index_data = $this->all_data->where('name', 'index1')->first();
+        $this->competion_data = $this->all_data->where('name', 'competition_home1')->first();
+
+        $this->competition_img = $this->competion_data?->images;
         if ($this->competition_img) {
             $this->competition_img = json_decode($this->competition_img, true);
             $this->competition_img = $this->competition_img['img_1'];
         }
 
-        $this->data = Index::where('store_id', $this->store_id)->where('name', 'index1')->first();
-        if (empty($this->data)) {
+     
+
+        ////////////////////////////////////////////////////////////////
+
+
+        // if(count($this->slide_data) != 0){
+      
+        //     foreach ($this->slide_data as $value) {
+
+        //         $title = $value->getTranslation('titles', 'en');
+        //         $title = json_decode($title, true);
+        //         $title = $title['title-1'] ?? '';
+
+        //         $text = $value->getTranslation('texts', 'en');
+        //         $text = json_decode($text, true);
+        //         $text = $text['texts-1'] ?? '';
+
+        //         $url =  $value->urls ; 
+
+        //         $btn = $value->getTranslation('buttons', 'en');
+        //         $btn = json_decode($btn, true);
+        //         $btn = $btn['btn-1'] ?? '';
+
+        //         $image = $value->images;
+        //         $image = json_decode($image, true);
+        //         $image = $image['img-1'] ?? '';
+
+        //         $this->slides[$value->id] = array(
+        //             'image' => $image,
+        //             'title' => $title,
+        //             'text'  => $text,
+        //             'url'   => $url,
+        //             'btn'   => $btn,
+        //         );
+
+        //     }
+
+        // }
+        ////////////////////////////////////////////////////////////////
+
+        
+        if (empty($this->index_data)) {
             $data = new Index();
             $data->name = 'index1';
             $data->store_id = $this->store_id;
             $data->language = 'EN';
             $data->save();
         } else {
-            $this->titles = $this->data->titles;
+            $this->titles = $this->index_data->titles;
             $this->titles = json_decode($this->titles, true);
 
-            $this->buttons = $this->data->buttons;
+            $this->buttons = $this->index_data->buttons;
             $this->buttons = json_decode($this->buttons, true);
 
-            $this->images = $this->data->images;
+            $this->images = $this->index_data->images;
             $this->images = json_decode($this->images, true);
 
-            $this->texts = $this->data->texts;
+            $this->texts = $this->index_data->texts;
             $this->texts = json_decode($this->texts, true);
 
-            $this->urls = $this->data->urls;
+            $this->urls = $this->index_data->urls;
             $this->urls = json_decode($this->urls, true);
 
         }

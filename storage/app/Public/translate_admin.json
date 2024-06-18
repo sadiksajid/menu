@@ -944,11 +944,6 @@
         "ar": "مدينة",
         "fr": "Ville"
     },
-    "quarter": {
-        "en": "Quarter",
-        "ar": "الحي",
-        "fr": "Quartier"
-    },
     "post_code": {
         "en": "Post Code",
         "ar": "الرمز البريدي",
@@ -1193,5 +1188,62 @@
     },
     "delete": {
         "en": "Delete"
+    },
+    "btn_text": {
+        "en": "Button Text"
+    },
+    "btn_link": {
+        "en": "Button Link"
+    },
+    "add_slide": {
+        "en": "Add Slide"
+    },
+    "slide_n": {
+        "en": "Slide N"
+    },
+    "slide_saved": {
+        "en": "Slide Saved Successfully!"
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
     }
 }

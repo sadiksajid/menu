@@ -63,6 +63,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'fw-block-blackl
     Route::get('/HeadesEdit', function () {
         return view('livewire.admin.headers_edit.headers_route');
     });
+    Route::get('/HomeHeaderEdit', function () {
+        return view('livewire.admin.home_header_edit.Home_header_route');
+    });
 
     Route::get('/linkStorage', [apksController::class, 'linkstorage']);
 

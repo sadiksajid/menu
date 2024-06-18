@@ -117,8 +117,10 @@
             .then((result) => {
                 if (result.isConfirmed && event.detail.function == undefined) {
                     Livewire.emit('confirmed');
-                }else if(result.isConfirmed && event.detail.function != undefined){
+                }else if(result.isConfirmed && event.detail.function != undefined && event.detail.id == undefined){
                     Livewire.emit(event.detail.function);
+                }else if(result.isConfirmed && event.detail.function != undefined && event.detail.id != undefined){
+                    Livewire.emit(event.detail.function,event.detail.id);
                 }
             });
     });
