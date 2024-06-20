@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('staf_product_recipes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('staf_product_id');
-            $table->string('element');
-            $table->string('image',150)->nullable();
+            $table->string('element',1500);
+            $table->string('image',250)->nullable();
             $table->timestamps();
         });
     }

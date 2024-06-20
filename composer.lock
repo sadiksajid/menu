@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "059c4ddff5c6dba6ea071cdc09ec9e89",
+    "content-hash": "af4d31a44a199c4188293e7c34ec55d4",
     "packages": [
         {
             "name": "10quality/php-calendar",

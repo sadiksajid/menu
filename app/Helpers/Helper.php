@@ -1,17 +1,18 @@
 <?php
 
-use App\Models\OffersAnalyse;
-use App\Models\OffersView;
-use App\Models\ProductCategory;
-use App\Models\ProductMedia;
-use App\Models\ProductView;
 use App\Models\StoreView;
+use App\Models\OffersView;
+use App\Models\ProductView;
+use App\Models\ProductMedia;
+use League\Flysystem\Config;
+use App\Models\OffersAnalyse;
 use Illuminate\Support\Carbon;
+use App\Models\ProductCategory;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager;
-use League\Flysystem\Config;
 
 if (!function_exists('money')) {
     function money($value, $short_format = false, $currency = null)
@@ -497,6 +498,62 @@ if (!function_exists('setView')) {
                 'langs' => ['en', 'fr', 'ar'],
             ];
 
+        }
+    }
+
+    /////////////////////////////////////
+
+
+    if (!function_exists('GetLocation')) {
+        /////// view calculation to db
+        function GetLocation()
+        {
+           
+     
+
+        try {
+
+            if(!empty($_SERVER['HTTP_CLIENT_IP'])) {   
+                $ip = $_SERVER['HTTP_CLIENT_IP'];   
+            }   
+            //if user is from the proxy   
+            elseif (!empty($_SERVER['HTTP_X_REAL_IP'])) {   
+                $ip = $_SERVER['HTTP_X_REAL_IP'];   
+            }  
+            //if user is from the proxy   
+            elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {   
+                $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];   
+            }   
+            //if user is from the remote address   
+            else{   
+                $ip = $_SERVER['REMOTE_ADDR'];   
+            }  
+    
+            $response = Http::timeout(3)->get('https://geolocation-db.com/jsonp/'.$ip);
+          
+
+            // Check if the response was successful
+            if ($response->successful()) {
+                 // Extract JSONP data from the response
+                $body = $response->body();
+
+                // Remove the JSONP callback function wrapper
+                $json = preg_replace('/^callback\((.*)\)$/', '$1', $body);
+
+                // Decode the JSON data
+                $Data = json_decode($json, true);
+                return $Data ;
+
+            } else {
+                return  ['country_code'=>'Not found']  ;
+            }
+        } catch (\Illuminate\Http\Client\RequestException $e) {
+            // Handle timeout or other request exceptions
+            return  ['country_code'=>'Not found']  ;
+        }
+
+
+    
         }
     }
 

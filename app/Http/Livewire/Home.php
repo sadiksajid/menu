@@ -14,7 +14,6 @@ class Home extends Component
     public $translations;
     public $countries;
 
-
     public function mount()
     {
         $json = app('translations');

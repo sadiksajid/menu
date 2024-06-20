@@ -24,6 +24,10 @@ class ContactUsHome extends Component
     {
         $json = app('translations');
         $this->translations = $json['home'];
+
+
+
+
     }
     public function render()
     {

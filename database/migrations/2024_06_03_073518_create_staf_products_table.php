@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('staf_product_category_id');
-            $table->string('title', 150);
-            $table->string('product_meta', 190)->unique();
-            $table->string('description', 1500);
+            $table->string('title', 250);
+            $table->string('product_meta', 250)->unique();
+            $table->string('description', 3500);
             $table->double('price')->default(0);
             $table->boolean('status')->default(1);
             $table->timestamps();
