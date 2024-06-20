@@ -104,7 +104,7 @@
                                             class="text-red">*</span></label>
                                     <input class="form-control mb-4" placeholder="{{ $translations['title'] }}"
                                         type="text" wire:model.defer='title.{{$key}}'>
-                                    @error('title.{{$key}}')
+                                    @error('title.'.$key)
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -113,7 +113,7 @@
                                             class="text-red">*</span></label>
                                     <input class="form-control mb-4" placeholder="{{ $translations['meta'] }}"
                                         type="text" wire:model.defer='text.{{$key}}'>
-                                    @error('text.{{$key}}')
+                                    @error('text.'.$key)
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -123,7 +123,7 @@
                                             class="text-red">*</span></label>
                                     <input class="form-control mb-4" placeholder="{{ $translations['btn_text'] }}"
                                         type="text" wire:model.defer='btn_text.{{$key}}'>
-                                    @error('btn_text.{{$key}}')
+                                    @error('btn_text.'.$key)
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -132,7 +132,7 @@
                                             class="text-red">*</span></label>
                                     <input class="form-control mb-4" placeholder="{{ $translations['btn_link'] }}"
                                         type="text" wire:model.defer='btn_url.{{$key}}'>
-                                    @error('btn_url.{{$key}}')
+                                    @error('btn_url.'.$key)
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>

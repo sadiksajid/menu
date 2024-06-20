@@ -10,6 +10,7 @@ use Dompdf\Dompdf;
 use App\Models\Offer;
 use Livewire\Component;
 use App\Models\StoreOrder;
+use App\Models\DeletedOrder;
 use App\Models\OfferProduct;
 use App\Models\StoreProduct;
 use Livewire\WithPagination;
@@ -43,13 +44,15 @@ class Caisse extends Component
     public $selected_products_ids = [];
     public $selected_products_qty = [];
 
-    protected $listeners = ['RemoveProd', 'confirmed','confirmDelete'];
+    protected $listeners = ['confirmPassword','RemoveProd', 'confirmed','confirmDelete','updateOrder'];
 ////////////////////////////////
     public $translations;
     public $langs = [];
 
     public function mount()
     {
+        session()->forget('password_confirmed_at'); // Deleting specific session variable
+
         $this->langs = languages()['langs'];
         $this->translations = app('translations_admin');
 ///////////////////////////////////
@@ -450,13 +453,18 @@ class Caisse extends Component
 
     }
 
-    public function updateOrder()
+
+
+    public function updateOrder($data)
     {
         if (count($this->selected_products) > 0) {
 
             $order =  StoreOrder::find($this->update_order_id );
             $order->total = $this->total;
             $order->admin_id = Auth::id();
+            $order->updated_by = $data['name'] ;
+            $order->updated_by_id = $data['id'] ;
+
             $order->save();
 
             $products = [];
@@ -551,25 +559,49 @@ class Caisse extends Component
             'type' => 'warning',
             'title' => $this->translations['please_confirm'],
             'message' => "Do you want to delete The order ID : ".$id,
-            'function' => 'confirmDelete',
+            'function' => 'confirmPassword',
+            'id' => 'confirmDelete',
         ]);
         $this->cancelUpdate();
 
     }
 
-    public function confirmDelete()
+    public function confirmDelete($data)
     {
+        $order = StoreOrder::find($this->order_to_delete);
+        $o_products = OrderProducte::where('store_order_id',$this->order_to_delete);
+        // ->delete()
 
-        StoreOrder::find($this->order_to_delete)->delete();
-        OrderProducte::where('store_order_id',$this->order_to_delete)->delete();
+        $arr_order = $order->toArray();
+        unset( $arr_order['id'] );
+
+        $arr_order['order_products'] = json_encode($o_products->get()->toArray())  ;
+        $arr_order['deleted_by'] = $data['name']  ;
+        $arr_order['deleted_by_id'] = $data['id']  ;
+        $arr_order['created_at'] = Carbon::parse($arr_order['created_at']) ;
+        $arr_order['updated_at'] = Carbon::now()  ;
+        DeletedOrder::insert($arr_order);
+
+        $order->delete();
+        $o_products->delete();
         unset($this->new_orders[$this->order_to_delete]);
 
         $this->order_to_delete = null ; 
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',
-            'message' => 'Order Deleted!',
+            'message' => 'Order Deleted By '.$data['name'] .'!',
         ]);
 
+
+    }
+
+
+    public function confirmPassword($function)
+    {
+
+        $this->dispatchBrowserEvent('confirmPassword', [
+            'function' => $function,
+        ]);
 
     }
 

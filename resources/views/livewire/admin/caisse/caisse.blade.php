@@ -328,7 +328,7 @@
                     </div>
                     @else
                     <div class="col-8">
-                        <button class="btn btn-primary btn-lg" style="width:100%" wire:click="updateOrder()"
+                        <button class="btn btn-primary btn-lg" style="width:100%" wire:click="confirmPassword('updateOrder')"
                             id='checkout'>{{$translations['update']}} <i
                                 class="fe fe-edit-sign me-1 d-inline-flex"></i>
 
@@ -358,6 +358,8 @@
 @section('js')
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
 <script>
 $(document).ready(function() {
 
@@ -406,7 +408,6 @@ $(document).ready(function() {
         // var blob = new Blob([view], { type: 'application/pdf' });
         // var url = URL.createObjectURL(blob);
 
-        // console.log(blob,view,url)
 
         ////////////////////////////////////////////
 
@@ -419,7 +420,6 @@ $(document).ready(function() {
 
 
         // var pdfData = event.detail.pdfData;
-        // console.log(pdfData);
 
         // // Decode the base64 string to binary data
         // var binary = atob(pdfData);
@@ -453,16 +453,13 @@ $(document).ready(function() {
 
         // $(".list-card").each(function() {
         //     var hammer = new Hammer(this);
-        //     console.log(hammer)
 
         //     hammer.on("swipe", function(event) {
         //         if (event.direction === Hammer.DIRECTION_RIGHT) {
         //             $(this).addClass("swiped");
-        //             console.log('swiperight')
 
         //         } else if (event.direction === Hammer.DIRECTION_LEFT) {
         //             $(this).removeClass("swiped");
-        //             console.log('swipeleft')
 
         //         }
         //     });
@@ -483,10 +480,8 @@ $(document).ready(function() {
         //         if (ui.position.left > $(this).width() / 2) {
         //             $(this).addClass("swiped");
 
-        //             console.log('swipeleft')
         //         } else {
         //             $(this).removeClass("swiped");
-        //             console.log('swiperight')
         //         }
 
         //         // Reset the card's position
@@ -549,7 +544,6 @@ $(document).ready(function() {
             // }
             //  else {
             //     $(this).removeClass("swiped");
-            //     console.log("swiperight");
             // }
 
             $(this).css({
@@ -563,11 +557,77 @@ $(document).ready(function() {
 
     });
 
-    // // Add click event to delete button
-    // $(".delete-btn").click(function() {
-    //     // Perform delete operation here
-    //     $(this).closest(".list-card").remove();
-    // });
+
+    window.addEventListener('confirmPassword', event => {
+        Swal.fire({
+        title: "Submit your password",
+        background: "#705ec8",
+        color:'white',
+
+        html: `
+            <center> <lottie-player src="{{ URL::asset('assets/SVG/code_bar.json') }}"  background="transparent"  speed="0.2"  style="width:250px;margin-top:-30px"  loop  autoplay></lottie-player> </center>
+        `,
+
+        input: "password",
+        inputAttributes: {
+            autocapitalize: "off"
+        },
+        showCancelButton: true,
+        confirmButtonText: "Next",
+        confirmButtonColor:'#7300FF',
+      
+        }).then((result) => {
+            console.log(result)
+        if (result.isConfirmed) {
+            
+            try {
+                $.ajax({
+                    url: '{{ route("check_admin_password") }}',
+                    method: 'POST',
+                    data :{
+                        _token: '{{ csrf_token() }}', // CSRF token
+                        password: result.value,
+                      
+                    },
+                    success: function(response) {
+                       if(response.data == -1){
+                        Swal.fire({
+                            title: "Incorrect Password!",
+                            text: "Please Try Again",
+                            icon: "error"
+                            });
+                       }else{
+                            data = {
+                            val: event.detail.id,
+                            id: response.data,
+                            name: response.name
+                            }
+                            Livewire.emit(event.detail.function,data);
+
+                       }
+                    },
+                    error: function(err) {
+                        Swal.fire({
+                            title: "Incorrect Password!",
+                            text: "Please Try Again",
+                            icon: "error"
+                            });
+                    }
+                });
+
+
+            } catch (error) {
+                Swal.fire({
+                            title: "Incorrect Password!",
+                            text: "Please Try Again",
+                            icon: "error"
+                            });
+            }
+
+
+        }
+        });
+    });
 });
 </script>
 @endsection

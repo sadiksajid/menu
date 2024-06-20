@@ -346,7 +346,6 @@
 
     $( document ).ready(
         function () {
-            console.log(@json($logo))
 
             fileUpload();
 

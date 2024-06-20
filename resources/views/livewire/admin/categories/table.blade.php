@@ -234,7 +234,6 @@ window.addEventListener('swal:finish', event => {
 
 window.addEventListener('swal:error', event => {
 
-    console.log(event.detail.errors);
     var errors = event.detail.errors
     var html_error = ''
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStoreOrdersTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateStoreOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('store_orders', function (Blueprint $table) {
+        Schema::create('deleted_orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('store_id');
             $table->foreignId('client_id')->nullable();
@@ -21,10 +21,10 @@ class CreateStoreOrdersTable extends Migration
             $table->string('comment')->nullable();;
             $table->string('currency')->nullable();
             $table->integer('total')->nullable();
-            $table->enum('status', ['pending', 'declined', 'confirmed', 'shipped', 'delivered', 'ready', 'canceled', 'dispute', 'return', 'caisse_pending', 'caisse_delivered', 'caisse_canceled'])->default('pending');
+            $table->string('status')->nullable();
             $table->integer('shipping_cost')->default(0);
             $table->boolean('from_web')->default(0);
-            $table->enum('order_type', ['shipping', 'coming', 'caisse'])->default('shipping');
+            $table->string('order_type')->nullable();
             $table->string('payment_type', 10)->nullable();
             $table->string('tracking', 15)->nullable();
             $table->text('admin_comment', 1500)->nullable();
@@ -33,8 +33,9 @@ class CreateStoreOrdersTable extends Migration
             $table->text('offers', 1500)->nullable();
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->foreign('admin_id')->references('id')->on('users');
-            $table->string('updated_by');
-            $table->integer('updated_by_id');
+            $table->string('deleted_by');
+            $table->integer('deleted_by_id');
+            $table->string('order_products',10000);
 
             $table->timestamps();
         });
@@ -47,6 +48,6 @@ class CreateStoreOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('store_orders');
+        Schema::dropIfExists('deleted_orders');
     }
-}
+};

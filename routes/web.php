@@ -1,18 +1,19 @@
 <?php
 
-use App\Http\Controllers\Admin\apksController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\ClientsController;
-use App\Http\Controllers\OrdersController;
-use App\Models\Client;
 use App\Models\Offer;
 use App\Models\Store;
+use App\Models\Client;
 use App\Models\StoreProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\Admin\apksController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\PasswordConfirmationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,14 @@ use Illuminate\Support\Facades\Auth;
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// admin
  
-Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'fw-block-blacklisted', 'fw-block-attacks']], function () {
+
+Route::get('/password/confirm', 'PasswordConfirmationController@showConfirmForm')->name('password.confirm.form');
+Route::post('/password/confirm', 'PasswordConfirmationController@confirm')->name('password.confirm');
+Route::post('/checkPasswordAdmin'    ,[PasswordConfirmationController::class, 'confirmApi'])->name('check_admin_password');
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'password.confirmation', 'fw-block-blacklisted', 'fw-block-attacks']], function () {
+
+
 
     Route::get('/', function () {
 
@@ -52,6 +60,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'fw-block-blackl
 
     Route::get('/categories ', function () {
         return view('livewire.admin.categories.categories_route');
+    });
+
+    Route::get('/security_code ', function () {
+        return view('livewire.admin.security_code.security_code_route');
     });
 
 

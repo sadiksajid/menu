@@ -1207,6 +1207,126 @@
     "home_slide": {
         "en": "Home Slide"
     },
+    "profile": {
+        "en": "Profile"
+    },
+    "full_name": {
+        "en": "Full Name"
+    },
+    "role": {
+        "en": "Role"
+    },
+    "select_role": {
+        "en": "Select Role"
+    },
+    "add_Profile": {
+        "en": "Add Profile"
+    },
+    "profile_saved": {
+        "en": "Profile saved Successfuly!"
+    },
+    "old_password": {
+        "en": "Old Password"
+    },
+    "incorrect_old_password": {
+        "en": "Old Password is incorrect!"
+    },
+    "desable": {
+        "en": "Desable"
+    },
+    "enable": {
+        "en": "Enable"
+    },
+    "disable_all_profiles_warning": {
+        "en": "You Can't Desable All Prodiles"
+    },
+    "change_password_warning": {
+        "en": "Please use other Password!"
+    },
+    "cant_enable_double_auth": {
+        "en": "You Can't enable double auth because you need unless one active profile!"
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
     "": {
         "en": ""
     },

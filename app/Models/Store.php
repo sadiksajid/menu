@@ -79,4 +79,10 @@ class Store extends Model
     {
         return $this->belongsTo(Quartier::class, 'quartier_id');
     }
+
+    public function profiles()
+    {
+        return $this->hasMany(StoreStafPassword::class);
+    }
+
 }

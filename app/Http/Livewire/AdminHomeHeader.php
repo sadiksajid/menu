@@ -27,17 +27,15 @@ class AdminHomeHeader extends Component
     public $data;
     public $all_rows = [];
     public $upload_image = [];
-    public $headers = [];
 
-    public $products;
-    public $currency;
+    
     public $to_delete_image_tm = 0;
     public $to_delete_image_edit = 0;
-    public $offer_image_deleted = [];
+    public $slide_image_deleted = [];
     public $langs = [];
 
 
-    protected $listeners = ['editText', 'editBtn', 'editImg','ConfirmDeleteSlide'];
+    protected $listeners = ['editImg','ConfirmDeleteSlide'];
 
     ////////////////////////////////
     public $translations;
@@ -96,7 +94,6 @@ class AdminHomeHeader extends Component
             }
         }
 
-        $this->headers = [];
     
     }
 
@@ -144,7 +141,7 @@ class AdminHomeHeader extends Component
     {
 
         if ($this->to_delete_image_edit != -1) {
-            $this->offer_image_deleted[$index] = $this->image[$index];
+            $this->slide_image_deleted[$index] = $this->image[$index];
 
             // deleteFile( $this->image[$index] );
             unset($this->image[$index] );
@@ -196,12 +193,12 @@ class AdminHomeHeader extends Component
     public function Update()
     {
 
-        if(count($this->offer_image_deleted) != 0){
-            foreach ($this->offer_image_deleted as $key => $value) {
+        if(count($this->slide_image_deleted) != 0){
+            foreach ($this->slide_image_deleted as $key => $value) {
                 deleteFile( $value );
             }
 
-            $keys = array_keys($this->offer_image_deleted );
+            $keys = array_keys($this->slide_image_deleted );
             Index::whereIn('id', $keys)->update(['images'=>'']);
 
         }
