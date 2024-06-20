@@ -42,15 +42,12 @@ class LoginController extends Controller
         else{   
             $ip = $_SERVER['REMOTE_ADDR'];   
         }  
-        dd($clientIp);
         
-        $location = GeoIP::getLocation($clientIp);
+        $location = GeoIP::getLocation($ip);
     
         // Country code
         $countryCode = $location->getAttribute('iso_code');
         
-        dd($countryCode);
-
 
         $defaultRegions = Country::select('iso')->get()->pluck('iso')->toArray();
         foreach ($defaultRegions as $region) {
