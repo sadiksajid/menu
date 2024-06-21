@@ -41,7 +41,7 @@
                 </div>
                 @endif
                 
-                <a style='margin-top:15px' id='submit_login' class="button button-blue-hover text-white text-button mt-3" style='cursor:pointer'> <span>
+                <a style='margin-top:15px;cursor: pointer;' id='submit_login' class="button button-blue-hover text-white text-button mt-3" > <span>
                         <span></span></span><span class="bg-blue">Login</span></a>
 
                 <!-- <div class="flex-item-center gap-8 mt-12">
@@ -81,10 +81,17 @@
 
                 <label style='margin-left:10px;margin-top:10px'>Business Name:</label>
                 <div class="form-input">
-                    <input class="bg-line-dark text-white @error('store_meta') is-invalid @enderror" type="text"
-                        placeholder="Business Name" name="store_meta" required autocomplete="businessname" autofocus />
+                    <input class="bg-line-dark text-white @error('store_name') is-invalid @enderror" type="text"
+                        placeholder="Business Name" name="store_name" required autocomplete="businessname" autofocus />
 
                 </div>
+                @error('store_name')
+                <div class="col-md-12 error" style='#ff9900'>
+                    <div class="form-check-label">
+                        {{ $message}}
+                    </div>
+                </div>
+                @enderror
                 @error('store_meta')
                 <div class="col-md-12 error" style='#ff9900'>
                     <div class="form-check-label">
@@ -145,8 +152,8 @@
                 @enderror
                 <!-- /////////////////////////////////////////////////////////////////////////// -->
 
-                <a style='margin-top:15px'  id='submit_register'
-                    class="button button-blue-hover text-white text-button" style='cursor:pointer'> <span>
+                <a style='margin-top:15px;cursor: pointer'  id='submit_register'
+                    class="button button-blue-hover text-white text-button" > <span>
                         <span></span></span><span class="bg-blue">Register</span></a>
 
                 <!-- <div class="flex-item-center gap-8 mt-12">

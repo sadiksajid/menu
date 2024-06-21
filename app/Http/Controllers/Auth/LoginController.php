@@ -24,47 +24,26 @@ class LoginController extends Controller
     {
 
 
-        $phoneNumber = $request->input('login_email');
-        $phoneUtil = PhoneNumberUtil::getInstance();
-
-        if(!empty($_SERVER['HTTP_CLIENT_IP'])) {   
-            $ip = $_SERVER['HTTP_CLIENT_IP'];   
-        }   
-        //if user is from the proxy   
-        elseif (!empty($_SERVER['HTTP_X_REAL_IP'])) {   
-            $ip = $_SERVER['HTTP_X_REAL_IP'];   
-        }  
-        //if user is from the proxy   
-        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {   
-            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];   
-        }   
-        //if user is from the remote address   
-        else{   
-            $ip = $_SERVER['REMOTE_ADDR'];   
-        }  
+        // $phoneNumber = $request->input('login_phone');
+        // $phoneUtil = PhoneNumberUtil::getInstance();
+        // dd(GetLocation());
         
-        $location = GeoIP::getLocation($ip);
-        
-        // Country code
-        $countryCode = $location->getAttribute('iso_code');
+        // $location = GetLocation() ; 
+        // // Country code
+        // $countryCode = $location['country_code'];
         
 
-        $defaultRegions = Country::select('iso')->get()->pluck('iso')->toArray();
-        foreach ($defaultRegions as $region) {
-                $numberProto = $phoneUtil->parse($phoneNumber, $region);
-                $countryCode = $numberProto->getCountryCode();
+        // $defaultRegions = Country::select('iso')->get()->pluck('iso')->toArray();
+        // foreach ($defaultRegions as $region) {
+        //         $numberProto = $phoneUtil->parse($phoneNumber, $region);
+        //         $countryCode = $numberProto->getCountryCode();
 
-                // Validate the parsed number
-                if ($phoneUtil->isValidNumber($numberProto)) {
-                    dd( $countryCode );
-                }
+        //         // Validate the parsed number
+        //         if ($phoneUtil->isValidNumber($numberProto)) {
+        //             dd( $countryCode );
+        //         }
            
-        }
-
-
-
-       
-
+        // }
 
         
         $request->session()->invalidate();
@@ -125,6 +104,7 @@ class LoginController extends Controller
         $request->validate([
             'login_phone' => 'required|string',
             'login_password' => 'required',
+            
         ]);
 
         $user = null;

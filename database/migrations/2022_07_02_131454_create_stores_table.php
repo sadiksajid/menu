@@ -28,6 +28,7 @@ class CreateStoresTable extends Migration
             $table->string('logo', 150)->nullable();
             $table->string('address', 250)->nullable();
             $table->foreignId('city_id')->nullable();
+            $table->string('city',100)->nullable();
             $table->foreignId('quartier_id')->nullable();
             $table->string('longitude', 20)->nullable();
             $table->string('latitude', 20)->nullable();
@@ -38,6 +39,12 @@ class CreateStoresTable extends Migration
             $table->string('btn_color', 20)->nullable();
             $table->string('text_color', 20)->nullable();
             $table->string('background_color', 20)->nullable();
+            $table->boolean('first_run')->default(0);
+            $table->string('first_run_steps',300)->nullable();
+
+            $table->integer('country_id',50)->nullable();
+            $table->string('country',50)->nullable();
+            $table->string('country_code',50)->nullable();
 
             $table->timestamps();
             $table->softDeletes();

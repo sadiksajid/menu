@@ -27,11 +27,16 @@ window.addEventListener('maps:lib', event => {
         change_type: change_type ?? null,
         is_express: is_express ?? null,
         max_km: max_km ?? 25000,
-        map_height: map_height ?? 400,
+        map_height: map_height ?? '400px',
         pick: pick ?? false,
         click: click ?? true,
     }
 
-    maps_change_loacal_calcul_price(data)
+
+    setTimeout(() => {
+        maps_change_loacal_calcul_price(data)
+
+    }, 1000)
+
 
 });
