@@ -28,7 +28,7 @@ function sendcode() {
 
 function doneTyping() {
  
-    if(code.length >= 8 && code.length <=13 ){ 
+    if(code.length >= 3 && code.length <=13 ){ 
         console.log(code)
         try {
 
