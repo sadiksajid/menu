@@ -14,7 +14,7 @@
         z-index: 99999;
         right: 0px;
         top: 0px;
-        transition: 1s;
+        transition: 0.5s;
         overflow:auto;
     }
 
@@ -33,7 +33,7 @@
         top: 0;
         left: 0;
         opacity: 0;
-        transition: 1s;
+        transition: 0.5s;
     }
 
 
@@ -350,18 +350,49 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="scanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" wire:ignore>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style='background-color:#705ec8'>
+        <div class="modal-body">
+            <input type="text" id='functionName' class='d-none'>
+            <input type="text" id='functionId' class='d-none'>
+        <center> 
+            <lottie-player src="{{ URL::asset('assets/SVG/code_bar.json') }}"  background="transparent"  speed="0.2"  style="width:250px;margin-top:-30px"  loop  autoplay></lottie-player> 
+            <h4 style='color:white ; margin-top: -39px;'>Please Scan your Cart!</h4>
+        </center>
+        </div>
+        <div class="modal-footer border-0" style='    justify-content: center;'>
+            
+            <button type="button" tabindex="-1"  class="btn btn-light mr-6" id='scanToPassword'>Use Password</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+        </div>
+        </div>
+    </div>
+    </div>
+
+
     <a href="#" class="d-none " id='wait_print'></a>
 
-
+                
 
 </div>
 @section('js')
+
+
+
+<script src="{{ URL::asset('dist/ScannerScript.js') }}"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
 <script>
 $(document).ready(function() {
+
 
     $("#collapse_div_show").on("click", function(event) {
         $('.collapse_div').addClass("collapse_div_show");
@@ -558,76 +589,122 @@ $(document).ready(function() {
     });
 
 
+
+
     window.addEventListener('confirmPassword', event => {
-        Swal.fire({
-        title: "Submit your password",
-        background: "#705ec8",
-        color:'white',
 
-        html: `
-            <center> <lottie-player src="{{ URL::asset('assets/SVG/code_bar.json') }}"  background="transparent"  speed="0.2"  style="width:250px;margin-top:-30px"  loop  autoplay></lottie-player> </center>
-        `,
+            // Get the modal
 
-        input: "password",
-        inputAttributes: {
-            autocapitalize: "off"
-        },
-        showCancelButton: true,
-        confirmButtonText: "Next",
-        confirmButtonColor:'#7300FF',
-      
-        }).then((result) => {
-            console.log(result)
-        if (result.isConfirmed) {
-            
-            try {
-                $.ajax({
-                    url: '{{ route("check_admin_password") }}',
-                    method: 'POST',
-                    data :{
-                        _token: '{{ csrf_token() }}', // CSRF token
-                        password: result.value,
-                      
-                    },
-                    success: function(response) {
-                       if(response.data == -1){
-                        Swal.fire({
-                            title: "Incorrect Password!",
-                            text: "Please Try Again",
-                            icon: "error"
-                            });
-                       }else{
-                            data = {
-                            val: event.detail.id,
-                            id: response.data,
-                            name: response.name
-                            }
-                            Livewire.emit(event.detail.function,data);
-
-                       }
-                    },
-                    error: function(err) {
-                        Swal.fire({
-                            title: "Incorrect Password!",
-                            text: "Please Try Again",
-                            icon: "error"
-                            });
-                    }
-                });
-
-
-            } catch (error) {
+        //////////////////////////////////// password 
+        function password(){
                 Swal.fire({
-                            title: "Incorrect Password!",
-                            text: "Please Try Again",
-                            icon: "error"
-                            });
-            }
+                title: "Submit your password",
 
+                html: `
+                    <center> <lottie-player src="{{ URL::asset('assets/SVG/password.json') }}"  background="transparent"  speed="0.2"  style="width:250px;margin-top:-30px"  loop  autoplay></lottie-player> </center>
+                `,
+
+            input: "password",
+            showCancelButton: true,
+            confirmButtonText: "Next",
+            confirmButtonColor:'#7066e0',
+            customClass: {
+                popup: 'swal2-custom-zindex' // Apply the custom z-index class
+            },
+            }).then((result) => {
+            if (result.isConfirmed) {
+                
+                try {
+                    $.ajax({
+                        url: '{{ route("check_admin_password") }}',
+                        method: 'POST',
+                        data :{
+                            _token: '{{ csrf_token() }}', // CSRF token
+                            password: result.value,
+                        
+                        },
+                        success: function(response) {
+                        if(response.data == -1){
+                            Swal.fire({
+                                title: "Incorrect Password!",
+                                text: "Please Try Again",
+                                icon: "error"
+                                });
+                        }else{
+                                data = {
+                                val: event.detail.id,
+                                id: response.data,
+                                name: response.name
+                                }
+                                Livewire.emit(event.detail.function,data);
+
+                        }
+                        },
+                        error: function(err) {
+                            Swal.fire({
+                                title: "Incorrect Password!",
+                                text: "Please Try Again",
+                                icon: "error"
+                                });
+                        }
+                    });
+
+
+                } catch (error) {
+                    Swal.fire({
+                                title: "Incorrect Password!",
+                                text: "Please Try Again",
+                                icon: "error"
+                                });
+                }
+
+
+            }
+            });
+        }
+
+        //////////////////////////////////////////////////// scamner
+
+        function scanner(){
+
+
+             $('#functionName').val(event.detail.function);
+             $('#functionId').val(event.detail.id);
+            
+             $('#scanModal').modal("show");
+
+             $("#scanToPassword").on("click", function(event) {
+                $('#scanModal').modal("hide");
+                
+                password()
+             });
 
         }
-        });
+
+        scanner()
     });
+
+
+    window.addEventListener('close_modal', event => {
+        $('#scanModal').modal("hide");
+    });
+    
+    var modalScan = document.getElementById('scanModal');
+
+
+    document.body.addEventListener('keydown', function(event) {
+        if (modalScan.style.display === 'block') { // Check if modal is shown
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent the default action
+            }
+            getkey(event); // Call getkey function
+        }
+    });
+
+
 });
+ 
+
+
 </script>
 @endsection

@@ -9,6 +9,11 @@
 /*Colors*/
 /*------ Accordion -------*/
 
+.swal2-container {
+  z-index: 9999999;
+  }
+
+  
 .accordion .card:not(:first-of-type):not(:last-of-type) {
   border-bottom: 0;
   border-radius: 0; }

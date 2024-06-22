@@ -531,6 +531,8 @@ class Caisse extends Component
         }
 
         $this->cancelUpdate();
+        $this->dispatchBrowserEvent('close_modal');
+
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',
             'message' => $this->translations['caisse_order_success'],
@@ -574,6 +576,8 @@ class Caisse extends Component
 
         $arr_order = $order->toArray();
         unset( $arr_order['id'] );
+        unset( $arr_order['updated_by'] );
+        unset( $arr_order['updated_by_id'] );
 
         $arr_order['order_products'] = json_encode($o_products->get()->toArray())  ;
         $arr_order['deleted_by'] = $data['name']  ;
@@ -587,6 +591,10 @@ class Caisse extends Component
         unset($this->new_orders[$this->order_to_delete]);
 
         $this->order_to_delete = null ; 
+
+        $this->dispatchBrowserEvent('close_modal');
+
+
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',
             'message' => 'Order Deleted By '.$data['name'] .'!',

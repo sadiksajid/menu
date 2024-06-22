@@ -1,9 +1,5 @@
 <div>
-    <style>
-        .swal2-container {
-        z-index: 9999999;
-        }
-    </style>
+
     <div class="container-fluid mb-3">
         <div class='row'>
             <div class="col-md-2 col-sm-2 col-8 mb-4 ">

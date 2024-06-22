@@ -64,9 +64,8 @@ class PasswordConfirmationController extends Controller
     {
 
         $profiles = Auth::user()->store->profiles->where('status',1) ; 
-        
         foreach ($profiles as $profile) {
-            if ($request->code == $profile->code ) {
+            if ($request->bar_code == $profile->code ) {
 
                 return response()->json([
                     'success' => true,
@@ -79,6 +78,7 @@ class PasswordConfirmationController extends Controller
         return response()->json([
             'success' => true,
             'data' => -1,
+            'code'=>$request->bar_code ,
         ]);
     }
 

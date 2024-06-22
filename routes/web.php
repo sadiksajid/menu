@@ -31,6 +31,7 @@ use App\Http\Controllers\PasswordConfirmationController;
 Route::get('/password/confirm', 'PasswordConfirmationController@showConfirmForm')->name('password.confirm.form');
 Route::post('/password/confirm', 'PasswordConfirmationController@confirm')->name('password.confirm');
 Route::post('/checkPasswordAdmin'    ,[PasswordConfirmationController::class, 'confirmApi'])->name('check_admin_password');
+Route::post('/checkCodedAdmin'    ,[PasswordConfirmationController::class, 'confirmApiCode'])->name('check_admin_code');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'password.confirmation', 'fw-block-blacklisted', 'fw-block-attacks']], function () {
 
