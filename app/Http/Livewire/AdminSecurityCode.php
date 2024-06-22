@@ -256,7 +256,7 @@ class AdminSecurityCode extends Component
     
     
                 do {
-                    $code = rand(10000000, 99999999);
+                    $code = rand(100, 999);
                 } while (StoreStafPassword::where('code', $code)->exists());
                 
         
