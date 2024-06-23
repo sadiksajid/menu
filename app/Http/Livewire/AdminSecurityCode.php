@@ -154,7 +154,9 @@ class AdminSecurityCode extends Component
 
     public function generatCardPDF($index,$code)
     {    
-        $barcode = DNS1D::getBarcodeHTML($code, 'C39', 1.5, 50, 'black', false);
+
+        
+        $barcode = DNS1D::getBarcodeHTML($code, 'EAN13', 1.5, 50, 'black', false);
 
         ///// logo
         $imagePath = public_path('assets/images/png/print_logo.png');
@@ -162,9 +164,9 @@ class AdminSecurityCode extends Component
         $logoBase64 = 'data:image/png;base64,' . $imageData;
 
         $data = [
-            'name' => $this->fullname[$index],
+            'name' => $this->fullname[$index] ?? $code,
             'barcode' => $barcode,
-            'role' => $this->profile_role[$index],
+            'role' => $this->profile_role[$index] ??  'admin',
             'store' => $this->store_info->title,
             'logoBase64' => $logoBase64,
         ];
@@ -174,15 +176,37 @@ class AdminSecurityCode extends Component
         $pdf->setPaper([0, 0, 252, 144], 'portrait'); // 252x144 points = 3.5x2 inches
         $pdf->render();
 
-        $filePath = 'documents/pass_cards/'.$this->store_info->store_meta.'/card'.$index.'.pdf';
+        if($index != 'test'){
+            $filePath = 'documents/pass_cards/'.$this->store_info->store_meta.'/card'.$index.'.pdf';
 
-        Storage::disk('minio')->put($filePath, $pdf->output());
+            Storage::disk('minio')->put($filePath, $pdf->output());
+    
+            return $filePath ;
+        }else{
+            
+            $output = $pdf->output();
+            $filePath = 'security_code_card.pdf';
 
-        return $filePath ;
+            Storage::put($filePath, $output);
+
+            return response()->download(storage_path('app/' . $filePath))->deleteFileAfterSend(true);
+    
+
+        }
+     
     }
 
 
 
+    public function TestCOde(){
+            
+        do {
+            $code = rand(10000000000, 99999999999);
+        } while (StoreStafPassword::where('code', $code)->exists());
+        
+
+        $card = $this->generatCardPDF('test',$code);
+    }
 
     public function checkPassword($password,$id = null)
     {
@@ -256,7 +280,7 @@ class AdminSecurityCode extends Component
     
     
                 do {
-                    $code = rand(100, 999);
+                    $code = rand(10000000000, 99999999999);
                 } while (StoreStafPassword::where('code', $code)->exists());
                 
         

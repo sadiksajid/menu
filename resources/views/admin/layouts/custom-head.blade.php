@@ -1,5 +1,6 @@
 		<!-- Title -->
 		<title>GoodForHealth - Admin Panel</title>
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 
 		<!--Favicon -->
 		<link rel="icon" href="{{URL::asset('assets/images/brand/favicon.png')}}" type="image/x-icon"/>
@@ -17,6 +18,7 @@
 
 		<!---Icons css-->
 		<link href="{{URL::asset('assets/css/icons.css')}}" rel="stylesheet" />
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 		@yield('css')
 

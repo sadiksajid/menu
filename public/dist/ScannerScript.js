@@ -11,11 +11,11 @@ var doneTypingInterval = 100;
 
 // });
 
-function getkey(event) {
+function getkey(event,is_livewire=true) {
     
     if (/^\d+$/.test(event.key.toString())) {
         clearTimeout(typingTimer);
-        typingTimer = setTimeout(doneTyping, doneTypingInterval);
+        typingTimer = setTimeout(doneTyping(is_livewire), doneTypingInterval);
         code = code + event.key.toString();
     }
 }
@@ -26,12 +26,9 @@ function sendcode() {
 
 }
 
-function doneTyping() {
- 
+function doneTyping(is_livewire,code) {
     if(code.length >= 3 && code.length <=13 ){ 
-        console.log(code)
         try {
-
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
             $.ajaxSetup({
@@ -46,6 +43,7 @@ function doneTyping() {
                 method: 'POST',
                 data :{
                     bar_code:code,
+                    is_livewire:is_livewire
                 },
                 success: function(response) {
                 if(response.data == -1){
@@ -56,14 +54,19 @@ function doneTyping() {
                         });
                 }else{
 
-                   
-                        data = {
-                        val: $('#functionId').val(),
-                        id: response.data,
-                        name: response.name
+                        if(is_livewire == true){
+                            data = {
+                                val: $('#functionId').val(),
+                                id: response.data,
+                                name: response.name
+                            }
+                            console.log(data)
+                            Livewire.emit( $('#functionName').val(),data);
+                        }else{
+                            console.log(response.redirect)
+                            window.location.replace(response.redirect);
                         }
-                        console.log(data)
-                        Livewire.emit( $('#functionName').val(),data);
+                   
 
                 }
                 },

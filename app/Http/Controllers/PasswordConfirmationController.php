@@ -19,7 +19,7 @@ class PasswordConfirmationController extends Controller
             'password' => 'required|string',
         ]);
         
-        $profiles = Auth::user()->store->profiles->where('status',1)  ; 
+        $profiles = Auth::user()->store->profiles->where('status',1)->where('role','admin')  ; 
         
         foreach ($profiles as $profile) {
             if (Hash::check($request->password, $profile->password)) {
@@ -63,14 +63,33 @@ class PasswordConfirmationController extends Controller
     public function confirmApiCode(Request $request)
     {
 
-        $profiles = Auth::user()->store->profiles->where('status',1) ; 
+
+
+        if($request->is_livewire == 'false'){
+            $profiles = Auth::user()->store->profiles->where('status',1)->where('role','admin') ; 
+
+        }else{
+            $profiles = Auth::user()->store->profiles->where('status',1); 
+
+        }
+
+
+        
         foreach ($profiles as $profile) {
             if ($request->bar_code == $profile->code ) {
+
+                if($request->is_livewire == 'false'){
+                    session(['password_confirmed_at' => now()]);
+                    $redirect = session('url.intended', '/admin') ;
+                }else{
+                    $redirect ='';
+                }
 
                 return response()->json([
                     'success' => true,
                     'data' => $profile->id,
                     'name' => $profile->fullname,
+                    'redirect' => $redirect,
                 ]);
 
             }
