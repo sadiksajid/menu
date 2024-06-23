@@ -26,7 +26,7 @@ function sendcode() {
 
 }
 
-function doneTyping(is_livewire,code) {
+function doneTyping(is_livewire) {
     if(code.length >= 3 && code.length <=13 ){ 
         try {
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');

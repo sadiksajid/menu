@@ -158,8 +158,10 @@ class Caisse extends Component
 
     public function SelectProd($id,$is_offer = 0)
     {
+        $products = Cache::get('caisse_products');
+
         if($is_offer == 0){
-            $product = $this->products->where('id', $id)->first();
+            $product = $products->where('id', $id)->first();
             if (!in_array($id, $this->selected_products_ids)) {
                 $this->selected_products[$id] = array(
                     'image' => $product->media[0]->media,
