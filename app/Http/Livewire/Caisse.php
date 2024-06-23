@@ -44,7 +44,7 @@ class Caisse extends Component
     public $selected_products_ids = [];
     public $selected_products_qty = [];
 
-    protected $listeners = ['confirmPassword','RemoveProd', 'confirmed','confirmDelete','updateOrder'];
+    protected $listeners = ['confirmPassword','RemoveProd', 'confirmed','confirmDelete','updateOrder','SelectProd'];
 ////////////////////////////////
     public $translations;
     public $langs = [];
@@ -158,7 +158,6 @@ class Caisse extends Component
 
     public function SelectProd($id,$is_offer = 0)
     {
-
         if($is_offer == 0){
             $product = $this->products->where('id', $id)->first();
             if (!in_array($id, $this->selected_products_ids)) {
@@ -276,14 +275,18 @@ class Caisse extends Component
 
         $filePath = 'receipts/' . $order_id . '.pdf';
         Storage::put($filePath, $pdf->output());
+    
+        if($this->store_info->print_type == 'manual'){
+            $this->dispatchBrowserEvent('pdfRendered', [
+                'pdfData' => base64_encode($pdf->output()),
+            ]);
+        }else{
+            $this->dispatchBrowserEvent('pdfRenderedPrint', [
+                'url' => url('storage/' . $filePath),
+            ]);    
+        }
 
-        $this->dispatchBrowserEvent('pdfRendered', [
-            'url' => url('storage/' . $filePath),
-        ]);
-
-        // $this->dispatchBrowserEvent('pdfRendered', [
-        //     'pdfData' => base64_encode($pdf->output()),
-        // ]);
+        
 
     }
 

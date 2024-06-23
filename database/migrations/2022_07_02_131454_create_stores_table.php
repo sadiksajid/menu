@@ -38,6 +38,7 @@ class CreateStoresTable extends Migration
             $table->string('btn_color', 20)->nullable();
             $table->string('text_color', 20)->nullable();
             $table->string('background_color', 20)->nullable();
+            $table->enum('print_type', ['auto', 'manual'])->default('manual');
 
             $table->timestamps();
             $table->softDeletes();

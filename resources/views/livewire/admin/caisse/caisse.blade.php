@@ -15,7 +15,7 @@
         right: 0px;
         top: 0px;
         transition: 0.5s;
-        overflow:auto;
+        overflow: auto;
     }
 
     .collapse_div_show {
@@ -37,48 +37,53 @@
     }
 
 
-    .collapse_div_hover_opacity{
-        opacity: 0.5!important;
+    .collapse_div_hover_opacity {
+        opacity: 0.5 !important;
     }
 
 
 
     h3 {
-    font: 25px sans-serif;
-    text-align: center;
-    text-transform: uppercase;
-    }   
+        font: 25px sans-serif;
+        text-align: center;
+        text-transform: uppercase;
+    }
 
 
 
 
     h3.no-background {
-    position: relative;
-    overflow: hidden; 
+        position: relative;
+        overflow: hidden;
     }
 
     .h2-span {
-            display: inline-block;
-            vertical-align: baseline;
-            zoom: 1;
-            *display: inline;
-            *vertical-align: auto;
-            position: relative;
-            padding: 0 20px;
+        display: inline-block;
+        vertical-align: baseline;
+        zoom: 1;
+        *display: inline;
+        *vertical-align: auto;
+        position: relative;
+        padding: 0 20px;
 
-            &:before, &:after {
-                content: '';
-                display: block;
-                width: 1000px;
-                position: absolute;
-                top: 0.73em;
-                border-top: 1px solid black;
-            }
-
-            &:before { right: 100%; }
-            &:after { left: 100%; }
+        &:before,
+        &:after {
+            content: '';
+            display: block;
+            width: 1000px;
+            position: absolute;
+            top: 0.73em;
+            border-top: 1px solid black;
         }
 
+        &:before {
+            right: 100%;
+        }
+
+        &:after {
+            left: 100%;
+        }
+    }
     </style>
 
 
@@ -99,14 +104,14 @@
                             <h5> {{$translations['all']}}</h5>
                         </a>
                     </li>
-  
+
                     @foreach ( $categories as $category)
                     <li class="slide" style="cursor: pointer">
                         <a class="side-menu__item p-0" rol="button" wire:click='SelectCat({{$category["id"]}})'>
                             <img src="{{ get_image('tmb/'.$category['image']) }}" alt="..."
                                 style='    width: 70px;
                             height: 70px;object-fit: cover; @if($selected_cat == $category["id"] )  border: 3px solid black;  @endif' class='img-thumbnail rounded-pill'
-                            onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
+                                onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
 
                             <h5> {{ $category['title_tr'] }} </h5>
                         </a>
@@ -116,73 +121,78 @@
             </div>
             <div class="col-md-7 col-12" style="max-height: 88vh;overflow:auto">
                 <div class="row">
-                        @if(count($offers) != 0)
-                        <div class="col-12">
-                                <h3 class="no-background"><span class='h2-span'>offers</span></h3>
-                        </div>
-                        @endif
-                        @foreach ( $offers as $offer)
-                        <div class="col-xl-2  col-md-3 col-6" wire:click='SelectProd({{$offer->id}},1)' style="cursor: pointer">
-                            <div class="card overflow-hidden">
-                                <div style="overflow: hidden;
+                    @if(count($offers) != 0)
+                    <div class="col-12">
+                        <h3 class="no-background"><span class='h2-span'>offers</span></h3>
+                    </div>
+                    @endif
+                    @foreach ( $offers as $offer)
+                    <div class="col-xl-2  col-md-3 col-6" wire:click='SelectProd({{$offer->id}},1)'
+                        style="cursor: pointer">
+                        <div class="card overflow-hidden">
+                            <div
+                                style="overflow: hidden;
                                                 width: 100%;
                                                 height: 150px;
                                                 position:relative;
                                                 @if(in_array('o_'.$offer->id,$selected_products_ids)) border: 4px solid #343a40; @endif">
-                                    <span class="badge badge-dark" role="button"
-                                        style="position: absolute; z-index:10;color:white;top:0px">
-                                        <h5 class="mb-0"><strong>{{ $offer->price}} {{$currency}}</strong></h5>
-                                    </span>
-                                    <div
-                                        style="background-color:rgb(0,0,0,0.5);position: absolute; z-index:10;color:white;bottom:0px;width:100%;height:30%;display: flex;justify-content: center;align-items: center;padding: 5px 5px 5px 5px;">
-                                        <center>
-                                            <h6 class="card-title " style='font-size: 101%;'>{{$offer->title}}</h6>
-                                        </center>
-                                    </div>
-                                    <img src="{{ get_image('tmb/'.$offer->image) }}" lass="card-image1 "
-                                        style='height: 100%;width: 100%;' onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
+                                <span class="badge badge-dark" role="button"
+                                    style="position: absolute; z-index:10;color:white;top:0px">
+                                    <h5 class="mb-0"><strong>{{ $offer->price}} {{$currency}}</strong></h5>
+                                </span>
+                                <div
+                                    style="background-color:rgb(0,0,0,0.5);position: absolute; z-index:10;color:white;bottom:0px;width:100%;height:30%;display: flex;justify-content: center;align-items: center;padding: 5px 5px 5px 5px;">
+                                    <center>
+                                        <h6 class="card-title " style='font-size: 101%;'>{{$offer->title}}</h6>
+                                    </center>
                                 </div>
+                                <img src="{{ get_image('tmb/'.$offer->image) }}" lass="card-image1 "
+                                    style='height: 100%;width: 100%;'
+                                    onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
                             </div>
                         </div>
+                    </div>
 
-                        @endforeach
+                    @endforeach
 
 
-                @foreach ( $categories as $category)
-                        @php
-                            $products_cat = $products->where('product_category_id', $category["id"]) ; 
-                        @endphp
-                        @if(count($products_cat) != 0)
-                        <div class="col-12">
-                                <h3 class="no-background"><span class='h2-span'>{{ $category['title_tr'] }} </span></h3>
-                        </div>
-                        @endif
-                        @foreach ( $products_cat as $product)
+                    @foreach ( $categories as $category)
+                    @php
+                    $products_cat = $products->where('product_category_id', $category["id"]) ;
+                    @endphp
+                    @if(count($products_cat) != 0)
+                    <div class="col-12">
+                        <h3 class="no-background"><span class='h2-span'>{{ $category['title_tr'] }} </span></h3>
+                    </div>
+                    @endif
+                    @foreach ( $products_cat as $product)
 
-                        <div class="col-xl-2  col-md-3 col-6" wire:click='SelectProd({{$product->id}})' style="cursor: pointer">
-                            <div class="card overflow-hidden">
-                                <div style="overflow: hidden;
+                    <div class="col-xl-2  col-md-3 col-6 caise_prod"  style="cursor: pointer" data-id="{{$product->id}}">
+                        <div class="card overflow-hidden">
+                            <div
+                                style="overflow: hidden;
                                                 width: 100%;
                                                 height: 150px;
                                                 position:relative;
                                                 @if(in_array($product->id,$selected_products_ids)) border: 4px solid #343a40; @endif">
-                                    <span class="badge badge-dark" role="button"
-                                        style="position: absolute; z-index:10;color:white;top:0px">
-                                        <h5 class="mb-0"><strong>{{ $product->price}} {{$currency}}</strong></h5>
-                                    </span>
-                                    <div
-                                        style="background-color:rgb(0,0,0,0.5);position: absolute; z-index:10;color:white;bottom:0px;width:100%;height:30%;display: flex;justify-content: center;align-items: center;padding: 5px 5px 5px 5px;">
-                                        <center>
-                                            <h6 class="card-title " style='font-size: 101%;'>{{$product->title }}</h6>
-                                        </center>
-                                    </div>
-                                    <img src="{{ get_image('tmb/'.$product->media[0]->media) }}" lass="card-image1 "
-                                        style='height: 100%;width: 100%;' onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
+                                <span class="badge badge-dark" role="button"
+                                    style="position: absolute; z-index:10;color:white;top:0px">
+                                    <h5 class="mb-0"><strong>{{ $product->price}} {{$currency}}</strong></h5>
+                                </span>
+                                <div
+                                    style="background-color:rgb(0,0,0,0.5);position: absolute; z-index:10;color:white;bottom:0px;width:100%;height:30%;display: flex;justify-content: center;align-items: center;padding: 5px 5px 5px 5px;">
+                                    <center>
+                                        <h6 class="card-title " style='font-size: 101%;'>{{$product->title }}</h6>
+                                    </center>
                                 </div>
+                                <img src="{{ get_image('tmb/'.$product->media[0]->media) }}" lass="card-image1 "
+                                    style='height: 100%;width: 100%;'
+                                    onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
                             </div>
                         </div>
+                    </div>
 
-                        @endforeach
+                    @endforeach
                     @endforeach
 
                 </div>
@@ -192,31 +202,34 @@
                 <div class='collapse_div'>
 
 
-          
+
 
                     @php
-                        krsort($new_orders);
+                    krsort($new_orders);
                     @endphp
                     @foreach ( $new_orders as $order )
                     @php
-                     if(isset($order["offers"])){
-                        if($order["offers"] == null){
-                            $is_offer = 0 ;
-                        }else{
-                            $is_offer = 1 ;
-                        }
-                     }else{
-                        $is_offer = 0 ;
-                     }
-                        
+                    if(isset($order["offers"])){
+                    if($order["offers"] == null){
+                    $is_offer = 0 ;
+                    }else{
+                    $is_offer = 1 ;
+                    }
+                    }else{
+                    $is_offer = 0 ;
+                    }
+
                     @endphp
-                    <div class="list-card pb-0" style="padding: 7px 11px;width: 410px!important;border-top: 2px solid #524f4f;border-bottom: 2px solid #524f4f;border-right: 2px solid #524f4f;border-radius: 0px 20px 20px 0px;"> 
+                    <div class="list-card pb-0"
+                        style="padding: 7px 11px;width: 410px!important;border-top: 2px solid #524f4f;border-bottom: 2px solid #524f4f;border-right: 2px solid #524f4f;border-radius: 0px 20px 20px 0px;">
                         <span class="bg-info list-bar"></span>
-                        <button class='btn btn-info' style='height: 70px;float: left;' wire:click='editOrder({{$order["id"]}},{{$is_offer}})'>
-                            <i  class="fe fe-edit me-1 d-inline-flex"></i>
+                        <button class='btn btn-info' style='height: 70px;float: left;'
+                            wire:click='editOrder({{$order["id"]}},{{$is_offer}})'>
+                            <i class="fe fe-edit me-1 d-inline-flex"></i>
                         </button>
-                        <button class='btn btn-danger' style='height: 70px;float:right' wire:click='deleteOrder({{$order["id"]}})'>
-                            <i  class="fe fe-trash-2 me-1 d-inline-flex"></i>
+                        <button class='btn btn-danger' style='height: 70px;float:right'
+                            wire:click='deleteOrder({{$order["id"]}})'>
+                            <i class="fe fe-trash-2 me-1 d-inline-flex"></i>
                         </button>
                         <div class="row align-items-center">
                             <div class="col-12 pr-0">
@@ -228,20 +241,24 @@
                                             Order ID : {{$order['id']}}
                                         </span>
                                         <div class="p-0" style="float: right;margin-right: 20px; margin-top: 3px;">
-                                            <div class="text-end"> <span class="fw-semibold  fs-16 number-font" >
-                                                    <center><h3 style=" margin: 0;">{{$order['total']  }} {{$currency}}</h3></center>
+                                            <div class="text-end"> <span class="fw-semibold  fs-16 number-font">
+                                                    <center>
+                                                        <h3 style=" margin: 0;">{{$order['total']  }} {{$currency}}</h3>
+                                                    </center>
                                                 </span>
                                             </div>
                                         </div>
                                         <div class="d-md-flex align-items-center mt-1">
-                                            <p class="ml-1 mt-1" style='font-size: 14px;'><strong>{{\Carbon\Carbon::parse($order['created_at'])->format('Y-m-d H:i') }}</strong></p>
+                                            <p class="ml-1 mt-1" style='font-size: 14px;'>
+                                                <strong>{{\Carbon\Carbon::parse($order['created_at'])->format('Y-m-d H:i') }}</strong>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-                      
+
                     </div>
                     @endforeach
                 </div>
@@ -269,7 +286,8 @@
                                             <span class="avatar avatar-rounded border border-warning"
                                                 style="width: 2.3rem;height: 2.3rem;border-radius:50px;    border-radius: 10px">
                                                 <img src="{{ get_image('tmb/'.$product['image']) }}" alt="img"
-                                                    style="    border-radius: 10px;" onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
+                                                    style="    border-radius: 10px;"
+                                                    onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
                                             </span>
                                             <div class="p-0" style="float: right;margin-right: 50px; margin-top: 10px;">
                                                 <div class="text-end"> <span class="fw-semibold  fs-16 number-font">
@@ -328,15 +346,16 @@
                     </div>
                     @else
                     <div class="col-8">
-                        <button class="btn btn-primary btn-lg" style="width:100%" wire:click="confirmPassword('updateOrder')"
-                            id='checkout'>{{$translations['update']}} <i
+                        <button class="btn btn-primary btn-lg" style="width:100%"
+                            wire:click="confirmPassword('updateOrder')" id='checkout'>{{$translations['update']}} <i
                                 class="fe fe-edit-sign me-1 d-inline-flex"></i>
 
                         </button>
                     </div>
                     <div class="col-4">
-                        <button class="btn btn-danger btn-lg" style="width:100%" wire:click="cancelUpdate()">{{$translations['cancel']}}
-                         <i class="fe fe-close-sign me-1 d-inline-flex"></i>
+                        <button class="btn btn-danger btn-lg" style="width:100%"
+                            wire:click="cancelUpdate()">{{$translations['cancel']}}
+                            <i class="fe fe-close-sign me-1 d-inline-flex"></i>
 
                         </button>
                     </div>
@@ -353,31 +372,34 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="scanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" wire:ignore>
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" style='background-color:#705ec8'>
-        <div class="modal-body">
-            <input type="text" id='functionName' class='d-none'>
-            <input type="text" id='functionId' class='d-none'>
-        <center> 
-            <lottie-player src="{{ URL::asset('assets/SVG/code_bar.json') }}"  background="transparent"  speed="0.2"  style="width:250px;margin-top:-30px"  loop  autoplay></lottie-player> 
-            <h4 style='color:white ; margin-top: -39px;'>Please Scan your Cart!</h4>
-        </center>
-        </div>
-        <div class="modal-footer border-0" style='    justify-content: center;'>
-            
-            <button type="button" tabindex="-1"  class="btn btn-light mr-6" id='scanToPassword'>Use Password</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <div class="modal fade" id="scanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true" wire:ignore>
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style='background-color:#705ec8'>
+                <div class="modal-body">
+                    <input type="text" id='functionName' class='d-none'>
+                    <input type="text" id='functionId' class='d-none'>
+                    <center>
+                        <lottie-player src="{{ URL::asset('assets/SVG/code_bar.json') }}" background="transparent"
+                            speed="0.2" style="width:250px;margin-top:-30px" loop autoplay></lottie-player>
+                        <h4 style='color:white ; margin-top: -39px;'>Please Scan your Cart!</h4>
+                    </center>
+                </div>
+                <div class="modal-footer border-0" style='    justify-content: center;'>
 
+                    <button type="button" tabindex="-1" class="btn btn-light mr-6" id='scanToPassword'>Use
+                        Password</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
         </div>
-        </div>
-    </div>
     </div>
 
 
     <a href="#" class="d-none " id='wait_print'></a>
 
-                
+
 
 </div>
 @section('js')
@@ -394,10 +416,15 @@
 $(document).ready(function() {
 
 
+    $(document).on("click",'.caise_prod', function(event) {
+        Livewire.emit('SelectProd', $(this).data('id'));
+    });
+
+
     $("#collapse_div_show").on("click", function(event) {
         $('.collapse_div').addClass("collapse_div_show");
         $('.collapse_div_hover').removeClass("d-none");
-        
+
         setTimeout(() => {
             $('.collapse_div_hover').addClass("collapse_div_hover_opacity");
         }, 100);
@@ -408,7 +435,7 @@ $(document).ready(function() {
     $("#collapse_div_close").on("click", function(event) {
         $('.collapse_div').removeClass("collapse_div_show");
         $('.collapse_div_hover').removeClass("collapse_div_hover_opacity");
-        
+
         setTimeout(() => {
             $('.collapse_div_hover').addClass("d-none");
         }, 1000);
@@ -418,11 +445,7 @@ $(document).ready(function() {
     window.addEventListener('pdfRendered', event => {
 
 
-        var url = event.detail.url;
-
-        $("#wait_print").attr("href", url);
-
-        $('#wait_print').addClass("print_python");
+        console.log('asdasd')
 
         // var pdfData = event.detail.pdfData;
         // // Decode the base64 string to binary data
@@ -440,9 +463,7 @@ $(document).ready(function() {
         // var url = URL.createObjectURL(blob);
 
 
-        ////////////////////////////////////////////
-
-
+        // //////////////////////////////////////////
 
         // // Open a new window and write an iframe to display the PDF
         // var win = window.open("", "_blank");
@@ -450,34 +471,48 @@ $(document).ready(function() {
         // win.focus();
 
 
-        // var pdfData = event.detail.pdfData;
+        var pdfData = event.detail.pdfData;
 
-        // // Decode the base64 string to binary data
-        // var binary = atob(pdfData);
-        // var len = binary.length;
-        // var buffer = new ArrayBuffer(len);
-        // var view = new Uint8Array(buffer);
+        // Decode the base64 string to binary data
+        var binary = atob(pdfData);
+        var len = binary.length;
+        var buffer = new ArrayBuffer(len);
+        var view = new Uint8Array(buffer);
 
-        // for (var i = 0; i < len; i++) {
-        //     view[i] = binary.charCodeAt(i);
-        // }
+        for (var i = 0; i < len; i++) {
+            view[i] = binary.charCodeAt(i);
+        }
 
-        // // Create a Blob object from the binary data
-        // var blob = new Blob([view], { type: 'application/pdf' });
-        // var url = URL.createObjectURL(blob);
+        // Create a Blob object from the binary data
+        var blob = new Blob([view], { type: 'application/pdf' });
+        var url = URL.createObjectURL(blob);
 
-        // // Create an iframe to embed the PDF
-        // var iframe = document.createElement('iframe');
-        // iframe.style.display = 'none';
-        // iframe.src = url;
-        // document.body.appendChild(iframe);
+        // Create an iframe to embed the PDF
+        var iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = url;
+        document.body.appendChild(iframe);
 
-        // iframe.onload = function() {
-        //     // Wait for the iframe to load, then trigger the print dialog
-        //     iframe.contentWindow.print();
-        // };
+        iframe.onload = function() {
+            // Wait for the iframe to load, then trigger the print dialog
+            iframe.contentWindow.print();
+        };
 
     });
+
+
+    window.addEventListener('pdfRenderedPrint', event => {
+
+
+        var url = event.detail.url;
+
+        $("#wait_print").attr("href", url);
+
+        $('#wait_print').addClass("print_python");
+
+
+    });
+
 
 
     window.addEventListener('swip', event => {
@@ -593,91 +628,91 @@ $(document).ready(function() {
 
     window.addEventListener('confirmPassword', event => {
 
-            // Get the modal
+        // Get the modal
 
         //////////////////////////////////// password 
-        function password(){
-                Swal.fire({
+        function password() {
+            Swal.fire({
                 title: "Submit your password",
 
                 html: `
                     <center> <lottie-player src="{{ URL::asset('assets/SVG/password.json') }}"  background="transparent"  speed="0.2"  style="width:250px;margin-top:-30px"  loop  autoplay></lottie-player> </center>
                 `,
 
-            input: "password",
-            showCancelButton: true,
-            confirmButtonText: "Next",
-            confirmButtonColor:'#7066e0',
-            customClass: {
-                popup: 'swal2-custom-zindex' // Apply the custom z-index class
-            },
+                input: "password",
+                showCancelButton: true,
+                confirmButtonText: "Next",
+                confirmButtonColor: '#7066e0',
+                customClass: {
+                    popup: 'swal2-custom-zindex' // Apply the custom z-index class
+                },
             }).then((result) => {
-            if (result.isConfirmed) {
-                
-                try {
-                    $.ajax({
-                        url: '{{ route("check_admin_password") }}',
-                        method: 'POST',
-                        data :{
-                            _token: '{{ csrf_token() }}', // CSRF token
-                            password: result.value,
-                        
-                        },
-                        success: function(response) {
-                        if(response.data == -1){
-                            Swal.fire({
-                                title: "Incorrect Password!",
-                                text: "Please Try Again",
-                                icon: "error"
-                                });
-                        }else{
-                                data = {
-                                val: event.detail.id,
-                                id: response.data,
-                                name: response.name
+                if (result.isConfirmed) {
+
+                    try {
+                        $.ajax({
+                            url: '{{ route("check_admin_password") }}',
+                            method: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}', // CSRF token
+                                password: result.value,
+
+                            },
+                            success: function(response) {
+                                if (response.data == -1) {
+                                    Swal.fire({
+                                        title: "Incorrect Password!",
+                                        text: "Please Try Again",
+                                        icon: "error"
+                                    });
+                                } else {
+                                    data = {
+                                        val: event.detail.id,
+                                        id: response.data,
+                                        name: response.name
+                                    }
+                                    Livewire.emit(event.detail.function, data);
+
                                 }
-                                Livewire.emit(event.detail.function,data);
-
-                        }
-                        },
-                        error: function(err) {
-                            Swal.fire({
-                                title: "Incorrect Password!",
-                                text: "Please Try Again",
-                                icon: "error"
+                            },
+                            error: function(err) {
+                                Swal.fire({
+                                    title: "Incorrect Password!",
+                                    text: "Please Try Again",
+                                    icon: "error"
                                 });
-                        }
-                    });
+                            }
+                        });
 
 
-                } catch (error) {
-                    Swal.fire({
-                                title: "Incorrect Password!",
-                                text: "Please Try Again",
-                                icon: "error"
-                                });
+                    } catch (error) {
+                        Swal.fire({
+                            title: "Incorrect Password!",
+                            text: "Please Try Again",
+                            icon: "error"
+                        });
+                    }
+
+
                 }
-
-
-            }
             });
         }
 
         //////////////////////////////////////////////////// scamner
 
-        function scanner(){
+        function scanner() {
 
 
-             $('#functionName').val(event.detail.function);
-             $('#functionId').val(event.detail.id);
-            
-             $('#scanModal').modal("show");
+            $('#functionName').val(event.detail.function);
+            $('#functionId').val(event.detail.id);
 
-             $("#scanToPassword").on("click", function(event) {
+            $('#scanModal').modal("show");
+
+            $("#scanToPassword").on("click", function(event) {
                 $('#scanModal').modal("hide");
-                
+
                 password()
-             });
+            });
 
         }
 
@@ -688,7 +723,7 @@ $(document).ready(function() {
     window.addEventListener('close_modal', event => {
         $('#scanModal').modal("hide");
     });
-    
+
     var modalScan = document.getElementById('scanModal');
 
 
@@ -703,8 +738,5 @@ $(document).ready(function() {
 
 
 });
- 
-
-
 </script>
 @endsection
