@@ -201,7 +201,7 @@ class AdminSecurityCode extends Component
     public function TestCOde(){
             
         do {
-            $code = rand(10000000000, 99999999999);
+            $code = rand(1000000000000, 9999999999999);
         } while (StoreStafPassword::where('code', $code)->exists());
         
 
