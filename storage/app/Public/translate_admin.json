@@ -1246,8 +1246,8 @@
     "cant_enable_double_auth": {
         "en": "You Can't enable double auth because you need unless one active profile!"
     },
-    "": {
-        "en": ""
+    "menu_header": {
+        "en": "Menu Header"
     },
     "": {
         "en": ""

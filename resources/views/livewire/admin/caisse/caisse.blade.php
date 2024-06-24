@@ -444,33 +444,6 @@ $(document).ready(function() {
     });
     window.addEventListener('pdfRendered', event => {
 
-
-        console.log('asdasd')
-
-        // var pdfData = event.detail.pdfData;
-        // // Decode the base64 string to binary data
-        // var binary = atob(pdfData);
-        // var len = binary.length;
-        // var buffer = new ArrayBuffer(len);
-        // var view = new Uint8Array(buffer);
-
-        // for (var i = 0; i < len; i++) {
-        //     view[i] = binary.charCodeAt(i);
-        // }
-
-        // // Create a Blob object from the binary data
-        // var blob = new Blob([view], { type: 'application/pdf' });
-        // var url = URL.createObjectURL(blob);
-
-
-        // //////////////////////////////////////////
-
-        // // Open a new window and write an iframe to display the PDF
-        // var win = window.open("", "_blank");
-        // win.document.write("<iframe src='" + url + "' width='100%' height='100%'></iframe>");
-        // win.focus();
-
-
         var pdfData = event.detail.pdfData;
 
         // Decode the base64 string to binary data
@@ -516,44 +489,6 @@ $(document).ready(function() {
 
 
     window.addEventListener('swip', event => {
-
-        // $(".list-card").each(function() {
-        //     var hammer = new Hammer(this);
-
-        //     hammer.on("swipe", function(event) {
-        //         if (event.direction === Hammer.DIRECTION_RIGHT) {
-        //             $(this).addClass("swiped");
-
-        //         } else if (event.direction === Hammer.DIRECTION_LEFT) {
-        //             $(this).removeClass("swiped");
-
-        //         }
-        //     });
-        // });
-
-        // $(".list-card").draggable({
-        //     // axis: "x", // Allow dragging only along the horizontal axis
-        //     containment: "parent", // Restrict movement within the parent container
-        //     start: function(event, ui) {
-        //         // Add a class to the card when dragging starts
-        //         $(this).addClass("dragging");
-        //     },
-        //     stop: function(event, ui) {
-        //         // Remove the dragging class when dragging stops
-        //         $(this).removeClass("dragging");
-
-        //         // If the card is swiped enough to the right, mark as swiped
-        //         if (ui.position.left > $(this).width() / 2) {
-        //             $(this).addClass("swiped");
-
-        //         } else {
-        //             $(this).removeClass("swiped");
-        //         }
-
-        //         // Reset the card's position
-        //         $(this).css({ left: 0 });
-        //     }
-        // });
 
         // Variables to store the initial touch position
         let initialX = null;
@@ -603,14 +538,6 @@ $(document).ready(function() {
                 $(this).remove();
                 Livewire.emit('RemoveProd', id);
             }
-
-            // if (deltaX > $(this).width() / 2) {
-            //     $(this).addClass("swiped");
-
-            // }
-            //  else {
-            //     $(this).removeClass("swiped");
-            // }
 
             $(this).css({
                 transform: "translateX(0)"

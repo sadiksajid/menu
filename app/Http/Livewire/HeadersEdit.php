@@ -12,6 +12,14 @@ class HeadersEdit extends Component
 {
     use WithFileUploads;
 
+    public $menu;
+    public $titles_menu;
+    public $images_menu;
+    public $texts_menu;
+
+
+
+
     public $shop;
     public $titles_shop;
     public $images_shop;
@@ -68,9 +76,10 @@ class HeadersEdit extends Component
 
         $this->store_id = Auth::user()->store_id;
         $this->store_info = Auth::user()->store;
-        $this->data = Index::where('store_id', $this->store_id)->whereIn('name', ['shop1', 'offers1', 'orders1', 'cart1', 'checkout1', 'competition_header1', 'competition_home1'])->get();
+        $this->data = Index::where('store_id', $this->store_id)->whereIn('name', ['menu1','shop1', 'offers1', 'orders1', 'cart1', 'checkout1', 'competition_header1', 'competition_home1'])->get();
 
         if (!empty($this->data)) {
+            $this->menu = $this->data->where('name', 'menu1')->first();
             $this->shop = $this->data->where('name', 'shop1')->first();
             $this->offers = $this->data->where('name', 'offers1')->first();
             $this->orders = $this->data->where('name', 'orders1')->first();
@@ -80,6 +89,30 @@ class HeadersEdit extends Component
             $this->competition_home = $this->data->where('name', 'competition_home1')->first();
 
         }
+
+        /////////////  shop
+
+        if (!empty($this->menu)) {
+
+            $titles_menu = $this->menu->getTranslation('titles', 'en');
+            $this->titles_menu = json_decode($titles_menu, true);
+
+            $this->titles_menu = $this->titles_menu['title-1'] ?? '';
+            $this->old_data['titles_menu'] = $this->titles_menu ?? '';
+
+            $texts_menu = $this->menu->getTranslation('texts', 'en');
+            $this->texts_menu = json_decode($texts_menu, true);
+
+            $this->texts_menu = $this->texts_menu['texts-1'] ?? '';
+            $this->old_data['texts_menu'] = $this->texts_menu ?? '';
+
+            $this->images_menu = $this->menu->images;
+            $this->images_menu = json_decode($this->images_menu, true);
+            $this->images_menu = $this->images_menu['img_1'] ?? null;
+
+        }
+
+
 
         /////////////  shop
 
@@ -216,6 +249,12 @@ class HeadersEdit extends Component
         if ($this->to_delete_image_edit != -1) {
             $this->offer_image_deleted[] = $index;
             switch ($index) {
+                case 'menu':
+                    deleteFile($this->images_menu);
+                    $this->menu->images = '' ;
+                    $this->menu->save() ;
+                    $this->images_menu = '';
+                    break;
                 case 'shop':
                     deleteFile($this->images_shop);
                     $this->shop->images = '' ;
@@ -267,6 +306,57 @@ class HeadersEdit extends Component
 
     public function Update()
     {
+
+         ////////////////////// menu
+         if (!empty($this->upload_image['menu'])) {
+            $img_link = 'menu1_' . md5(microtime()) . '.webp';
+            $image = File::get($this->upload_image['menu']->getRealPath());
+            $save_result = save_livewire_filetocdn($image, 'web_headers/menu1', $img_link);
+            $img_link = 'web_headers/menu1/' . $img_link;
+
+            if ($save_result) {
+                $images['img_1'] = $img_link;
+            }
+
+        }
+
+        if (!isset($this->old_data['titles_menu'])) {
+
+            $menu = new Index();
+            $menu->language = 'EN';
+            $menu->name = 'menu1';
+
+        } elseif ($this->old_data['titles_menu'] != $this->titles_menu or $this->old_data['texts_menu'] != $this->texts_menu or !empty($this->upload_image['menu'])) {
+            $menu = Index::where('store_id', $this->store_id)->where('name', 'menu1')->first();
+
+        }
+        if (isset($menu)) {
+
+            $titles = [];
+            $texts = [];
+
+            foreach ($this->langs as $lang) {
+                if ($lang == 'en') {
+                    $titles['en']['title-1'] = $this->titles_menu;
+                    $texts['en']['texts-1'] = $this->texts_menu;
+                } else {
+                    $titles[$lang]['title-1'] = translate($this->titles_menu, $lang);
+                    $texts[$lang]['texts-1'] = translate($this->texts_menu, $lang);
+                }
+
+                $menu->setTranslation('titles', $lang, json_encode($titles[$lang], JSON_UNESCAPED_UNICODE));
+                $menu->setTranslation('texts', $lang, json_encode($texts[$lang], JSON_UNESCAPED_UNICODE));
+
+            }
+
+            if (isset($images['img_1'])) {
+                $menu->images = json_encode($images);
+            }
+            $menu->store_id = $this->store_id;
+            $menu->save();
+        }
+
+
         ////////////////////// shop
         if (!empty($this->upload_image['shop'])) {
             $img_link = 'shop1_' . md5(microtime()) . '.webp';

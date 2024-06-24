@@ -86,7 +86,6 @@
             if (event.key === 'Enter') {
                 event.preventDefault(); // Prevent the default action
             }
-            console.log(event)
             getkey(event,false); // Call getkey function
 
         } 

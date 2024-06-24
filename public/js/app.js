@@ -47610,7 +47610,6 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * console.log(array);
      * // => [1, 3]
      *
-     * console.log(evens);
      * // => [2, 4]
      */
     function remove(array, predicate) {

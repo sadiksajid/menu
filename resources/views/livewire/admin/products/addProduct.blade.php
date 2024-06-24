@@ -61,7 +61,7 @@
                                                     <select class="form-control" wire:model="category_id">
                                                         @foreach ($categories as $category)
                                                             <option value="{{ $category['id'] }}">
-                                                                {{ $category['title'] }}
+                                                                 {{ $category['title_tr'] }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -220,7 +220,7 @@
                                                                     title=""
                                                                     data-original-title="fa fa-times"></i></button>
                                                         @endif
-                                                        <img src="{{ get_image($image->media) }}"
+                                                        <img src="{{ get_image('tmb/'.$image->media) }}"
                                                             style="height: 100%;width:100%">
 
                                                     </div>

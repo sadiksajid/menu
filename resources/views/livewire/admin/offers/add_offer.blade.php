@@ -140,7 +140,7 @@
 
                             </div>
                         </div>
-                        <div class="col-12">
+                        <div class="col-md-6  col-12">
                             <div class="e-panel card">
                                 <div class="card-body">
                                     <div class="row">
@@ -202,7 +202,7 @@
                                         @else
                                             <div class="col-12">
 
-                                                <div class="dropify-wrapper" style="height: 30vw">
+                                                <div class="dropify-wrapper" >
 
                                                     <img src="{{ URL::asset('assets/images/small_site_logo.png') }}"
                                                         style="height: 100%;width:100%">
@@ -222,7 +222,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12">
+                        <div class="col-md-6  col-12">
                             <div class="e-panel card">
                                 <div class="card-body">
                                     <div class="row">
@@ -284,7 +284,7 @@
                                         @else
                                             <div class="col-12">
 
-                                                <div class="dropify-wrapper" style="height: 30vw">
+                                                <div class="dropify-wrapper">
 
                                                     <img src="{{ URL::asset('assets/images/small_site_logo.png') }}"
                                                         style="height: 100%;width:100%">
@@ -330,7 +330,7 @@
                                 </div>
                             </div>
 
-                            <div class="row p1-3" style="overflow: auto;max-height: 129vh">
+                            <div class="row p1-3" style="overflow: auto;max-height: 70vh">
 
                                 @foreach ( $products as $product)
                                 @if(!in_array($product->id,$selected_products))
@@ -382,10 +382,18 @@
                             <div class="col-sm-12 col-md-12">
                                 @if($editOffer)
                                 <button type="button" class="btn btn-primary"
-                                    wire:click.prevent="updateOffer()">{{ $translations['update'] }}</button>
+                                    wire:click.prevent="updateOffer()">{{ $translations['update'] }}
+                                    <div class="spinner-border text-light" role="status" style='width:20px;height:20px' wire:loading>
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </button>
                                 @else
                                 <button type="button" class="btn btn-primary"
-                                    wire:click.prevent="submitOffer()">{{ $translations['save'] }}</button>
+                                    wire:click.prevent="submitOffer()">{{ $translations['save'] }}
+                                    <div class="spinner-border text-light" role="status" style='width:20px;height:20px' wire:loading>
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </button>
                                 @endif
                                 <button type="button" class="btn btn-danger"
                                     wire:click.prevent="cancel()">{{ $translations['cancel'] }}</button>
