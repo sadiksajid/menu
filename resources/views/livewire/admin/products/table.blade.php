@@ -2,7 +2,7 @@
     <div class="container-fluid mb-3">
         <div class="col-md-3 col-6 ">
         <div class='row'>
-            <<div class="col-md-2 col-1 ">
+            <div class="col-md-2 col-1 ">
                 <a href="/admin/products/addProduct">
                     <button class="btn btn-info">{{ $translations['new_product'] }}</button>
                 </a>
@@ -24,7 +24,7 @@
                             wire:click='clearSearch'><i class="fa fa-close text-white-50"></i></button>
                         @endif
                         <input type="text" class="form-control"
-                            placeholder="Recipient's username" aria-label="Recipient's username"
+                            placeholder="Search ..." aria-label="Search ..."
                             aria-describedby="button-addon2" wire:model.defer='search_products'> 
                             <button class="btn btn-primary" type="button"
                             id="button_saerch"><i class="fa fa-search text-white-50"></i></button> 
@@ -73,7 +73,9 @@
                 </div>
             @endforeach
         </div>
+        <center>
         {{$products->links()}}
+        </center>
 
     </div>
 </div>

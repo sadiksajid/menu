@@ -63,8 +63,7 @@
    
 
 
-    <div wire:ignore class="hero_single inner_pages background-image"
-        @if (isset($images['img_1']))   data-background="get_image($images['img_1'])" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif
+    <div wire:ignore class="hero_single inner_pages background-image" @if (isset($images['img_1']))   data-background="get_image($images['img_1'])" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif
         style="position: relative  ;  " >
 
             <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">

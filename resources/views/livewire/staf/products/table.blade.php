@@ -23,7 +23,7 @@
                             wire:click='clearSearch'><i class="fa fa-close text-white-50"></i></button>
                         @endif
                         <input type="text" class="form-control"
-                            placeholder="Recipient's username" aria-label="Recipient's username"
+                            placeholder="Search ..." aria-label="Search ..."
                             aria-describedby="button-addon2" wire:model.defer='search_products'> 
                             <button class="btn btn-primary" type="button"
                             id="button_saerch"><i class="fa fa-search text-white-50"></i></button> 
@@ -82,7 +82,7 @@
             </div>
             @endforeach
         </div>
-        {{$products->links()}}
+        <center>{{$products->links()}}</center>
 
     </div>
 </div>

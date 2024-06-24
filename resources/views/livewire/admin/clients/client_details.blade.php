@@ -132,7 +132,7 @@
 
                                                                     <td class="tx-center">
                                                                         <img style='width:50px;height:50px'
-                                                                            src="{{ get_image($product->product->media[0]->media ?? null  )}} ">
+                                                                            src="{{ get_image('tmb/'.$product->product->media[0]->media ?? null  )}} ">
                                                                     </td>
 
                                                                     <td class="tx-center">

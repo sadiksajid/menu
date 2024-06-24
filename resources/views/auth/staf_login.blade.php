@@ -61,11 +61,11 @@
                                                 <div class="col-12">
                                                     <button type="submit" class="btn   btn-block px-4" style="background-color:#117AA1;color:white">Login</button>
                                                 </div>
-                                                <div class="col-12 text-center">
+                                                <!-- <div class="col-12 text-center">
                                                     @if (Route::has('password.request'))
                                                         <a href="{{ route('password.request') }}" class="btn btn-link box-shadow-0 px-0 text-white-80">Forgot password?</a>
                                                     @endif
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
