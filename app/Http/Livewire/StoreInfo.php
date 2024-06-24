@@ -18,6 +18,8 @@ class StoreInfo extends Component
     public $store_info;
     public $store_id;
     public $title;
+    public $store_meta;
+
     public $s_title;
     public $description;
     public $logo = '';
@@ -45,6 +47,16 @@ class StoreInfo extends Component
     public $shipping;
     public $preorder;
     public $post_code;
+    public $country_code;
+
+    public $phone;
+    public $phone2;
+
+    public $email;
+    public $tiktok;
+    public $facebook;
+    public $instagram;
+
 //////////////////////////////colors
 
     public $btn_color;
@@ -86,8 +98,12 @@ class StoreInfo extends Component
 
         $this->translations = app('translations_admin');
         ///////////////////////////////////
-        $this->store_id = Auth::user()->store_id;
-        $this->regions = Region::orderBy('region', 'ASC')->get();
+        $store = Auth::user()->store ;
+        $this->store_id = $store->id;
+        $this->country_code = $store->country_code ;
+        if($store->country == 'Morocco'){
+            $this->regions = Region::orderBy('region', 'ASC')->get();
+        }
         $this->editStoreInfo();
     }
     public function render()
@@ -123,10 +139,12 @@ class StoreInfo extends Component
             'change_type' => 'Store',
             'change_lo' => $this->longitude,
             'change_la' => $this->latitude,
-            'map_height' => 500,
+            'map_height' => '500px',
             'pick' => true,
         ];
-
+        $this->dispatchBrowserEvent('StoreInfoModal', [
+            'status' => 'show',
+        ]);
         $this->dispatchBrowserEvent('maps:lib', $data);
 
     }
@@ -136,6 +154,8 @@ class StoreInfo extends Component
 
         $this->store_info = Store::find($this->store_id);
         $this->title = $this->store_info->title;
+        $this->store_meta = $this->store_info->store_meta;
+
         $this->s_title = $this->store_info->s_title;
         $this->description = $this->store_info->description;
         $this->logo = $this->store_info->logo;
@@ -145,10 +165,15 @@ class StoreInfo extends Component
         $this->address = $this->store_info->address;
         $this->city_id = $this->store_info->city_id;
         $this->region_id = $this->store_info->city->province->region->id ?? null;
-        $this->getCity();
+
+        if(!empty($this->regions)){
+            $this->getCity();
+        }
+
         $this->quartier_id = $this->store_info->quartier_id;
         $this->quartier = $this->store_info->quartier->quartier ?? null;
         $this->post_code = $this->store_info->quartier->code_postal ?? null;
+        $this->city = $this->store_info->city ?? null;
 
         $this->quartier_fix = $this->quartier;
         $this->longitude = $this->store_info->longitude;
@@ -158,38 +183,74 @@ class StoreInfo extends Component
         $this->text_color = $this->store_info->text_color;
         $this->background_color = $this->store_info->background_color;
 
+        $this->phone = $this->store_info->phone;
+        $this->phone2 = $this->store_info->phone2;
+        $this->email = $this->store_info->email;
+        $this->tiktok = $this->store_info->tiktok;
+        $this->facebook = $this->store_info->facebook;
+        $this->instagram = $this->store_info->instagram;
+
     }
 
     public function updateInfo()
     {
 
+        if(!empty($this->regions)){
+            
+            $this->validate([
+                'city_id' => 'required|integer|max:99999',
+                'quartier_fix' => 'nullable|string|max:50',
+            ]);
+        }else{
+            $this->validate([
+                'city' => 'required|string|max:50',
+            ]);
+        }
+
+
         $this->validate([
             'title' => 'required|string|max:100',
             's_title' => 'nullable|string|max:200',
+
             'description' => 'required|string|max:15000',
             'status' => 'required|boolean',
             'shipping' => 'required|boolean',
             'preorder' => 'required|boolean',
+            'post_code' => 'required|integer|max:99999',
+            'quartier' => 'required|string|max:50',
 
-            'city_id' => 'required|integer|max:99999',
-            'quartier' => 'nullable|string|max:50',
-            'post_code' => 'nullable|integer|max:99999',
-            'quartier_fix' => 'nullable|string|max:50',
             'address' => 'required|string|max:250',
+            'phone' => 'required|string|max:30',
+            'phone2' => 'nullable|string|max:30',
+            'email' => 'nullable|email|max:30',
+            'tiktok' => 'nullable|string|max:150',
+            'facebook' => 'nullable|string|max:150',
+            'instagram' => 'nullable|string|max:150',
 
-            'btn_color' => 'required|string|max:20',
-            'text_color' => 'required|string|max:20',
-            'background_color' => 'required|string|max:20',
 
-            'longitude' => 'required|numeric|max:999',
-            'latitude' => 'required|numeric|max:999',
+            'btn_color' => 'nullable|string|max:20',
+            'text_color' => 'nullable|string|max:20',
+            'background_color' => 'nullable|string|max:20',
+
+            'longitude' => 'nullable|numeric|max:999',
+            'latitude' => 'nullable|numeric|max:999',
 
             'edit_logo' => 'nullable|image|mimes:jpg,jpeg,png,svg,gif,webp|max:2048',
         ]);
 
         $this->store_info = Store::find($this->store_id);
 
+        if( $this->store_meta != $this->store_info->store_meta){
+            $this->validate([
+                'store_meta' => 'required|string|max:50|unique:stores,store_meta',
+            ]);
+            $this->store_info->store_meta = $this->store_meta;
+
+        }
+
+
         $this->store_info->title = $this->title;
+
         $this->store_info->s_title = $this->s_title;
         $this->store_info->description = $this->description;
         $this->store_info->status = $this->status;
@@ -199,6 +260,13 @@ class StoreInfo extends Component
         $this->store_info->city_id = $this->city_id;
         $this->store_info->longitude = $this->longitude;
         $this->store_info->latitude = $this->latitude;
+        $this->store_info->phone = $this->phone;
+        $this->store_info->phone2 = $this->phone2;
+        $this->store_info->email = $this->email;
+        $this->store_info->tiktok = $this->tiktok;
+        $this->store_info->facebook = $this->facebook;
+        $this->store_info->instagram = $this->instagram;
+
 
         $this->store_info->btn_color = $this->btn_color;
         $this->store_info->text_color = $this->text_color;

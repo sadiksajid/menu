@@ -46,23 +46,31 @@ class AdminDashboard extends Component
         $this->yasterday = Carbon::today()->subDays(1)->format('Y-m-d');
         $this->store_info = Auth::user()->store;
 
-        if (isset($this->store_info->currency)) {
-            $this->currency = Currencies::getSymbol($this->store_info->currency);
-        } else {
-            $this->currency = 'DH';
+
+        if ($this->store_info->first_run == 1){
+            if (isset($this->store_info->currency)) {
+                $this->currency = Currencies::getSymbol($this->store_info->currency);
+            } else {
+                $this->currency = 'DH';
+            }
+            $this->getOrdersCounts();
+            $this->getViews();
+            $this->getClientsCounts();
+            $this->getOrders();
+            $this->getTopProducts();
+            $this->getTopOffers();
         }
-        $this->getOrdersCounts();
-        $this->getViews();
-        $this->getClientsCounts();
-        $this->getOrders();
-        $this->getTopProducts();
-        $this->getTopOffers();
+
 
     }
     public function render()
     {
-        return view('livewire.admin.dashboard.dashboard');
+        if ($this->store_info->first_run == 1){
+            return view('livewire.admin.dashboard.dashboard');
+        }else{
+            return view('livewire.admin.dashboard.first_steps');
 
+        }
     }
     public function getOrders()
     {

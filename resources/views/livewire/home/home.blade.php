@@ -1,9 +1,22 @@
 <div>
+
+<style>
+    @media (max-width: 1340px) {
+        .center_mobile {
+            text-align: center;
+            width: 100%;
+        }
+        .riverce{
+            flex-direction: row!important;
+        }
+    }
+</style>
+
     <div id="content">
         <div class="slider-block style-one">
             <div class="slider-main">
                 <div class="container">
-                    <div class="row">
+                    <div class="row center_mobile">
                         <div class="col-xl-6">
                             <div class="text-content">
                                 <div class="heading1 scroll-bottom-to-top2">{{ $translations['title1'] ?? 'text'}}</div>
@@ -113,26 +126,16 @@
         <div class="about-us style-one pt-100 pb-100 bg-black-surface">
             <div class="container pb-60">
                 <div class="row row-gap-40 flex-between">
-                    <div class="col-12 col-lg-5 flex-column row-gap-20">
+                    <div class="col-12 col-lg-5 flex-column row-gap-20 center_mobile">
                         <div class="heading3">{{ $translations['Feature1_title'] ?? 'text'}}</p>
                         </div>
                         <div class="body2 text-placehover mt-16">{{ $translations['Feature1_text'] ?? 'text'}}</div>
-                        <!-- <div class="list-service mt-32">
-            <div class="service-item flex-item-center scroll-right-to-left1"><i class="ph-bold ph-check text-blue fs-24"> </i>
-              <div class="heading7 pl-12">Free Live Chat Software</div>
-            </div>
-            <div class="service-item flex-item-center mt-12 scroll-right-to-left2"><i class="ph-bold ph-check text-blue fs-24"> </i>
-              <div class="heading7 pl-12">Real Time Language Translation</div>
-            </div>
-            <div class="service-item flex-item-center mt-12 scroll-right-to-left3"><i class="ph-bold ph-check text-blue fs-24"> </i>
-              <div class="heading7 pl-12">Free Question</div>
-            </div>
-          </div> -->
+           
                         <div class="button-block mt-32"><a class="button button-blue-hover" href="about.html"><span>
                                     <span></span></span><span class="pt-16 pb-16 bg-blue">Find out more<i
                                         class="ph-bold ph-arrow-up-right fs-18 flex-center"></i></span></a></div>
                     </div>
-                    <div class="col-12 col-xl-6">
+                    <div class="col-12 col-xl-6 center_mobile">
                         <div class="bg w-100 h-100"></div>
                         <div class="bg-img"><img src="assets_home/images/components/avatar-about1-1.png" alt="" />
                             <svg xmlns="http://www.w3.org/2000/svg" width="66" height="68" viewbox="0 0 66 68"
@@ -156,7 +159,7 @@
         </div>
         <div class="about-us-reflex style-one pt-100 pb-100 bg-black-surface">
             <div class="container pb-60">
-                <div class="row row-gap-40 flex-between">
+                <div class="row row-gap-40 flex-between riverce">
 
                     <div class="col-12 col-xl-6">
                         <div class="bg w-100 h-100"></div>
@@ -179,7 +182,7 @@
                     </div>
 
 
-                    <div class="col-12 col-lg-5 flex-column row-gap-20">
+                    <div class="col-12 col-lg-5 flex-column row-gap-20 center_mobile">
                         <div class="heading3">{{ $translations['Feature2_title'] ?? 'text'}}</p>
                         </div>
                         <div class="body2 text-placehover mt-16">{{ $translations['Feature2_text'] ?? 'text'}}</div>
@@ -193,10 +196,10 @@
                 </div>
             </div>
         </div>
-        <div class="about-us style-one pt-100 pb-100 bg-black-surface">
+        <div class="about-us style-one pt-100 pb-100 bg-black-surface ">
             <div class="container pb-60">
                 <div class="row row-gap-40 flex-between">
-                    <div class="col-12 col-lg-5 flex-column row-gap-20">
+                    <div class="col-12 col-lg-5 flex-column row-gap-20 center_mobile">
                         <div class="heading3">{{ $translations['Feature3_title'] ?? 'text'}}</p>
                         </div>
                         <div class="body2 text-placehover mt-16">{{ $translations['Feature3_text'] ?? 'text'}}</div>

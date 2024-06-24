@@ -60,9 +60,23 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
+        $pattern = '/[^a-z0-9_]/';
+    
+        // Replace all matched characters with an empty string
+        $name = preg_replace($pattern, '_', strtolower($data['store_name'])); 
+
+        do {
+            $name = str_replace('__','_', $name);
+        } while (str_contains($name,'__'));
+
+        $data['store_meta'] = $name;
+
+        
         $validation = Validator::make($data, [
             'fullname' => ['required', 'string', 'max:50'],
             'country_code' => ['required', 'string', 'max:10'],
+            'store_name' => ['required', 'string', 'max:300'],
             'store_meta' => ['required', 'string', 'max:50', 'unique:stores'],
             'telephone' => ['required', 'string', 'max:50', 'unique:store_admins', new NotEqualToNone],
             'phone_code' => ['required', 'string', 'max:5'],
@@ -81,14 +95,40 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $country = Country::where('iso',strtoupper($data['country_code']))->first();
-        $store = Store::create([
-            'store_meta' => $data['store_meta'],
-            'phone' => $data['telephone'],
-            // 'emial' => $data['email'],
-            'country' => $country->name,
-            'country_id' => $country->id ,
-            'currency' => $country->currency,
-        ]) ; 
+
+
+
+        $pattern = '/[^a-z0-9_]/';
+    
+        // Replace all matched characters with an empty string
+        $name = preg_replace($pattern, '_', strtolower($data['store_name'])); 
+
+        do {
+            $name = str_replace('__','_', $name);
+        } while (str_contains($name,'__'));
+
+
+
+        // $store = Store::create([
+        //     'title' => $data['store_name'],
+        //     'store_meta' => $data['store_meta'],
+        //     'phone' => $data['telephone'],
+        //     'country' => $country->name,
+        //     'country_id' => $country->id ,
+        //     'country_code' => $data['country_code'],
+        //     'currency' => $country->currency,
+        // ]) ; 
+
+        $store = new Store();
+        $store->title = $data['store_name'] ;
+        $store->store_meta = $name ;
+        $store->phone = $data['telephone'] ;
+        $store->country = $country->name ;
+        $store->country_id = $country->id ;
+        $store->country_code = $country->iso ;
+        $store->currency = $country->currency ;
+        $store->save();
+
         $user = StoreAdmin::create([
             'name' => $data['fullname'],
             // 'email' => $data['email'],

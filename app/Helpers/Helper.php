@@ -528,30 +528,44 @@ if (!function_exists('setView')) {
             else{   
                 $ip = $_SERVER['REMOTE_ADDR'];   
             }  
-    
-            $response = Http::timeout(3)->get('https://geolocation-db.com/jsonp/'.$ip);
-          
-
-            // Check if the response was successful
-            if ($response->successful()) {
-                 // Extract JSONP data from the response
-                $body = $response->body();
-
-                // Remove the JSONP callback function wrapper
-                $json = preg_replace('/^callback\((.*)\)$/', '$1', $body);
-
-                // Decode the JSON data
-                $Data = json_decode($json, true);
-                return $Data ;
-
-            } else {
+            
+            if(!str_contains($ip,'172,')){
+                $response = Http::timeout(5)->get('https://geolocation-db.com/jsonp/'.$ip);
+                try {
+                    $response = Http::timeout(3)->get('https://geolocation-db.com/jsonp/'.$ip);
+                
+                    if ($response->failed()) {
+                        return ['country_code' => 'Not found'];
+                    }
+                
+                    // Strip the JSONP padding
+                    $body = trim($response->body(), 'callback()');
+                    $body = trim($body, '();');
+                    
+                    // Decode the JSON data
+                    $data = json_decode($body, true);
+                
+                    return $data;
+                } catch (RequestException $e) {
+                    return ['country_code' => 'Not found'];
+                } catch (\Exception $e) {
+                    return ['country_code' => 'Not found'];
+                }
+            }else{
                 return  ['country_code'=>'Not found']  ;
+
             }
+
+           
+
+
         } catch (\Illuminate\Http\Client\RequestException $e) {
             // Handle timeout or other request exceptions
             return  ['country_code'=>'Not found']  ;
         }
 
+
+        
 
     
         }

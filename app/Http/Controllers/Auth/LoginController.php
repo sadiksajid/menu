@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use GeoIP;
 use App\Models\User;
 use App\Models\Client;
+use App\Models\Country;
 use App\Models\StoreAdmin;
 use Illuminate\Http\Request;
+use libphonenumber\PhoneNumberUtil;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Symfony\Component\Console\Input\Input;
@@ -19,6 +22,30 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+
+
+        // $phoneNumber = $request->input('login_phone');
+        // $phoneUtil = PhoneNumberUtil::getInstance();
+        // dd(GetLocation());
+        
+        // $location = GetLocation() ; 
+        // // Country code
+        // $countryCode = $location['country_code'];
+        
+
+        // $defaultRegions = Country::select('iso')->get()->pluck('iso')->toArray();
+        // foreach ($defaultRegions as $region) {
+        //         $numberProto = $phoneUtil->parse($phoneNumber, $region);
+        //         $countryCode = $numberProto->getCountryCode();
+
+        //         // Validate the parsed number
+        //         if ($phoneUtil->isValidNumber($numberProto)) {
+        //             dd( $countryCode );
+        //         }
+           
+        // }
+
+        
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
@@ -77,6 +104,7 @@ class LoginController extends Controller
         $request->validate([
             'login_phone' => 'required|string',
             'login_password' => 'required',
+            
         ]);
 
         $user = null;

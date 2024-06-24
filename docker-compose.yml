@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-    sadik:
+    menu:
         build:
             context: ./vendor/laravel/sail/runtimes/8.1
             dockerfile: Dockerfile
@@ -20,8 +20,8 @@ services:
         volumes:
             - ".:/var/www/html"
         networks:
-        - sail_sadik
+        - sail_menu
 networks:
-  sail_sadik:
+  sail_menu:
     name: sail
     external: true

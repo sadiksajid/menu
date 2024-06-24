@@ -290,7 +290,12 @@ Route::group(['middleware' => ['fw-block-blacklisted', 'fw-block-attacks', 'web'
     Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
     Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
     Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
-    Route::get('/register', [RegisterController::class, 'RegisterForm'])->name('register');
+    // Route::get('/register', [RegisterController::class, 'RegisterForm'])->name('register');
+    Route::get('/register', function () {
+
+        return redirect('/');
+
+    });
     Route::post('/register', [RegisterController::class, 'Register'])->name('register.post');
 
     // Route::post('/cient_login', [ClientAuthController::class, 'login'])->name('client.login.post');

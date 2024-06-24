@@ -20,7 +20,6 @@ class Home extends Component
         $this->translations = $json['home'];
         $this->countries = Country::select('id','name','currency')->orderBy('name','asc')->get();
 
-
     }
 
     public function render()

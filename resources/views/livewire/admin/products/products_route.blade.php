@@ -21,7 +21,7 @@ $translations = app('translations_admin');
             </div>
         @endif
 
-        @livewire('products',[$page,$id])
+        @livewire('admin-products',[$page,$id])
 
 
     </div>

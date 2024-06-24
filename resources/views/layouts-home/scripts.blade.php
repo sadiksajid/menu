@@ -11,7 +11,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-<!-- <script type="text/javascript" src="https://rawgit.com/Bluefieldscom/intl-tel-input/master/lib/libphonenumber/build/utils.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.10/build/js/intlTelInput.min.js"></script>
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
@@ -45,18 +44,18 @@
 
 
     var iti =  window.intlTelInput(input, {
-    @if($country_code == "Not found")
-        initialCountry: "ma",
-    @else
-        initialCountry: "{{strtolower($country_code)}}",
-        onlyCountries: ["{{strtolower($country_code)}}"],
-    @endif
-    strictMode: true,
-    separateDialCode: true,
-    
+            @if($country_code == "Not found")
+                initialCountry: "ma",
+            @else
+                initialCountry: "{{strtolower($country_code)}}",
+                onlyCountries: ["{{strtolower($country_code)}}"],
+            @endif
+            strictMode: true,
+            separateDialCode: true,
+            
 
-    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.10/build/js/utils.js?1716383386062" // just for formatting/placeholders etc
-  });
+            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.10/build/js/utils.js?1716383386062" // just for formatting/placeholders etc
+        });
 
 
         function updateInputValue() {
@@ -289,24 +288,29 @@
 
 @if(session('success_login'))
 <script>
-      if (popupLoginBlock) {
-            popupLoginBlock.classList.add('open');
-      }
+    $(document).ready(function() {
 
-      const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 10000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.onmouseenter = Swal.stopTimer;
-        toast.onmouseleave = Swal.resumeTimer;
-      }
-    });
-    Toast.fire({
-      icon: "success",
-      title: "Signed in successfully"
+        var popupLoginBlock = document.querySelector('#popup-login-block');
+
+        if (popupLoginBlock) {
+                popupLoginBlock.classList.add('open');
+        }
+
+        const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 10000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+        });
+        Toast.fire({
+        icon: "success",
+        title: "Signed in successfully"
+        });
     });
 </script>
 @endif
