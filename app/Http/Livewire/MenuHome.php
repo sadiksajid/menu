@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Menu;
+use App\Models\Index;
 use App\Models\Store;
 use Livewire\Component;
 use App\Models\StoreProduct;
@@ -16,6 +17,11 @@ class MenuHome extends Component
     public $titles = [];
     public $images = [];
 
+    public $menu_head;
+    public $titles_menu;
+    public $texts_menu;
+
+    
     public $store_meta;
     public $store_id;
     public $store_info;
@@ -69,12 +75,22 @@ class MenuHome extends Component
             $this->currency = 'DH';
         }
 
-        $data = Menu::where('store_id', $this->store_id)->where('name', 'menu1')->first();
-        $this->titles = $data->titles;
-        $this->titles = json_decode($this->titles, true);
+        $this->menu_head = Index::where('store_id', $this->store_info->id)->where('name', 'menu1')->first();
+        if (!empty($this->menu_head)) {
+            $this->titles_menu = $this->menu_head->titles;
 
-        $this->images = $data->images;
-        $this->images = json_decode($this->images, true);
+            $this->titles_menu = json_decode($this->titles_menu, true);
+            $this->titles_menu = $this->titles_menu['title-1'];
+
+            $this->images_menu = $this->menu_head->images;
+            $this->images_menu = json_decode($this->images_menu, true);
+            $this->images_menu = $this->images_menu['img_1'];
+
+            $this->texts_menu = $this->menu_head->texts;
+            $this->texts_menu = json_decode($this->texts_menu, true);
+            $this->texts_menu = $this->texts_menu['texts-1'];
+
+        }
 
     }
 

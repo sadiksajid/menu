@@ -146,8 +146,7 @@ class AdminProducts extends Component
     {
         $currentLocale = app()->getLocale();
 
-        $this->categories = ProductCategory::where('store_id', $this->store_id)->select('id','title->' . $currentLocale.' as title')->get()->toArray();
-
+        $this->categories = ProductCategory::where('store_id', $this->store_id)->select('id','title->' . $currentLocale.' as title_tr')->get()->toArray();
     }
 
     public function TranslateAll()
