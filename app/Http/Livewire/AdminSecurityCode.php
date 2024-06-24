@@ -261,7 +261,7 @@ class AdminSecurityCode extends Component
                 if($this->checkPassword($this->password[$index],$index) != -1 ){
                     $pass = false ;
                 }
-                
+
             }
 
 
@@ -284,14 +284,20 @@ class AdminSecurityCode extends Component
     
             
             if($this->keys[$index] == 'old'){
-                if(strlen($this->password[$index]) != 0 ){
-                    if(Hash::check($this->old_password[$index] , $row->password)) {
-                        $row->password = Hash::make($this->password[$index]);        
-                    } else {
-                        $pass = false ;
-    
+
+                if(isset($this->password[$index])  ) {
+
+                    if(strlen($this->password[$index]) != 0 ){
+                        if(Hash::check($this->old_password[$index] , $row->password)) {
+                            $row->password = Hash::make($this->password[$index]);        
+                        } else {
+                            $pass = false ;
+        
+                        }
+                    
                     }
                 }
+            }
             }else{
                 $row->password = Hash::make($this->password[$index]);
     
