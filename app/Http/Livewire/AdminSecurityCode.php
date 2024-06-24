@@ -297,7 +297,7 @@ class AdminSecurityCode extends Component
                     
                     }
                 }
-            }
+            
             }else{
                 $row->password = Hash::make($this->password[$index]);
     
