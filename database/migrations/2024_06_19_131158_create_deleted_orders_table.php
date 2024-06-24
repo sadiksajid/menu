@@ -32,7 +32,7 @@ return new class extends Migration
             $table->timestamp('coming_date')->nullable();
             $table->text('offers', 1500)->nullable();
             $table->unsignedBigInteger('admin_id')->nullable();
-            $table->foreign('admin_id')->references('id')->on('users');
+            $table->foreign('admin_id')->references('id')->on('store_admins');
             $table->string('deleted_by');
             $table->integer('deleted_by_id');
             $table->string('order_products',10000);

@@ -32,7 +32,7 @@ class CreateStoreOrdersTable extends Migration
             $table->timestamp('coming_date')->nullable();
             $table->text('offers', 1500)->nullable();
             $table->unsignedBigInteger('admin_id')->nullable();
-            $table->foreign('admin_id')->references('id')->on('users');
+            $table->foreign('admin_id')->references('id')->on('store_admins');
             $table->string('updated_by');
             $table->integer('updated_by_id');
 
