@@ -155,13 +155,9 @@ class AdminSecurityCode extends Component
     public function generatCardPDF($index,$code)
     {    
 
-        try {
-            $barcode = DNS1D::getBarcodeHTML($code, 'EAN13', 1.5, 50, 'black', false);
-        } catch (\Throwable $th) {
-         dd($th,$code,strlen((string)$code));
-        }
+        $barcode = DNS1D::getBarcodeHTML($code, 'EAN13', 1.5, 50, 'black', false);
 
-        ///// logo
+        ///// l
         $imagePath = public_path('assets/images/png/print_logo.png');
         $imageData = base64_encode(file_get_contents($imagePath));
         $logoBase64 = 'data:image/png;base64,' . $imageData;
@@ -180,7 +176,7 @@ class AdminSecurityCode extends Component
         $pdf->render();
 
         if($index != 'test'){
-            $filePath = 'documents/pass_cards/'.$this->store_info->store_meta.'/card'.$index.'.pdf';
+            $filePath = 'documents/pass_cards/'.$this->store_info->store_meta.'/card'.(string)$code.'.pdf';
 
             Storage::disk('minio')->put($filePath, $pdf->output());
     
