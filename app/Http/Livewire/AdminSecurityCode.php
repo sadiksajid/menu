@@ -155,8 +155,11 @@ class AdminSecurityCode extends Component
     public function generatCardPDF($index,$code)
     {    
 
-        
-        $barcode = DNS1D::getBarcodeHTML($code, 'EAN13', 1.5, 50, 'black', false);
+        try {
+            $barcode = DNS1D::getBarcodeHTML($code, 'EAN13', 1.5, 50, 'black', false);
+        } catch (\Throwable $th) {
+         dd($th,$code,strlen((string)$code));
+        }
 
         ///// logo
         $imagePath = public_path('assets/images/png/print_logo.png');
@@ -183,7 +186,7 @@ class AdminSecurityCode extends Component
     
             return $filePath ;
         }else{
-            
+           
             $output = $pdf->output();
             $filePath = 'security_code_card.pdf';
 
@@ -197,15 +200,27 @@ class AdminSecurityCode extends Component
     }
 
 
+    public function calculateCheckDigit($code) {
+        $sum = 0;
+        for ($i = 0; $i < 12; $i++) {
+            $digit = (int)$code[$i];
+            $sum += ($i % 2 == 0) ? $digit : $digit * 3;
+        }
+        $remainder = $sum % 10;
+        $checkDigit = ($remainder == 0) ? 0 : 10 - $remainder;
+    
+        return $checkDigit;
+    }
+
+
 
     public function TestCOde(){
             
         do {
-            $code = rand(1000000000000, 9999999999999);
-            dd($code);
+            $code = rand(100000000000, 999999999999);
         } while (StoreStafPassword::where('code', $code)->exists());
-        
 
+        $code = (string)$code;
         $card = $this->generatCardPDF('test',$code);
     }
 
@@ -281,13 +296,14 @@ class AdminSecurityCode extends Component
     
     
                 do {
-                    $code = rand(1000000000000, 9999999999999);
-                } while (StoreStafPassword::where('code', $code)->exists());
+                    $code = rand(100000000000, 999999999999);
+                    $code_full = (string)$code.$this->calculateCheckDigit((string)$code) ; 
+                } while (StoreStafPassword::where('code', $code_full)->exists());
                 
         
                 $card = $this->generatCardPDF($index,$code);
                 $row->code_bar = $card ;
-                $row->code = $code;
+                $row->code = $code_full;
     
                 $this->pdfs[$index] = get_image( $card) ; 
     
