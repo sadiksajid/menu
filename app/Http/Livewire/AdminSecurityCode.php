@@ -252,13 +252,18 @@ class AdminSecurityCode extends Component
 
 
         $pass = true ; 
-        if($this->keys[$index] == 'old' and strlen($this->password[$index]) != 0 ) {
-            $this->validate([
-                'old_password.'.$index => 'required|string|max:50',
-            ]);
-            if($this->checkPassword($this->password[$index],$index) != -1 ){
-                $pass = false ;
+        if($this->keys[$index] == 'old' and isset($this->password[$index])  ) {
+            if(strlen($this->password[$index]) != 0){
+
+                $this->validate([
+                    'old_password.'.$index => 'required|string|max:50',
+                ]);
+                if($this->checkPassword($this->password[$index],$index) != -1 ){
+                    $pass = false ;
+                }
+                
             }
+
 
         }elseif($this->keys[$index] == 'new'){
             if($this->checkPassword($this->password[$index]) != -1 ){
