@@ -1,6 +1,6 @@
 var code = '';
 var typingTimer;
-var doneTypingInterval = 100;
+var doneTypingInterval = 300;
 // document.body.addEventListener("keydown", function(event) {
 
 //     if (event.key === 'Enter') {
@@ -15,8 +15,12 @@ function getkey(event,is_livewire=true) {
     
     if (/^\d+$/.test(event.key.toString())) {
         clearTimeout(typingTimer);
-        typingTimer = setTimeout(doneTyping(is_livewire), doneTypingInterval);
         code = code + event.key.toString();
+
+        // typingTimer = setTimeout(doneTyping(is_livewire), 10000);
+        typingTimer = setTimeout(() => {
+            doneTyping(is_livewire);
+        }, doneTypingInterval);
     }
 }
 
