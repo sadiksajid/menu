@@ -64,7 +64,7 @@ class PasswordConfirmationController extends Controller
     {
 
 
-        dd( Auth::user());
+        
         if($request->is_livewire == 'false'){
             $profiles = Auth::user()->store->profiles->where('status',1)->where('role','admin') ; 
 
