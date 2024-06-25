@@ -257,7 +257,6 @@ class StoreInfo extends Component
         $this->store_info->shipping = $this->shipping;
         $this->store_info->preorder = $this->preorder;
         $this->store_info->address = $this->address;
-        $this->store_info->city_id = $this->city_id;
         $this->store_info->longitude = $this->longitude;
         $this->store_info->latitude = $this->latitude;
         $this->store_info->phone = $this->phone;
@@ -271,6 +270,28 @@ class StoreInfo extends Component
         $this->store_info->btn_color = $this->btn_color;
         $this->store_info->text_color = $this->text_color;
         $this->store_info->background_color = $this->background_color;
+
+
+        if(!empty($this->regions)){
+            $this->store_info->city_id = $this->city_id;
+            $this->store_info->city = $this->store_info->country;
+
+        }else{
+            $this->store_info->city = $this->city;
+
+            try {
+                $city_id = City::where('city', $this->city)->first()->id;
+            } catch (\Throwable $th) {
+                $city = new City();
+                $city->city = $this->city;
+                $city->code_postal = $this->post_code;
+                $city->country_id = $this->store_info->country_id;
+                $city->save();
+                $city_id = $city->id ;
+            }
+            $this->city_id = $city_id ;
+            $this->store_info->city_id = $city_id;
+        }
 
         if (!empty($this->quartier) and $this->quartier != $this->quartier_fix) {
             try {

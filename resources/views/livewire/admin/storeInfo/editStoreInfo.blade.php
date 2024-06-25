@@ -616,32 +616,51 @@ $(document).ready(function() {
 $(document).ready(
     function() {
         fileUpload();
+        var logo = @json($logo) ;
+        if( logo != "" ){
+
+            logo = @json(get_image($logo)) ;
+            console.log(logo)
+
+            var dropifyInput = $('.dropify-render');
+
+            $('.dropify-preview').addClass('d-block')
+            $('.dropify-loader').addClass('d-none')
+            $('.dropify-wrapper').addClass('has-preview')
+
+
+            dropifyInput.html('<img src="' + logo +
+                '" style="max-height: 150px;" onerror="this.onerror=null;this.src=\'https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg\';"  >'
+            );
+
+        }
+
     }
 )
 
 
-window.addEventListener('edit_category', event => {
+// window.addEventListener('edit_category', event => {
 
 
-    fileUpload();
+//     fileUpload();
 
-    var dropifyInput = $('.dropify-render');
+//     var dropifyInput = $('.dropify-render');
 
-    $('.dropify-preview').addClass('d-block')
-    $('.dropify-loader').addClass('d-none')
-    $('.dropify-wrapper').addClass('has-preview')
+//     $('.dropify-preview').addClass('d-block')
+//     $('.dropify-loader').addClass('d-none')
+//     $('.dropify-wrapper').addClass('has-preview')
 
 
-    dropifyInput.html('<img src="' + event.detail.cat_image +
-        '" style="max-height: 150px;" onerror="this.onerror=null;this.src=\'https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg\';"  >'
-    );
+//     dropifyInput.html('<img src="' + event.detail.cat_image +
+//         '" style="max-height: 150px;" onerror="this.onerror=null;this.src=\'https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg\';"  >'
+//     );
 
-    $('#cat_title').val(event.detail.cat_title);
-    $('#cat_sort').val(event.detail.cat_sort);
-    $('#cat_sub_title').val(event.detail.cat_sub_title);
+//     $('#cat_title').val(event.detail.cat_title);
+//     $('#cat_sort').val(event.detail.cat_sort);
+//     $('#cat_sub_title').val(event.detail.cat_sub_title);
 
-    $('#modalUpdateCategory').modal('show');
+//     $('#modalUpdateCategory').modal('show');
 
-})
+// })
 </script>
 @endsection
