@@ -23,7 +23,7 @@ class StoreInfo extends Component
     public $s_title;
     public $description;
     public $logo = '';
-    public $edit_logo;
+    public $edit_logo = '';
     public $address;
     public $edit_address;
     public $cities = [];

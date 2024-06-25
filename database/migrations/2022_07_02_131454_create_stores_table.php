@@ -39,7 +39,7 @@ class CreateStoresTable extends Migration
             $table->string('btn_color', 20)->nullable();
             $table->string('text_color', 20)->nullable();
             $table->string('background_color', 20)->nullable();
-            $table->boolean('first_run')->default(0);
+            $table->boolean('first_run')->default(1);
             $table->string('first_run_steps',300)->nullable();
 
             $table->integer('country_id',50)->nullable();
