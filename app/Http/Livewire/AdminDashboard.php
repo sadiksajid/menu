@@ -35,6 +35,9 @@ class AdminDashboard extends Component
     public $top_offers = [];
 
     public $shart_data = [];
+    ///////////////////////////first step
+    public $step1 = [];
+    public $finish_step1;
     ////////////////////////////
     public $translations;
 
@@ -47,7 +50,7 @@ class AdminDashboard extends Component
         $this->store_info = Auth::user()->store;
 
 
-        if ($this->store_info->first_run == 1){
+        if ($this->store_info->first_run == 0){
             if (isset($this->store_info->currency)) {
                 $this->currency = Currencies::getSymbol($this->store_info->currency);
             } else {
@@ -59,13 +62,30 @@ class AdminDashboard extends Component
             $this->getOrders();
             $this->getTopProducts();
             $this->getTopOffers();
+        }else{
+
+            if($this->store_info->title == null and $this->store_info->s_title == null and $this->store_info->store_meta == null and  $this->store_info->description == null) {
+                $this->step1['store_info'] = 'none' ;
+            }else{
+                $this->step1['store_info'] = 'checked=""' ;  
+            }
+            $this->step1['store_logo'] = ($this->store_info->logo == null )?'none':'checked=""'  ;
+            $this->step1['store_contact'] = ($this->store_info->phone == null )?'none':'checked=""'  ;
+
+            if($this->store_info->address == null and $this->store_info->city_id == null and $this->store_info->quartier_id == null and  $this->store_info->longitude == null and  $this->store_info->latitude == null) {
+                $this->step1['store_location'] = 'none' ;
+            }else{
+                $this->step1['store_location'] =  'checked=""' ; 
+            }
+
+            $this->finish_step1 = array_search("none",$this->step1);
         }
 
 
     }
     public function render()
     {
-        if ($this->store_info->first_run == 1){
+        if ($this->store_info->first_run == 0){
             return view('livewire.admin.dashboard.dashboard');
         }else{
             return view('livewire.admin.dashboard.first_steps');

@@ -80,7 +80,7 @@ class Caisse extends Component
             $this->products = Cache::get('caisse_products');
 
             if ($this->selected_cat != 0) {
-                $this->products = $this->products->where('product_category_id', $this->selected_cat)->all();
+                $this->products = $this->products->where('product_category_id', $this->selected_cat);
             }
         } else {
 

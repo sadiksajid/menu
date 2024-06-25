@@ -103,7 +103,7 @@
                                                   {{-- <a href="/store/goodforhealth/{{ $category->category_meta }}" > --}}
                                                     <a href="/shop/product/{{ $product->product->product_meta }}" >
                                                         <div class="item hover-overlay pt-2 cat_div background-image  shadow border border-dark ; position:relative"
-                                                            data-background="url({{ get_image($product->product->media[0]?->media)  }})">
+                                                            data-background="url({{ get_image('tmb/'.$product->product->media[0]?->media)  }})">
                                                             <span class="badge badge-warning mt-1" role="button"   style="position: absolute; z-index:10;color:black">
                                                                 <h7 class="mb-0"><strong>{{ $product->product->price}} {{$currency}}</strong></h7>
                                                             </span>
@@ -132,7 +132,7 @@
                                                 @foreach ($offer->products as $product)
                                                 <div class="mb-2">
                                                     <img alt="" class="img-fluid"
-                                                        src="{{ get_image($product->product->media[0]?->media)  }}">
+                                                        src="{{ get_image('moyen/'.$product->product->media[0]?->media)  }}">
                                                 </div>
                                                 @endforeach
 
@@ -151,7 +151,7 @@
                                         @foreach ($offer->products as $product)
                                         <div>
                                             <img alt="" class="img-fluid"
-                                                src="{{ get_image($product->product->media[0]?->media)  }}">
+                                                src="{{ get_image('tmb/'.$product->product->media[0]?->media)  }}">
                                         </div>
                                         @endforeach
 
@@ -166,7 +166,7 @@
                                                 @foreach ($offer->products as $product)
                                                 <div>
                                                     <img alt="" class="img-fluid image_zoom_cls-0"
-                                                        src="{{ get_image($product->product->media[0]?->media)  }}">
+                                                        src="{{ get_image('moyen/'.$product->product->media[0]?->media)  }}">
                                                 </div>
                                                 @endforeach
 

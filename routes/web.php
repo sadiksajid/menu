@@ -47,7 +47,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'fw-block-blackl
         return view('livewire.admin.index1.index_route');
     });
     Route::get('/caisse ', function () {
-        return view('livewire.admin.caisse.caisse_route');
+        return view('livewire.admin.caisse.caisse_route');   
     });
 
     Route::get('/MenuEdit', function () {
@@ -332,6 +332,7 @@ Route::group(['prefix' => 'staf', 'middleware' => ['auth:staf', 'fw-block-blackl
         return view('livewire.admin.index1.index_route');
     });
     Route::get('/caisse ', function () {
+        
         return view('livewire.admin.caisse.caisse_route');
     });
 

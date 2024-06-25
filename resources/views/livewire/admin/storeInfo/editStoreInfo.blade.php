@@ -82,7 +82,7 @@
                                             <input type="file" class="dropify" wire:model.defer="edit_logo" data-height="210">
                                         </div> -->
 
-                                    <input type="file" class="dropify" wire:model.defer="edit_logo" data-height="370px">
+                                    <input type="file" class="dropify" wire:model="edit_logo" data-height="370px">
 
                                 </div>
                                 @error('edit_logo')
