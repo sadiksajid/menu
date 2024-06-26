@@ -3,8 +3,8 @@
     <div class="container-fluid mb-3">
         <div class='row'>
             <div class="col-md-2 col-sm-2 col-8 mb-4 ">
-                <button type="button" class="btn btn-primary " id='new_cat_modal'
-                    data-whatever="@mdo">{{ $translations['new_category'] }}</button>
+                <button type="button" class="btn btn-primary " id='new_img_modal'
+                    data-whatever="@mdo">New Image</button>
             </div>
 
             <div class="col-md-1 col-sm-2 col-4 ">
@@ -17,12 +17,12 @@
             <div class="col-md-9 col-sm-8 col-12 ">
                 <div class="col-md-4 col-12 float-right">
                     <div class="input-group mb-3">
-                        @if(!empty($search_category))
+                        @if(!empty($search_image))
                         <button class="btn btn-danger" type="button" wire:click='clearSearch'><i
                                 class="fa fa-close text-white-50"></i></button>
                         @endif
                         <input type="text" class="form-control" placeholder="Search ..." aria-label="Search"
-                            aria-describedby="button-addon2" wire:model.defer='search_category'>
+                            aria-describedby="button-addon2" wire:model.defer='search_image'>
                         <button class="btn btn-primary" type="button" id="button_saerch"><i
                                 class="fa fa-search text-white-50"></i></button>
 
@@ -36,33 +36,24 @@
 
         <div class="row">
 
-            @foreach ($categories as $category)
-            @php
-            if($category['image'] != null){
-                $img = $category['image'] ;
-            }else{
-                $img = $category['image_origin'] ;
-            }
-            @endphp
+            @foreach ($all_iamges as $image)
+   
             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="card  mb-5">
                     <div class="card-body" style='padding: 0.5rem 1rem;'>
                         <div class="media mt-0">
                             <figure class="rounded-circle align-self-start mb-0">
-                                <img src="{{ get_image('tmb/'.$img ) }}"
+                                <img src="{{ get_image('tmb/'.$image['image']  ) }}"
                                     onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';"
                                     class="avatar brround avatar-md mr-3" style='    width: 60px; height: 60px;'>
                             </figure>
                             <div class="media-body time-title1 ">
-                                <h5 class="time-title p-0 mb-0 font-weight-semibold leading-normal">
-                                    {{substr($category['title'] , 0, 40) }} - <span class='text-primary'>N{{$category['sort']}}</span></h5>
-
-                            <p>{{\Carbon\Carbon::parse($category['updated_at'] ?? $category['created_at'])->format('d-m-Y');}}</p>
+                            <p>{{\Carbon\Carbon::parse($image['updated_at'] ?? $image['created_at'])->format('d-m-Y');}}</p>
                             </div>
-                            <button class="btn btn-primary  btn-sm mr-2" wire:click="editCategory({{$category['id']}})"><i class="fa fa-edit"></i>
+                            <button class="btn btn-primary  btn-sm mr-2" wire:click="editimage({{$image['id']}})"><i class="fa fa-edit"></i>
                             </button>
-                            @if($category['products_count'] == 0)
-                            <button class="btn btn-danger btn-sm" wire:click="deleteCategory({{$category['id']}},'{{$category['title']}}')"><i class="fa fa-trash"></i> </button>
+                            @if($image['products_count'] == 0)
+                            <button class="btn btn-danger btn-sm" wire:click="deleteimage({{$image['id']}},'{{$image['title']}}')"><i class="fa fa-trash"></i> </button>
                             @endif
                         </div>
                     </div>
@@ -75,12 +66,12 @@
 
     </div>
 
-    <div class="modal fade" id="modalCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="modalimage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true" wire:ignore >
         <div class="modal-dialog" role="document"  >
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="pop-up-type">Create Category</h5>
+                    <h5 class="modal-title" id="pop-up-type">Create Image</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -89,27 +80,14 @@
                   
                     <div class='col-12'>
                             <div id='addImages'>
-                            <div class="d-inline"><input type="file" class="dropify" accept=".jpg, .png, .webp, image/jpeg, image/png" name="attachment" data-height="150px" wire:model="cat_image" /></div>
+                            <div class="d-inline"><input type="file" class="dropify" accept=".jpg, .png, .webp, image/jpeg, image/png" name="attachment" data-height="150px" wire:model="img_image" /></div>
                             </div>
                     </div>
 
-                    <div class='row'>
-                        <div class='col-10'>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Title:</label>
-                                <input type="text" class="form-control" wire:model.defer="cat_title" id="cat_title">
-                            </div>
-                        </div>
-                        <div class='col-2 pl-0' >
-                        <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Sort:</label>
-                                <input type="number" class="form-control" wire:model.defer="cat_sort"  id="cat_sort">
-                            </div>
-                        </div>
-                    </div>
+                 
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Sub Title:</label>
-                        <textarea class="form-control" wire:model.defer="cat_sub_title"  id="cat_sub_title"></textarea>
+                        <textarea class="form-control" wire:model.defer="img_sub_title"  id="img_sub_title"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -120,12 +98,12 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalUpdateCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="modalUpdateimage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true" wire:ignore >
         <div class="modal-dialog" role="document"  >
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="pop-up-type">Update Category</h5>
+                    <h5 class="modal-title" id="pop-up-type">Update Image</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -134,27 +112,13 @@
                   
                     <div class='col-12'>
                             <div id='addImages'>
-                            <div class="d-inline"><input type="file" class="dropify" accept=".jpg, .png, .webp, image/jpeg, image/png" name="attachment" data-height="150px" wire:model="cat_image" /></div>
+                            <div class="d-inline"><input type="file" class="dropify" accept=".jpg, .png, .webp, image/jpeg, image/png" name="attachment" data-height="150px" wire:model="img_image" /></div>
                             </div>
                     </div>
 
-                    <div class='row'>
-                        <div class='col-10'>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Title:</label>
-                                <input type="text" class="form-control" wire:model.defer="cat_title" id="cat_title">
-                            </div>
-                        </div>
-                        <div class='col-2 pl-0' >
-                        <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Sort:</label>
-                                <input type="number" class="form-control" wire:model.defer="cat_sort"  id="cat_sort">
-                            </div>
-                        </div>
-                    </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Sub Title:</label>
-                        <textarea class="form-control" wire:model.defer="cat_sub_title"  id="cat_sub_title"></textarea>
+                        <textarea class="form-control" wire:model.defer="img_sub_title"  id="img_sub_title"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -176,23 +140,23 @@
 
 <script>
 $('#submit').on('click', function() {
-    Livewire.emit('submitCategory')
+    Livewire.emit('submitimage')
 });
 $('#update').on('click', function() {
-    Livewire.emit('UpdateCategory')
+    Livewire.emit('Updateimage')
 });
 
 
 
-$('#new_cat_modal').on('click', function() {
+$('#new_img_modal').on('click', function() {
 
         fileUpload();
 
-        $('#modalCategory').modal('show');
+        $('#modalimage').modal('show');
 });
 
 
-window.addEventListener('edit_category', event => {
+window.addEventListener('edit_image', event => {
 
 
     fileUpload();
@@ -204,13 +168,13 @@ window.addEventListener('edit_category', event => {
     $('.dropify-wrapper').addClass('has-preview')
 
 
-    dropifyInput.html('<img src="'+event.detail.cat_image+'" style="max-height: 150px;" onerror="this.onerror=null;this.src=\'https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg\';"  >');
+    dropifyInput.html('<img src="'+event.detail.img_image+'" style="max-height: 150px;" onerror="this.onerror=null;this.src=\'https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg\';"  >');
 
-    $('#cat_title').val(event.detail.cat_title);
-    $('#cat_sort').val(event.detail.cat_sort);
-    $('#cat_sub_title').val(event.detail.cat_sub_title);
+    $('#img_title').val(event.detail.img_title);
+    $('#img_sort').val(event.detail.img_sort);
+    $('#img_sub_title').val(event.detail.img_sub_title);
 
-    $('#modalUpdateCategory').modal('show');
+    $('#modalUpdateimage').modal('show');
 
 })
 
@@ -218,8 +182,8 @@ window.addEventListener('edit_category', event => {
 
 
 window.addEventListener('swal:finish', event => {
-    $('#modalCategory').modal('hide');
-    $('#modalUpdateCategory').modal('hide');
+    $('#modalimage').modal('hide');
+    $('#modalUpdateimage').modal('hide');
     Swal.fire({
             title: event.detail.title,
             text: event.detail.text,

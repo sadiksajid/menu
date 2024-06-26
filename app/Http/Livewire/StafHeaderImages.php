@@ -26,7 +26,7 @@ class StafHeaderImages extends Component
     public $store_info;
     public $Images = [];
     public $search_image = null;
-    public $cat_image;
+    public $img_image;
     public $image_to_delete = null;
     public $image_to_update = null;
 
@@ -35,11 +35,12 @@ class StafHeaderImages extends Component
 
     public function mount()
     {
+        $this->langs = languages()['langs'];
         $this->getImages();
     }
     public function render()
     {
-        $all_iamges = Cache::get('all_iamges');
+        $all_iamges = Cache::get('all_iamges') ?? [];
 
         return view('livewire.staf.header_images.images_list',['all_iamges' => $all_iamges]);
     }
@@ -62,9 +63,7 @@ class StafHeaderImages extends Component
 
         if($in_cache == false){
             $data = StafHeaderImage::
-            // when($category, function ($query) use ($category) {
-            //     $query->where('store_products.product_category_id', $category);
-            // })
+    
             paginate($this->paginat, ['*'], 'page', $page);
 
             if ($page > 1) {
@@ -75,13 +74,7 @@ class StafHeaderImages extends Component
             Cache::put('all_images', $data);
             Cache::put('page', $page);
 
-            // $cat_name = $this->categories->where('id', $category)->first()->title ?? null;
-            // $this->dispatchBrowserEvent('putProducts', [
-            //     'products' => $data->toArray(),
-            //     'images' => $data->pluck('media.0.media'),
-            //     // 'category' => $cat_name,
-            // ]);
-            // return $data;
+
         }
        
     }
@@ -92,17 +85,13 @@ class StafHeaderImages extends Component
        
         $validator = Validator::make(
             [
-                'cat_title' => $this->cat_title,
-                'cat_sub_title' => $this->cat_sub_title,
-                'cat_sort' => $this->cat_sort,
-                'cat_image' => $this->cat_image,
+                'img_tags' => $this->img_tags,
+                'img_image' => $this->img_image,
 
             ],
             [
-            'cat_title' => 'required|string|max:50',
-            'cat_sub_title' => 'required|string|max:100',
-            'cat_sort' => 'required|integer|max:99999',
-            'cat_image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'img_tags' => 'required|integer|max:99999',
+            'img_image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
     
         if ($validator->fails()) {
@@ -114,39 +103,33 @@ class StafHeaderImages extends Component
             
         }else{
 
-            $cat = new StafHeaderImage();
+            $img = new StafHeaderImage();
 
             foreach ($this->langs as $lang) {
                 if ($lang == 'en') {
-                    $title = $this->cat_title;
-                    $cat_s_title = $this->cat_sub_title;
+                    $img_tags = $this->img_tags;
                 } else {
-                    $title = translate($this->cat_title, $lang);
-                    $cat_s_title = translate($this->cat_sub_title, $lang);
+                    $img_tags = translate($this->img_tags, $lang);
                 }
-    
-                $cat->setTranslation('title', $lang, $title, JSON_UNESCAPED_UNICODE);
-                $cat->setTranslation('s_title', $lang, $cat_s_title, JSON_UNESCAPED_UNICODE);
+
+                $img->tags_.$lang = $img_tags;
     
             }
     
-            $cat->store_id = $this->store_id;
-            $cat->sort = $this->cat_sort;
-            $cat->image_meta = str_replace([' ', ',', ':', '-', '?'], '_', strtolower($this->cat_title));
+        
+            if (!empty($this->img_image)) {
+                $this->img_link = 'Image_' . str_replace(' ', '_', $this->img_title) . md5(microtime()) . '.webp';
+                $image = File::get($this->img_image->getRealPath());
+                $save_result = save_livewire_filetocdn($image, 'staf_header_images', $this->img_link, $this->catigory_sizes);
     
-            if (!empty($this->cat_image)) {
-                $this->img_link = 'Image_' . str_replace(' ', '_', $this->cat_title) . md5(microtime()) . '.webp';
-                $image = File::get($this->cat_image->getRealPath());
-                $save_result = save_livewire_filetocdn($image, 'Images', $this->img_link, $this->catigory_sizes);
-    
-                $this->img_link = 'Images/' . $this->img_link;
+                $this->img_link = 'staf_header_images/' . $this->img_link;
     
                 if ($save_result) {
-                    $cat->image = $this->img_link;
+                    $img->image = $this->img_link;
                 }
     
             }
-            $cat->save();
+            $img->save();
     
             $this->getImages();
     
@@ -173,9 +156,9 @@ class StafHeaderImages extends Component
     public function confirmDelete()
     {
         
-        $cat  =  StafHeaderImage::find($this->image_to_delete);
-        deleteFile($cat->image,$this->catigory_sizes);
-        $cat->delete();
+        $img  =  StafHeaderImage::find($this->image_to_delete);
+        deleteFile($img->image,$this->catigory_sizes);
+        $img->delete();
 
         $this->getImages();
 
@@ -191,15 +174,15 @@ public function editImage($id)
     $image = StafHeaderImage::find($id);
     $this->image_to_update = $id ; 
 
-    $this->cat_title =  $image->title ;
-    $this->cat_sub_title =  $image->s_title ;
-    $this->cat_sort =  $image->sort ;
+    $this->img_title =  $image->title ;
+    $this->img_sub_title =  $image->s_title ;
+    $this->img_sort =  $image->sort ;
 
     $this->dispatchBrowserEvent('edit_image', [
-        'cat_title' => $image->title,
-        'cat_sub_title' => $image->s_title,
-        'cat_sort' => $image->sort,
-        'cat_image' => get_image('tmb/'.$image->image ) ,
+        'img_title' => $image->title,
+        'img_sub_title' => $image->s_title,
+        'img_sort' => $image->sort,
+        'img_image' => get_image('tmb/'.$image->image ) ,
     ]);
 }
 
@@ -209,17 +192,17 @@ public function editImage($id)
        
         $validator = Validator::make(
             [
-                'cat_title' => $this->cat_title,
-                'cat_sub_title' => $this->cat_sub_title,
-                'cat_sort' => $this->cat_sort,
-                'cat_image' => $this->cat_image,
+                'img_title' => $this->img_title,
+                'img_sub_title' => $this->img_sub_title,
+                'img_sort' => $this->img_sort,
+                'img_image' => $this->img_image,
 
             ],
             [
-            'cat_title' => 'required|string|max:50',
-            'cat_sub_title' => 'required|string|max:100',
-            'cat_sort' => 'required|integer|max:9999',
-            'cat_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'img_title' => 'required|string|max:50',
+            'img_sub_title' => 'required|string|max:100',
+            'img_sort' => 'required|integer|max:9999',
+            'img_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
     
         if ($validator->fails()) {
@@ -231,40 +214,40 @@ public function editImage($id)
             
         }else{
 
-            $cat = StafHeaderImage::find($this->image_to_update);
+            $img = StafHeaderImage::find($this->image_to_update);
             foreach ($this->langs as $lang) {
                 if ($lang == 'en') {
-                    $title = $this->cat_title;
-                    $cat_s_title = $this->cat_sub_title;
+                    $title = $this->img_title;
+                    $img_s_title = $this->img_sub_title;
                 } else {
-                    $title = translate($this->cat_title, $lang);
-                    $cat_s_title = translate($this->cat_sub_title, $lang);
+                    $title = translate($this->img_title, $lang);
+                    $img_s_title = translate($this->img_sub_title, $lang);
                 }
     
-                $cat->setTranslation('title', $lang, $title, JSON_UNESCAPED_UNICODE);
-                $cat->setTranslation('s_title', $lang, $cat_s_title, JSON_UNESCAPED_UNICODE);
+                $img->setTranslation('title', $lang, $title, JSON_UNESCAPED_UNICODE);
+                $img->setTranslation('s_title', $lang, $img_s_title, JSON_UNESCAPED_UNICODE);
     
             }
     
-            $cat->store_id = $this->store_id;
-            $cat->sort = $this->cat_sort;
-            $cat->image_meta = str_replace([' ', ',', ':', '-', '?'], '_', strtolower($this->cat_title));
+            $img->store_id = $this->store_id;
+            $img->sort = $this->img_sort;
+            $img->image_meta = str_replace([' ', ',', ':', '-', '?'], '_', strtolower($this->img_title));
     
-            if (!empty($this->cat_image)) {
-                $this->img_link = 'Image_' . str_replace(' ', '_', $this->cat_title) . md5(microtime()) . '.webp';
-                $image = File::get($this->cat_image->getRealPath());
+            if (!empty($this->img_image)) {
+                $this->img_link = 'Image_' . str_replace(' ', '_', $this->img_title) . md5(microtime()) . '.webp';
+                $image = File::get($this->img_image->getRealPath());
                 $save_result = save_livewire_filetocdn($image, 'Images', $this->img_link, $this->catigory_sizes);
     
                 $this->img_link = 'Images/' . $this->img_link;
     
                 if ($save_result) {
 
-                    deleteFile($cat->image,$this->catigory_sizes);
-                    $cat->image = $this->img_link;
+                    deleteFile($img->image,$this->catigory_sizes);
+                    $img->image = $this->img_link;
                 }
     
             }
-            $cat->save();
+            $img->save();
     
             $this->getImages();
             $this->image_to_update = null ; 
@@ -281,9 +264,9 @@ public function editImage($id)
     public function clearinputs()
     {
         
-    $this->cat_title = '';
-    $this->cat_sub_title = '';
-    $this->cat_sort = '';
+    $this->img_title = '';
+    $this->img_sub_title = '';
+    $this->img_sort = '';
     }
 
 
