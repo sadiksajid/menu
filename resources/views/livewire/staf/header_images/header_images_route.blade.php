@@ -7,7 +7,7 @@ $translations = app('translations_admin');
     <!--Page header-->
     <div class="page-header">
         <div class="page-leftheader">
-            <h4 class="page-title mb-0">{{$translations['edit_headers']}}</h4>
+            <h4 class="page-title mb-0">{{$translations['offers_list']}}</h4>
         </div>
     </div>
     <!--End Page header-->
@@ -15,7 +15,7 @@ $translations = app('translations_admin');
 @section('content')
     <div>
         
-        @livewire('headers-edit')
+        @livewire('staf-header-images')
 
     </div>
 @endsection

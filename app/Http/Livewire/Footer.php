@@ -12,19 +12,14 @@ class Footer extends Component
     public $store_info;
     public $store_meta;
 
-    public function mount()
+    public function mount($store)
     {
-        $this->store_meta = env('STOR_NAME');
-        $stores = Cache::get('stores');
+        $this->store_meta = $store->store_meta;
 
-        if (isset($stores[$this->store_meta])) {
-            $this->store_info = $stores[$this->store_meta];
-        } else {
-            $this->store_info = Store::where('store_meta', $this->store_meta)->first();
-            $stores[$this->store_meta] = $this->store_info;
-            Cache::put('stores', $stores, 7200);
+        $this->store_info = $store;
 
-        }
+
+        
     }
     public function render()
     {
