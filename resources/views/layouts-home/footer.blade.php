@@ -61,7 +61,7 @@
             <div class="close-block text-end"><i class="ph-bold ph-x d-block fs-18 text-white pointer"></i></div>
             <div class="heading6 text-white">Register</div>
             <div class="text-placehover mt-8">Create New Account.</div>
-            <form id='Register' class="mt-32" method="POST" action="{{ route('register') }}">
+            <form id='Register' class="mt-32" method="POST" action="{{ route('register.post') }}">
                 @csrf
                 <!-- /////////////////////////////////////////////////////////////////////////// -->
 

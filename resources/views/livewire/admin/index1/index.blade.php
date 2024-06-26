@@ -44,7 +44,7 @@
                         </a>
 
                     @else   
-                        <button  class="btn login_show" style=' background-color:{{$store_info->text_color}};color: black;float: right; margin-right:20px;font-size:13px'>
+                        <button  class="btn login_show" style=' background-color:{{$store_info->text_color ?? "white"}};color: black;float: right; margin-right:20px;font-size:13px'>
                             <i class="fa fa-user"  style="margin-right: 5px;"></i>
                             Login
                         </button>

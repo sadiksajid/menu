@@ -1160,6 +1160,27 @@
         "ar": "الحي",
         "fr": "quartier"
     },
+
+    "fullname": {
+        "en": "Fullname",
+        "ar": "الاسم الكامل",
+        "fr": "Nom complet"
+    },
+    "downloading": {
+        "en": "Downloading",
+        "ar": "جارٍ التنزيل",
+        "fr": "Téléchargement"
+    },
+    "competition_header": {
+        "en": "Competition Page",
+        "ar": "صفحة المنافسة",
+        "fr": "Page de la compétition"
+    },
+    "competition_home": {
+        "en": "Competition Home",
+        "ar": "الصفحة الرئيسية للمسابقة",
+        "fr": "Accueil de la compétition"
+    },
     "contact_info": {
         "en": "Contact info"
     },
@@ -1169,6 +1190,77 @@
     "social_media": {
         "en": "Social Media"
     },
+
+    "categories": {
+        "en": "Categories"
+    },
+    "new_category": {
+        "en": "New Category"
+    },
+    "delete": {
+        "en": "Delete"
+    },
+    "btn_text": {
+        "en": "Button Text"
+    },
+    "btn_link": {
+        "en": "Button Link"
+    },
+    "add_slide": {
+        "en": "Add Slide"
+    },
+    "slide_n": {
+        "en": "Slide N"
+    },
+    "slide_saved": {
+        "en": "Slide Saved Successfully!"
+    },
+    "home_slide": {
+        "en": "Home Slide"
+    },
+    "profile": {
+        "en": "Profile"
+    },
+    "full_name": {
+        "en": "Full Name"
+    },
+    "role": {
+        "en": "Role"
+    },
+    "select_role": {
+        "en": "Select Role"
+    },
+    "add_Profile": {
+        "en": "Add Profile"
+    },
+    "profile_saved": {
+        "en": "Profile saved Successfuly!"
+    },
+    "old_password": {
+        "en": "Old Password"
+    },
+    "incorrect_old_password": {
+        "en": "Old Password is incorrect!"
+    },
+    "desable": {
+        "en": "Desable"
+    },
+    "enable": {
+        "en": "Enable"
+    },
+    "disable_all_profiles_warning": {
+        "en": "You Can't Desable All Prodiles"
+    },
+    "change_password_warning": {
+        "en": "Please use other Password!"
+    },
+    "cant_enable_double_auth": {
+        "en": "You Can't enable double auth because you need unless one active profile!"
+    },
+    "menu_header": {
+        "en": "Menu Header"
+    },
+    
     "": {
         "en": ""
     },

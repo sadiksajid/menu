@@ -2,7 +2,6 @@
 
 <style>
     .main-menu > ul > li:hover > a {
-        /* color: {{$store_info->text_color}}!important; */
     }
 </style>
 @php
@@ -55,7 +54,7 @@ $translations = app('translations')['system'];
                         </a>
 
                     @else   
-                        <button  class="btn login_show" style=' background-color:{{$store_info->text_color}};color: black;float: right; margin-right:20px;font-size:13px'>
+                        <button  class="btn login_show" style=' background-color:{{$store_info->text_color ?? "white" }};color: black;float: right; margin-right:20px;font-size:13px'>
                             <i class="fa fa-user"  style="margin-right: 5px;"></i>
                             {{$translations['login']}}
                         </button>
@@ -126,7 +125,7 @@ $translations = app('translations')['system'];
                         speed="0.5" loop autoplay mode="bounce" style="width: 250px;margin: auto;">
                     </lottie-player>
                     <h3>
-                        Welcome To {{$store_info->title}}
+                        Welcome To {{$store_info->title ?? 'My Store'}}
                     </h3>
                     <p>Feel free to choose your language</p>
 

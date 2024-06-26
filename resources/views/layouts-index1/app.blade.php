@@ -2,14 +2,13 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     @include('layouts-index1.head')
     <body>
-        @livewire('header')
+        @livewire('header',['store'=>$store])
         @livewire('cart')
 
         <main>
             @yield('content')
         </main>
-        {{-- @include('layouts-index1.footer') --}}
-        @livewire('footer')
+        @livewire('footer',['store'=>$store])
 
     </body>
     @include('layouts-index1.scripts')

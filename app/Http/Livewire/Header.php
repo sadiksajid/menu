@@ -15,21 +15,13 @@ class Header extends Component
     public $languages = array('ma' => 'عربية', 'en' => 'English', 'fr' => 'Français');
     public $flag = array('ar' => 'ma', 'en' => 'en', 'fr' => 'fr');
     public $current_lang;
-    public function mount()
+
+    
+    public function mount($store)
     {
         $this->current_lang = Cache::get('locale_user') ?? 'en';
-
-        $this->store_meta = env('STOR_NAME');
-        $stores = Cache::get('stores');
-
-        if (isset($stores[$this->store_meta])) {
-            $this->store_info = $stores[$this->store_meta];
-        } else {
-            $this->store_info = Store::where('store_meta', $this->store_meta)->first();
-            $stores[$this->store_meta] = $this->store_info;
-            Cache::put('stores', $stores, 7200);
-
-        }
+        $this->store_info = $store ;
+     
 
     }
     public function render()

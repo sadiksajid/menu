@@ -4,7 +4,7 @@
 @section('content')
     <div>
 
-        @livewire('menu-home')
+        @livewire('menu-home',['store'=>$store])
 
     </div>
 @endsection

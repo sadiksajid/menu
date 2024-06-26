@@ -58,7 +58,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'fw-block-blackl
         return view('livewire.admin.headers_edit.headers_route');
     });
 
-    Route::get('/linkStorage', [apksController::class, 'linkstorage']);
+    // Route::get('/linkStorage', [apksController::class, 'linkstorage']);
 
     Route::get('/products/{page?}/{id?}', function ($page = null, $id = null) {
         return view('livewire.admin.products.products_route', ['page' => $page ?? null, 'id' => $id ?? null]);
@@ -270,11 +270,11 @@ Route::group(['middleware' => ['fw-block-blacklisted', 'fw-block-attacks', 'web'
         }
     })->name('home');
 
-    Route::get('/menu', function () {
-        $store_info = Store::where('store_meta', env('STOR_NAME'))->first();
+    Route::get('/{tag}/menu', function ($tag) {
+        $store_info = Store::where('store_meta', $tag)->first();
         if (!empty($store_info)) {
             if ($store_info->status == 1) {
-                return view('livewire.menu1.menu_route');
+                return view('livewire.menu1.menu_route',['store'=>$store_info]);
             } else {
                 return view('desabled');
             }
@@ -328,21 +328,6 @@ Route::group(['prefix' => 'staf', 'middleware' => ['auth:staf', 'fw-block-blackl
         return back();
     })->name('staf_change_lang');
 
-    Route::get('/homeEdit', function () {
-        return view('livewire.admin.index1.index_route');
-    });
-    Route::get('/caisse ', function () {
-        
-        return view('livewire.admin.caisse.caisse_route');
-    });
-
-    Route::get('/MenuEdit', function () {
-        return view('livewire.admin.menu1.menu_route');
-    });
-
-    Route::get('/HeadesEdit', function () {
-        return view('livewire.admin.headers_edit.headers_route');
-    });
 
     Route::get('/linkStorage', [apksController::class, 'linkstorage']);
 
@@ -354,15 +339,15 @@ Route::group(['prefix' => 'staf', 'middleware' => ['auth:staf', 'fw-block-blackl
         return view('livewire.admin.offers.offers_route', ['page' => $page ?? null, 'id' => $id ?? null]);
     });
 
+    Route::get('/header_images', function () {
+        return view('livewire.staf.header_images.header_images_route', );
+    });
+
 
     Route::get('/dashboard', function () {
         return view('livewire.admin.dashboard.dashboard_route');
     })->name('staf.dashboard');
 
-    Route::get('/orders', [OrdersController::class, 'index'])->name('staf_orders.index');
-    Route::get('/orders/details/{id}', function ($id) {
-        return view('livewire.admin.orders.orders_route', ['type' => 'details', 'id' => $id]);
-    });
 
     Route::get('/clients', [ClientsController::class, 'index'])->name('staf_clients.index');
     Route::get('/clients/details/{id}', function ($id) {
