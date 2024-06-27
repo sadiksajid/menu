@@ -85,7 +85,7 @@
         }
     }
     </style>
-    
+
 
     <div class="container-fluid">
         <div class='collapse_div_hover d-none' id='collapse_div_close'>
@@ -97,11 +97,23 @@
                 <ul class="side-menu app-sidebar3">
                     <li class="slide">
                         <a class="side-menu__item p-0" href="#" wire:click='SelectCat(0)'>
-                            <img src="{{ URL::asset('assets/images/all.png') }}" alt="..." style='    width: 70px;
+                            <!-- <img src="{{ URL::asset('assets/images/all.png') }}" alt="..." style='    width: 70px;
                             height: 70px;object-fit: cover; @if($selected_cat ==0 )  border: 3px solid black;  @endif'
-                                class='img-thumbnail rounded-pill'>
+                                class='img-thumbnail rounded-pill'> -->
+                            <button class='btn btn-primary' style=' width: 70px;height: 70px;object-fit: cover; @if($selected_cat ==0 )  border: 3px solid black;  @endif  border-radius: 100px;font-size: 30px;padding: 0;padding-left: 3px' class='img-thumbnail rounded-pill'>
+                                <center><i class="fa fa-arrows-alt" aria-hidden="true"></i></center>
+                            </button>
 
                             <h5> {{$translations['all']}}</h5>
+                        </a>
+                    </li>
+                    <li class="slide">
+                        <a class="side-menu__item p-0" href="#" wire:click='SelectCat(-1)'>
+                            <button class='btn btn-primary' style=' width: 70px;height: 70px;object-fit: cover; @if($selected_cat ==-1 )  border: 3px solid black;  @endif  border-radius: 100px;font-size: 30px;padding: 0;padding-left: 3px' class='img-thumbnail rounded-pill'>
+                                <center><i class="fa fa-star-o" aria-hidden="true"></i></center>
+                            </button>
+
+                            <h5> {{$translations['offers']}}</h5>
                         </a>
                     </li>
 
@@ -158,8 +170,13 @@
 
                     @foreach ( $categories as $category)
                     @php
-                    $products_cat = $products->where('product_category_id', $category["id"]) ;
+                    if( $products != []){
+                        $products_cat = $products->where('product_category_id', $category["id"]) ;
+                    }else{
+                        $products_cat = [];
+                    }
                     @endphp
+
                     @if(count($products_cat) != 0)
                     <div class="col-12">
                         <h3 class="no-background"><span class='h2-span'>{{ $category['title_tr'] }} </span></h3>
@@ -167,7 +184,8 @@
                     @endif
                     @foreach ( $products_cat as $product)
 
-                    <div class="col-xl-2  col-md-3 col-6 caise_prod" style="cursor: pointer" data-id="{{$product->id}}">
+                    <div class="col-xl-2  col-md-3 col-6 " onclick="selectProd({{$product->id}})"
+                        style="cursor: pointer" data-id="{{$product->id}}">
                         <div class="card overflow-hidden">
                             <div
                                 style="overflow: hidden;
@@ -403,7 +421,7 @@
     @endif -->
 
     <div id="print_show" class='d-none'>
-        <iframe id="pdf_iframe"  style="width: 100%; height: 500px;"></iframe>
+        <iframe id="pdf_iframe" style="width: 100%; height: 500px;"></iframe>
     </div>
 
 
@@ -420,39 +438,14 @@
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
 <script>
-$(document).ready(function() {
+function selectProd(id) {
+    Livewire.emit('SelectProd', id);
+}
 
 
-    $(document).on("click", '.caise_prod', function(event) {
-        Livewire.emit('SelectProd', $(this).data('id'));
-    });
 
-
-    $("#collapse_div_show").on("click", function(event) {
-        $('.collapse_div').addClass("collapse_div_show");
-        $('.collapse_div_hover').removeClass("d-none");
-
-        setTimeout(() => {
-            $('.collapse_div_hover').addClass("collapse_div_hover_opacity");
-        }, 100);
-
-
-    });
-
-    $("#collapse_div_close").on("click", function(event) {
-        $('.collapse_div').removeClass("collapse_div_show");
-        $('.collapse_div_hover').removeClass("collapse_div_hover_opacity");
-
-        setTimeout(() => {
-            $('.collapse_div_hover').addClass("d-none");
-        }, 1000);
-
-
-    });
-
-
-    /////////////////////////////////////////////////// show pdf print
-    window.addEventListener('pdfRendered', event => {
+/////////////////////////////////////////////////// show pdf print
+window.addEventListener('pdfRendered', event => {
     var pdfData = event.detail.pdfData;
 
     // Decode the base64 string to binary data
@@ -466,7 +459,9 @@ $(document).ready(function() {
     }
 
     // Create a Blob object from the binary data
-    var blob = new Blob([view], { type: 'application/pdf' });
+    var blob = new Blob([view], {
+        type: 'application/pdf'
+    });
     var url = URL.createObjectURL(blob);
 
     // Set the source of the existing iframe to the Blob URL
@@ -490,82 +485,55 @@ $(document).ready(function() {
 });
 
 
-    window.addEventListener('pdfRenderedPrint', event => {
+window.addEventListener('pdfRenderedPrint', event => {
 
 
-        var url = event.detail.url;
+    var url = event.detail.url;
 
-        $("#wait_print").attr("href", url);
+    $("#wait_print").attr("href", url);
 
-        $('#wait_print').addClass("print_python");
+    $('#wait_print').addClass("print_python");
 
 
+});
+
+
+
+window.addEventListener('swip', event => {
+
+    // Variables to store the initial touch position
+    let initialX = null;
+    let initialY = null;
+
+    // Add touch event listeners to the draggable elements
+    $(".list-card").on("touchstart", function(event) {
+        const touch = event.touches[0];
+        initialX = touch.clientX;
+        initialY = touch.clientY;
+        $(this).addClass("dragging");
     });
 
+    $(".list-card").on("touchmove", function(event) {
+        if (initialX === null || initialY === null) {
+            return;
+        }
+        const touch = event.touches[0];
+        const currentX = touch.clientX;
+        const deltaX = currentX - initialX;
+        if (deltaX > $(this).width() / 2) {
+            $(this).addClass("delete_bg_color");
+        } else {
+            $(this).removeClass("delete_bg_color");
 
-
-    window.addEventListener('swip', event => {
-
-        // Variables to store the initial touch position
-        let initialX = null;
-        let initialY = null;
-
-        // Add touch event listeners to the draggable elements
-        $(".list-card").on("touchstart", function(event) {
-            const touch = event.touches[0];
-            initialX = touch.clientX;
-            initialY = touch.clientY;
-            $(this).addClass("dragging");
-        });
-
-        $(".list-card").on("touchmove", function(event) {
-            if (initialX === null || initialY === null) {
-                return;
-            }
-            const touch = event.touches[0];
-            const currentX = touch.clientX;
-            const deltaX = currentX - initialX;
-            if (deltaX > $(this).width() / 2) {
-                $(this).addClass("delete_bg_color");
-            } else {
-                $(this).removeClass("delete_bg_color");
-
-            }
-            if (deltaX > $(this).width() / 10) {
-                $(this).css({
-                    transform: `translateX(${deltaX}px)`
-                });
-                event.preventDefault();
-            }
-
-        });
-
-        $(".list-card").on("touchend", function(event) {
-            if (initialX === null || initialY === null) {
-                return;
-            }
-            const touch = event.changedTouches[0];
-            const currentX = touch.clientX;
-            const deltaX = currentX - initialX;
-            $(this).removeClass("dragging");
-
-            if ($(this).hasClass("delete_bg_color")) {
-                var id = $(this).data('id');
-                $(this).remove();
-                Livewire.emit('RemoveProd', id);
-            }
-
+        }
+        if (deltaX > $(this).width() / 10) {
             $(this).css({
-                transform: "translateX(0)"
+                transform: `translateX(${deltaX}px)`
             });
-
-            initialX = null;
-            initialY = null;
-        });
-
+            event.preventDefault();
+        }
 
     });
-
 
 
 
@@ -579,8 +547,8 @@ $(document).ready(function() {
                 title: "Submit your password",
 
                 html: `
-                    <center> <lottie-player src="{{ URL::asset('assets/SVG/password.json') }}"  background="transparent"  speed="0.2"  style="width:250px;margin-top:-30px"  loop  autoplay></lottie-player> </center>
-                `,
+            <center> <lottie-player src="{{ URL::asset('assets/SVG/password.json') }}"  background="transparent"  speed="0.2"  style="width:250px;margin-top:-30px"  loop  autoplay></lottie-player> </center>
+        `,
 
                 input: "password",
                 showCancelButton: true,
@@ -677,6 +645,61 @@ $(document).ready(function() {
             }
             getkey(event); // Call getkey function
         }
+    });
+
+
+    $(document).ready(function() {
+
+
+
+
+        $("#collapse_div_show").on("click", function(event) {
+            $('.collapse_div').addClass("collapse_div_show");
+            $('.collapse_div_hover').removeClass("d-none");
+
+            setTimeout(() => {
+                $('.collapse_div_hover').addClass("collapse_div_hover_opacity");
+            }, 100);
+
+
+        });
+
+        $("#collapse_div_close").on("click", function(event) {
+            $('.collapse_div').removeClass("collapse_div_show");
+            $('.collapse_div_hover').removeClass("collapse_div_hover_opacity");
+
+            setTimeout(() => {
+                $('.collapse_div_hover').addClass("d-none");
+            }, 1000);
+
+
+        });
+
+
+        $(".list-card").on("touchend", function(event) {
+            if (initialX === null || initialY === null) {
+                return;
+            }
+            const touch = event.changedTouches[0];
+            const currentX = touch.clientX;
+            const deltaX = currentX - initialX;
+            $(this).removeClass("dragging");
+
+            if ($(this).hasClass("delete_bg_color")) {
+                var id = $(this).data('id');
+                $(this).remove();
+                Livewire.emit('RemoveProd', id);
+            }
+
+            $(this).css({
+                transform: "translateX(0)"
+            });
+
+            initialX = null;
+            initialY = null;
+        });
+
+
     });
 
 

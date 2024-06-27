@@ -33,8 +33,10 @@ class Caisse extends Component
     public $order_to_delete = null ;
 
     public $categories;
-    public $products;
+    public $products = [] ;
+    public $all_products = [];
     public $offers = [];
+    public $all_offers = [];
     public $category_id;
     public $total = 0;
 
@@ -110,40 +112,63 @@ class Caisse extends Component
     {
         // Cache::clear('caisse_products');
 
-        if (Cache::has('caisse_products')) {
-            $this->products = Cache::get('caisse_products');
+        // if (Cache::has('caisse_products')) {
+        //     $this->products = Cache::get('caisse_products');
 
-            if ($this->selected_cat != 0) {
-                $this->products = $this->products->where('product_category_id', $this->selected_cat);
-                $this->offers = [];
-            }else{
-                $this->offers = Cache::get('caisse_offers') ?? [];
-            }
-        } else {
+        //     if ($this->selected_cat != 0) {
+        //         $this->products = $this->products->where('product_category_id', $this->selected_cat);
+        //         $this->offers = [];
+        //     }else{
+        //         $this->offers = Cache::get('caisse_offers') ?? [];
+        //     }
+        // } else {
 
-            $this->products = StoreProduct::where('store_id', $this->store_id)
+            $this->products  = StoreProduct::where('store_id', $this->store_id)
                 ->select('id','title','price','product_category_id')
                 ->where('to_menu', 1)
                 ->orderBy('id', 'DESC')
+
+                // ->when($id!=0,function($q) use($id){
+                //     $q->where('product_category_id', $id);
+                // })
+
                 ->get();
 
-            $this->offers = Offer::where('store_id', $this->store_id)
+            $this->all_products = $this->products; 
+            $this->offers = $this->all_offers = Offer::where('store_id', $this->store_id)
                 ->select('id','title','image','price','old_price')
                 ->where('status', 1)
                 ->get();
 
-            Cache::put('caisse_products', $this->products, 86400);
-            Cache::put('caisse_offers', $this->offers, 86400);
-            if ($this->selected_cat != 0) {
-                $this->getProducts($this->selected_cat);
-            }
-        }
+            // Cache::put('caisse_products', $this->products, 86400);
+            // Cache::put('caisse_offers', $this->offers, 86400);
+            // if ($this->selected_cat != 0) {
+            //     $this->getProducts($this->selected_cat);
+            // }
+        // }
     }
 
     public function SelectCat($id)
     {
         $this->selected_cat = $id;
-        $this->getProducts($this->selected_cat);
+        
+      
+        switch ($id) {
+            case 0:
+                $this->products = $this->all_products;
+                $this->offers = $this->all_offers ;
+                break;
+            case -1 :
+                $this->products = [];
+                $this->offers = $this->all_offers ;
+                break;
+            default:
+                $this->products = $this->all_products->where('product_category_id', $id);
+                $this->offers = [];
+                break;
+        }
+
+        // $this->getProducts($this->selected_cat);
     }
 
 
@@ -170,8 +195,8 @@ class Caisse extends Component
 
     public function SelectProd($id,$is_offer = 0)
     {
-        $products = Cache::get('caisse_products');
-
+        // $products = Cache::get('caisse_products');
+        $products = $this->all_products ;
         if($is_offer == 0){
             $product = $products->where('id', $id)->first();
             if (!in_array($id, $this->selected_products_ids)) {
@@ -443,8 +468,8 @@ class Caisse extends Component
     public function editOrder($id,$is_offer = 0)
     {
 
-        $this->products = Cache::get('caisse_products');
-        $this->offers = Cache::get('caisse_offers');
+        // $this->products = Cache::get('caisse_products');
+        // $this->offers = Cache::get('caisse_offers');
 
 
         $this->update_order = true ;    
