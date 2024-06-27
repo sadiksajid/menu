@@ -27,7 +27,6 @@ class Caisse extends Component
     use WithPagination;
     public $currency;
     public $store_info;
-
     public $new_orders;
     public $update_order = false ;
     public $update_order_id = null ;
@@ -49,6 +48,11 @@ class Caisse extends Component
     public $translations;
     public $langs = [];
 
+
+
+    public $show_pdf = false ;
+
+    
     public function mount()
     {
         session()->forget('password_confirmed_at'); // Deleting specific session variable
@@ -69,11 +73,19 @@ class Caisse extends Component
         $this->getNewOrders();
     }
     public function render()
-    {
-
+    {   
+        // dd( $this->show_pdf );
+        // $this->show_pdf = false ;
         return view('livewire.admin.caisse.caisse');
 
     }
+    public function dehydrate()
+    {   
+        // dd( $this->show_pdf );
+        $this->show_pdf = false ;
+
+    }
+
 
     public function getCategories()
     {
@@ -310,6 +322,7 @@ class Caisse extends Component
 
     public function ValidCheckout()
     {
+
         if (count($this->selected_products) > 0) {
             $this->dispatchBrowserEvent('swal:confirm', [
                 'type' => 'warning',
@@ -324,6 +337,7 @@ class Caisse extends Component
     {
 
         if (count($this->selected_products) > 0) {
+
 
             $order = new StoreOrder();
             $order->store_id = $this->store_id;
@@ -405,6 +419,10 @@ class Caisse extends Component
             
 
             OrderProducte::insert($products);
+
+
+            $this->show_pdf = true ;
+
             $this->generateReceiptPDF($order->id);
 
         }
@@ -414,6 +432,7 @@ class Caisse extends Component
             'type' => 'success',
             'message' => $this->translations['caisse_order_success'],
         ]);
+
         // $this->generateReceiptPDF();
 
     }
