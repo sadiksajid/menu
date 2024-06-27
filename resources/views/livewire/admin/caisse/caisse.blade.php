@@ -85,7 +85,7 @@
         }
     }
     </style>
-
+    
 
     <div class="container-fluid">
         <div class='collapse_div_hover d-none' id='collapse_div_close'>
@@ -167,7 +167,7 @@
                     @endif
                     @foreach ( $products_cat as $product)
 
-                    <div class="col-xl-2  col-md-3 col-6 caise_prod"  style="cursor: pointer" data-id="{{$product->id}}">
+                    <div class="col-xl-2  col-md-3 col-6 caise_prod" style="cursor: pointer" data-id="{{$product->id}}">
                         <div class="card overflow-hidden">
                             <div
                                 style="overflow: hidden;
@@ -397,7 +397,14 @@
     </div>
 
 
+    <!-- @if( $show_pdf )
     <a href="#" class="d-none " id='wait_print'></a>
+    <div id='print_show'></div>
+    @endif -->
+
+    <div id="print_show">
+    <iframe id="pdf_iframe" style="width: 100%; height: 500px;"></iframe>
+</div>
 
 
 
@@ -416,7 +423,7 @@
 $(document).ready(function() {
 
 
-    $(document).on("click",'.caise_prod', function(event) {
+    $(document).on("click", '.caise_prod', function(event) {
         Livewire.emit('SelectProd', $(this).data('id'));
     });
 
@@ -442,36 +449,42 @@ $(document).ready(function() {
 
 
     });
+
+
+    /////////////////////////////////////////////////// show pdf print
     window.addEventListener('pdfRendered', event => {
+    var pdfData = event.detail.pdfData;
 
-        var pdfData = event.detail.pdfData;
+    // Decode the base64 string to binary data
+    var binary = atob(pdfData);
+    var len = binary.length;
+    var buffer = new ArrayBuffer(len);
+    var view = new Uint8Array(buffer);
 
-        // Decode the base64 string to binary data
-        var binary = atob(pdfData);
-        var len = binary.length;
-        var buffer = new ArrayBuffer(len);
-        var view = new Uint8Array(buffer);
+    for (var i = 0; i < len; i++) {
+        view[i] = binary.charCodeAt(i);
+    }
 
-        for (var i = 0; i < len; i++) {
-            view[i] = binary.charCodeAt(i);
-        }
+    // Create a Blob object from the binary data
+    var blob = new Blob([view], { type: 'application/pdf' });
+    var url = URL.createObjectURL(blob);
 
-        // Create a Blob object from the binary data
-        var blob = new Blob([view], { type: 'application/pdf' });
-        var url = URL.createObjectURL(blob);
+    // Set the source of the existing iframe to the Blob URL
+    var iframe = document.getElementById('pdf_iframe');
+    iframe.src = url;
 
-        // Create an iframe to embed the PDF
-        var iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        iframe.src = url;
-        document.body.appendChild(iframe);
+    // Add an event listener for when the iframe has loaded
+    iframe.onload = function() {
+        // Trigger the print dialog
+        iframe.contentWindow.print();
 
-        iframe.onload = function() {
-            // Wait for the iframe to load, then trigger the print dialog
-            iframe.contentWindow.print();
-        };
-
-    });
+        // Add an event listener for after printing
+        window.addEventListener('afterprint', () => {
+            // Clear the div when the print modal is closed
+            iframe.src = '';
+        });
+    };
+});
 
 
     window.addEventListener('pdfRenderedPrint', event => {

@@ -1160,6 +1160,8 @@
         "ar": "الحي",
         "fr": "quartier"
     },
+
+
     "fullname": {
         "en": "Fullname",
         "ar": "الاسم الكامل",
@@ -1180,6 +1182,20 @@
         "ar": "الصفحة الرئيسية للمسابقة",
         "fr": "Accueil de la compétition"
     },
+
+    
+    "contact_info": {
+        "en": "Contact info"
+    },
+    "store_tag": {
+        "en": "Store Tag"
+    },
+    "social_media": {
+        "en": "Social Media"
+    },
+
+
+
     "categories": {
         "en": "Categories"
     },
