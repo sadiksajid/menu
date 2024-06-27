@@ -230,7 +230,12 @@
                                 alt="" class="img-fluid lazy">
                                 <button class="edit-button-image"  data-cue="slideInUp"  data-id='img_5' style='top: 50%;font-size: 180%;'><i class="fa fa-upload"></i></button>
 
-                            <a  @if (isset($urls['url_4'])) 
+                     
+                        </figure>
+                   
+                    </div>
+
+                    <a  @if (isset($urls['url_4'])) 
                                  href="{{$urls['url_4']}}"
                                 @else 
                                     href="https://www.youtube.com/watch?v=MO7Hi_kBBBg"
@@ -240,8 +245,7 @@
                                 class="btn_play  edit-url" data-cue="zoomIn"
                                 data-delay="500"><span class="pulse_bt"><i
                                         class="arrow_triangle-right"></i></span></a>
-                        </figure>
-                    </div>
+                                        
                     <div class="col-lg-5 pt-lg-4" data-cue="slideInUp" data-delay="500">
                         <div class="main_title">
                             <span><em></em></span>
