@@ -1,6 +1,10 @@
 <div>
     @php
-        $offer = $this->offers->random();
+        if(count($this->offers) != 0){
+            $offer = $this->offers->random();
+        }else{
+            $offer = [];
+        }
     @endphp
     
 
