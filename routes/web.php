@@ -304,6 +304,19 @@ Route::group(['middleware' => ['fw-block-blacklisted', 'fw-block-attacks', 'web'
         }
     });
 
+    Route::get('/contact_us', function () {
+        $store_info = Store::where('store_meta', env('STOR_NAME'))->first();
+        if (!empty($store_info)) {
+            if ($store_info->status == 1) {
+                return view('livewire.contact_us.contact_us_route',['store_info'=>$store_info]);
+            } else {
+                return view('desabled');
+            }
+        } else {
+            return view('404');
+        }
+    });
+
     Route::get('/competition/{id?}', function ($id = null) {
         return view('livewire.competition.competition_route', ['id' => $id]);
     });
