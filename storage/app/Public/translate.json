@@ -380,10 +380,14 @@
         "fr": "Enregistrement"
     },
     "to_order": {
-        "en": "To Order"
+        "en": "To Order",
+        "ar": "لطلب",
+        "fr": "Pour commander"
     },
     "our_location": {
-        "en": "Our Location"
+        "en": "Our Location",
+        "ar": "موقعنا",
+        "fr": "Notre emplacement"
     },
     "": {
         "en": " "
