@@ -194,7 +194,7 @@
     <!-- /bg_gray -->
 
     <div class="call_section lazy" @if (isset($images['img_7']))
-        style="position: relative; background-image:get_image($images['img_7'])" data-bg="get_image($images['img_7'])"
+        style="position: relative; background-image:{{get_image($images['img_7'])}}" data-bg="{{get_image($images['img_7'])}}"
         @else style="position: relative" data-bg="url({{ URL::asset('index1/img/bg_call_section.jpg') }})" @endif>
 
         <div class="container clearfix">
