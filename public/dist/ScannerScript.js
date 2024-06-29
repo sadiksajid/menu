@@ -16,8 +16,7 @@ function getkey(event,is_livewire=true) {
     if (/^\d+$/.test(event.key.toString())) {
         clearTimeout(typingTimer);
         code = code + event.key.toString();
-
-        // typingTimer = setTimeout(doneTyping(is_livewire), 10000);
+        console.log(code)
         typingTimer = setTimeout(() => {
             doneTyping(is_livewire);
         }, doneTypingInterval);

@@ -100,7 +100,9 @@
                             <!-- <img src="{{ URL::asset('assets/images/all.png') }}" alt="..." style='    width: 70px;
                             height: 70px;object-fit: cover; @if($selected_cat ==0 )  border: 3px solid black;  @endif'
                                 class='img-thumbnail rounded-pill'> -->
-                            <button class='btn btn-primary' style=' width: 70px;height: 70px;object-fit: cover; @if($selected_cat ==0 )  border: 3px solid black;  @endif  border-radius: 100px;font-size: 30px;padding: 0;padding-left: 3px' class='img-thumbnail rounded-pill'>
+                            <button class='btn btn-primary'
+                                style=' width: 70px;height: 70px;object-fit: cover; @if($selected_cat ==0 )  border: 3px solid black;  @endif  border-radius: 100px;font-size: 30px;padding: 0;padding-left: 3px'
+                                class='img-thumbnail rounded-pill'>
                                 <center><i class="fa fa-arrows-alt" aria-hidden="true"></i></center>
                             </button>
 
@@ -109,7 +111,9 @@
                     </li>
                     <li class="slide">
                         <a class="side-menu__item p-0" href="#" wire:click='SelectCat(-1)'>
-                            <button class='btn btn-primary' style=' width: 70px;height: 70px;object-fit: cover; @if($selected_cat ==-1 )  border: 3px solid black;  @endif  border-radius: 100px;font-size: 30px;padding: 0;padding-left: 3px' class='img-thumbnail rounded-pill'>
+                            <button class='btn btn-primary'
+                                style=' width: 70px;height: 70px;object-fit: cover; @if($selected_cat ==-1 )  border: 3px solid black;  @endif  border-radius: 100px;font-size: 30px;padding: 0;padding-left: 3px'
+                                class='img-thumbnail rounded-pill'>
                                 <center><i class="fa fa-star-o" aria-hidden="true"></i></center>
                             </button>
 
@@ -171,9 +175,9 @@
                     @foreach ( $categories as $category)
                     @php
                     if( $products != []){
-                        $products_cat = $products->where('product_category_id', $category["id"]) ;
+                    $products_cat = $products->where('product_category_id', $category["id"]) ;
                     }else{
-                        $products_cat = [];
+                    $products_cat = [];
                     }
                     @endphp
 
@@ -443,7 +447,6 @@ function selectProd(id) {
 }
 
 
-
 /////////////////////////////////////////////////// show pdf print
 window.addEventListener('pdfRendered', event => {
     var pdfData = event.detail.pdfData;
@@ -534,172 +537,167 @@ window.addEventListener('swip', event => {
         }
 
     });
+});
 
 
 
-    window.addEventListener('confirmPassword', event => {
+window.addEventListener('confirmPassword', event => {
 
-        // Get the modal
+    // Get the modal
 
-        //////////////////////////////////// password 
-        function password() {
-            Swal.fire({
-                title: "Submit your password",
+    //////////////////////////////////// password 
+    function password() {
+        Swal.fire({
+            title: "Submit your password",
 
-                html: `
+            html: `
             <center> <lottie-player src="{{ URL::asset('assets/SVG/password.json') }}"  background="transparent"  speed="0.2"  style="width:250px;margin-top:-30px"  loop  autoplay></lottie-player> </center>
         `,
 
-                input: "password",
-                showCancelButton: true,
-                confirmButtonText: "Next",
-                confirmButtonColor: '#7066e0',
-                customClass: {
-                    popup: 'swal2-custom-zindex' // Apply the custom z-index class
-                },
-            }).then((result) => {
-                if (result.isConfirmed) {
+            input: "password",
+            showCancelButton: true,
+            confirmButtonText: "Next",
+            confirmButtonColor: '#7066e0',
+            customClass: {
+                popup: 'swal2-custom-zindex' // Apply the custom z-index class
+            },
+        }).then((result) => {
+            if (result.isConfirmed) {
 
-                    try {
-                        $.ajax({
-                            url: '{{ route("check_admin_password") }}',
-                            method: 'POST',
-                            data: {
-                                _token: '{{ csrf_token() }}', // CSRF token
-                                password: result.value,
+                try {
+                    $.ajax({
+                        url: '{{ route("check_admin_password") }}',
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}', // CSRF token
+                            password: result.value,
 
-                            },
-                            success: function(response) {
-                                if (response.data == -1) {
-                                    Swal.fire({
-                                        title: "Incorrect Password!",
-                                        text: "Please Try Again",
-                                        icon: "error"
-                                    });
-                                } else {
-                                    data = {
-                                        val: event.detail.id,
-                                        id: response.data,
-                                        name: response.name
-                                    }
-                                    Livewire.emit(event.detail.function, data);
-
-                                }
-                            },
-                            error: function(err) {
+                        },
+                        success: function(response) {
+                            if (response.data == -1) {
                                 Swal.fire({
                                     title: "Incorrect Password!",
                                     text: "Please Try Again",
                                     icon: "error"
                                 });
+                            } else {
+                                data = {
+                                    val: event.detail.id,
+                                    id: response.data,
+                                    name: response.name
+                                }
+                                Livewire.emit(event.detail.function, data);
+
                             }
-                        });
+                        },
+                        error: function(err) {
+                            Swal.fire({
+                                title: "Incorrect Password!",
+                                text: "Please Try Again",
+                                icon: "error"
+                            });
+                        }
+                    });
 
 
-                    } catch (error) {
-                        Swal.fire({
-                            title: "Incorrect Password!",
-                            text: "Please Try Again",
-                            icon: "error"
-                        });
-                    }
-
-
+                } catch (error) {
+                    Swal.fire({
+                        title: "Incorrect Password!",
+                        text: "Please Try Again",
+                        icon: "error"
+                    });
                 }
-            });
+
+
+            }
+        });
+    }
+
+    //////////////////////////////////////////////////// scamner
+
+    function scanner() {
+
+
+        $('#functionName').val(event.detail.function);
+        $('#functionId').val(event.detail.id);
+
+        $('#scanModal').modal("show");
+
+        $("#scanToPassword").on("click", function(event) {
+            $('#scanModal').modal("hide");
+
+            password()
+        });
+
+    }
+
+    scanner()
+});
+
+
+window.addEventListener('close_modal', event => {
+    $('#scanModal').modal("hide");
+});
+
+var modalScan = document.getElementById('scanModal');
+
+
+document.body.addEventListener('keydown', function(event) {
+    if (modalScan.style.display === 'block') { // Check if modal is shown
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent the default action
         }
 
-        //////////////////////////////////////////////////// scamner
+        getkey(event); // Call getkey function
+    }
+});
 
-        function scanner() {
+
+$(document).ready(function() {
+
+    $("#collapse_div_show").on("click", function(event) {
+        $('.collapse_div').addClass("collapse_div_show");
+        $('.collapse_div_hover').removeClass("d-none");
+
+        setTimeout(() => {
+            $('.collapse_div_hover').addClass("collapse_div_hover_opacity");
+        }, 100);
+
+    });
+
+    $("#collapse_div_close").on("click", function(event) {
+        $('.collapse_div').removeClass("collapse_div_show");
+        $('.collapse_div_hover').removeClass("collapse_div_hover_opacity");
+
+        setTimeout(() => {
+            $('.collapse_div_hover').addClass("d-none");
+        }, 1000);
 
 
-            $('#functionName').val(event.detail.function);
-            $('#functionId').val(event.detail.id);
-
-            $('#scanModal').modal("show");
-
-            $("#scanToPassword").on("click", function(event) {
-                $('#scanModal').modal("hide");
-
-                password()
-            });
-
-        }
-
-        scanner()
     });
 
 
-    window.addEventListener('close_modal', event => {
-        $('#scanModal').modal("hide");
-    });
-
-    var modalScan = document.getElementById('scanModal');
-
-
-    document.body.addEventListener('keydown', function(event) {
-        if (modalScan.style.display === 'block') { // Check if modal is shown
-            if (event.key === 'Enter') {
-                event.preventDefault(); // Prevent the default action
-            }
-            getkey(event); // Call getkey function
+    $(".list-card").on("touchend", function(event) {
+        if (initialX === null || initialY === null) {
+            return;
         }
-    });
+        const touch = event.changedTouches[0];
+        const currentX = touch.clientX;
+        const deltaX = currentX - initialX;
+        $(this).removeClass("dragging");
 
+        if ($(this).hasClass("delete_bg_color")) {
+            var id = $(this).data('id');
+            $(this).remove();
+            Livewire.emit('RemoveProd', id);
+        }
 
-    $(document).ready(function() {
-
-
-
-
-        $("#collapse_div_show").on("click", function(event) {
-            $('.collapse_div').addClass("collapse_div_show");
-            $('.collapse_div_hover').removeClass("d-none");
-
-            setTimeout(() => {
-                $('.collapse_div_hover').addClass("collapse_div_hover_opacity");
-            }, 100);
-
-
+        $(this).css({
+            transform: "translateX(0)"
         });
 
-        $("#collapse_div_close").on("click", function(event) {
-            $('.collapse_div').removeClass("collapse_div_show");
-            $('.collapse_div_hover').removeClass("collapse_div_hover_opacity");
-
-            setTimeout(() => {
-                $('.collapse_div_hover').addClass("d-none");
-            }, 1000);
-
-
-        });
-
-
-        $(".list-card").on("touchend", function(event) {
-            if (initialX === null || initialY === null) {
-                return;
-            }
-            const touch = event.changedTouches[0];
-            const currentX = touch.clientX;
-            const deltaX = currentX - initialX;
-            $(this).removeClass("dragging");
-
-            if ($(this).hasClass("delete_bg_color")) {
-                var id = $(this).data('id');
-                $(this).remove();
-                Livewire.emit('RemoveProd', id);
-            }
-
-            $(this).css({
-                transform: "translateX(0)"
-            });
-
-            initialX = null;
-            initialY = null;
-        });
-
-
+        initialX = null;
+        initialY = null;
     });
 
 
