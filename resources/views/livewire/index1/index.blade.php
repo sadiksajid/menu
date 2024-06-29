@@ -135,8 +135,7 @@
                                 class="btn_play  " data-cue="zoomIn" data-delay="500"
                                 style='position:relative!important ; color: black;width: 190px;border-radius: 15px;background-color:#FAB100;margin-top: 90px;'><span
                                     class=""><i class="arrow_triangle-right"></i><span
-                                        style='font-size: 18px;float: right;margin-right: 10px;'>Watch
-                                        Video</span></span> </a>
+                                        style='font-size: 18px;float: right;margin-right: 10px;'>$translations['watch_video']</span></span> </a>
                         </center>
                     </div>
                 </div>
@@ -194,7 +193,7 @@
     <!-- /bg_gray -->
 
     <div class="call_section lazy" @if (isset($images['img_7']))
-        style="position: relative; background-image:{{get_image($images['img_7'])}}" data-bg="{{get_image($images['img_7'])}}"
+        style="position: relative; background-image:url({{get_image($images['img_7'])}})" data-bg="url({{get_image($images['img_7'])}})"
         @else style="position: relative" data-bg="url({{ URL::asset('index1/img/bg_call_section.jpg') }})" @endif>
 
         <div class="container clearfix">
@@ -208,9 +207,9 @@
                         </h2>
                         <h2 class='' data-id='title-15'><span>
                                 {{ $titles['title-15'] ?? '' }}</span></h2>
-
+<!-- 
                         <p class='' data-id='text-2'>{!! $texts['text-2'] ?? $translations_resto['our_location_text']
-                            !!}.
+                            !!}. -->
                         </p>
                         <a data-id='btn-3' class="btn_1  mt-3 " style=' background-color:{{$store_info->btn_color}}'
                             href="{{ $buttons['btn-3']['url'] ?? '#contacts.html' }}">{{ $buttons['btn-3']['title'] ?? 'Contact us' }}</a>

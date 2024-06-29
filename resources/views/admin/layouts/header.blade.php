@@ -165,7 +165,7 @@ $current_lang =  Cache::get('locale_admin') ?? 'en';
           </div>
           <div class="modal-footer">
               <button type="button" class="btn  mx-auto" aria-label="Close" class="close"
-                  data-dismiss="modal" wire:click="changeLang('en')" style='  background-color: #262626;color: #fff;    width: 130px;'>
+                  data-dismiss="modal" wire:click="changeLang('en','{{url()->current()}}')" style='background-color: #262626;color: #fff;width: 130px;'>
                   <span>Close</span>
               </button>
           </div>
