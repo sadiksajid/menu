@@ -135,7 +135,7 @@
                                 class="btn_play  " data-cue="zoomIn" data-delay="500"
                                 style='position:relative!important ; color: black;width: 190px;border-radius: 15px;background-color:#FAB100;margin-top: 90px;'><span
                                     class=""><i class="arrow_triangle-right"></i><span
-                                        style='font-size: 18px;float: right;margin-right: 10px;'>$translations['watch_video']</span></span> </a>
+                                        style='font-size: 18px;float: right;margin-right: 10px;'>{{$translations['watch_video']}}</span></span> </a>
                         </center>
                     </div>
                 </div>
