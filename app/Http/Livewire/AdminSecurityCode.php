@@ -109,7 +109,7 @@ class AdminSecurityCode extends Component
     public function deleteProfile($index)
     {
         $this->dispatchBrowserEvent('swal:confirm', [
-            'type' => 'warninig',
+            'type' => 'warning',
             'title' => 'Delete Profile!',
             'message' => 'Are you sure you want to delete this Profile ?',
             'function' => 'ConfirmDeleteProfile',

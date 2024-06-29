@@ -153,7 +153,7 @@ class AdminHomeHeader extends Component
     public function deleteSlide($index)
     {
         $this->dispatchBrowserEvent('swal:confirm', [
-            'type' => 'warninig',
+            'type' => 'warning',
             'title' => 'Delete Slide!',
             'message' => 'Are you sure you want to delete this slide ?',
             'function' => 'ConfirmDeleteSlide',

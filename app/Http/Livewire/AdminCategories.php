@@ -147,7 +147,7 @@ class AdminCategories extends Component
     {
         $this->category_to_delete = $id ;
         $this->dispatchBrowserEvent('swal:confirm', [
-            'type' => 'warninig',
+            'type' => 'warning',
             'title' => 'Delete Category!',
             'message' => 'Are you sure you want to delete '.$title.' category ?',
             'function' => 'confirmDelete'
