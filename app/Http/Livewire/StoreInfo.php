@@ -165,7 +165,9 @@ class StoreInfo extends Component
         $this->preorder = $this->store_info->preorder;
         $this->address = $this->store_info->address;
         $this->city_id = $this->store_info->city_id;
-        $this->region_id = $this->store_info->city->province->region->id ?? null;
+
+
+        $this->region_id = $this->store_info->city_db->province->region->id ?? null;
 
         if(!empty($this->regions)){
             $this->getCity();
@@ -199,6 +201,7 @@ class StoreInfo extends Component
             
             $this->validate([
                 'city_id' => 'required|integer|max:99999',
+                'region_id' => 'required|integer|max:99999',
                 'quartier_fix' => 'nullable|string|max:50',
             ]);
         }else{

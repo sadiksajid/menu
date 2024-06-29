@@ -69,7 +69,7 @@ class Store extends Model
         return $this->hasMany(ProducteExtra::class);
     }
 
-    public function city()
+    public function city_db()
     {
         return $this->belongsTo(City::class, 'city_id');
     }
