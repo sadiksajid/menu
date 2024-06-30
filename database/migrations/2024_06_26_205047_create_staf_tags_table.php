@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('staf_header_images', function (Blueprint $table) {
+        Schema::create('staf_tags', function (Blueprint $table) {
             $table->id();
-            $table->string('image',255);
-            $table->integer('usage')->default(0);
+            $table->string('en_tags',250);
+            $table->string('ar_tags',250);
+            $table->string('fr_tags',250);
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('staf_header_images');
+        Schema::dropIfExists('staf_tags');
     }
 };

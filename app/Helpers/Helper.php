@@ -571,4 +571,36 @@ if (!function_exists('setView')) {
         }
     }
 
+
+if (!function_exists('deleteFile')) {
+    function deleteFile($file,$sizes = null)
+    {
+        try {
+            $manager = new ImageManager(new Driver());
+
+            if ($sizes != null) {
+
+                foreach ($sizes as $key => $size) {
+                    if (Storage::disk('minio')->exists($key. '/' .$file)) {
+                        Storage::disk('minio')->delete($key. '/' .$file);
+                    }
+                }
+            } else {
+                if (Storage::disk('minio')->exists($file)) {
+                    Storage::disk('minio')->delete($file);
+                }
+                if (Storage::disk('minio')->exists('tmb/' .$file)) {
+                    Storage::disk('minio')->delete('tmb/' .$file);
+                }
+            }
+
+            return true;
+        } catch (\Throwable $th) {
+            dd($th);
+            return false;
+        }
+
+    }
+}
+
 }
