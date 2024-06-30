@@ -363,5 +363,68 @@
         "en": "View Detail",
         "ar": "عرض التفاصيل",
         "fr": "Voir le détail"
+    },
+    "fullname": {
+        "en": "Fullname",
+        "ar": "الاسم الكامل",
+        "fr": "Nom complet"
+    },
+    "downloading": {
+        "en": "Downloading",
+        "ar": "جارٍ التنزيل",
+        "fr": "Téléchargement"
+    },
+    "saving": {
+        "en": "Saving",
+        "ar": "جارٍ الحفظ",
+        "fr": "Enregistrement"
+    },
+    "to_order": {
+        "en": "To Order",
+        "ar": "لطلب",
+        "fr": "Pour commander"
+    },
+    "our_location": {
+        "en": "Our Location",
+        "ar": "موقعنا",
+        "fr": "Notre emplacement"
+    },
+    "watch_video": {
+        "en": "Watch Video",
+        "ar": "شاهد الفيديو",
+        "fr": "Regarder la vidéo"
+    },
+    "": {
+        "en": " "
+    },
+    "": {
+        "en": " "
+    },
+    "": {
+        "en": " "
+    },
+    "": {
+        "en": " "
+    },
+    "": {
+        "en": " "
+    },
+    "": {
+        "en": " "
+    },
+    "": {
+        "en": " "
+    },
+    "": {
+        "en": " "
+    },
+    "": {
+        "en": " "
+    },
+    "": {
+        "en": " "
+    },
+    "": {
+        "en": " "
     }
 }

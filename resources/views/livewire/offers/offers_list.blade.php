@@ -208,7 +208,6 @@
             // history_image[current_path] = images
             $(document).on('click', '.showDetail', function() {
                 var id = $(this).attr("data-id");
-                console.log(window.livewire.offers);
                 offer = window.livewire.offers[id] ?? window.livewire.offers.data[id]
                 $("#detail_image").attr("src", path + '/' + images[id])
                 $("#detail_title").html(offer['title'])

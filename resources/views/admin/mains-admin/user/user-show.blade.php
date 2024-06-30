@@ -94,7 +94,6 @@
                                         <label class="col-md-12 form-label">Roles</label>
                                         <div class="col-md-12">
                                             <select multiple="multiple"
-                                                onchange="console.log($(this).children(':selected').length)"
                                                 class="search-box" name="roles[]">
                                                 @foreach ($roles as $role)
                                                     <option value="{{ $role }}"

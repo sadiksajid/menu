@@ -20,6 +20,7 @@
 <link href="{{ URL::asset('index1/css/wizard.css') }}" rel="stylesheet">
 
 <script src="{{ URL::asset('index1/js/common_scripts.min.js') }}"></script>
+<script src="{{ URL::asset('index1/js/slider.js') }}"></script>
 <script src="{{ URL::asset('index1/js/common_func.js') }}"></script>
 <script src="{{ URL::asset('index1/phpmailer/validate.js') }}"></script>
 
@@ -36,7 +37,7 @@
 
 
 <!-- SPECIFIC SCRIPTS -->
-<script src="{{ URL::asset('index1/js/video_header.min.js') }}"></script>
+<!-- <script src="{{ URL::asset('index1/js/video_header.min.js') }}"></script> -->
 <script src="{{ URL::asset('assets3/js/main.js') }}"></script>
 <script src="{{ URL::asset('js/header.js') }}"></script>
 
@@ -184,6 +185,28 @@
         
     
     });
+
+
+    function changeFavicon() {
+
+            var src = $('#site_icon').attr('href');
+
+            let link = document.getElementById('favicon');
+            if (link) {
+                link.href = src;
+            } else {
+                link = document.createElement('link');
+
+                link.id = 'favicon';
+                link.rel = 'icon';
+                link.href = src;
+                document.head.appendChild(link);
+            }
+        }
+
+        // Example usage
+    changeFavicon();
+
 
 </script>
 @csrf

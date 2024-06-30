@@ -293,34 +293,34 @@
                             <div class="card-body">
                                 <div class="row">
                                     @if(!empty($regions))
-                                    <div class="col-6" >
+                                    <div class="col-6">
                                         <div wire:ignore>
                                             <label class="col-md-12 form-label">{{ $translations['region'] }}<span
                                                     class="text-red">*</span></label>
-                                            <select class="form-control" wire:model.defer="region_id" id="region_select2">
+                                            <select class="form-control" wire:model.defer="region_id"
+                                                id="region_select2">
                                                 @foreach ($regions as $region)
                                                 <option value="{{ $region['id'] }}">{{ $region['region'] }}
                                                 </option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                  
                                         @error('region_id')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
 
-                                    <div class="col-6" >
-                                       <div wire:ignore>
-                                       <label class="col-md-12 form-label">{{ $translations['city'] }}<span
-                                                class="text-red">*</span></label>
-                                        <select class="form-control" wire:model.defer="city_id" id="city_select2">
-                                            @foreach ($cities as $city)
-                                            <option value="{{ $city['id'] }}">{{ $city['city'] }}
-                                            </option>
-                                            @endforeach
-                                        </select>
-                                       </div>
+                                    <div class="col-6">
+                                        <div wire:ignore>
+                                            <label class="col-md-12 form-label">{{ $translations['city'] }}<span
+                                                    class="text-red">*</span></label>
+                                            <select class="form-control" wire:model.defer="city_id" id="city_select2">
+                                                @foreach ($cities as $city)
+                                                <option value="{{ $city['id'] }}">{{ $city['city'] }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                         @error('city_id')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -330,8 +330,8 @@
                                         <label class="col-md-12 form-label">{{ $translations['city'] }} <span
                                                 class="text-red">*</span></label>
                                         <input class="form-control mb-4" placeholder="{{ $translations['city'] }}"
-                                            type="text" wire:model.defer='city'>
-                                        @error('city')
+                                            type="text" wire:model.defer='city_name'>
+                                        @error('city_name')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -470,10 +470,12 @@
                 <div class="col-12">
                     <div class="col-12">
                         <button class="btn btn-success btn-lg" wire:click="updateInfo" style='width:30%'>
-                            {{ $translations['save'] }} 
-                            <i wire:loading.class.add='d-none' class="zmdi zmdi-save" data-toggle="tooltip" title="" data-original-title="zmdi zmdi-save"></i> 
-                            <span wire:loading  style="height: 20px;width:20px;transition: 0.5s;margin-right: 10px;" class="spinner-border spinner-border-sm ml-3"></span>
-                            </button>
+                            {{ $translations['save'] }}
+                            <i wire:loading.class.add='d-none' class="zmdi zmdi-save" data-toggle="tooltip" title=""
+                                data-original-title="zmdi zmdi-save"></i>
+                            <span wire:loading style="height: 20px;width:20px;transition: 0.5s;margin-right: 10px;"
+                                class="spinner-border spinner-border-sm ml-3"></span>
+                        </button>
                     </div>
                 </div>
 
@@ -487,6 +489,10 @@
 
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.10/build/js/intlTelInput.min.js"></script>
+
+<script src="{{ URL::asset('assets/plugins/fileuploads/js/fileupload.js') }}?v=3"></script>
+<script src="{{ URL::asset('assets/plugins/fileuploads/js/file-upload.js') }}?v=6"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script src="{{ URL::asset('assets/plugins/fileuploads/js/fileupload.js') }}?v=3"></script>
 <script src="{{ URL::asset('assets/plugins/fileuploads/js/file-upload.js') }}?v=6"></script>
@@ -616,10 +622,10 @@ $(document).ready(function() {
 $(document).ready(
     function() {
         fileUpload();
-        var logo = @json($logo) ;
-        if( logo != "" ){
+        var logo = @json($logo);
+        if (logo != "") {
 
-            logo = @json(get_image($logo)) ;
+            logo = @json(get_image($logo));
             console.log(logo)
 
             var dropifyInput = $('.dropify-render');

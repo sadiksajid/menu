@@ -1,4 +1,4 @@
-ARG PHP_VERSION=${PHP_VERSION:-8.1}
+ARG PHP_VERSION=${PHP_VERSION:-8.2}
 FROM php:${PHP_VERSION}-fpm-alpine3.16 AS php-system-setup
 # Install system dependencies
 RUN apk add --no-cache dcron busybox-suid libcap curl zip unzip git nano mc npm php-calendar

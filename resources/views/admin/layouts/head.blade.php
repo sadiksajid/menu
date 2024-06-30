@@ -1,9 +1,6 @@
   <!-- Title -->
-  <title>APPIINO - Admin Panel</title>
-  {{-- <script src="sweetalert2.all.min.js"></script> --}}
+  <title>GoodForHealth - Admin Panel</title>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  {{-- <script src="sweetalert2.min.js"></script> --}}
-  {{-- <link rel="stylesheet" href="sweetalert2.min.css"> --}}
   <!--Favicon -->
   <link rel="icon" href="{{ URL::asset('assets/images/brand/favicon.png') }}" type="image/x-icon" />
 

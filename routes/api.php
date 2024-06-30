@@ -19,21 +19,23 @@ use App\Http\Controllers\ApiController;
 //     return $request->user();
 // });
 
-Route::get('/apkInfo'    ,[ApiController::class, 'ApkInfo']);// good
-Route::get('/appLinks'   ,[ApiController::class, 'AppLinks']);// good
-Route::get('/allWallpappers'   ,[ApiController::class, 'AllWallpappers']);// good
-Route::get('/getWallpapper'    ,[ApiController::class, 'GetWallpapper']); // good
-Route::get('/wallpapperView',[ApiController::class, 'WallpapperViews']);// good
 
-Route::get('/newApkUser'  ,[ApiController::class, 'AddApkUser']);// good 
-Route::get('/apkView'    ,[ApiController::class, 'ApkView']); // good 
-Route::get('/apkDelete'  ,[ApiController::class, 'ApkDelete']);
-Route::get('/searchWallpapper' ,[ApiController::class, 'SearchWallpapper']);// good 
-Route::get('/allProducts',[ApiController::class, 'AllProducts']);// good 
-Route::get('/productView',[ApiController::class, 'ProductView']);
-Route::get('/newToken'   ,[ApiController::class, 'AddToken']);
-///////////////////////////// for vuejs
-Route::get('/getColor'   ,[VueAPI::class, 'GetColor']);
-Route::get('/allApps'    ,[VueAPI::class, 'AllApps']);
-Route::post('/contactUs' ,[VueAPI::class, 'ContactForm']);
+
+// Route::get('/apkInfo'    ,[ApiController::class, 'ApkInfo']);// good
+// Route::get('/appLinks'   ,[ApiController::class, 'AppLinks']);// good
+// Route::get('/allWallpappers'   ,[ApiController::class, 'AllWallpappers']);// good
+// Route::get('/getWallpapper'    ,[ApiController::class, 'GetWallpapper']); // good
+// Route::get('/wallpapperView',[ApiController::class, 'WallpapperViews']);// good
+
+// Route::get('/newApkUser'  ,[ApiController::class, 'AddApkUser']);// good 
+// Route::get('/apkView'    ,[ApiController::class, 'ApkView']); // good 
+// Route::get('/apkDelete'  ,[ApiController::class, 'ApkDelete']);
+// Route::get('/searchWallpapper' ,[ApiController::class, 'SearchWallpapper']);// good 
+// Route::get('/allProducts',[ApiController::class, 'AllProducts']);// good 
+// Route::get('/productView',[ApiController::class, 'ProductView']);
+// Route::get('/newToken'   ,[ApiController::class, 'AddToken']);
+// ///////////////////////////// for vuejs
+// Route::get('/getColor'   ,[VueAPI::class, 'GetColor']);
+// Route::get('/allApps'    ,[VueAPI::class, 'AllApps']);
+// Route::post('/contactUs' ,[VueAPI::class, 'ContactForm']);
 

@@ -1160,7 +1160,6 @@
         "ar": "الحي",
         "fr": "quartier"
     },
-
     "fullname": {
         "en": "Fullname",
         "ar": "الاسم الكامل",
@@ -1182,144 +1181,134 @@
         "fr": "Accueil de la compétition"
     },
     "contact_info": {
-        "en": "Contact info"
+        "en": "Contact info",
+        "ar": "معلومات الاتصال",
+        "fr": "Informations de contact"
     },
     "store_tag": {
-        "en": "Store Tag"
+        "en": "Store Tag",
+        "ar": "علامة المتجر",
+        "fr": "Étiquette du magasin"
     },
     "social_media": {
-        "en": "Social Media"
+        "en": "Social Media",
+        "ar": "وسائل التواصل الاجتماعي",
+        "fr": "Médias sociaux"
     },
-
     "categories": {
-        "en": "Categories"
+        "en": "Categories",
+        "ar": "الفئات",
+        "fr": "Catégories"
     },
     "new_category": {
-        "en": "New Category"
+        "en": "New Category",
+        "ar": "فئة جديدة",
+        "fr": "Nouvelle catégorie"
     },
     "delete": {
-        "en": "Delete"
+        "en": "Delete",
+        "ar": "حذف",
+        "fr": "Supprimer"
     },
     "btn_text": {
-        "en": "Button Text"
+        "en": "Button Text",
+        "ar": "نص الزر",
+        "fr": "Texte du bouton"
     },
     "btn_link": {
-        "en": "Button Link"
+        "en": "Button Link",
+        "ar": "رابط الزر",
+        "fr": "Lien du bouton"
     },
     "add_slide": {
-        "en": "Add Slide"
+        "en": "Add Slide",
+        "ar": "إضافة شريحة",
+        "fr": "Ajouter une diapositive"
     },
     "slide_n": {
-        "en": "Slide N"
+        "en": "Slide N",
+        "ar": "الشريحة ن",
+        "fr": "Diapositive N"
     },
     "slide_saved": {
-        "en": "Slide Saved Successfully!"
+        "en": "Slide Saved Successfully!",
+        "ar": "تم حفظ الشريحة بنجاح!",
+        "fr": "Diapositive enregistrée avec succès !"
     },
     "home_slide": {
-        "en": "Home Slide"
+        "en": "Home Slide",
+        "ar": "الشريحة الرئيسية",
+        "fr": "Diapositive d'accueil"
     },
     "profile": {
-        "en": "Profile"
+        "en": "Profile",
+        "ar": "الملف الشخصي",
+        "fr": "Profil"
     },
     "full_name": {
-        "en": "Full Name"
+        "en": "Full Name",
+        "ar": "الاسم الكامل",
+        "fr": "Nom complet"
     },
     "role": {
-        "en": "Role"
+        "en": "Role",
+        "ar": "الدور",
+        "fr": "Rôle"
     },
     "select_role": {
-        "en": "Select Role"
+        "en": "Select Role",
+        "ar": "حدد الدور",
+        "fr": "Sélectionner le rôle"
     },
     "add_Profile": {
-        "en": "Add Profile"
+        "en": "Add Profile",
+        "ar": "إضافة ملف شخصي",
+        "fr": "Ajouter un profil"
     },
     "profile_saved": {
-        "en": "Profile saved Successfuly!"
+        "en": "Profile saved Successfully!",
+        "ar": "تم حفظ الملف الشخصي بنجاح!",
+        "fr": "Profil enregistré avec succès !"
     },
     "old_password": {
-        "en": "Old Password"
+        "en": "Old Password",
+        "ar": "كلمة المرور القديمة",
+        "fr": "Ancien mot de passe"
     },
     "incorrect_old_password": {
-        "en": "Old Password is incorrect!"
+        "en": "Old Password is incorrect!",
+        "ar": "كلمة المرور القديمة غير صحيحة!",
+        "fr": "L'ancien mot de passe est incorrect !"
     },
     "desable": {
-        "en": "Desable"
+        "en": "Disable",
+        "ar": "تعطيل",
+        "fr": "Désactiver"
     },
     "enable": {
-        "en": "Enable"
+        "en": "Enable",
+        "ar": "تمكين",
+        "fr": "Activer"
     },
     "disable_all_profiles_warning": {
-        "en": "You Can't Desable All Prodiles"
+        "en": "You Can't Disable All Profiles",
+        "ar": "لا يمكنك تعطيل جميع الملفات الشخصية",
+        "fr": "Vous ne pouvez pas désactiver tous les profils"
     },
     "change_password_warning": {
-        "en": "Please use other Password!"
+        "en": "Please use another Password!",
+        "ar": "يرجى استخدام كلمة مرور أخرى!",
+        "fr": "Veuillez utiliser un autre mot de passe !"
     },
     "cant_enable_double_auth": {
-        "en": "You Can't enable double auth because you need unless one active profile!"
+        "en": "You Can't enable double auth because you need at least one active profile!",
+        "ar": "لا يمكنك تمكين المصادقة المزدوجة لأنك تحتاج إلى ملف شخصي واحد على الأقل نشط!",
+        "fr": "Vous ne pouvez pas activer la double authentification car vous avez besoin d'au moins un profil actif !"
     },
     "menu_header": {
-        "en": "Menu Header"
-    },
-    
-    "": {
-        "en": ""
-    },
-    "": {
-        "en": ""
-    },
-    "": {
-        "en": ""
-    },
-    "": {
-        "en": ""
-    },
-    "": {
-        "en": ""
-    },
-    "": {
-        "en": ""
-    },
-    "": {
-        "en": ""
-    },
-    "": {
-        "en": ""
-    },
-    "": {
-        "en": ""
-    },
-    "": {
-        "en": ""
-    },
-    "": {
-        "en": ""
-    },
-    "": {
-        "en": ""
-    },
-    "": {
-        "en": ""
-    },
-    "": {
-        "en": ""
-    },
-    "": {
-        "en": ""
-    },
-    "": {
-        "en": ""
-    },
-    "": {
-        "en": ""
-    },
-    "": {
-        "en": ""
-    },
-    "": {
-        "en": ""
-    },
-    "": {
-        "en": ""
+        "en": "Menu Header",
+        "ar": "رأس القائمة",
+        "fr": "En-tête du menu"
     },
     "": {
         "en": ""
@@ -1438,5 +1427,4 @@
     "": {
         "en": ""
     }
-
 }

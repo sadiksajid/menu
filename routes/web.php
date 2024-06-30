@@ -25,8 +25,17 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 | contains the "web" middleware group. Now create something great!
 |
  */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// admin
+ 
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'fw-block-blacklisted', 'fw-block-attacks']], function () {
+Route::get('/password/confirm', 'PasswordConfirmationController@showConfirmForm')->name('password.confirm.form');
+Route::post('/password/confirm', 'PasswordConfirmationController@confirm')->name('password.confirm');
+Route::post('/checkPasswordAdmin'    ,[PasswordConfirmationController::class, 'confirmApi'])->name('check_admin_password');
+Route::post('/checkCodedAdmin'    ,[PasswordConfirmationController::class, 'confirmApiCode'])->name('check_admin_code');
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'password.confirmation', 'fw-block-blacklisted', 'fw-block-attacks']], function () {
+
+
 
     Route::get('/', function () {
 
@@ -50,12 +59,25 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'fw-block-blackl
         return view('livewire.admin.caisse.caisse_route');   
     });
 
+    Route::get('/categories ', function () {
+        return view('livewire.admin.categories.categories_route');
+    });
+
+    Route::get('/security_code ', function () {
+        return view('livewire.admin.security_code.security_code_route');
+    });
+
+
+
     Route::get('/MenuEdit', function () {
         return view('livewire.admin.menu1.menu_route');
     });
 
     Route::get('/HeadesEdit', function () {
         return view('livewire.admin.headers_edit.headers_route');
+    });
+    Route::get('/HomeHeaderEdit', function () {
+        return view('livewire.admin.home_header_edit.Home_header_route');
     });
 
     // Route::get('/linkStorage', [apksController::class, 'linkstorage']);
@@ -103,7 +125,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'fw-block-blackl
     });
 
 });
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::group(['prefix' => 'client', 'middleware' => ['auth:client', 'fw-block-blacklisted', 'fw-block-attacks']], function () {
 
     Route::get('/my_orders', function () {
@@ -248,6 +270,19 @@ Route::group(['middleware' => ['fw-block-blacklisted', 'fw-block-attacks', 'web'
         return view('livewire.checkout.checkout_route');
     });
 
+    Route::get('/to_competition', function () {
+        $store_info = Store::where('store_meta', env('STOR_NAME'))->first();
+        if (!empty($store_info)) {
+            if ($store_info->status == 1) {
+                return view('livewire.index1.index_route', ['scroll' => true]);
+            } else {
+                return view('desabled');
+            }
+        } else {
+            return view('404');
+        }
+    })->name('to_competition');
+
     Route::get('/', function () {
         return view('livewire.home.home_route');
     })->name('index');
@@ -281,6 +316,23 @@ Route::group(['middleware' => ['fw-block-blacklisted', 'fw-block-attacks', 'web'
         } else {
             return view('404');
         }
+    });
+
+    Route::get('/contact_us', function () {
+        $store_info = Store::where('store_meta', env('STOR_NAME'))->first();
+        if (!empty($store_info)) {
+            if ($store_info->status == 1) {
+                return view('livewire.contact_us.contact_us_route',['store_info'=>$store_info]);
+            } else {
+                return view('desabled');
+            }
+        } else {
+            return view('404');
+        }
+    });
+
+    Route::get('/competition/{id?}', function ($id = null) {
+        return view('livewire.competition.competition_route', ['id' => $id]);
     });
 
     Route::get('/login', 'Auth\LoginController@showLoginForm')->name('show-login');

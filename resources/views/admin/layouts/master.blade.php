@@ -6,10 +6,10 @@
     <!-- Meta data -->
     <meta charset="UTF-8">
     <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
-    <meta content="APPIINO - Admin Panel" name="description">
+    <meta content="GoodForHealth - Admin Panel" name="description">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta content="APPIINO" name="author">
-    <meta name="keywords" content="admin panel APPIINO" />
+    <meta content="GoodForHealth" name="author">
+    <meta name="keywords" content="admin panel GoodForHealth" />
     @include('admin.layouts.head')
 </head>
 

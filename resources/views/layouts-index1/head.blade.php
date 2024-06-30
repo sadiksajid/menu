@@ -3,22 +3,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Foores - Single Restaurant Version">
     <meta name="author" content="Ansonika">
-    <title>CoolResto</title>
+    <title>GoodForHealth</title>
+
     <!-- Favicons-->
     <link href="{{ URL::asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/animated.css') }}" rel="stylesheet" />
 
     <link href="{{ URL::asset('assets2/css/inner-page-copy.css') }}" rel="stylesheet" type="text/css">
-
-    <link rel="shortcut icon" href="{{ URL::asset('index1/img/favicon.ico" type="image/x-icon') }}">
-    <link rel="apple-touch-icon" type="image/x-icon"
-        href="{{ URL::asset('index1/img/apple-touch-icon-57x57-precomposed.png') }} ">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72"
-        href="{{ URL::asset('index1/img/apple-touch-icon-72x72-precomposed.png') }}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
-        href="{{ URL::asset('index1/img/apple-touch-icon-114x114-precomposed.png') }}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
-        href="{{ URL::asset('index1/img/apple-touch-icon-144x144-precomposed.png') }}">
 
     <!-- GOOGLE WEB FONT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,7 +23,7 @@
     <link href="{{ URL::asset('index1/css/style.css') }}" rel="stylesheet">
 
     <!-- SPECIFIC CSS -->
-    <link href="{{ URL::asset('index1/css/wizard.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('index1/js/vendors.min.css') }}" rel="stylesheet">
 
     <!-- YOUR CUSTOM CSS -->
     <link href="{{ URL::asset('index1/css/custom.css') }}" rel="stylesheet">
@@ -45,7 +36,6 @@
 
     <!-- Icons -->
     <link href="{{ URL::asset('assets2/css/fontawesome.css') }}" rel="stylesheet" type="text/css">
-    {{-- <link href="{{ URL::asset('assets2/css/themify.css') }}" rel="stylesheet" type="text/css"> --}}
     <link href="{{ URL::asset('assets2/css/owl.carousel.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets2/css/owl.theme.default.min.css') }}" rel="stylesheet">
 

@@ -13,7 +13,7 @@
                     @if($offer->status == 0)
                     <span class="badge badge-warning" style="position: absolute; z-index:10">{{ $translations['inactive'] }}</span>
                     @else
-                    <span class="badge badge-success"  style="position: absolute; z-index:10"{{ $translations['active'] }}></span>
+                    <span class="badge badge-success"  style="position: absolute; z-index:10">{{ $translations['active'] }}></span>
 
                     @endif
                     <div class="card overflow-hidden">
