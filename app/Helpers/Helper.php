@@ -330,7 +330,6 @@ if (!function_exists('deleteFile')) {
 
             return true;
         } catch (\Throwable $th) {
-            dd($th);
             return false;
         }
 
