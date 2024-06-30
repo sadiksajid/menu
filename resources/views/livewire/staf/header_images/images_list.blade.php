@@ -237,7 +237,7 @@ $('#button_saerch').on('click', function() {
 
 $(document).on('click','#clear_saerch', function() {
 
-    tagsInputUpdate.removeActiveItems();
+    tagsInputSearch.removeActiveItems();
     Livewire.emit('clearSearch')
 });
 
