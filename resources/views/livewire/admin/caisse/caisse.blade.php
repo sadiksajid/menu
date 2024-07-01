@@ -360,7 +360,8 @@
                         <button class="btn btn-dark btn-lg" style="width:100%" wire:click="ValidCheckout()"
                             id='checkout'>{{$translations['checkout']}} <i
                                 class="fe fe-dollar-sign me-1 d-inline-flex"></i>
-
+                                <div wire:loading class="spinner-border text-info ml-3" role="status" style="width: 25px;height: 25px;position: absolute;">
+                                <span class="sr-only">{{ $translations['loading'] }} ...</span>
                         </button>
                     </div>
                     @else
