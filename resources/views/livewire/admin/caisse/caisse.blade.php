@@ -222,26 +222,23 @@
             <div class="col-md-4 col-12">
                 <!-- ///////////////////////////////////////////////////////// -->
                 <div class='collapse_div'>
-
-
-
-
                     @php
-                    krsort($new_orders);
+                        krsort($new_orders);
                     @endphp
+
                     @foreach ( $new_orders as $order )
-                    @php
-                    if(isset($order["offers"])){
-                    if($order["offers"] == null){
-                    $is_offer = 0 ;
-                    }else{
-                    $is_offer = 1 ;
-                    }
-                    }else{
-                    $is_offer = 0 ;
-                    }
+                        @php
+                            if(isset($order["offers"])){
+                                if($order["offers"] == null){
+                                    $is_offer = 0 ;
+                                }else{
+                                    $is_offer = 1 ;
+                                }
+                            }else{
+                                $is_offer = 0 ;
+                            }
 
-                    @endphp
+                        @endphp
                     <div class="list-card pb-0"
                         style="padding: 7px 11px;width: 410px!important;border-top: 2px solid #524f4f;border-bottom: 2px solid #524f4f;border-right: 2px solid #524f4f;border-radius: 0px 20px 20px 0px;">
                         <span class="bg-info list-bar"></span>
@@ -328,13 +325,13 @@
                                 <div class="col-5 p-0 pr-2">
                                     <div class="input-group mb-3">
                                         <button class="btn btn-dark" type="button" class="button-addon1"
-                                            wire:click='changeQte({{$product["id"] }},"plus")'>+</button>
+                                            wire:click='changeQte("{{$product["id"] }}","plus")'>+</button>
                                         <input type="text" class="form-control" placeholder=""
                                             aria-label="Example text with button addon" aria-describedby="button-addon1"
                                             wire:model="selected_products_qty.{{$product['id'] }}"
                                             style=" text-align: center;">
                                         <button class="btn btn-dark" type="button" class="button-addon1"
-                                            wire:click='changeQte({{$product["id"] }},"minus")'>-</button>
+                                            wire:click='changeQte("{{$product["id"] }}","minus")'>-</button>
                                     </div>
                                 </div>
                             </div>
@@ -363,7 +360,8 @@
                         <button class="btn btn-dark btn-lg" style="width:100%" wire:click="ValidCheckout()"
                             id='checkout'>{{$translations['checkout']}} <i
                                 class="fe fe-dollar-sign me-1 d-inline-flex"></i>
-
+                                <div wire:loading class="spinner-border text-info ml-3" role="status" style="width: 25px;height: 25px;position: absolute;">
+                                <span class="sr-only">{{ $translations['loading'] }} ...</span>
                         </button>
                     </div>
                     @else
@@ -502,41 +500,113 @@ window.addEventListener('pdfRenderedPrint', event => {
 
 
 
+
 window.addEventListener('swip', event => {
 
-    // Variables to store the initial touch position
-    let initialX = null;
-    let initialY = null;
+// $(".list-card").each(function() {
+//     var hammer = new Hammer(this);
 
-    // Add touch event listeners to the draggable elements
-    $(".list-card").on("touchstart", function(event) {
-        const touch = event.touches[0];
-        initialX = touch.clientX;
-        initialY = touch.clientY;
-        $(this).addClass("dragging");
+//     hammer.on("swipe", function(event) {
+//         if (event.direction === Hammer.DIRECTION_RIGHT) {
+//             $(this).addClass("swiped");
+
+//         } else if (event.direction === Hammer.DIRECTION_LEFT) {
+//             $(this).removeClass("swiped");
+
+//         }
+//     });
+// });
+
+// $(".list-card").draggable({
+//     // axis: "x", // Allow dragging only along the horizontal axis
+//     containment: "parent", // Restrict movement within the parent container
+//     start: function(event, ui) {
+//         // Add a class to the card when dragging starts
+//         $(this).addClass("dragging");
+//     },
+//     stop: function(event, ui) {
+//         // Remove the dragging class when dragging stops
+//         $(this).removeClass("dragging");
+
+//         // If the card is swiped enough to the right, mark as swiped
+//         if (ui.position.left > $(this).width() / 2) {
+//             $(this).addClass("swiped");
+
+//         } else {
+//             $(this).removeClass("swiped");
+//         }
+
+//         // Reset the card's position
+//         $(this).css({ left: 0 });
+//     }
+// });
+
+// Variables to store the initial touch position
+let initialX = null;
+let initialY = null;
+
+// Add touch event listeners to the draggable elements
+$(".list-card").on("touchstart", function(event) {
+    const touch = event.touches[0];
+    initialX = touch.clientX;
+    initialY = touch.clientY;
+    $(this).addClass("dragging");
+});
+
+$(".list-card").on("touchmove", function(event) {
+    if (initialX === null || initialY === null) {
+        return;
+    }
+    const touch = event.touches[0];
+    const currentX = touch.clientX;
+    const deltaX = currentX - initialX;
+    if (deltaX > $(this).width() / 2) {
+        $(this).addClass("delete_bg_color");
+    } else {
+        $(this).removeClass("delete_bg_color");
+
+    }
+    if (deltaX > $(this).width() / 10) {
+        $(this).css({
+            transform: `translateX(${deltaX}px)`
+        });
+        event.preventDefault();
+    }
+
+});
+
+$(".list-card").on("touchend", function(event) {
+    if (initialX === null || initialY === null) {
+        return;
+    }
+    const touch = event.changedTouches[0];
+    const currentX = touch.clientX;
+    const deltaX = currentX - initialX;
+    $(this).removeClass("dragging");
+
+    if ($(this).hasClass("delete_bg_color")) {
+        var id = $(this).data('id');
+        $(this).remove();
+        Livewire.emit('RemoveProd', id);
+    }
+
+    // if (deltaX > $(this).width() / 2) {
+    //     $(this).addClass("swiped");
+
+    // }
+    //  else {
+    //     $(this).removeClass("swiped");
+    // }
+
+    $(this).css({
+        transform: "translateX(0)"
     });
 
-    $(".list-card").on("touchmove", function(event) {
-        if (initialX === null || initialY === null) {
-            return;
-        }
-        const touch = event.touches[0];
-        const currentX = touch.clientX;
-        const deltaX = currentX - initialX;
-        if (deltaX > $(this).width() / 2) {
-            $(this).addClass("delete_bg_color");
-        } else {
-            $(this).removeClass("delete_bg_color");
+    initialX = null;
+    initialY = null;
+});
 
-        }
-        if (deltaX > $(this).width() / 10) {
-            $(this).css({
-                transform: `translateX(${deltaX}px)`
-            });
-            event.preventDefault();
-        }
 
-    });
 });
 
 

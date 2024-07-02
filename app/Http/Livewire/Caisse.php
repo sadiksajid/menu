@@ -187,7 +187,7 @@ class Caisse extends Component
         ->get()
         ->keyBy('id')
         ->toArray();
-
+        
        
     }
 
@@ -307,10 +307,14 @@ class Caisse extends Component
             'logoBase64' => $logoBase64,
         ];
 
+        $pdf_client = View::make('livewire.admin.caisse.receipt_client', $data) ;
+        $pdf_admin = View::make('livewire.admin.caisse.receipt_admin', $data) ;
         $pdf = new Dompdf();
-        $pdf->loadHtml(View::make('livewire.admin.caisse.receipt', $data));
+        $pdf->loadHtml($pdf_client.$pdf_admin);
         $pdf->setPaper([0, 0, 226.77, 2500], 'portrait'); // Set the paper size to match the width of an 80mm POS printer
         $pdf->render();
+
+
 
         $filePath = 'receipts/' . $order_id . '.pdf';
         Storage::put($filePath, $pdf->output());
@@ -432,14 +436,18 @@ class Caisse extends Component
                 $y++;
             };
             if (count($order_offers) > 0) {
-                $order->offers = json_encode($order_offers);
+                $offers = json_encode($order_offers);
+                $order->offers = $offers;
                 $order->save();
+            }else{
+                $offers = null;
             }
 
             $this->new_orders[ $order->id] = array(
                 "id" => $order->id ,
                 "created_at" => $order->created_at ,
                 "total" => $order->total ,
+                "offers" =>  $offers ,
             );
             
 
@@ -484,6 +492,7 @@ class Caisse extends Component
             $this->SelectProd($product->store_product_id);
             $this->selected_products_qty[$product->store_product_id] = $product->qte;
         }
+
         if($is_offer == 1 ){
             $order = storeOrder::where('id',$id)->select('offers')->first();
            
@@ -520,23 +529,36 @@ class Caisse extends Component
             $x = 0;
             $y = 0;
             $order_offers = array();
+            $all_offers = [];
             foreach ($this->selected_products as $key => $product) {
                 if ($product['type'] == 'offer') {
-                    $order_offers[$x]['id'] = $product['product']->id;
-                    $order_offers[$x]['price'] = $product['product']->price * $product['qte'];
-                    $order_offers[$x]['old_price'] = $product['product']->old_price * $product['qte'];
-                    $order_offers[$x]['qte'] = $product['qte'];
+                    $all_offers[] = str_replace('o_','',$product['id']) ;
+                }
+            }
+            if(count($all_offers) != 0){
+                $offer_products = OfferProduct::whereIn('offer_id',$all_offers)->get();
+            }
+
+            
+            foreach ($this->selected_products as $key => $product) {
+                if ($product['type'] == 'offer') {
+                    $offer_id = str_replace('o_','',$product['id']);
+                    $offer_qte = $this->selected_products_qty[$product['id']];
+                    $order_offers[$x]['id'] = $offer_id ;
+                    $order_offers[$x]['price'] = $product['price'] * $offer_qte;
+                    $order_offers[$x]['old_price'] = $product['old_price'] *  $offer_qte;
+                    $order_offers[$x]['qte'] =  $offer_qte;
                     $x++;
 
                     ////////////////////////////////////
-                    foreach ($product['product']->products as $offer_prod) {
+                    foreach ( $offer_products->where('offer_id',$offer_id) as $offer_prod) {
                         $products[$y] = array(
                             'store_product_id' => $offer_prod->store_product_id,
                             'store_order_id' => $order->id,
-                            'qte' => $offer_prod->qty * $product['qte'],
-                            'price' => $offer_prod->product->price * $product['qte'],
-                            'total' => $offer_prod->product->price * $offer_prod->qty * $product['qte'],
-                            'offer_id' => $product['product']->id,
+                            'qte' => $offer_prod->qty *  $offer_qte,
+                            'price' => $offer_prod->product->price *  $offer_qte,
+                            'total' => $offer_prod->product->price * $offer_prod->qty *  $offer_qte,
+                            'offer_id' => $offer_id,
                             'is_offer' => 1,
                             "created_at" => now(),
                             "updated_at" => now(),

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  
 
 <head>
     <!-- Meta data -->
@@ -22,9 +21,8 @@
     <!-- Page -->
     <div class="page">
         <div class="page-main">
-            @include('admin.layouts_caisse.aside-menu')
             <!-- App-Content -->
-            <div class="app-content main-content">
+            <div class="app-content main-content ml-0">
                 <div class="side-app p-3">
                     @include('admin.layouts_caisse.header')
                     @yield('page-header')
