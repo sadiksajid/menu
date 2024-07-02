@@ -3,6 +3,7 @@
 use App\Models\Offer;
 use App\Models\Store;
 use App\Models\Client;
+use App\Events\CaiseOrder;
 use App\Models\StoreProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +27,14 @@ use App\Http\Controllers\PasswordConfirmationController;
 |
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// admin
- 
+Route::get('/test', function () {
+    event(new App\Events\CaiseOrder('Hello World'));
+
+    $newMessage = new CaiseOrder('Hello, world!');
+    broadcast($newMessage)->toOthers();
+
+});;
+
 
 Route::get('/password/confirm', 'PasswordConfirmationController@showConfirmForm')->name('password.confirm.form');
 Route::post('/password/confirm', 'PasswordConfirmationController@confirm')->name('password.confirm');

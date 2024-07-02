@@ -18,9 +18,9 @@
 <script src="{{ URL::asset('assets/plugins/sidemenu/sidemenu.js') }}"></script>
 
 <!-- P-scroll js-->
-<script src="{{ URL::asset('assets/plugins/p-scrollbar/p-scrollbar.js') }}"></script>
+<!-- <script src="{{ URL::asset('assets/plugins/p-scrollbar/p-scrollbar.js') }}"></script>
 <script src="{{ URL::asset('assets/plugins/p-scrollbar/p-scroll1.js') }}"></script>
-<script src="{{ URL::asset('assets/plugins/p-scrollbar/p-scroll.js') }}"></script>
+<script src="{{ URL::asset('assets/plugins/p-scrollbar/p-scroll.js') }}"></script> -->
 
 
 
@@ -29,8 +29,6 @@
 <script src="{{ URL::asset('assets/js/apexcharts.js') }}"></script>
 <script src="{{ URL::asset('assets/plugins/echarts/echarts.js') }}"></script>
 <script src="{{ URL::asset('assets2/js/owl.carousel.min.js') }}"></script>
-
-<!--INTERNAL Index js-->
 
 @yield('js')
 <!-- Simplebar JS -->
@@ -127,44 +125,55 @@
     });
 
 
-    useScrol()
-   function useScrol(){
-        $(document).find('.saas-brand').owlCarousel({
+//     useScrol()
+//    function useScrol(){
+//         $(document).find('.saas-brand').owlCarousel({
 
-            autoHeight: true,
-            autoWidth: true,
-            nav: false,
-            dots: false,
-            autoplay: true,
-            slideSpeed: 300,
-            mouseDrag: true,
-            responsiveClass: true,
-            paginationSpeed: 400,
+//             autoHeight: true,
+//             autoWidth: true,
+//             nav: false,
+//             dots: false,
+//             autoplay: true,
+//             slideSpeed: 300,
+//             mouseDrag: true,
+//             responsiveClass: true,
+//             paginationSpeed: 400,
         
-        });
+//         });
 
 
   
-        function changeFavicon() {
+//         function changeFavicon() {
            
-           var src =  @json(get_image(\Auth::user()->store->logo)) ;
-           let link = document.getElementById('favicon');
-           if (link) {
-               link.href = src;
-           } else {
-               link = document.createElement('link');
+//            var src =  @json(get_image(\Auth::user()->store->logo)) ;
+//            let link = document.getElementById('favicon');
+//            if (link) {
+//                link.href = src;
+//            } else {
+//                link = document.createElement('link');
 
-               link.id = 'favicon';
-               link.rel = 'icon';
-               link.href = src;
-               document.head.appendChild(link);
-           }
-       }
+//                link.id = 'favicon';
+//                link.rel = 'icon';
+//                link.href = src;
+//                document.head.appendChild(link);
+//            }
+//        }
 
-       $(document).ready(function() {
-           changeFavicon();
-       });
+//        $(document).ready(function() {
+//            changeFavicon();
+//        });
 
-   }
+//    }
+
+</script>
+
+<!--INTERNAL Index js-->
+<script src="{{ asset('js/app.js') }}"></script>
+
+<script>
+
+    Echo.channel('caise_order')
+        .listen('CaiseOrder', (e) => console.log('RealTimeMessage: ' + e.message));
+
 
 </script>
