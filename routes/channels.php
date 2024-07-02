@@ -17,8 +17,6 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('caise_order', function ($user) {
-    return true;
+Broadcast::channel('orders', function ($user) {
+    return true; // Or your channel authorization logic
 });
-
-

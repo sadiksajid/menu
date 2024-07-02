@@ -33,20 +33,16 @@ window.Pusher = Pusher;
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    cluster: 'mt1',
+    cluster: 'eu',
 
-    key: 'as3d21as32d1asd32',
-    wsHost: '127.0.0.1',
-    wsPort: 6001,
-    wssPort: 6001,
+    key: 'EXP2024INFO_key@',
+    wsHost: 'captain.sys.coolrasto.com',
+    wsPort: 6002,
+    wssPort: 6002,
     forceTLS: false,
     encrypted: true,
     disableStats: true,
     enabledTransports: ['ws', 'wss'],
 });
 
-console.log('sadik');
-window.Echo.channel('caise_order')
-    .listen('CaiseOrder', (e) => {
-        console.log(e.message);
-    });
+

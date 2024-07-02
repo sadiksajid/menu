@@ -86,7 +86,7 @@ class StoreClient extends Component
 
             $this->images_shop = $this->shop_head->images;
             $this->images_shop = json_decode($this->images_shop, true);
-            $this->images_shop = $this->images_shop['img_1'];
+            $this->images_shop = $this->images_shop['img_1'] ?? '';
 
             $this->texts_shop = $this->shop_head->texts;
             $this->texts_shop = json_decode($this->texts_shop, true);

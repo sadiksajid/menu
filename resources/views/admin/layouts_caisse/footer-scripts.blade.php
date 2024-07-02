@@ -168,7 +168,7 @@
 </script>
 
 <!--INTERNAL Index js-->
-<script src="{{ asset('js/app.js') }}"></script>
+<!-- <script src="{{ asset('js/app.js') }}"></script>
 
 <script>
 
@@ -176,4 +176,4 @@
         .listen('CaiseOrder', (e) => console.log('RealTimeMessage: ' + e.message));
 
 
-</script>
+</script> -->

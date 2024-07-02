@@ -7,6 +7,7 @@ use App\Events\CaiseOrder;
 use App\Models\StoreProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Broadcast;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\Admin\apksController;
@@ -28,11 +29,19 @@ use App\Http\Controllers\PasswordConfirmationController;
  */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// admin
 Route::get('/test', function () {
-    event(new App\Events\CaiseOrder('Hello World'));
 
-    $newMessage = new CaiseOrder('Hello, world!');
-    broadcast($newMessage)->toOthers();
 
+
+
+    // event(new App\Events\CaiseOrder('Hello World'));
+    event(new App\Events\RealTimeMessage('Hello World'));
+
+    dd(env('PUSHER_APP_KEY'),env('PUSHER_APP_SECRET'),
+    env('PUSHER_APP_ID'),env('PUSHER_APP_CLUSTER'),
+    env('PUSHER_APP_HOST'),env('PUSHER_APP_PORT'),env('PUSHER_APP_SCHEME'));
+
+    
+    dd('DONE');
 });;
 
 
@@ -65,6 +74,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'password.confir
     });
     Route::get('/caisse ', function () {
         return view('livewire.admin.caisse.caisse_route');
+    });
+
+    Route::get('/caisse/ads ', function () {
+        return view('livewire.admin.caisse.caisse_ads');
     });
 
     Route::get('/categories ', function () {

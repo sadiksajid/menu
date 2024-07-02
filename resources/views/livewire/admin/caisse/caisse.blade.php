@@ -440,6 +440,19 @@
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
 <script>
+
+// function cacheData(key, data) {
+//     localStorage.setItem(key, JSON.stringify(data));
+// }
+
+// function getCachedData(key) {
+//     const cachedData = localStorage.getItem(key);
+//     return cachedData ? JSON.parse(cachedData) : null;
+// }
+// const start = Date.now();
+
+// cacheData('date',start)
+
 function selectProd(id) {
     Livewire.emit('SelectProd', id);
 }
