@@ -35,7 +35,7 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     cluster: 'mt1',
 
-    key: 12345,
+    key: 'as3d21as32d1asd32',
     wsHost: '127.0.0.1',
     wsPort: 6001,
     wssPort: 6001,

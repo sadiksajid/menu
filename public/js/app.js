@@ -55,7 +55,7 @@ window.Pusher = (pusher_js__WEBPACK_IMPORTED_MODULE_1___default());
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
   cluster: 'mt1',
-  key: 12345,
+  key: 'as3d21as32d1asd32',
   wsHost: '127.0.0.1',
   wsPort: 6001,
   wssPort: 6001,
