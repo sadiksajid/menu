@@ -201,7 +201,7 @@ class Caisse extends Component
             $product = $products->where('id', $id)->first();
             if (!in_array($id, $this->selected_products_ids)) {
                 $this->selected_products[$id] = array(
-                    'image' => $product->media[0]->media,
+                    'image' => get_image('tmb/'.$product->media[0]->media),
                     'price' => $product->price,
                     'type' => 'product',
                     'title' => $product->title,
@@ -220,7 +220,7 @@ class Caisse extends Component
             $offer = $this->offers->where('id', $id)->first();
             if (!in_array('o_'.$id, $this->selected_products_ids)) {
                 $this->selected_products['o_'.$id] = array(
-                    'image' => $offer->image,
+                    'image' => get_image('tmb/'.$offer->image),
                     'price' => $offer->price,
                     'old_price' => $offer->old_price,
                     'type'  => 'offer',
@@ -270,7 +270,12 @@ class Caisse extends Component
         $this->total = $total;
 
         $this->dispatchBrowserEvent('SendToAds', [
-            'data' =>  array('data'=>$this->selected_products,'qty'=>$this->selected_products_qty,'total'=>$this->total),
+            'data' =>  array(
+                'data'=>$this->selected_products,
+                'qty'=>$this->selected_products_qty,
+                'total'=>$this->total,
+                'currency'=>$this->currency
+            )
         ]);
 
 
@@ -282,8 +287,8 @@ class Caisse extends Component
             $this->selected_products_qty[$id] += 1;
         } else {
             $this->selected_products_qty[$id] -= 1;
-
         }
+        
         $this->calculTotal();
     }
 

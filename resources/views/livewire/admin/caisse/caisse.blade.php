@@ -304,7 +304,7 @@
                                         <div class="media-body ms-3 ">
                                             <span class="avatar avatar-rounded border border-warning"
                                                 style="width: 2.3rem;height: 2.3rem;border-radius:50px;    border-radius: 10px">
-                                                <img src="{{ get_image('tmb/'.$product['image']) }}" alt="img"
+                                                <img src="{{ $product['image'] }}" alt="img"
                                                     style="    border-radius: 10px;"
                                                     onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
                                             </span>
