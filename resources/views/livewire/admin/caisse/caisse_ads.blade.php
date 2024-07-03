@@ -11,207 +11,285 @@
     <meta name="keywords" content="admin panel GoodForHealth" />
     @include('admin.layouts_caisse.head')
 
-    <style>
-    .delete_bg_color {
-        background-color: #eb6a6a;
-        /* Optional: to reset default margin */
-    }
 
-    .collapse_div {
-        background-color: white;
-        width: 0px;
-        height: 100vh;
-        position: fixed;
-        z-index: 99999;
-        right: 0px;
-        top: 0px;
-        transition: 0.5s;
-        overflow: auto;
-    }
-
-    .collapse_div_show {
-        width: 450px !important;
-        padding: 20px;
-
-    }
-
-    .collapse_div_hover {
-        background-color: #000000;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        z-index: 9999;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        transition: 0.5s;
-    }
-
-
-    .collapse_div_hover_opacity {
-        opacity: 0.5 !important;
-    }
-
-
-
-    h3 {
-        font: 25px sans-serif;
-        text-align: center;
-        text-transform: uppercase;
-    }
-
-
-
-
-    h3.no-background {
-        position: relative;
-        overflow: hidden;
-    }
-
-    .h2-span {
-        display: inline-block;
-        vertical-align: baseline;
-        zoom: 1;
-        *display: inline;
-        *vertical-align: auto;
-        position: relative;
-        padding: 0 20px;
-
-        &:before,
-        &:after {
-            content: '';
-            display: block;
-            width: 1000px;
-            position: absolute;
-            top: 0.73em;
-            border-top: 1px solid black;
-        }
-
-        &:before {
-            right: 100%;
-        }
-
-        &:after {
-            left: 100%;
-        }
-    }
-    </style>
-
-    <link rel="stylesheet" href="owlcarousel/owl.carousel.min.css">
-    <link rel="stylesheet" href="owlcarousel/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 </head>
 
 @php
 use App\Models\StoreProduct;
+use App\Models\ProductCategory;
 use Symfony\Component\Intl\Currencies;
 
 $store_info = Auth::user()->store ;
-$products  = StoreProduct::where('store_id', Auth::user()->store_id)
-            ->select('id','title','price','product_category_id')
-            ->where('to_menu', 1)
-            ->orderBy('id', 'DESC')
-            ->get();
+$products = StoreProduct::where('store_id', Auth::user()->store_id)
+->select('id','title','price','product_category_id')
+->where('to_menu', 1)
+->orderBy('id', 'DESC')
+->get();
 
 if (isset($store_info->currency)) {
-    $currency = Currencies::getSymbol($store_info->currency);
+$currency = Currencies::getSymbol($store_info->currency);
 } else {
-    $currency = 'DH';
+$currency = 'DH';
 }
-$categories = Cache::get('caisse_categories');
+if (Cache::has('caisse_categories')) {
+    $categories = Cache::get('caisse_categories');
+} else {
+    $currentLocale = app()->getLocale();
+    $categories = ProductCategory::where('store_id', Auth::user()->store_id)
+    ->select('*','title->' . $currentLocale.' as title_tr')
+    ->orderBy('sort','asc')
+    ->get()->toArray();
+    
+    Cache::put('caisse_categories', $categories, 86400);
+}
 
 @endphp
+
 <body class="app sidebar-mini sidenav-toggled">
-    <!---Global-loader-->
-    <div id="global-loader">
-        <img src="{{ URL::asset('assets/images/svgs/loader.svg') }}" alt="loader">
-    </div>
-    <!--- End Global-loader-->
-    <!-- Page -->
-    <div class="page">
-        <div class="page-main">
-            <!-- App-Content -->
-            <div class="app-content main-content ml-0">
-                <div class="side-app p-3">
-                    <div class="container-fluid">
 
-                        <div class="row ">
-                          
-                            <div class="col-12" style="max-height: 88vh;overflow:auto">
-                                
-                             
+<div class="container-fluid">
 
-                                    @foreach ( $categories as $category)
-                                    <div class="row">
-                                        @php
-                                        if( $products != []){
-                                        $products_cat = $products->where('product_category_id', $category["id"]) ;
-                                        }else{
-                                        $products_cat = [];
-                                        }
-                                        @endphp
+                        <div class="home-demo">
 
-                                        @if(count($products_cat) != 0)
-                                        <div class="col-12">
-                                            <h3 class="no-background"><span class='h2-span'>{{ $category['title_tr'] }}
-                                                </span></h3>
+                                @php
+                                 $itms = 0 ;
+                                 $row = 1 ;
+                                 $x = 1 ;
+                                @endphp
+
+                                @foreach ( $categories as $category)
+                                @if($itms == 0 and $row == 1)
+                                    <div class="owl-carousel owl-theme mt-5">
+                                    @php
+                                         $row = 0 ;
+                                         $x++ ;
+                                         if($x >3){
+                                            $x = 1 ;
+                                         }
+                                    @endphp
+                                @endif
+
+                                @php
+
+
+                                if( $products != []){
+                                $products_cat = $products->where('product_category_id', $category["id"]) ;
+                                }else{
+                                $products_cat = [];
+                                }
+
+                                $itms = $itms + count( $products_cat );
+
+                                if($itms >= 7){
+                                    $row = 1 ;
+                                    $itms = 0 ;
+
+                                }
+
+
+                                @endphp
+
+
+
+
+                                @foreach ( $products_cat as $product)
+
+                                <div class="item" style=' background: #ff3f4d;'>
+                                        <span class="badge badge-dark badge" role="button"
+                                            style="position: absolute; z-index:10;color:white;top:0px">
+                                            <h2 class="mb-0"><strong>{{ $product->price}} {{$currency}}</strong>
+                                            </h2>
+                                        </span>
+                                        <div  style="background-color:rgb(0,0,0,0.5);position: absolute; z-index:10;color:white;bottom:0px;width:100%;height:30%;display: flex;justify-content: center;align-items: center;padding: 5px 5px 5px 5px;">
+                                            <center>
+                                                <h6 class="card-title " style='font-size: 25px'>
+                                                    {{$product->title }}</h6>
+                                            </center>
                                         </div>
-                                        @endif
-                                        @foreach ( $products_cat as $product)
+                                        <img src="{{ get_image('tmb/'.$product->media[0]->media) }}" lass="card-image1 "
+                                                    style='height: 100%;width: 100%;'
+                                                    onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
+                                </div>
 
-                                        <div class="col-xl-3  col-md-3" onclick="selectProd({{$product->id}})"
-                                            style="cursor: pointer" data-id="{{$product->id}}">
-                                            <div class="card overflow-hidden">
-                                                <div
-                                                    style="overflow: hidden;
-                                                    width: 100%;
-                                                    position:relative;">
-                                                    <span class="badge badge-dark badge" role="button"
-                                                        style="position: absolute; z-index:10;color:white;top:0px">
-                                                        <h2 class="mb-0"><strong>{{ $product->price}} {{$currency}}</strong>
-                                                        </h2>
-                                                    </span>
-                                                    <div
-                                                        style="background-color:rgb(0,0,0,0.5);position: absolute; z-index:10;color:white;bottom:0px;width:100%;height:30%;display: flex;justify-content: center;align-items: center;padding: 5px 5px 5px 5px;">
-                                                        <center>
-                                                            <h6 class="card-title " style='font-size: 30px'>
-                                                                {{$product->title }}</h6>
-                                                        </center>
-                                                    </div>
-                                                    <img src="{{ get_image('tmb/'.$product->media[0]->media) }}"
-                                                        lass="card-image1 " style='height: 100%;width: 100%;'
-                                                        onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        </div>
 
-                                        @endforeach
-                                    @endforeach
+                                @endforeach
 
-                            </div>
-                           
+                                @if($row == 1)
+                                    </div>
+                                @endif
+
+
+
+                                @endforeach
+
+                                @if($itms < 7 and $itms > 0)
+                                    </div>
+
+                                @endif
+
                         </div>
+
+                    </div>
+
+
+                <div class="modal fade modal-order" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                    ...
                     </div>
                 </div>
-                @include('admin.layouts_caisse.footer-scripts')
-                <script src="owlcarousel/owl.carousel.min.js"></script>
-                <script>
-                    $(document).ready(function(){
-                        $(".owl-carousel").owlCarousel({
-                            items: 1, // Number of items to display
-                            loop: true, // Infinite loop
-                            margin: 10, // Space between items
-                            autoplay: true, // Enable auto-play
-                            autoplayTimeout: 3000, // Time between each auto scroll (3 seconds)
-                            autoplaySpeed: 1000, // Auto scroll speed (1 second)
-                            nav: true, // Enable next/prev buttons
-                            dots: true // Enable pagination dots
-                        });
+                </div>
+        @include('admin.layouts_caisse.footer-scripts')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+        // <script src="{{ URL::asset('dist/CacheManage.js') }}"></script>
+
+        </script>
+        <script>
+                function getCachedData(key) {
+                    const cachedData = localStorage.getItem(key);
+                    return cachedData ? JSON.parse(cachedData) : null;
+                }
+
+                function addProdToModal(){
+                    var productPrice = "";
+                    var currency = "";
+                    var productTitle = "";
+                    var productImage = "";
+
+                    // HTML block as a JavaScript variable with placeholders
+                    var productHTML = `
+                        <div class="item" style="background: #ff3f4d;">
+                            <span class="badge badge-dark badge" role="button"
+                                style="position: absolute; z-index:10;color:white;top:0px">
+                                <h2 class="mb-0"><strong>${productPrice} ${currency}</strong></h2>
+                            </span>
+                            <div style="background-color:rgba(0,0,0,0.5);position: absolute; z-index:10;color:white;bottom:0px;width:100%;height:30%;display: flex;justify-content: center;align-items: center;padding: 5px 5px 5px 5px;">
+                                <center>
+                                    <h6 class="card-title" style="font-size: 25px">${productTitle}</h6>
+                                </center>
+                            </div>
+                            <img src="${productImage}" class="card-image1"
+                                style="height: 100%;width: 100%;"
+                                onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
+                        </div>
+                    `;
+                    
+                }
+          
+                $(document).ready(function(){
+                    var data
+
+                    setInterval(() => {
+                         data = getCachedData('CaiseSelectedProducts')
+                         if(data != null){
+                            console.log(data['data'] )
+                            if(data['total'] == 0){
+                                $(".modal-order").modal('hide')
+                            }else{
+                                $(".modal-order").modal('show')
+
+                            }
+                         }else{
+                            $(".modal-order").modal('hide')
+
+                         }
+                    }, 1000);
+
+
+
+
+                    var x = 1 ;
+
+                    $('.owl-carousel').each(function() {
+                        if(x == 1 ){
+                            $(this).owlCarousel({
+                            center: true,
+                            items:5,
+                            loop:true,
+                            margin:20,
+                            nav:false,
+                            dots:false,
+                            autoplay: true,
+                            slideTransition: 'linear',
+                            autoplayTimeout: 4000,
+                            autoplaySpeed: 4000,
+
+                            });
+                        }else if(x == 2){
+                            $(this).owlCarousel({
+                            center: true,
+                            items:5,
+                            loop:true,
+                            margin:20,
+                            nav:false,
+                            dots:false,
+                            autoplay: true,
+                            slideTransition: 'linear',
+                            autoplayTimeout: 3000,
+                            autoplaySpeed: 6000,
+
+                            });
+                        }else if(x == 3){
+                            $(this).owlCarousel({
+                            center: true,
+                            items:5,
+                            loop:true,
+                            margin:20,
+                            nav:false,
+                            dots:false,
+                            autoplay: true,
+                            slideTransition: 'linear',
+                            autoplayTimeout: 6000,
+                            autoplaySpeed: 6000,
+
+                            });
+                        }
+                        x = x + 1 ;
+                        if(x > 3){
+                            x = 1 ;
+                        }
+
                     });
-                </script>
-            </div>
-        </div>
-    </div>
+
+
+
+            $(".owl-carousel2").owlCarousel({
+            rtl:true,
+            center: true,
+            items:5,
+            loop:true,
+            margin:20,
+            nav:false,
+            dots:false,
+            autoplay: true,
+            slideTransition: 'linear',
+            autoplayTimeout: 1000,
+            autoplaySpeed: 10000,
+            // autoplayHoverPause: true,
+
+            });
+            $(".owl-carousel3").owlCarousel({
+            rtl:true,
+            center: true,
+            items:5,
+            loop:true,
+            margin:20,
+            nav:false,
+            dots:false,
+            autoplay: true,
+            slideTransition: 'linear',
+            autoplayTimeout: 6000,
+            autoplaySpeed: 10000,
+            // autoplayHoverPause: true,
+
+            });
+
+
+        });
+        </script>
 </body>
 
 </html>

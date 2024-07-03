@@ -240,6 +240,7 @@ class Caisse extends Component
         }
         
         $this->calculTotal();
+
     }
 
     public function RemoveProd($id)
@@ -267,6 +268,12 @@ class Caisse extends Component
             $total = $total + ($prod['price'] * $this->selected_products_qty[$prod['id']]);
         }
         $this->total = $total;
+
+        $this->dispatchBrowserEvent('SendToAds', [
+            'data' =>  array('data'=>$this->selected_products,'qty'=>$this->selected_products_qty,'total'=>$this->total),
+        ]);
+
+
     }
 
     public function changeQte($id, $type)

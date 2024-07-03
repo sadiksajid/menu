@@ -434,6 +434,7 @@
 
 
 <script src="{{ URL::asset('dist/ScannerScript.js') }}"></script>
+<script src="{{ URL::asset('dist/CacheManage.js') }}"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
@@ -441,22 +442,21 @@
 
 <script>
 
-// function cacheData(key, data) {
-//     localStorage.setItem(key, JSON.stringify(data));
-// }
 
-// function getCachedData(key) {
-//     const cachedData = localStorage.getItem(key);
-//     return cachedData ? JSON.parse(cachedData) : null;
-// }
-// const start = Date.now();
-
-// cacheData('date',start)
+$(document).ready(function() {
+    localStorage.removeItem('CaiseSelectedProducts');
+})
 
 function selectProd(id) {
+
     Livewire.emit('SelectProd', id);
 }
 
+window.addEventListener('SendToAds', event => {
+
+    cacheData('CaiseSelectedProducts',event.detail.data)
+
+})
 
 /////////////////////////////////////////////////// show pdf print
 window.addEventListener('pdfRendered', event => {
