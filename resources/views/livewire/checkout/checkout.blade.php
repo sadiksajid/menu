@@ -299,7 +299,6 @@
                                                     </ul>
                                                 </div>
                                             </div>
-
                                             @if (Auth::guard('client')->check() == true and $step == 2)
                                                 <div class="text-end"><a class="btn btn-default primary-btn radius-0"
                                                         Wire:click='Order()' id='submit'>{{$translations['place_order']}} </a>

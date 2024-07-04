@@ -141,9 +141,14 @@
                                 <span class="bg-warning list-bar"></span>
                                 <div class="row align-items-center">
                                     <div class="col-9 col-sm-9">
-                                        <div class="media mt-0">
-                                            <img src="{{ get_image($order->products[0]->product->media[0]->media ?? '' )}}"
-                                                alt="img" class="avatar brround avatar-md mr-3">
+                                        <div class="media mt-0" wire:ignore>
+                                            @if(isset($order->products[0]->product->media[0]))
+
+                                            <img src="{{ get_image('tmb/'.$order->products[0]->product->media[0]->media ?? '' )}}"  alt="img" class="avatar brround avatar-md mr-3"  onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
+                                            @else
+                                                <img src="https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg" alt="img" class="avatar brround avatar-md mr-3">
+                                            @endif
+
                                             <div class="media-body">
                                                 <div class="d-md-flex align-items-center mt-1">
                                                     <h6 class="mb-1">{{ $order->client->firstname }}

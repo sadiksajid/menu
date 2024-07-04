@@ -11,10 +11,10 @@
 <script src="{{ URL::asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 
 <!--Othercharts js-->
-<script src="{{ URL::asset('assets/plugins/othercharts/jquery.sparkline.min.js') }}"></script>
+<!-- <script src="{{ URL::asset('assets/plugins/othercharts/jquery.sparkline.min.js') }}"></script> -->
 
 <!-- Circle-progress js-->
-<script src="{{ URL::asset('assets/js/circle-progress.min.js') }}"></script>
+<!-- <script src="{{ URL::asset('assets/js/circle-progress.min.js') }}"></script> -->
 
 
 <link href="{{ URL::asset('index1/css/wizard.css') }}" rel="stylesheet">

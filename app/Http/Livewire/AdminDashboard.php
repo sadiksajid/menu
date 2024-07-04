@@ -79,7 +79,7 @@ class AdminDashboard extends Component
             }])
             ->whereIn('status', ['pending'])
             ->whereNot('order_type', 'caisse')
-            ->select('store_orders.id', 'store_orders.store_id', 'store_orders.client_id', 'store_orders.currency', 'store_orders.total', 'store_orders.status', 'store_orders.order_type', 'store_orders.created_at')
+            ->select('store_orders.id', 'store_orders.store_id', 'store_orders.client_id', 'store_orders.currency', 'store_orders.total', 'store_orders.status', 'store_orders.order_type', 'store_orders.created_at', 'store_orders.offers')
             ->orderBy('store_orders.created_at', 'DESC')
             ->limit(10)->get();
         // dd($this->orders_list);

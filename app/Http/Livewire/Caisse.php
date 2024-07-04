@@ -180,9 +180,19 @@ class Caisse extends Component
 
 
         $this->new_orders = StoreOrder::where('store_id', $this->store_id)
-        ->select('id','total','created_at','offers')
-        ->where('order_type', 'caisse')
-        ->whereDate('created_at', '>=', $lastTime)
+        ->select('id','total','created_at','offers','order_type','coming_date','status')
+        ->where(function($q) use($lastTime){
+            $q->where(function($q) use($lastTime){
+                $q->where('order_type', 'caisse');
+                $q->whereDate('created_at', '>=', $lastTime);
+            });
+            $q->orWhere(function($q) use($lastTime){
+                $q->whereIn('order_type', ['comming','shipping']);
+
+            });
+           
+        })
+
         ->orderBy('created_at', 'desc')
         ->get()
         ->keyBy('id')
@@ -285,11 +295,21 @@ class Caisse extends Component
     {
         if ($type == 'plus') {
             $this->selected_products_qty[$id] += 1;
+
         } else {
-            $this->selected_products_qty[$id] -= 1;
+            if($this->selected_products_qty[$id] > 1){
+                $this->selected_products_qty[$id] -= 1;
+
+            }else{
+                unset($this->selected_products[$id]);
+                unset($this->selected_products_ids[$id]);
+                unset($this->selected_products_qty[$id]);
+            }
         }
-        
+
         $this->calculTotal();
+
+        
     }
 
     public function generateReceiptPDF($order_id,$text = '')
@@ -473,6 +493,7 @@ class Caisse extends Component
         }
 
         $this->ResetAll();
+        $this->dispatchBrowserEvent('SendToAdsfinish');
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',
             'message' => $this->translations['caisse_order_success'],
@@ -615,6 +636,7 @@ class Caisse extends Component
 
         $this->cancelUpdate();
         $this->dispatchBrowserEvent('close_modal');
+        $this->dispatchBrowserEvent('SendToAdsfinish');
 
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',

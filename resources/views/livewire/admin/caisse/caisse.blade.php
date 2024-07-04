@@ -240,13 +240,13 @@
 
                         @endphp
                     <div class="list-card pb-0"
-                        style="padding: 7px 11px;width: 410px!important;border-top: 2px solid #524f4f;border-bottom: 2px solid #524f4f;border-right: 2px solid #524f4f;border-radius: 0px 20px 20px 0px;">
+                        style="padding: 7px 11px;width: 410px!important;border-top: 1px solid #524f4f;border-bottom: 1px solid #524f4f;border-right: 2px solid #524f4f;border-radius: 0px 20px 20px 0px;">
                         <span class="bg-info list-bar"></span>
-                        <button class='btn btn-info' style='height: 70px;float: left;'
+                        <button class='btn btn-outline-dark' style='height: 70px;float: left;'
                             wire:click='editOrder({{$order["id"]}},{{$is_offer}})'>
                             <i class="fe fe-edit me-1 d-inline-flex"></i>
                         </button>
-                        <button class='btn btn-danger' style='height: 70px;float:right'
+                        <button class='btn btn-outline-secondary' style='height: 70px;float:right'
                             wire:click='deleteOrder({{$order["id"]}})'>
                             <i class="fe fe-trash-2 me-1 d-inline-flex"></i>
                         </button>
@@ -298,7 +298,7 @@
                         <div class="list-card pb-0" style="padding: 9px 11px;!important" data-id='{{$product["id"]}}'>
                             <span class="bg-warning list-bar"></span>
                             <div class="row align-items-center">
-                                <div class="col-7 pr-0">
+                                <div class="col-md-7 col-12 pr-0">
                                     <div class="d-sm-flex mt-0">
 
                                         <div class="media-body ms-3 ">
@@ -322,7 +322,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-5 p-0 pr-2">
+                                <div class="col-md-5 col-11 p-0 pr-2">
                                     <div class="input-group mb-3">
                                         <button class="btn btn-dark" type="button" class="button-addon1"
                                             wire:click='changeQte("{{$product["id"] }}","plus")'>+</button>
@@ -445,6 +445,8 @@
 
 $(document).ready(function() {
     localStorage.removeItem('CaiseSelectedProducts');
+    cacheData('CaiseFinishOrder',false)
+
 })
 
 function selectProd(id) {
@@ -455,6 +457,10 @@ function selectProd(id) {
 window.addEventListener('SendToAds', event => {
 
     cacheData('CaiseSelectedProducts',event.detail.data)
+
+})
+window.addEventListener('SendToAdsfinish', event => {
+    cacheData('CaiseFinishOrder',true)
 
 })
 
