@@ -84,6 +84,80 @@
             left: 100%;
         }
     }
+
+    .order_list_onlin {
+        background-color: #ff6f00;
+        width: 80%;
+
+    }
+
+    .order_list_caise {
+        width: 92%;
+        background-color: #444444;
+    }
+
+    .order_list_onlin_border {
+        border-left-color: #ff6f00 !important;
+    }
+
+    .order_list_card {
+        padding: 7px 11px;
+        width: 410px !important;
+        border: 1px solid #524f4f;
+        border-left: 5px solid #524f4f;
+        border-radius: 5px;
+    }
+
+    .order_list_card_title {
+        height: auto;
+        border-radius: 50px;
+        border-radius: 10px;
+        font-size: 17px;
+    }
+
+    .client_info_row {
+        padding-top: 5px;
+        font-size: 17px;
+        padding-bottom: 5px;
+    }
+
+
+    .order_list_onlin_icon_man {
+        width: 50px;
+        float: right;
+        margin-right: unset;
+        position: absolute;
+        top: -18px;
+        right: 16px;
+    }
+
+
+    .order_list_onlin_icon_moto {
+        width: 66px;
+        float: right;
+        margin-right: unset;
+        position: absolute;
+        top: -25px;
+        right: 6px;
+
+        }
+
+    .order_edit_icon_man {
+        width: 90px;
+        margin-right: unset;
+        position: absolute;
+        right: 5px;
+        height: 90px;
+        top: -33px;
+    }
+    .order_edit_icon_moto {
+        width: 100px;
+        margin-right: unset;
+        position: absolute;
+        right: 6px;
+        height: 100px;
+        top: -44px;
+    }
     </style>
 
 
@@ -223,27 +297,26 @@
                 <!-- ///////////////////////////////////////////////////////// -->
                 <div class='collapse_div'>
                     @php
-                        krsort($new_orders);
+                    krsort($new_orders);
                     @endphp
 
                     @foreach ( $new_orders as $order )
-                        @php
-                            if(isset($order["offers"])){
-                                if($order["offers"] == null){
-                                    $is_offer = 0 ;
-                                }else{
-                                    $is_offer = 1 ;
-                                }
-                            }else{
-                                $is_offer = 0 ;
-                            }
+                    @php
+                    if(isset($order["offers"])){
+                    if($order["offers"] == null){
+                    $is_offer = 0 ;
+                    }else{
+                    $is_offer = 1 ;
+                    }
+                    }else{
+                    $is_offer = 0 ;
+                    }
 
-                        @endphp
-                    <div class="list-card pb-0"
-                        style="padding: 7px 11px;width: 410px!important;border-top: 1px solid #524f4f;border-bottom: 1px solid #524f4f;border-right: 2px solid #524f4f;border-radius: 0px 20px 20px 0px;">
-                        <span class="bg-info list-bar"></span>
-                        <button class='btn btn-outline-dark' style='height: 70px;float: left;'
-                            wire:click='editOrder({{$order["id"]}},{{$is_offer}})'>
+                    @endphp
+                    <div
+                        class="list-card pb-0 order_list_card @if($order['order_type'] != 'caisse') order_list_onlin_border @endif">
+                        <button class="btn btn-outline-dark  " style='height: 70px;float: left;'
+                            wire:click='editOrder({{$order["id"]}},{{$is_offer}},"{{$order["order_type"]}}")'>
                             <i class="fe fe-edit me-1 d-inline-flex"></i>
                         </button>
                         <button class='btn btn-outline-secondary' style='height: 70px;float:right'
@@ -255,10 +328,19 @@
                                 <div class="d-sm-flex mt-0">
 
                                     <div class="media-body ms-3 ">
-                                        <span class="avatar avatar-rounded border border-info"
-                                            style="width: 92%;height: auto;border-radius:50px;border-radius: 10px;background-color:#444444;font-size: 17px;">
+                                        <span
+                                            class="avatar avatar-rounded border  order_list_card_title @if($order['order_type'] == 'caisse') order_list_caise @else order_list_onlin @endif">
                                             Order ID : {{$order['id']}}
                                         </span>
+
+                                        @if($order['order_type'] == 'coming')
+                                        <lottie-player class='order_list_onlin_icon_man' src="{{ URL::asset('assets/SVG/coming_icon_orange.json') }}" background="transparent"
+                                        speed="1"  loop autoplay></lottie-player>
+                                        @elseif($order['order_type'] == 'shipping')
+                                        <lottie-player class='order_list_onlin_icon_moto' src="{{ URL::asset('assets/SVG/moto_orange.json') }}" background="transparent"
+                                        speed="1"  loop autoplay></lottie-player>
+                                        @endif
+
                                         <div class="p-0" style="float: right;margin-right: 20px; margin-top: 3px;">
                                             <div class="text-end"> <span class="fw-semibold  fs-16 number-font">
                                                     <center>
@@ -283,7 +365,7 @@
                 </div>
                 <!-- ///////////////////////////////////////////////////////// -->
 
-                <div class="card pb-2 ">
+                <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">{{$translations['selected_products']}} - {{count($selected_products)}}
                         </h5>
@@ -312,7 +394,8 @@
                                                 <div class="text-end"> <span class="fw-semibold  fs-16 number-font">
                                                         <center>
                                                             {{$product['price'] * $selected_products_qty[$product['id']] }}
-                                                            {{$currency}}</center>
+                                                            {{$currency}}
+                                                        </center>
                                                     </span>
                                                 </div>
                                             </div>
@@ -339,6 +422,63 @@
                         @endforeach
 
                     </div>
+                    @if($is_online == true )
+                    <div class="card-footer p-0">
+                        <ul class="list-group">
+                            <li class="list-group-item active" aria-current="true" style='padding-top:3px;padding-bottom:3px'>
+                                <div class="d-flex align-items-center" >
+                                    <div> <span class="fs-15"> <i class="bi bi-house-door"></i> </span> </div>
+                                    <div class="ms-2" style='font-size: 20px;'>
+                                        <strong>{{ $online_client->firstname ?? 'firstname' }} {{ $online_client->lastname ?? 'lastname' }}</strong> 
+                                    </div>
+
+
+
+                                    @if($online_order_type == 'coming')
+                                        <lottie-player class='order_edit_icon_man' src="{{ URL::asset('assets/SVG/coming_icon_orange.json') }}" background="transparent"
+                                        speed="1"  loop autoplay></lottie-player>
+                                    @elseif($online_order_type == 'shipping')
+                                        <lottie-player class='order_edit_icon_moto' src="{{ URL::asset('assets/SVG/moto_orange.json') }}" background="transparent"
+                                        speed="1"  loop autoplay></lottie-player>
+                                    @endif
+
+
+
+                                </div>
+                            </li>
+                            <li class="list-group-item client_info_row">
+                                <div class="d-flex align-items-center " >
+                                    <div> <span class="fs-15"> <i class="bi bi-bell"></i> </span> </div>
+                                    <div class="ms-2"> <i class="fa fa-phone mr-2" ></i> {{ $online_client->phone ?? '0000' }} </div>
+                                </div>
+                            </li>
+                            @if($online_order_type == 'coming')
+                            <li class="list-group-item client_info_row">
+                                <div class="d-flex align-items-center">
+                                    <div> <span class="fs-15"> <i class="bi bi-gift"></i> </span> </div>
+                                    <div class="ms-2"><i class="fa fa-clock-o mr-2" ></i>  {{$online_client_time}}</div>
+                                </div>
+                            </li>
+                            @else
+                            
+                            <li class="list-group-item client_info_row">
+                                <div class="d-flex align-items-center">
+                                    <div> <span class="fs-15"> <i class="bi bi-gift"></i> </span> </div>
+                                    <div class="ms-2"><i class="fa fa-map-signs	 mr-2" ></i>  {{$this->online_client_address->city->city }} - {{$this->online_client_address->quartier->quartier }}</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item client_info_row">
+                                <div class="d-flex align-items-center">
+                                    <div> <span class="fs-15"> <i class="bi bi-gift"></i> </span> </div>
+                                    <div class="ms-2"><i class="fa fa-map-marker mr-2" ></i>  {{$this->online_client_address->address}}</div>
+                                </div>
+                            </li>
+                            @endif
+                      
+                        </ul>
+                    </div>
+                    @endif
+
                 </div>
 
                 <div class="card bg-warning">
@@ -360,13 +500,14 @@
                         <button class="btn btn-dark btn-lg" style="width:100%" wire:click="ValidCheckout()"
                             id='checkout'>{{$translations['checkout']}} <i
                                 class="fe fe-dollar-sign me-1 d-inline-flex"></i>
-                                <div wire:loading class="spinner-border text-info ml-3" role="status" style="width: 25px;height: 25px;position: absolute;">
+                            <div wire:loading class="spinner-border text-info ml-3" role="status"
+                                style="width: 25px;height: 25px;position: absolute;">
                                 <span class="sr-only">{{ $translations['loading'] }} ...</span>
                         </button>
                     </div>
                     @else
                     <div class="col-8">
-                        <button class="btn btn-primary btn-lg" style="width:100%"
+                        <button class="btn btn-dark btn-lg" style="width:100%"
                             wire:click="confirmPassword('updateOrder')" id='checkout'>{{$translations['update']}} <i
                                 class="fe fe-edit-sign me-1 d-inline-flex"></i>
 
@@ -441,11 +582,9 @@
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
 <script>
-
-
 $(document).ready(function() {
     localStorage.removeItem('CaiseSelectedProducts');
-    cacheData('CaiseFinishOrder',false)
+    cacheData('CaiseFinishOrder', false)
 
 })
 
@@ -456,11 +595,11 @@ function selectProd(id) {
 
 window.addEventListener('SendToAds', event => {
 
-    cacheData('CaiseSelectedProducts',event.detail.data)
+    cacheData('CaiseSelectedProducts', event.detail.data)
 
 })
 window.addEventListener('SendToAdsfinish', event => {
-    cacheData('CaiseFinishOrder',true)
+    cacheData('CaiseFinishOrder', true)
 
 })
 
@@ -522,108 +661,108 @@ window.addEventListener('pdfRenderedPrint', event => {
 
 window.addEventListener('swip', event => {
 
-// $(".list-card").each(function() {
-//     var hammer = new Hammer(this);
+    // $(".list-card").each(function() {
+    //     var hammer = new Hammer(this);
 
-//     hammer.on("swipe", function(event) {
-//         if (event.direction === Hammer.DIRECTION_RIGHT) {
-//             $(this).addClass("swiped");
+    //     hammer.on("swipe", function(event) {
+    //         if (event.direction === Hammer.DIRECTION_RIGHT) {
+    //             $(this).addClass("swiped");
 
-//         } else if (event.direction === Hammer.DIRECTION_LEFT) {
-//             $(this).removeClass("swiped");
+    //         } else if (event.direction === Hammer.DIRECTION_LEFT) {
+    //             $(this).removeClass("swiped");
 
-//         }
-//     });
-// });
+    //         }
+    //     });
+    // });
 
-// $(".list-card").draggable({
-//     // axis: "x", // Allow dragging only along the horizontal axis
-//     containment: "parent", // Restrict movement within the parent container
-//     start: function(event, ui) {
-//         // Add a class to the card when dragging starts
-//         $(this).addClass("dragging");
-//     },
-//     stop: function(event, ui) {
-//         // Remove the dragging class when dragging stops
-//         $(this).removeClass("dragging");
+    // $(".list-card").draggable({
+    //     // axis: "x", // Allow dragging only along the horizontal axis
+    //     containment: "parent", // Restrict movement within the parent container
+    //     start: function(event, ui) {
+    //         // Add a class to the card when dragging starts
+    //         $(this).addClass("dragging");
+    //     },
+    //     stop: function(event, ui) {
+    //         // Remove the dragging class when dragging stops
+    //         $(this).removeClass("dragging");
 
-//         // If the card is swiped enough to the right, mark as swiped
-//         if (ui.position.left > $(this).width() / 2) {
-//             $(this).addClass("swiped");
+    //         // If the card is swiped enough to the right, mark as swiped
+    //         if (ui.position.left > $(this).width() / 2) {
+    //             $(this).addClass("swiped");
 
-//         } else {
-//             $(this).removeClass("swiped");
-//         }
+    //         } else {
+    //             $(this).removeClass("swiped");
+    //         }
 
-//         // Reset the card's position
-//         $(this).css({ left: 0 });
-//     }
-// });
+    //         // Reset the card's position
+    //         $(this).css({ left: 0 });
+    //     }
+    // });
 
-// Variables to store the initial touch position
-let initialX = null;
-let initialY = null;
+    // Variables to store the initial touch position
+    let initialX = null;
+    let initialY = null;
 
-// Add touch event listeners to the draggable elements
-$(".list-card").on("touchstart", function(event) {
-    const touch = event.touches[0];
-    initialX = touch.clientX;
-    initialY = touch.clientY;
-    $(this).addClass("dragging");
-});
-
-$(".list-card").on("touchmove", function(event) {
-    if (initialX === null || initialY === null) {
-        return;
-    }
-    const touch = event.touches[0];
-    const currentX = touch.clientX;
-    const deltaX = currentX - initialX;
-    if (deltaX > $(this).width() / 2) {
-        $(this).addClass("delete_bg_color");
-    } else {
-        $(this).removeClass("delete_bg_color");
-
-    }
-    if (deltaX > $(this).width() / 10) {
-        $(this).css({
-            transform: `translateX(${deltaX}px)`
-        });
-        event.preventDefault();
-    }
-
-});
-
-$(".list-card").on("touchend", function(event) {
-    if (initialX === null || initialY === null) {
-        return;
-    }
-    const touch = event.changedTouches[0];
-    const currentX = touch.clientX;
-    const deltaX = currentX - initialX;
-    $(this).removeClass("dragging");
-
-    if ($(this).hasClass("delete_bg_color")) {
-        var id = $(this).data('id');
-        $(this).remove();
-        Livewire.emit('RemoveProd', id);
-    }
-
-    // if (deltaX > $(this).width() / 2) {
-    //     $(this).addClass("swiped");
-
-    // }
-    //  else {
-    //     $(this).removeClass("swiped");
-    // }
-
-    $(this).css({
-        transform: "translateX(0)"
+    // Add touch event listeners to the draggable elements
+    $(".list-card").on("touchstart", function(event) {
+        const touch = event.touches[0];
+        initialX = touch.clientX;
+        initialY = touch.clientY;
+        $(this).addClass("dragging");
     });
 
-    initialX = null;
-    initialY = null;
-});
+    $(".list-card").on("touchmove", function(event) {
+        if (initialX === null || initialY === null) {
+            return;
+        }
+        const touch = event.touches[0];
+        const currentX = touch.clientX;
+        const deltaX = currentX - initialX;
+        if (deltaX > $(this).width() / 2) {
+            $(this).addClass("delete_bg_color");
+        } else {
+            $(this).removeClass("delete_bg_color");
+
+        }
+        if (deltaX > $(this).width() / 10) {
+            $(this).css({
+                transform: `translateX(${deltaX}px)`
+            });
+            event.preventDefault();
+        }
+
+    });
+
+    $(".list-card").on("touchend", function(event) {
+        if (initialX === null || initialY === null) {
+            return;
+        }
+        const touch = event.changedTouches[0];
+        const currentX = touch.clientX;
+        const deltaX = currentX - initialX;
+        $(this).removeClass("dragging");
+
+        if ($(this).hasClass("delete_bg_color")) {
+            var id = $(this).data('id');
+            $(this).remove();
+            Livewire.emit('RemoveProd', id);
+        }
+
+        // if (deltaX > $(this).width() / 2) {
+        //     $(this).addClass("swiped");
+
+        // }
+        //  else {
+        //     $(this).removeClass("swiped");
+        // }
+
+        $(this).css({
+            transform: "translateX(0)"
+        });
+
+        initialX = null;
+        initialY = null;
+    });
 
 
 });
@@ -791,7 +930,6 @@ $(document).ready(function() {
 
 
 });
-
 </script>
 
 

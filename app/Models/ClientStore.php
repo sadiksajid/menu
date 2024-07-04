@@ -16,4 +16,10 @@ class ClientStore extends Model
     {
         return $this->belongsTo(Store::class, 'store_id');
     }
+
+    public function address()
+    {
+        return $this->hasMany(StoreAdress::class, 'client_store_id');
+    }
+    
 }

@@ -70,7 +70,7 @@
     
     <div class="order-info">
         Order ID: {{ $order['id'] }}<br>
-        Date/Time: {{ $date }}
+        Date Time: {{ $date }}
     </div>
 
     <table>
