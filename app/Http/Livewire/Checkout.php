@@ -3,22 +3,23 @@
 namespace App\Http\Livewire;
 
 use App\Models\City;
-use App\Models\Client;
-use App\Models\ClientAddress;
-use App\Models\ClientStore;
 use App\Models\Index;
-use App\Models\OrderProducte;
-use App\Models\Quartier;
 use App\Models\Store;
+use App\Models\Client;
+use Livewire\Component;
+use App\Models\Quartier;
+use App\Events\CaiseOrder;
 use App\Models\StoreOrder;
+use App\Models\ClientStore;
+use Illuminate\Support\Str;
+use App\Models\ClientAddress;
+use App\Models\OrderProducte;
 use App\Rules\EmailValidation;
 use App\Rules\PhoneValidation;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Livewire\Component;
+use Illuminate\Support\Facades\Cache;
 
 class Checkout extends Component
 {
@@ -404,7 +405,22 @@ class Checkout extends Component
         }
         Cache::put('my_cart', $my_cart);
         Cache::put('store_info', $stores_info_back);
-        // Cache::clear('my_cart');
+        
+
+        $data = array(
+            "id" => $order->id ,
+            "created_at" => $order->created_at ,
+            "total" => $order->total ,
+            "offers" =>  $order->offers  ,
+            "order_type" =>  $order->order_type ,
+            "coming_date" =>  $order->coming_date ,
+            "status" => 'pending' ,
+        );
+
+
+
+        event(new CaiseOrder( $data));
+
         $this->dispatchBrowserEvent('swal:confirm_redirect', [
             'type' => 'success',
             'title' => $this->translations['order_submit_success'],

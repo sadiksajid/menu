@@ -38,13 +38,23 @@
 
         .order-info {
             margin-bottom: 10px;
+            margin-left: 5px;
         }
 
         .total-price {
-            text-align: right;
+            text-align: left;
+            margin-left: 5px;
+
             margin-bottom: 10px;
             border-top: 2px solid black ;
             padding-top: 1px;
+        }
+        .total{
+            background-color:black ;
+            color:white;
+            text-align:center;
+            padding:3px;
+            border-radius:5px;
         }
 
         .barcode-container {
@@ -61,6 +71,12 @@
             font-size: 14px;
             margin-bottom: 20px;
         }
+
+        h4 {
+            margin: 3px;
+        }
+
+
     </style>
 </head>
 <body>
@@ -70,8 +86,11 @@
     
     <div class="order-info">
         Order ID: {{ $order['id'] }}<br>
-        Date Time: {{ $date }}
+        Date Time: {{ $date }}<br>
+           
+
     </div>
+    <hr>
 
     <table>
         <thead>
@@ -87,21 +106,36 @@
                 <tr>
                     <td>{{ $item['name'] }}</td>
                     <td>{{ $item['qty'] }}</td>
-                    <td>{{ $item['price'] }}</td>
-                    <td>{{ $item['qty'] * $item['price'] }} {{ $currency }}</td>
+                    <td>{{ $item['price'] }}  <span style='font-size:8px'>{{ $currency }}</span></td>
+                    <td>{{ $item['qty'] * $item['price'] }} <span style='font-size:8px'>{{ $currency }}</span></td>
                 </tr>
             @endforeach
         </tbody>
     </table>
     
-    <div class="total-price">
-        <center>
-        
-        <h2>Order ID: {{ $order['id'] }}</h2>
-            <h2> Total Price: {{ $order['total_price'] }} {{ $currency }}</h2>
-        </center>
-    </div>
+    <div class="total-price" dir="ltr">
+        @if($client != null )
 
+            <h2> Client : {{ $client['client']->firstname }} {{ $client['client']->lastname }}</h2>
+            <h2>  Phone : {{ $client['client']->phone }} </h2>
+            <hr>
+            <h4>  Type : {{ $client['type'] }} </h4>
+            @if($client['type'] == 'coming' )
+                <strong><h2>  Time : {{ $client['date'] }} </h2></strong>
+            @else
+                <h4>  Location : {{ $client['city'] }} {{ $client['quartier'] }}  </h4>
+                <h4>  Address : {{ $client['address'] }}   </h4>
+            @endif
+
+        @endif
+
+        <hr>
+        <h2>Order ID : {{ $order['id'] }}</h2>
+     
+    </div>
+        <center>
+            <h1 class='total'> Total : {{ $order['total_price'] }} {{ $currency }}</h1>
+        </center>
     <div class="barcode-container">
         <div class="barcode">
             {!! $barcode !!}

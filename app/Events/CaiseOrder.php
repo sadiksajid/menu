@@ -13,20 +13,16 @@ class CaiseOrder implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
+    public $data;
 
-    public function __construct($message)
+    public function __construct($data)
     {
-        $this->message = $message;
+        $this->data = $data;
     }
 
     public function broadcastOn()
     {
-        return new Channel('orders');
+        return new Channel('new_orders');
     }
 
-    public function broadcastAs()
-    {
-        return 'CaiseOrder';
-    }
 }

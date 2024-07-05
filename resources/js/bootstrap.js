@@ -33,8 +33,7 @@ window.Pusher = Pusher;
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    cluster: 'eu',
-
+    cluster: 'mt1',
     key: 'EXP2024INFO_key@',
     wsHost: 'captain.sys.coolrasto.com',
     wsPort: 6002,
@@ -44,5 +43,4 @@ window.Echo = new Echo({
     disableStats: true,
     enabledTransports: ['ws', 'wss'],
 });
-
 

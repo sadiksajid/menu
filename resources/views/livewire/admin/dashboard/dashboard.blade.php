@@ -92,15 +92,15 @@
                     <div class="text-left mb-4">
                         <p class=" mb-1">
                             <i class="fa fa-exclamation-triangle mr-1"></i>
-                            {{ $translations['declined_orders'] }}
+                            {{ $translations['ready_orders'] }}
                         </p>
-                        <h2 class="mb-0 font-weight-bold">{{ end($orders['declined']) }}<span class="fs-12 text-muted"><span
-                                    class=" @if ($res_orders['declined'] >= 0) text-success @else text-danger @endif  mr-1"><i
-                                        class="fe fe-arrow-up ml-1 "></i> {{ $res_orders['declined'] }}%</span> {{ $translations['last_week'] }}</span></h2>
+                        <h2 class="mb-0 font-weight-bold">{{ end($orders['ready']) }}<span class="fs-12 text-muted"><span
+                                    class=" @if ($res_orders['ready'] >= 0) text-success @else text-danger @endif  mr-1"><i
+                                        class="fe fe-arrow-up ml-1 "></i> {{ $res_orders['ready'] }}%</span> {{ $translations['last_week'] }}</span></h2>
                     </div>
                 </div>
                 <div class="chart-wrapper overflow-hidden">
-                    <span class="sparkline_declined"></span>
+                    <span class="sparkline_ready"></span>
                 </div>
             </div>
         </div>
@@ -396,7 +396,7 @@
                 },
                 barColor: '#2dce89'
             });
-            $(".sparkline_declined").sparkline(<?php echo json_encode(array_values($orders['declined'])); ?>, {
+            $(".sparkline_ready").sparkline(<?php echo json_encode(array_values($orders['ready'])); ?>, {
                 type: 'bar',
                 height: 50,
                 width: 250,

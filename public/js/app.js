@@ -54,7 +54,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = (pusher_js__WEBPACK_IMPORTED_MODULE_1___default());
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  cluster: 'eu',
+  cluster: 'mt1',
   key: 'EXP2024INFO_key@',
   wsHost: 'captain.sys.coolrasto.com',
   wsPort: 6002,

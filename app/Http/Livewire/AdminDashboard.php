@@ -135,21 +135,21 @@ class AdminDashboard extends Component
 
         $this_week_orders['all'] = 0;
         $this_week_orders['pending'] = 0;
-        $this_week_orders['declined'] = 0;
+        $this_week_orders['ready'] = 0;
         $this_week_orders['confirmed'] = 0;
         $this_week_orders['delivered'] = 0;
         $this_week_orders['caisse_delivered'] = 0;
 
         $last_week_orders['all'] = 0;
         $last_week_orders['pending'] = 0;
-        $last_week_orders['declined'] = 0;
+        $last_week_orders['ready'] = 0;
         $last_week_orders['confirmed'] = 0;
         $last_week_orders['delivered'] = 0;
         $last_week_orders['caisse_delivered'] = 0;
 
         $this->res_orders['all'] = 0;
         $this->res_orders['pending'] = 0;
-        $this->res_orders['declined'] = 0;
+        $this->res_orders['ready'] = 0;
         $this->res_orders['confirmed'] = 0;
         $this->res_orders['delivered'] = 0;
         $this->res_orders['caisse_delivered'] = 0;
@@ -158,7 +158,7 @@ class AdminDashboard extends Component
             $day = Carbon::today()->subDays($i)->format('Y-m-d');
             $this->orders['all'][$day] = 0;
             $this->orders['pending'][$day] = 0;
-            $this->orders['declined'][$day] = 0;
+            $this->orders['ready'][$day] = 0;
             $this->orders['confirmed'][$day] = 0;
             $this->orders['delivered'][$day] = 0;
             $this->orders['caisse_delivered'][$day] = 0;

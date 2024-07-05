@@ -45,7 +45,7 @@ class Caisse extends Component
     public $selected_products_ids = [];
     public $selected_products_qty = [];
 
-    protected $listeners = ['confirmPassword','RemoveProd', 'confirmed','confirmDelete','updateOrder','SelectProd'];
+    protected $listeners = ['confirmPassword','RemoveProd', 'confirmed','confirmDelete','updateOrder','SelectProd','onlineOrder'];
 ////////////////////////////////
     public $translations;
     public $langs = [];
@@ -55,9 +55,11 @@ class Caisse extends Component
     public $show_pdf = false ;
     public $is_online = false ;
     public $online_order_type = null ;
+    public $online_order_status = null ;
     public $online_client = null ;
     public $online_client_address = null ;
     public $online_client_time = null ;
+    public $online_orders_pending = 0 ;
     
     public function mount()
     {
@@ -183,7 +185,7 @@ class Caisse extends Component
         $lastTime = Carbon::today()->subHours(4)->format('Y-m-d H:i');
 
 
-        $this->new_orders = StoreOrder::where('store_id', $this->store_id)
+        $new_orders = StoreOrder::where('store_id', $this->store_id)
         ->select('id','total','created_at','offers','order_type','coming_date','status')
         ->where(function($q) use($lastTime){
             $q->where(function($q) use($lastTime){
@@ -192,15 +194,25 @@ class Caisse extends Component
             });
             $q->orWhere(function($q) use($lastTime){
                 $q->whereIn('order_type', ['coming','shipping']);
-
+                $q->where(function($q) use($lastTime){  
+                    $q->where(function($q) {
+                        $q->whereIn('status',['pending','confirmed']);
+                    });
+                    $q->orWhere(function($q) use($lastTime){
+                        $q->whereIn('status',['shipped','ready']);
+                        $q->whereDate('updated_at', '>=', $lastTime);
+                    });
+                });
+         
             });
            
         })
 
         ->orderBy('created_at', 'desc')
-        ->get()
-        ->keyBy('id')
-        ->toArray();
+        ->get() ;
+        
+        $this->online_orders_pending = $new_orders->where('status','pending')->count();
+        $this->new_orders = $new_orders->keyBy('id')->toArray();
         
     }
 
@@ -270,12 +282,6 @@ class Caisse extends Component
         $this->selected_products_ids = [];
         $this->selected_products_qty = [];
 
-        $this->is_online = false ;  
-        $this->online_client = null ;  
-        $this->online_client_address = null ; 
-        $this->online_order_type = null ; 
-        $this->online_client_time = null ; 
-
         $this->dispatchBrowserEvent('swip');
         $this->calculTotal();
     }
@@ -321,7 +327,7 @@ class Caisse extends Component
         
     }
 
-    public function generateReceiptPDF($order_id,$text = '',$client = null)
+    public function generateReceiptPDF($order_id,$text = '',$order_status = null,$client = null)
     {
         // $pdf->stream('receipt_n_' . $order_id . '_' . $date . '.pdf');
         $date = now()->format('d-m-Y H:i');
@@ -343,16 +349,32 @@ class Caisse extends Component
             'qr_code' => $qr_code,
             'date' => $date,
             'order' => ['id' => $order_id.$text, 'total_price' => array_sum(array_column($products, 'total'))],
-            'store' => ['name' => $this->store_info->title, 'logo' => $this->store_info->logo],
+            'store' => ['name' => $this->store_info->title,'phone1'=> $this->store_info->phone,'phone2'=> $this->store_info->phone2],
             'client'=> $client ,
             'currency' => $this->currency,
             'logoBase64' => $logoBase64,
         ];
 
-        $pdf_client = View::make('livewire.admin.caisse.receipt_client', $data) ;
-        $pdf_admin = View::make('livewire.admin.caisse.receipt_admin', $data) ;
+
+
+        if($order_status == null or $order_status == 'caisse_delivered'){
+            $pdf_admin = View::make('livewire.admin.caisse.receipt_admin', $data) ;
+            $pdf_client = View::make('livewire.admin.caisse.receipt_client', $data) ;   
+            $full_pdf = $pdf_client.$pdf_admin ;
+
+        }else if( $order_status == 'confirmed' ){
+            $pdf_admin = View::make('livewire.admin.caisse.receipt_admin', $data) ;
+            $full_pdf = $pdf_admin ;
+
+        }else{
+            $pdf_client = View::make('livewire.admin.caisse.receipt_client', $data) ;   
+            $full_pdf = $pdf_client ;
+        }
+
         $pdf = new Dompdf();
-        $pdf->loadHtml($pdf_client.$pdf_admin);
+
+
+        $pdf->loadHtml($full_pdf);
         $pdf->setPaper([0, 0, 226.77, 2500], 'portrait'); // Set the paper size to match the width of an 80mm POS printer
         $pdf->render();
 
@@ -491,8 +513,9 @@ class Caisse extends Component
                 "total" => $order->total ,
                 "offers" =>  $offers ,
                 "order_type" =>  'caisse' ,
+                "coming_date" =>  $order->coming_date ,
+                "status" =>   $order->status ,
             );
-            
 
             OrderProducte::insert($products);
 
@@ -514,6 +537,21 @@ class Caisse extends Component
 
     }
 
+    public function onlineOrder($data)
+    {
+        $this->new_orders[$data['id']] = array(
+            "id" => $data['id'] ,
+            "created_at" => $data['created_at']  ,
+            "total" => $data['total'] ,
+            "offers" =>  $data['offers'] ,
+            "order_type" =>  $data['order_type'] ,
+            "coming_date" =>  $data['coming_date'] ,
+            "status" =>   $data['status'] ,
+        );
+        $this->online_orders_pending = $this->online_orders_pending + 1 ;
+
+    }
+
     /////////////////////////////////////////////////////////
 
 
@@ -529,6 +567,8 @@ class Caisse extends Component
             $order = StoreOrder::find($id);
             $this->is_online = true ;  
             $this->online_client = $order->client ;
+            $this->online_order_status = $order->status ;
+            
             if($order_type == 'shipping'){
                 $this->online_client_address = $order->client_address   ;
             }else{
@@ -557,10 +597,9 @@ class Caisse extends Component
            
             $offers = json_decode($order->offers,true);
 
-
             foreach ($offers as $offer ) {
                 $this->SelectProd($offer['id'],1);
-                $this->selected_products_qty['o_'.$offer['id']] = $offer['qte'];
+                $this->selected_products_qty['o_'.$offer['id']] = $offer['qte'] ?? 1;
             }
             
         }
@@ -579,115 +618,128 @@ class Caisse extends Component
             $order =  StoreOrder::find($this->update_order_id );
 
             if($order->order_type != 'caisse'){
-                if($order->total != $this->total){
+
+                if($order->status == 'pending'){
+                    $this->online_orders_pending =  $this->online_orders_pending - 1;
+                    $order->admin_id = Auth::id();
+                }else if($order->total != $this->total){
                     $order->updated_by = $data['name'] ;
                     $order->updated_by_id = $data['id'] ;
-                }else if($order->status != 'confirmed'){
-                    $order->admin_id = Auth::id();
+                }
+                if($order->status == 'pending'){
+                    $order->status = 'confirmed';
+
+                }else if( $order->status == 'confirmed'  ){
+                    if($order->order_type == 'shipping'){
+                        $order->status = 'shipped';
+                    }else{
+                        $order->status = 'ready';
+                    }
                 }
 
-                $order->status = 'confirmed';
 
             } else{
+
                 $order->updated_by = $data['name'] ;
                 $order->updated_by_id = $data['id'] ;
             }
 
-            // $order->total = $this->total;
+            $order->total = $this->total;
 
-            // $order->save();
+            $order->save();
 
-            // $products = [];
-            // $x = 0;
-            // $y = 0;
-            // $order_offers = array();
-            // $all_offers = [];
-            // foreach ($this->selected_products as $key => $product) {
-            //     if ($product['type'] == 'offer') {
-            //         $all_offers[] = str_replace('o_','',$product['id']) ;
-            //     }
-            // }
-            // if(count($all_offers) != 0){
-            //     $offer_products = OfferProduct::whereIn('offer_id',$all_offers)->get();
-            // }
+            $products = [];
+            $x = 0;
+            $y = 0;
+            $order_offers = array();
+            $all_offers = [];
+            foreach ($this->selected_products as $key => $product) {
+                if ($product['type'] == 'offer') {
+                    $all_offers[] = str_replace('o_','',$product['id']) ;
+                }
+            }
+            if(count($all_offers) != 0){
+                $offer_products = OfferProduct::whereIn('offer_id',$all_offers)->get();
+            }
 
             
-            // foreach ($this->selected_products as $key => $product) {
-            //     if ($product['type'] == 'offer') {
-            //         $offer_id = str_replace('o_','',$product['id']);
-            //         $offer_qte = $this->selected_products_qty[$product['id']];
-            //         $order_offers[$x]['id'] = $offer_id ;
-            //         $order_offers[$x]['price'] = $product['price'] * $offer_qte;
-            //         $order_offers[$x]['old_price'] = $product['old_price'] *  $offer_qte;
-            //         $order_offers[$x]['qte'] =  $offer_qte;
-            //         $x++;
+            foreach ($this->selected_products as $key => $product) {
+                if ($product['type'] == 'offer') {
+                    $offer_id = str_replace('o_','',$product['id']);
+                    $offer_qte = $this->selected_products_qty[$product['id']];
+                    $order_offers[$x]['id'] = $offer_id ;
+                    $order_offers[$x]['price'] = $product['price'] * $offer_qte;
+                    $order_offers[$x]['old_price'] = $product['old_price'] *  $offer_qte;
+                    $order_offers[$x]['qte'] =  $offer_qte;
+                    $x++;
 
-            //         ////////////////////////////////////
-            //         foreach ( $offer_products->where('offer_id',$offer_id) as $offer_prod) {
-            //             $products[$y] = array(
-            //                 'store_product_id' => $offer_prod->store_product_id,
-            //                 'store_order_id' => $order->id,
-            //                 'qte' => $offer_prod->qty *  $offer_qte,
-            //                 'price' => $offer_prod->product->price *  $offer_qte,
-            //                 'total' => $offer_prod->product->price * $offer_prod->qty *  $offer_qte,
-            //                 'offer_id' => $offer_id,
-            //                 'is_offer' => 1,
-            //                 "created_at" => now(),
-            //                 "updated_at" => now(),
-            //             );
-            //             $y++;
-            //         }
-            //     } else {
-            //         $products[$y] = array(
-            //             'store_product_id' => $product['id'],
-            //             'store_order_id' => $order->id,
-            //             'qte' => $this->selected_products_qty[$product['id']],
-            //             'price' => $product['price'],
-            //             'total' => $product['price'] * $this->selected_products_qty[$product['id']],
-            //             'offer_id' => null,
-            //             'is_offer' => 0,
-            //             "created_at" => now(),
-            //             "updated_at" => now(),
-            //         );
-            //     }
+                    ////////////////////////////////////
+                    foreach ( $offer_products->where('offer_id',$offer_id) as $offer_prod) {
+                        $products[$y] = array(
+                            'store_product_id' => $offer_prod->store_product_id,
+                            'store_order_id' => $order->id,
+                            'qte' => $offer_prod->qty *  $offer_qte,
+                            'price' => $offer_prod->product->price *  $offer_qte,
+                            'total' => $offer_prod->product->price * $offer_prod->qty *  $offer_qte,
+                            'offer_id' => $offer_id,
+                            'is_offer' => 1,
+                            "created_at" => now(),
+                            "updated_at" => now(),
+                        );
+                        $y++;
+                    }
+                } else {
+                    $products[$y] = array(
+                        'store_product_id' => $product['id'],
+                        'store_order_id' => $order->id,
+                        'qte' => $this->selected_products_qty[$product['id']],
+                        'price' => $product['price'],
+                        'total' => $product['price'] * $this->selected_products_qty[$product['id']],
+                        'offer_id' => null,
+                        'is_offer' => 0,
+                        "created_at" => now(),
+                        "updated_at" => now(),
+                    );
+                }
 
-            //     $y++;
-            // };
-            // if (count($order_offers) > 0) {
-            //     $order->offers = json_encode($order_offers);
-            //     $order->save();
-            // }
+                $y++;
+            };
+            if (count($order_offers) > 0) {
+                $order->offers = json_encode($order_offers);
+                $order->save();
+            }
             
-            // OrderProducte::where('store_order_id',$this->update_order_id)->delete();
+            OrderProducte::where('store_order_id',$this->update_order_id)->delete();
 
-            // OrderProducte::insert($products);
+            OrderProducte::insert($products);
 
-            // $this->new_orders[ $order->id] = array(
-            //     "id" => $order->id ,
-            //     "created_at" => $order->created_at ,
-            //     "total" => $order->total ,
-            // );
+            $this->new_orders[ $order->id] = array(
+                "id" => $order->id ,
+                "created_at" => $order->created_at ,
+                "total" => $order->total ,
+                "offers" =>  $order->offers ,
+                "order_type" =>  $order->order_type ,
+                "coming_date" =>  $order->coming_date ,
+                "status" =>   $order->status ,
+            );
 
 
             if($order->order_type != 'caisse'){
                 $client = array(
-                    'client'=>$order->client ,
-                    'address'=>$order->client_address ,
-                    'city'=>$order->client_address ,
+                    'type'=>$order->order_type,
+                    'client' =>$order->client ,
+                    'address' => $order->client_address->address ?? '' ,
+                    'city' => $order->client_address?->city->city  ?? '',
+                    'quartier' => $order->client_address?->quartier->quartier ?? '',
+                    'date'=>$order->coming_date,
                 );
 
-
-            }
-
-            $this->online_client =  ;
-            if($order_type == 'shipping'){
-                $this->online_client_address = $order->client_address   ;
             }else{
-                $this->online_client_time = $order->coming_date   ;
+                $client = null ;
             }
 
 
-            $this->generateReceiptPDF($order->id,' - Updated');
+            $this->generateReceiptPDF($order->id,' - Updated',$order->status,$client);
 
         }
 
@@ -709,7 +761,16 @@ class Caisse extends Component
     public function cancelUpdate()
     {
         $this->update_order = false ;    
-        $this->update_order_id = null ;    
+        $this->update_order_id = null ;   
+        
+        $this->is_online = false ;  
+        $this->online_client = null ;  
+        $this->online_client_address = null ; 
+        $this->online_order_type = null ; 
+        $this->online_client_time = null ; 
+        $this->online_order_status = null ; 
+
+
         $this->ResetAll();
 
     }

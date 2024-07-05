@@ -1310,20 +1310,20 @@
         "ar": "رأس القائمة",
         "fr": "En-tête du menu"
     },
-    "": {
-        "en": ""
+    "ads_monitor": {
+        "en": "ADS MONITOR"
     },
-    "": {
-        "en": ""
+    "order_confirm": {
+        "en": "Confirm The Order"
     },
-    "": {
-        "en": ""
+    "order_ready": {
+        "en": "Order Ready"
     },
-    "": {
-        "en": ""
+    "order_ship": {
+        "en": "Ship The Order"
     },
-    "": {
-        "en": ""
+    "ready_orders": {
+        "en": "Ready Orders"
     },
     "": {
         "en": ""
