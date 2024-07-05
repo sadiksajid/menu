@@ -669,6 +669,24 @@ class Caisse extends Component
             // );
 
 
+            if($order->order_type != 'caisse'){
+                $client = array(
+                    'client'=>$order->client ,
+                    'address'=>$order->client_address ,
+                    'city'=>$order->client_address ,
+                );
+
+
+            }
+
+            $this->online_client =  ;
+            if($order_type == 'shipping'){
+                $this->online_client_address = $order->client_address   ;
+            }else{
+                $this->online_client_time = $order->coming_date   ;
+            }
+
+
             $this->generateReceiptPDF($order->id,' - Updated');
 
         }
