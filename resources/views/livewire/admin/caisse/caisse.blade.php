@@ -86,20 +86,15 @@
     }
 
     .order_list_onlin {
-        background-color: #ff6f00;
-        width: 80%;
+        width: 60%;
 
     }
 
     .order_list_caise {
         width: 92%;
-        background-color: #444444;
     }
 
-    .order_list_onlin_border {
-        border-left-color: #ff6f00 !important;
-    }
-
+ 
     .order_list_card {
         padding: 7px 11px;
         width: 410px !important;
@@ -128,7 +123,7 @@
         margin-right: unset;
         position: absolute;
         top: -18px;
-        right: 16px;
+        right: 10px;
     }
 
 
@@ -138,9 +133,9 @@
         margin-right: unset;
         position: absolute;
         top: -25px;
-        right: 6px;
+        right: 1px;
 
-        }
+    }
 
     .order_edit_icon_man {
         width: 90px;
@@ -150,6 +145,7 @@
         height: 90px;
         top: -33px;
     }
+
     .order_edit_icon_moto {
         width: 100px;
         margin-right: unset;
@@ -157,6 +153,104 @@
         right: 6px;
         height: 100px;
         top: -44px;
+    }
+
+
+
+    /* //////////////////////////////////////////////////////////////////// */
+
+
+
+    .danger-neon-border span {
+        position: absolute;
+        display: block;
+    }
+
+    .danger-neon-border span:nth-child(1) {
+        top: 0;
+        background: linear-gradient(90deg, transparent, red);
+        animation: animate1 1s linear infinite;
+        left: 0;
+        width: 100%;
+        height: 2px;
+    }
+
+    /* add keyframes for animation*/
+    @keyframes animate1 {
+        0% {
+            left: -100%;
+        }
+
+        50%,
+        100% {
+            left: 100%;
+        }
+    }
+
+    /* 2nd line animation*/
+    .danger-neon-border span:nth-child(2) {
+        top: -100%;
+        background: linear-gradient(180deg, transparent, red);
+        animation: animate2 1s linear infinite;
+        right: 0;
+        width: 2px;
+        height: 100%;
+        animation-delay: 0.25s;
+    }
+
+    /* add keyframes*/
+    @keyframes animate2 {
+        0% {
+            top: -100%;
+        }
+
+        50%,
+        100% {
+            top: 100%;
+        }
+    }
+
+    /* 3rd line animation*/
+    .danger-neon-border span:nth-child(3) {
+        bottom: 0;
+        right: 0;
+        background: linear-gradient(270deg, transparent, red);
+        animation: animate3 1s linear infinite;
+        width: 100%;
+        height: 2px;
+    }
+
+    @keyframes animate3 {
+        0% {
+            right: -100%;
+        }
+
+        50%,
+        100% {
+            right: 100%;
+        }
+    }
+
+    /* 4th line animation*/
+    .danger-neon-border span:nth-child(4) {
+        bottom: -100%;
+        left: 0;
+        background: linear-gradient(360deg, transparent, red);
+        animation: animate4 1s linear infinite;
+        width: 2px;
+        height: 100%;
+        animation-delay: 0.75s;
+    }
+
+    @keyframes animate4 {
+        0% {
+            bottom: -100%;
+        }
+
+        50%,
+        100% {
+            bottom: 100%;
+        }
     }
     </style>
 
@@ -297,24 +391,32 @@
                 <!-- ///////////////////////////////////////////////////////// -->
                 <div class='collapse_div'>
                     @php
-                    krsort($new_orders);
+                        krsort($new_orders);
                     @endphp
 
                     @foreach ( $new_orders as $order )
-                    @php
-                    if(isset($order["offers"])){
-                    if($order["offers"] == null){
-                    $is_offer = 0 ;
-                    }else{
-                    $is_offer = 1 ;
-                    }
-                    }else{
-                    $is_offer = 0 ;
-                    }
+                        @php
+                            if(isset($order["offers"])){
+                                if($order["offers"] == null){
+                                    $is_offer = 0 ;
+                                }else{
+                                    $is_offer = 1 ;
+                                }
+                            }else{
+                                $is_offer = 0 ;
+                            }
 
-                    @endphp
-                    <div
-                        class="list-card pb-0 order_list_card @if($order['order_type'] != 'caisse') order_list_onlin_border @endif">
+                            if($order["status"] == 'pending'){
+                                $div_color = "#ff6f00";
+                            }else if($order["status"] == 'confirmed'){
+                                $div_color = "#8500ff";
+                            }else if($order["status"] == 'ready' or $order["status"] == 'shipped'){
+                                $div_color = "#0dd700";
+                            }else{
+                                $div_color = "#444444";
+                            }
+                        @endphp
+                    <div  class="list-card pb-0 order_list_card " style="border-left-color: {{$div_color }}" >
                         <button class="btn btn-outline-dark  " style='height: 70px;float: left;'
                             wire:click='editOrder({{$order["id"]}},{{$is_offer}},"{{$order["order_type"]}}")'>
                             <i class="fe fe-edit me-1 d-inline-flex"></i>
@@ -328,17 +430,25 @@
                                 <div class="d-sm-flex mt-0">
 
                                     <div class="media-body ms-3 ">
+                                        @if($order['order_type'] != 'caisse')
                                         <span
-                                            class="avatar avatar-rounded border  order_list_card_title @if($order['order_type'] == 'caisse') order_list_caise @else order_list_onlin @endif">
+                                            class="avatar avatar-rounded border  order_list_card_title " style='background-color:{{$div_color}} ;width:20%; font-size: 10px;'>
+                                            {{$order['status']}}
+                                        </span>
+                                        @endif
+                                        <span
+                                            class="avatar avatar-rounded border  order_list_card_title @if($order['order_type'] == 'caisse') order_list_caise @else order_list_onlin @endif" style='background-color:{{$div_color}}'>
                                             Order ID : {{$order['id']}}
                                         </span>
 
                                         @if($order['order_type'] == 'coming')
-                                        <lottie-player class='order_list_onlin_icon_man' src="{{ URL::asset('assets/SVG/coming_icon_orange.json') }}" background="transparent"
-                                        speed="1"  loop autoplay></lottie-player>
+                                        <lottie-player class='order_list_onlin_icon_man'
+                                            src="{{ URL::asset('assets/SVG/coming_icon_orange.json') }}"
+                                            background="transparent" speed="1" loop autoplay></lottie-player>
                                         @elseif($order['order_type'] == 'shipping')
-                                        <lottie-player class='order_list_onlin_icon_moto' src="{{ URL::asset('assets/SVG/moto_orange.json') }}" background="transparent"
-                                        speed="1"  loop autoplay></lottie-player>
+                                        <lottie-player class='order_list_onlin_icon_moto'
+                                            src="{{ URL::asset('assets/SVG/moto_orange.json') }}"
+                                            background="transparent" speed="1" loop autoplay></lottie-player>
                                         @endif
 
                                         <div class="p-0" style="float: right;margin-right: 20px; margin-top: 3px;">
@@ -365,7 +475,7 @@
                 </div>
                 <!-- ///////////////////////////////////////////////////////// -->
 
-                <div class="card">
+                <div class="card mb-0">
                     <div class="card-header">
                         <h5 class="card-title">{{$translations['selected_products']}} - {{count($selected_products)}}
                         </h5>
@@ -425,21 +535,25 @@
                     @if($is_online == true )
                     <div class="card-footer p-0">
                         <ul class="list-group">
-                            <li class="list-group-item active" aria-current="true" style='padding-top:3px;padding-bottom:3px'>
-                                <div class="d-flex align-items-center" >
+                            <li class="list-group-item active" aria-current="true"
+                                style='padding-top:3px;padding-bottom:3px'>
+                                <div class="d-flex align-items-center">
                                     <div> <span class="fs-15"> <i class="bi bi-house-door"></i> </span> </div>
                                     <div class="ms-2" style='font-size: 20px;'>
-                                        <strong>{{ $online_client->firstname ?? 'firstname' }} {{ $online_client->lastname ?? 'lastname' }}</strong> 
+                                        <strong>{{ $online_client->firstname ?? 'firstname' }}
+                                            {{ $online_client->lastname ?? 'lastname' }}</strong>
                                     </div>
 
 
 
                                     @if($online_order_type == 'coming')
-                                        <lottie-player class='order_edit_icon_man' src="{{ URL::asset('assets/SVG/coming_icon_orange.json') }}" background="transparent"
-                                        speed="1"  loop autoplay></lottie-player>
+                                    <lottie-player class='order_edit_icon_man'
+                                        src="{{ URL::asset('assets/SVG/coming_icon_orange.json') }}"
+                                        background="transparent" speed="1" loop autoplay></lottie-player>
                                     @elseif($online_order_type == 'shipping')
-                                        <lottie-player class='order_edit_icon_moto' src="{{ URL::asset('assets/SVG/moto_orange.json') }}" background="transparent"
-                                        speed="1"  loop autoplay></lottie-player>
+                                    <lottie-player class='order_edit_icon_moto'
+                                        src="{{ URL::asset('assets/SVG/moto_orange.json') }}" background="transparent"
+                                        speed="1" loop autoplay></lottie-player>
                                     @endif
 
 
@@ -447,41 +561,45 @@
                                 </div>
                             </li>
                             <li class="list-group-item client_info_row">
-                                <div class="d-flex align-items-center " >
+                                <div class="d-flex align-items-center ">
                                     <div> <span class="fs-15"> <i class="bi bi-bell"></i> </span> </div>
-                                    <div class="ms-2"> <i class="fa fa-phone mr-2" ></i> {{ $online_client->phone ?? '0000' }} </div>
+                                    <div class="ms-2"> <i class="fa fa-phone mr-2"></i>
+                                        {{ $online_client->phone ?? '0000' }} </div>
                                 </div>
                             </li>
                             @if($online_order_type == 'coming')
                             <li class="list-group-item client_info_row">
                                 <div class="d-flex align-items-center">
                                     <div> <span class="fs-15"> <i class="bi bi-gift"></i> </span> </div>
-                                    <div class="ms-2"><i class="fa fa-clock-o mr-2" ></i>  {{$online_client_time}}</div>
+                                    <div class="ms-2"><i class="fa fa-clock-o mr-2"></i> {{$online_client_time}}</div>
                                 </div>
                             </li>
                             @else
-                            
+
                             <li class="list-group-item client_info_row">
                                 <div class="d-flex align-items-center">
                                     <div> <span class="fs-15"> <i class="bi bi-gift"></i> </span> </div>
-                                    <div class="ms-2"><i class="fa fa-map-signs	 mr-2" ></i>  {{$this->online_client_address->city->city }} - {{$this->online_client_address->quartier->quartier }}</div>
+                                    <div class="ms-2"><i class="fa fa-map-signs	 mr-2"></i>
+                                        {{$this->online_client_address->city->city }} -
+                                        {{$this->online_client_address->quartier->quartier }}</div>
                                 </div>
                             </li>
                             <li class="list-group-item client_info_row">
                                 <div class="d-flex align-items-center">
                                     <div> <span class="fs-15"> <i class="bi bi-gift"></i> </span> </div>
-                                    <div class="ms-2"><i class="fa fa-map-marker mr-2" ></i>  {{$this->online_client_address->address}}</div>
+                                    <div class="ms-2"><i class="fa fa-map-marker mr-2"></i>
+                                        {{$this->online_client_address->address}}</div>
                                 </div>
                             </li>
                             @endif
-                      
+
                         </ul>
                     </div>
                     @endif
 
                 </div>
 
-                <div class="card bg-warning">
+                <div class="card bg-warning mb-3">
                     <div class="card-body p-2">
                         <div class="no-block ">
                             <div>
@@ -508,8 +626,18 @@
                     @else
                     <div class="col-8">
                         <button class="btn btn-dark btn-lg" style="width:100%"
-                            wire:click="confirmPassword('updateOrder')" id='checkout'>{{$translations['update']}} <i
-                                class="fe fe-edit-sign me-1 d-inline-flex"></i>
+                            wire:click="confirmPassword('updateOrder')" id='checkout'>
+                                
+                            @if($online_order_status == 'pending')
+                                {{$translations['order_confirm']}} 
+                            @elseif($online_order_type == 'coming' and $online_order_status == 'confirmed' )
+                                {{$translations['order_ready']}} 
+                            @elseif($online_order_type == 'shipping' and $online_order_status == 'confirmed' )
+                                {{$translations['order_ship']}} 
+                            @else
+                                {{$translations['update']}} 
+                            @endif
+                            <i class="fe fe-edit-sign me-1 d-inline-flex"></i>
 
                         </button>
                     </div>
@@ -521,10 +649,36 @@
                         </button>
                     </div>
                     @endif
-                    <div class="col-6 mt-5">
-                        <button class="btn btn-info btn-lg " style="width:100%" id='collapse_div_show'>Orders <i
-                                class="fe fe-clock me-1 d-inline-flex"></i></button>
+                    <div class="col-6 mt-3">
+                        @if($online_orders_pending > 0)
+                        <h1 style='position: absolute;top: 0;'><span class="badge badge-danger" style='font-size: 20px;height: 50px;padding: 15px;'>{{$online_orders_pending }}</span></h1>
+
+                        <button class="btn btn-outline-danger btn-lg danger-neon-border"
+                            style="overflow: hidden;width:100%;position: relative;height: 50px;" id='collapse_div_show'>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+
+                            New Orders
+                            <lottie-player src="{{ URL::asset('assets/SVG/notification_red.json') }}"
+                                background="transparent" speed="1"
+                                style="width: 100px;height: 100px;margin-top: -59px;right: -160px;position: relative;top: -4px;"
+                                loop autoplay></lottie-player>
+                        </button>
+
+                        @else
+                        <button class="btn btn-outline-primary btn-lg " style="width:100%" id='collapse_div_show'>Orders
+                            <i class="fe fe-clock me-1 d-inline-flex"></i></button>
+                        @endif
+
+
+
+
                     </div>
+
+
+
                 </div>
 
             </div>

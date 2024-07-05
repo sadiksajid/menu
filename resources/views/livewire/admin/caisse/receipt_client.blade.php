@@ -38,6 +38,8 @@
 
         .order-info {
             margin-bottom: 10px;
+            margin-left: 5px;
+
         }
 
         .total-price {
@@ -61,6 +63,15 @@
             font-size: 14px;
             margin-bottom: 20px;
         }
+        .total{
+            background-color:black ;
+            color:white;
+            text-align:center;
+            padding:3px;
+            border-radius:5px;
+            width:80%;
+            margin-left:10%;
+        }
     </style>
 </head>
 <body>
@@ -70,8 +81,14 @@
     
     <div class="order-info">
         Order ID: {{ $order['id'] }}<br>
-        Date Time: {{ $date }}
+        Date Time: {{ $date }}<br>
+        
+        @if($client != null )
+            Client : {{ $client['client']->firstname }} {{ $client['client']->lastname }}<br>
+            Phone : {{ $client['client']->phone }} 
+        @endif
     </div>
+    <hr>
 
     <table>
         <thead>
@@ -87,16 +104,16 @@
                 <tr>
                     <td>{{ $item['name'] }}</td>
                     <td>{{ $item['qty'] }}</td>
-                    <td>{{ $item['price'] }}</td>
-                    <td>{{ $item['qty'] * $item['price'] }} {{ $currency }}</td>
+                    <td>{{ $item['price'] }}  <span style='font-size:8px'>{{ $currency }}</span></td>
+                    <td>{{ $item['qty'] * $item['price'] }} <span style='font-size:8px'>{{ $currency }}</span></td>
                 </tr>
             @endforeach
         </tbody>
     </table>
     
-    <div class="total-price">
-        Total Price: {{ $order['total_price'] }} {{ $currency }}
-    </div>
+    <center>
+        <h3 class='total'> Total : {{ $order['total_price'] }} {{ $currency }}</h3>
+    </center>
 
     <div class="barcode-container">
         <div class="barcode">
@@ -107,7 +124,14 @@
     <div class="thanks-msg">
         Thank you for your purchase!
     </div>
-
+    <div class="thanks-msg">
+        Contact Us :  {{ $store['phone1']}}
+    </div>
+    @if($store['phone2'] != '' and $store['phone2'] != null)
+    <div class="thanks-msg">
+       Phone 2 : {{ $store['phone2']}}
+    </div>
+    @endif
     <div class="barcode-container">
         <div class="barcode">
             {!! $qr_code !!}
