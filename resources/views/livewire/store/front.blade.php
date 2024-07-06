@@ -311,10 +311,11 @@
             $(document).on('click', '.showDetail', function() {
                 var id = $(this).attr("data-id");
                 product = window.livewire.products[id] ?? window.livewire.products.data[id]
+                lang    = "{{app()->getLocale()}}"
                 $("#detail_image").attr("src", path + '/' + images[id])
-                $("#detail_title").html(product['title'])
+                $("#detail_title").html(product['title'][lang])
                 $("#detail_price").html(product['price'] + ' ' + currency)
-                $("#detail_description").html(product['description'])
+                $("#detail_description").html(product['description'][lang])
                 $("#add_to_cart").attr("data-id", product['id']);
                 $("#pop_up_url").attr("href", "/shop/product/" + product['product_meta']);
 

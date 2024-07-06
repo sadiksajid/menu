@@ -20,6 +20,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
 
 class Checkout extends Component
 {
@@ -119,7 +120,7 @@ class Checkout extends Component
 
     public function getData($rend = 0)
     {
-        $my_cart = Cache::get('my_cart') ?? [];
+        $my_cart = Session::get('my_cart') ?? [];
         $this->total = 0;
         $this->qte = 0;
         $stores_info = Cache::get('store_info');
@@ -395,7 +396,7 @@ class Checkout extends Component
             }
 
         }
-        $my_cart = Cache::get('my_cart');
+        $my_cart = Session::get('my_cart');
         $stores_info_back = $stores_info;
         foreach ($stores_info as $store_name => $value) {
             if ($value['selected'] == true) {
@@ -403,7 +404,7 @@ class Checkout extends Component
                 unset($stores_info_back[$store_name]);
             }
         }
-        Cache::put('my_cart', $my_cart);
+        Session::put('my_cart', $my_cart);
         Cache::put('store_info', $stores_info_back);
         
 

@@ -2,13 +2,14 @@
 
 namespace App\Http\Livewire;
 
-use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Intl\Currencies;
+use Illuminate\Support\Facades\Session;
 
-class ClientOffer2 extends Component
+class ClientOfferView extends Component
 {
     use WithPagination;
     use WithFileUploads;
@@ -55,11 +56,11 @@ class ClientOffer2 extends Component
     {
         return view('livewire.offer.offer', ['offer' => $this->offer]);
     }
-    public function addToCart()
+    public function addToCart($is_buy_now = 0)
     {
         // Cache::clear();
-        if (Cache::has('my_cart')) {
-            $cart = Cache::get('my_cart');
+        if (Session::has('my_cart')) {
+            $cart = Session::get('my_cart');
         } else {
             $cart = [];
         }
@@ -75,8 +76,13 @@ class ClientOffer2 extends Component
             );
         }
 
-        Cache::put('my_cart', $cart);
-        $this->emit('updateComponent');
+        Session::put('my_cart', $cart);
+        if($is_buy_now == 0){
+            $this->emit('updateComponent');
+        }else{
+            return redirect()->to('/client/checkout');
+
+        }
 
     }
     public function changeQte($qte)

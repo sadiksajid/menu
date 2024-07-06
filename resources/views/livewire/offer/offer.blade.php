@@ -64,7 +64,7 @@
 @endsection
 <div>
     @php
-    $cart = Cache::get('my_cart');
+    $cart = Session::get('my_cart');
     @endphp
     <!-- section start -->
 
@@ -219,7 +219,7 @@
                                                 @endisset
 
                                             </a>
-                                            <a class="btn btn-default primary-btn radius-0" href="#">
+                                            <a class="btn btn-default primary-btn radius-0" href="#" wire:click="addToCart(1)">
                                                 {{ $translations['buy_now'] }}
                                             </a>
                                         </div>

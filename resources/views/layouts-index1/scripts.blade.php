@@ -179,11 +179,7 @@
 
     });
     $(document).ready(function() {
-        Livewire.emit('checkLanguage')
-
-        // $('#select_modal_language').modal('show')
-        
-    
+        Livewire.emit('checkLanguage')        
     });
 
 

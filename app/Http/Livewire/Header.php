@@ -51,7 +51,7 @@ class Header extends Component
 
     public function changeLang($lang, $redirect = false)
     {
-        if ($lang == 'ma') {
+    if ($lang == 'ma') {
             $lang = 'ar';
         }
         Session::put('locale_user', $lang);
@@ -64,7 +64,7 @@ class Header extends Component
 
     public function checkLanguage()
     {
-        if (!Cache::has('locale_user')) {
+        if (!Session::has('locale_user')) {
             $this->dispatchBrowserEvent('swal:chamgeLanguage');
         }
     }

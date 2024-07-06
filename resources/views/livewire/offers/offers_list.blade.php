@@ -58,7 +58,7 @@
 @endsection
 <div>
     @php
-        $cart = Cache::get('my_cart');
+        $cart = Session::get('my_cart');
     @endphp
    
     <div wire:ignore class="hero_single inner_pages background-image" @if (isset($images_offer)) data-background="url({{ get_image($images_offer)}})"  @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif
@@ -203,21 +203,21 @@
             // var current_path = getpath();
             // history[current_path] = window.livewire.offers ?? window.livewire.offers.data
             // history_image[current_path] = images
-            $(document).on('click', '.showDetail', function() {
-                var id = $(this).attr("data-id");
-                offer = window.livewire.offers[id] ?? window.livewire.offers.data[id]
-                $("#detail_image").attr("src", path + '/' + images[id])
-                $("#detail_title").html(offer['title'])
-                $("#detail_price").html(offer['price'] + ' ' + currency)
-                $("#detail_description").html(offer['description'])
-                $("#add_to_cart").attr("data-id", offer['id']);
-                $("#pop_up_url").attr("href", "/shop/offer/" + offer['offer_meta']);
+            // $(document).on('click', '.showDetail', function() {
+            //     var id = $(this).attr("data-id");
+            //     offer = window.livewire.offers[id] ?? window.livewire.offers.data[id]
+            //     $("#detail_image").attr("src", path + '/' + images[id])
+            //     $("#detail_title").html(offer['title'])
+            //     $("#detail_price").html(offer['price'] + ' ' + currency)
+            //     $("#detail_description").html(offer['description'])
+            //     $("#add_to_cart").attr("data-id", offer['id']);
+            //     $("#pop_up_url").attr("href", "/shop/offer/" + offer['offer_meta']);
 
-                // detail_image
-                // @this.set('quick_key', id);
-                $('#quick-view-offer').modal('show');
-                Livewire.emit('setViewoffer', offer['id']);
-            });
+            //     // detail_image
+            //     // @this.set('quick_key', id);
+            //     $('#quick-view-offer').modal('show');
+            //     Livewire.emit('setViewoffer', offer['id']);
+            // });
 
             $(document).on('click', '#add_to_cart', function() {
                 var id = $(this).attr("data-id");

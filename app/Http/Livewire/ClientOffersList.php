@@ -10,7 +10,7 @@ use App\Models\ProductCategory;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Intl\Currencies;
 
-class ClientOffers extends Component
+class ClientOffersList extends Component
 {
     use WithPagination;
 
