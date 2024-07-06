@@ -10,14 +10,15 @@ class SetLocale
 {
     public function handle($request, Closure $next)
     {
-        if(Request()->route()->getPrefix() == '/admin'){
+
+        $prfix =  Request()->route()->getPrefix() ;
+        if($prfix == '/admin' or $prfix == 'admin'){
 
             $locale = Session::get('locale_admin', config('app.locale'));
             App::setLocale($locale);
 
             $translations = json_decode(file_get_contents(storage_path('app/Public/translate_admin.json')), true);
 
-   
             $Lang_ranslations = collect($translations)
                 ->mapWithKeys(function ($translation, $key) use ($locale) {
                     return [$key => $translation[$locale] ?? $translation['en']];
@@ -58,8 +59,7 @@ class SetLocale
 
 
         }
-       
-
+ 
 
         return $next($request);
     }

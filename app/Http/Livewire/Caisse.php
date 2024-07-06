@@ -808,8 +808,14 @@ class Caisse extends Component
     public function confirmDelete($data)
     {
         $order = StoreOrder::find($this->order_to_delete);
+
+        if($order->status == 'pending'){
+            $this->online_orders_pending = $this->online_orders_pending - 1 ;
+        }
+
+
         $o_products = OrderProducte::where('store_order_id',$this->order_to_delete);
-        // ->delete()
+       
 
         $arr_order = $order->toArray();
         unset( $arr_order['id'] );
