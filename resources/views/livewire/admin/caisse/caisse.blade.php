@@ -744,6 +744,7 @@
 
 
     function playSound() {
+        console.log('here');
         const audio = new Audio("{{ URL::asset('assets/mp3/notification.wav') }}");
         audio.play();
     }

@@ -31,16 +31,31 @@ import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 window.Pusher = Pusher;
 
-window.Echo = new Echo({
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     cluster: 'mt1',
+//     key: 'EXP2024INFO_key@',
+//     wsHost: 'captain.sys.coolrasto.com',
+//     wsPort: 6002,
+//     wssPort: 6002,
+//     forceTLS: false,
+//     encrypted: true,
+//     disableStats: true,
+//     enabledTransports: ['ws', 'wss'],
+// });
+
+
+const config = {
     broadcaster: 'pusher',
-    cluster: 'mt1',
-    key: 'EXP2024INFO_key@',
-    wsHost: 'captain.sys.coolrasto.com',
-    wsPort: 6002,
-    wssPort: 6002,
+    cluster:  process.env.MIX_PUSHER_APP_CLUSTER,
+    key: process.env.MIX_PUSHER_APP_KEY,
+    wsHost: process.env.MIX_PUSHER_APP_HOST,
+    wsPort: process.env.MIX_PUSHER_APP_PORT,
+    wssPort: process.env.MIX_PUSHER_APP_PORT,
     forceTLS: false,
     encrypted: true,
     disableStats: true,
     enabledTransports: ['ws', 'wss'],
-});
+}
 
+window.Echo = new Echo(config);

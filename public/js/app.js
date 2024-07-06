@@ -52,18 +52,33 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 
 window.Pusher = (pusher_js__WEBPACK_IMPORTED_MODULE_1___default());
-window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
+
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     cluster: 'mt1',
+//     key: 'EXP2024INFO_key@',
+//     wsHost: 'captain.sys.coolrasto.com',
+//     wsPort: 6002,
+//     wssPort: 6002,
+//     forceTLS: false,
+//     encrypted: true,
+//     disableStats: true,
+//     enabledTransports: ['ws', 'wss'],
+// });
+
+var config = {
   broadcaster: 'pusher',
-  cluster: 'mt1',
-  key: 'EXP2024INFO_key@',
-  wsHost: 'captain.sys.coolrasto.com',
-  wsPort: 6002,
-  wssPort: 6002,
+  cluster: "mt1",
+  key: "EXP2024INFO_key@",
+  wsHost: "captain.sys.coolrasto.com",
+  wsPort: "6002",
+  wssPort: "6002",
   forceTLS: false,
   encrypted: true,
   disableStats: true,
   enabledTransports: ['ws', 'wss']
-});
+};
+window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"](config);
 
 /***/ }),
 
