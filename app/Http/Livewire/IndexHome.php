@@ -2,18 +2,19 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\CompitionClient;
+use DNS2D;
+use Dompdf\Dompdf;
 use App\Models\Index;
 use App\Models\Offer;
 use App\Models\Store;
+use Livewire\Component;
 use App\Models\StoreProduct;
 use App\Rules\PhoneValidation;
-use DNS2D;
-use Dompdf\Dompdf;
-use Illuminate\Support\Facades\Cache;
+use App\Models\CompitionClient;
 use Illuminate\Support\Facades\View;
-use Livewire\Component;
+use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Intl\Currencies;
+use Illuminate\Support\Facades\Session;
 
 class IndexHome extends Component
 {
@@ -53,6 +54,11 @@ class IndexHome extends Component
 
     public function mount($scroll = false)
     {
+
+        // app()->setLocale('ar');
+        // dd(app()->getLocale());
+
+
         $this->scroll = $scroll;
 
         $json = app('translations');

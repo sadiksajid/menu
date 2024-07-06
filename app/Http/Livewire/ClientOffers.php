@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Index;
 use App\Models\Offer;
-use App\Models\ProductCategory;
-use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\ProductCategory;
+use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Intl\Currencies;
 
-class StoreOffers extends Component
+class ClientOffers extends Component
 {
     use WithPagination;
 
@@ -23,6 +24,12 @@ class StoreOffers extends Component
     public $category_url = null;
     public $qte = 1;
     public $store_meta;
+/////////////////////////////
+
+    public $titles_offer = null;
+    public $images_offer = null;
+    public $texts_offer  = null;
+
 
     // public $catigory_sizes = ['tmb' => ['w' => 150, 'h' => 150], 'origin' => ['w' => 300, 'h' => 300]];
 
@@ -53,6 +60,26 @@ class StoreOffers extends Component
         } else {
             $this->currency = $info[$this->store_meta]['currency'];
         }
+
+
+
+        $offer_head = Index::where('store_id', $this->store_info->id)->where('name', 'offers1')->first();
+        if (!empty($offer_head)) {
+            $this->titles_offer = $offer_head->titles;
+
+            $this->titles_offer = json_decode($this->titles_offer, true);
+            $this->titles_offer = $this->titles_offer['title-1'];
+
+            $this->images_offer = $offer_head->images;
+            $this->images_offer = json_decode($this->images_offer, true);
+            $this->images_offer = $this->images_offer['img_1'];
+            $this->texts_offer = $offer_head->texts;
+            $this->texts_offer = json_decode($this->texts_offer, true);
+            $this->texts_offer = $this->texts_offer['texts-1'];
+
+        }
+
+        
 
     }
     public function render()

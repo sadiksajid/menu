@@ -724,10 +724,9 @@
         <iframe id="pdf_iframe" style="width: 100%; height: 500px;"></iframe>
     </div>
 
-
-
 </div>
 @section('js')
+
 
 
 
@@ -742,9 +741,19 @@
 <script src="{{ asset('js/app.js') }}"></script>
 
 <script>
+
+
+    function playSound() {
+        const audio = new Audio("{{ URL::asset('assets/mp3/notification.wav') }}");
+        audio.play();
+    }
+
+
+
     Echo.channel('new_orders')
         .listen('CaiseOrder', function(e){
                 Livewire.emit('onlineOrder',  e.data) 
+                playSound() 
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
@@ -760,8 +769,17 @@
 
 
 
+
+
+
 <script>
+
+
+
 $(document).ready(function() {
+
+
+ 
     localStorage.removeItem('CaiseSelectedProducts');
     cacheData('CaiseFinishOrder', false)
 
@@ -927,14 +945,6 @@ window.addEventListener('swip', event => {
             Livewire.emit('RemoveProd', id);
         }
 
-        // if (deltaX > $(this).width() / 2) {
-        //     $(this).addClass("swiped");
-
-        // }
-        //  else {
-        //     $(this).removeClass("swiped");
-        // }
-
         $(this).css({
             transform: "translateX(0)"
         });
@@ -1050,19 +1060,25 @@ var modalScan = document.getElementById('scanModal');
 
 
 document.body.addEventListener('keydown', function(event) {
-    if (modalScan.style.display === 'block') { // Check if modal is shown
-        if (event.key === 'Enter') {
-            event.preventDefault(); // Prevent the default action
-        }
 
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent the default action
+    }
+    if (modalScan.style.display === 'block') { // Check if modal is shown
+      
         getkey(event); // Call getkey function
+    }else{
+        getkeyOrder(event); 
     }
 });
 
 
 $(document).ready(function() {
+  
 
     $("#collapse_div_show").on("click", function(event) {
+        
+
         $('.collapse_div').addClass("collapse_div_show");
         $('.collapse_div_hover').removeClass("d-none");
 

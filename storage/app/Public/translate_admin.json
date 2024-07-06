@@ -1311,22 +1311,34 @@
         "fr": "En-tête du menu"
     },
     "ads_monitor": {
-        "en": "ADS MONITOR"
+        "en": "ADS MONITOR",
+        "ar": "مراقبة الإعلانات",
+        "fr": "SURVEILLANCE DES ANNONCES"
     },
     "order_confirm": {
-        "en": "Confirm The Order"
+        "en": "Confirm The Order",
+        "ar": "تأكيد الطلب",
+        "fr": "Confirmer la commande"
     },
     "order_ready": {
-        "en": "Order Ready"
+        "en": "Order Ready",
+        "ar": "الطلب جاهز",
+        "fr": "Commande prête"
     },
     "order_ship": {
-        "en": "Ship The Order"
+        "en": "Ship The Order",
+        "ar": "شحن الطلب",
+        "fr": "Expédier la commande"
     },
     "ready_orders": {
-        "en": "Ready Orders"
+        "en": "Ready Orders",
+        "ar": "الطلبات الجاهزة",
+        "fr": "Commandes prêtes"
     },
-    "": {
-        "en": ""
+    "caisse_order_not_found": {
+        "en": "Order ID Not Found!",
+        "ar": "معرف الطلب غير موجود!",
+        "fr": "ID de commande non trouvé!"
     },
     "": {
         "en": ""

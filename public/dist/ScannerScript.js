@@ -16,18 +16,12 @@ function getkey(event,is_livewire=true) {
     if (/^\d+$/.test(event.key.toString())) {
         clearTimeout(typingTimer);
         code = code + event.key.toString();
-        console.log(code)
         typingTimer = setTimeout(() => {
             doneTyping(is_livewire);
         }, doneTypingInterval);
     }
 }
 
-function sendcode() {
-
-    Livewire.emit('approvePackage', code);
-
-}
 
 function doneTyping(is_livewire) {
     if(code.length == 13 ){ 
@@ -93,3 +87,33 @@ function doneTyping(is_livewire) {
     }
     code = ''
 }
+
+function getkeyOrder(event) {
+    
+    if (/^\d+$/.test(event.key.toString())) {
+        clearTimeout(typingTimer);
+        code = code + event.key.toString();
+        typingTimer = setTimeout(() => {
+            doneTypingOrder();
+        }, doneTypingInterval);
+    }
+}
+
+function doneTypingOrder() {
+    if(code.length >= 3 ){ 
+        try {
+            Livewire.emit( 'GetOrdersToEdit',code);
+        } catch (error) {
+            Swal.fire({
+            title: "Incorrect Password!",
+            text: "Please Try Again",
+            icon: "error"
+            });
+        }
+    }
+    code = ''
+}
+
+
+
+

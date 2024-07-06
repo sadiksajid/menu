@@ -12,7 +12,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Intl\Currencies;
 
-class MenuHome extends Component
+class ClientMenu extends Component
 {
     public $titles = [];
     public $images = [];

@@ -65,7 +65,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'password.confir
         if ($lang == 'ma') {
             $lang = 'ar';
         }
-        Cache::put('locale_admin', $lang, 86400);
+        Session::put('locale_admin', $lang);
         return back();
     })->name('change_lang');
 

@@ -8,7 +8,7 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Symfony\Component\Intl\Currencies;
 
-class ClientOffer extends Component
+class ClientOffer2 extends Component
 {
     use WithPagination;
     use WithFileUploads;

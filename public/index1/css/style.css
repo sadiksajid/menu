@@ -749,10 +749,11 @@ header.header_in .main-menu > ul > li:hover > a {
   }
   #header_menu a.open_close {
     position: absolute;
-    right: 15px;
+    left: 15px;
     top: 0;
     left: inherit;
-    color: #fff !important;
+    color: black !important;
+    font-size: 40px;
   }
 
   .main-menu ul li a:hover,

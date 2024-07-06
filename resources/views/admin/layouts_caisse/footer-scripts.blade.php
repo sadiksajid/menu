@@ -125,45 +125,26 @@
     });
 
 
-//     useScrol()
-//    function useScrol(){
-//         $(document).find('.saas-brand').owlCarousel({
+    window.addEventListener('swal:notification', event => {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+            });
+            Toast.fire({
+            icon: event.detail.type,
+            title:  event.detail.title,
+            });
 
-//             autoHeight: true,
-//             autoWidth: true,
-//             nav: false,
-//             dots: false,
-//             autoplay: true,
-//             slideSpeed: 300,
-//             mouseDrag: true,
-//             responsiveClass: true,
-//             paginationSpeed: 400,
-        
-//         });
+    });
 
 
-  
-//         function changeFavicon() {
-           
-//            var src =  @json(get_image(\Auth::user()->store->logo)) ;
-//            let link = document.getElementById('favicon');
-//            if (link) {
-//                link.href = src;
-//            } else {
-//                link = document.createElement('link');
-
-//                link.id = 'favicon';
-//                link.rel = 'icon';
-//                link.href = src;
-//                document.head.appendChild(link);
-//            }
-//        }
-
-//        $(document).ready(function() {
-//            changeFavicon();
-//        });
-
-//    }
-
+ 
 </script>
 

@@ -31,7 +31,7 @@
     <div>
 
         @if ($category == 'offers')
-            @livewire('store-offers',['store_info'=>$store_info])
+            @livewire('client-offers',['store_info'=>$store_info])
         @else
             @livewire('store-client',['store_info'=>$store_info,'category'=>$category])
         @endif

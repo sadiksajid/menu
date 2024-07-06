@@ -3,7 +3,7 @@
 $translations = app('translations_admin');
 $languages = array('ma' => 'عربية', 'en' => 'English', 'fr' => 'Français');
 $flag = array('ar' => 'ma', 'en' => 'en', 'fr' => 'fr');
-$current_lang =  Cache::get('locale_admin') ?? 'en';
+$current_lang =  App::getLocale();
 @endphp
 
 

@@ -61,24 +61,21 @@
         $cart = Cache::get('my_cart');
     @endphp
    
-
-
-    <div wire:ignore class="hero_single inner_pages background-image" @if (isset($images['img_1']))   data-background="get_image($images['img_1'])" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif
+    <div wire:ignore class="hero_single inner_pages background-image" @if (isset($images_offer)) data-background="url({{ get_image($images_offer)}})"  @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif
         style="position: relative  ;  " >
 
             <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-xl-9 col-lg-10 col-md-8">
-                            <h1  > {{ $titles['title-1'] ?? 'Store' }}  </h1>
-                            <p  >{{ $titles['title-2'] ?? 'Cooking delicious and tasty food since 2005' }} </p>
+                            <h1  > {{ $titles_offer ?? 'Store' }}  </h1>
+                            <p  >{{ $texts_offer ?? 'Cooking delicious and tasty food since 2005' }} </p>
                         </div>
                     </div>
                     <!-- /row -->
                 </div>
             </div>
             <div class="frame white"></div>
-            <div class="container-fluid p-0" style="position: absolute  ; bottom:0px;height:150px;z-index:10; ">
 
         </div>
     </div>

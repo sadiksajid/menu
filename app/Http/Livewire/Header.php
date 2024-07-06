@@ -3,8 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Models\Store;
-use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
 
 class Header extends Component
 {
@@ -17,7 +18,13 @@ class Header extends Component
     public $current_lang;
     public function mount()
     {
-        $this->current_lang = Cache::get('locale_user') ?? 'en';
+
+        if (Session::has('locale_user')) {
+            $this->current_lang  = Session::get('locale_user', config('app.locale'));
+        } else {
+            $this->current_lang  = 'en';
+        }
+
 
         $this->store_meta = env('STOR_NAME');
         $stores = Cache::get('stores');
@@ -47,7 +54,8 @@ class Header extends Component
         if ($lang == 'ma') {
             $lang = 'ar';
         }
-        Cache::put('locale_user', $lang, 86400);
+        Session::put('locale_user', $lang);
+
         if ($redirect != false) {
             return redirect($redirect);
 

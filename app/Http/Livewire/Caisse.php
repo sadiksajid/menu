@@ -45,7 +45,7 @@ class Caisse extends Component
     public $selected_products_ids = [];
     public $selected_products_qty = [];
 
-    protected $listeners = ['confirmPassword','RemoveProd', 'confirmed','confirmDelete','updateOrder','SelectProd','onlineOrder'];
+    protected $listeners = ['confirmPassword','RemoveProd', 'confirmed','confirmDelete','updateOrder','SelectProd','onlineOrder','GetOrdersToEdit'];
 ////////////////////////////////
     public $translations;
     public $langs = [];
@@ -554,7 +554,22 @@ class Caisse extends Component
 
     /////////////////////////////////////////////////////////
 
+    public function GetOrdersToEdit($id)
+    {
+        if(isset($this->new_orders[$id])){
+            $order = $this->new_orders[$id] ;
 
+            $is_offer = ($order['offers'] == null) ? 0 : 1;
+
+            $this->editOrder( $order['id'],$is_offer,$order['order_type']);
+        }else{
+            $this->dispatchBrowserEvent('swal:notification', [
+                'type' => 'error',
+                'title' => $this->translations['caisse_order_not_found'],
+            ]);
+        }
+        
+    }
     public function editOrder($id,$is_offer = 0,$order_type)
     {
 
