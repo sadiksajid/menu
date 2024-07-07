@@ -162,7 +162,7 @@
 }
 
 .ui-state-active, .ui-datepicker-today .ui-state-default.ui-state-active {
-  background: #978667;
+  background: #ad7800;
   color: #fff !important;
 }
 
@@ -184,7 +184,7 @@
   color: #444;
 }
 .ui-datepicker-today .ui-state-default:hover {
-  background: #978667;
+  background: #ad7800;
   color: #fff !important;
 }
 
@@ -342,7 +342,7 @@
 }
 .radio_select input[type="radio"]:focus + label {
   border: 1px solid transparent;
-  background-color: #978667;
+  background-color: #ad7800;
   color: #fff;
 }
 .radio_select input[type="radio"]:focus + label em {
@@ -350,7 +350,7 @@
 }
 .radio_select input[type="radio"]:checked + label {
   border: 1px solid transparent;
-  background-color: #978667;
+  background-color: #ad7800;
   color: #fff;
 }
 .radio_select input[type="radio"]:checked + label em {
@@ -380,7 +380,7 @@ input#website {
   border-radius: 3px;
 }
 #wizard_container .nice-select:active, #wizard_container .nice-select:focus {
-  border-color: #978667;
+  border-color: #ad7800;
 }
 #wizard_container .form-control {
   height: 48px;
@@ -436,7 +436,7 @@ button.submit {
   cursor: pointer;
   outline: none;
   text-align: center;
-  background: #978667;
+  background: #ad7800;
   position: relative;
   font-size: 14px;
   font-size: 0.875rem;

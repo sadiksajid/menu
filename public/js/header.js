@@ -11,12 +11,10 @@ window.addEventListener('changeCartPrice', event => {
 
 window.addEventListener('changeOrdersNbr', event => {
     var nbr = event.detail.orders_nbr
-    // var text = nbr + ' ' + 'Orders'
     var text = nbr
     $("#orders_nbr").html(text);
 });
 $(document).ready(function () {
-
     Livewire.emit('updateHeader')
 
 });

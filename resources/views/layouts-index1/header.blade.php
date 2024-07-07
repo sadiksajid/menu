@@ -47,14 +47,14 @@
                 </a>
             </div>
             <ul id="top_menu">
-                <li style='margin-left: 30px;margin-right: 90px;'>
+                <li style='margin-left: 30px;margin-right: 70px;'>
                     <a href="#" class='show_modal_language'><img class="card-img-top"
                             src="{{ asset('assets/countries/' . $flag[$current_lang] . '.svg') }}" style="height: 30px"
                             class="card-img-top"></a>
                 </li>
                 <li><a href="#0" class="search-overlay-menu-btn"></a></li>
                 <li style="margin-left:10px ">
-                    <a href="#0" class="cart js-cart">
+                    <a href="#0" class="cart js-cart" wire:ignore>
                         <button class="btn " style='  background-color: #262626;color: #fff;float: right'>
                             <img src="{{ URL::asset('assets/images/bag-white.png') }}" width="20px" height="20px" alt=""
                                 style="    float: left;">
@@ -67,7 +67,7 @@
                     </a>
 
                     @if (Auth::guard('client')->check())
-                    <a href="/client/my_orders" class="">
+                    <a href="/client/my_orders" class="" wire:ignore>
                         <button class="btn "
                             style='  background-color: #262626;color: #fff;float: right; margin-right:20px'>
                             <img src="{{ URL::asset('assets/images/moto-white.png') }}" width="20px" height="20px"

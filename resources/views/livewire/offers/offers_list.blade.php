@@ -2,6 +2,8 @@
 <style>
     .offer-box {
         box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+        border-radius: 20px !important;
+        transition:0.5s
     }
 
     .offer-box:hover {
@@ -54,6 +56,19 @@
 
     }
 
+    .offers_image {
+        background-color: #f0f0f0;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        overflow: hidden;
+        height:35vh;
+        border-radius: 20px 20px 10px 10px ;
+
+    }
+
+
+
 </style>
 @endsection
 <div>
@@ -87,11 +102,7 @@
                     <div class="page-main-content">
                         <div class="row">
                             <div class="col-sm-12">
-                                {{-- <div class="top-banner-wrapper">
-                                        <a href="#"><img alt="" class="img-fluid"
-                                                         src="/assets2/images/inner-page/banner.jpg"></a>
-                                     
-                                    </div> --}}
+                 
                                 <div class="collection-offer-wrapper mt-4">
 
                                     <div class="offer-wrapper-grid ">
@@ -100,16 +111,13 @@
                                             @foreach ($offers as $offer)
                                            
                                                 <div class="col-xl-3 col-md-4 col-6 col-grid-box four"  style="padding-left:6px;padding-right:6px" >
-                                                    <div class="offer-box ">
+                                                <a href="/shop/offer/{{ $offer->offer_meta }}">
+                                                    <div class="offer-box">
                                                         <div class="img-wrapper">
 
-                                                            <div class="front">
-                                                                <a
-                                                                    href="/shop/offer/{{ $offer->offer_meta }}"><img
-                                                                        alt="" class="img-fluid"
-                                                                        src="{{ get_image($offer->image_squad) }}"></a>
+                                                            <div class="front offers_image" style='background-image:url({{ get_image($offer->image_squad) }})'>
+                                                         
                                                             </div>
-
                                                       
                                                         </div>
                                                         <div class="offer-detail pb-2 mt-1">
@@ -126,17 +134,17 @@
                                                                         href="/shop/offer/{{ $offer->offer_meta }}">
                                                                         <h4>{{ substr($offer->title, 0, 40) }}</h4>
                                                                     </a>
-                                                                    <p class="mt-2">
-                                                                        {{ substr($offer->description, 0, 40) }}</p>
+                                                                    <!-- <p class="mt-2">
+                                                                        {{ substr($offer->description, 0, 40) }}</p> -->
                                                                     <h5 class="mt-2 mb-2 " style='color:{{$store_info->btn_color}}'>
-                                                                        <span class="badge badge-pill badge-danger">
+                                                                        <span class="badge badge-pill badge-dark">
                                                                             <del>
                                                                                 {{ $offer->old_price }}
                                                                                 {{ $currency }}
                                                                             </del>
                                                                         </span>
 
-                                                                        <span class="badge badge-pill badge-success">
+                                                                        <span class="badge badge-pill badge-warning text-dark">
                                                                             {{ $offer->price }}
                                                                             {{ $currency }}
                                                                         </span>
@@ -147,13 +155,15 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    </a>
                                                 </div>
                                             @endforeach
 
                                         </div>
                                     </div>
-                                    <div class="load-more-sec"><a wire:click="nextPage()">load
-                                            more</a></div>
+                                    <div class="load-more-sec"><a >{{$translations['load_more'] }} <span wire:loading 
+                                                style="height: 20px;width:20px;transition: 0.5s;margin-right: 10px;"
+                                                class="spinner-border spinner-border-sm ml-3"></span></a></div>
                                 </div>
                             </div>
                         </div>
@@ -179,6 +189,31 @@
         // function isKeyInArray(array, key) {
         // return array.some(item => item.key === key);
         // }
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const loadMoreSection = document.querySelector('.load-more-sec');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // The load-more-sec is in the viewport, run your function
+                        Livewire.emit('nextPage')
+
+                    }
+                });
+            }, { threshold: 0.1 }); // Adjust the threshold as needed
+
+            observer.observe(loadMoreSection);
+        });
+
+
+        window.addEventListener('endPages', function (event) {
+            $('.load-more-sec').html('')
+        });
+
+
+
         $(document).ready(function() {
             Livewire.emit('setViewStore')
 
@@ -188,36 +223,12 @@
             var currency = @json($currency);
             var history = {};
             var history_image = {};
-            // window.addEventListener('popstate', function (event) {
-            //     var current_path = getpath();
-            //     window.livewire.offers = history[current_path]
-            //     images = history_image[current_path]
-            // });
+     
             window.addEventListener('putoffers', event => {
                 window.livewire.offers = event.detail.offers;
                 images = event.detail.images;
-                // var current_path = getpath();
-                // history[event.detail.category] = window.livewire.offers ?? window.livewire.offers.data
-                // history_image[event.detail.category] = images
+     
             });
-            // var current_path = getpath();
-            // history[current_path] = window.livewire.offers ?? window.livewire.offers.data
-            // history_image[current_path] = images
-            // $(document).on('click', '.showDetail', function() {
-            //     var id = $(this).attr("data-id");
-            //     offer = window.livewire.offers[id] ?? window.livewire.offers.data[id]
-            //     $("#detail_image").attr("src", path + '/' + images[id])
-            //     $("#detail_title").html(offer['title'])
-            //     $("#detail_price").html(offer['price'] + ' ' + currency)
-            //     $("#detail_description").html(offer['description'])
-            //     $("#add_to_cart").attr("data-id", offer['id']);
-            //     $("#pop_up_url").attr("href", "/shop/offer/" + offer['offer_meta']);
-
-            //     // detail_image
-            //     // @this.set('quick_key', id);
-            //     $('#quick-view-offer').modal('show');
-            //     Livewire.emit('setViewoffer', offer['id']);
-            // });
 
             $(document).on('click', '#add_to_cart', function() {
                 var id = $(this).attr("data-id");

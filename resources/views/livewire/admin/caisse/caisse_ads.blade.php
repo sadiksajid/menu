@@ -18,15 +18,42 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 
-        <style>
-            .prod_div{
-                opacity: 0;
-                transition:  0.6s ;
-            }
-            .show_div{
-                opacity: 1;
-            }
-        </style>
+    <style>
+    .prod_div {
+        opacity: 0;
+        transition: 0.6s;
+    }
+
+    .show_div {
+        opacity: 1;
+    }
+
+    .products_list {
+        height: 30vh;
+        background-color: #f0f0f0;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius:15px;
+        border: 1px solid black;
+        overflow: hidden;
+    }
+
+    .products_title {
+        background-color: rgb(62 62 62 / 90%)
+        position: absolute;
+        z-index: 10;
+        color: white;
+        bottom: 0px;
+        width: 100%;
+        height: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px 5px 5px 5px;
+        border-radius:15px;   
+     }
+    </style>
 </head>
 
 @php
@@ -63,6 +90,11 @@ Cache::put('caisse_categories', $categories, 86400);
 <body class="app sidebar-mini sidenav-toggled">
 
     <div class="container-fluid">
+
+        <button id='full_screen_btn' onclick="openFullscreen()" class='btn btn-warning btn-md ' style='position:fixed;position: fixed;z-index: 99;color: black !important;border: 2px solid black;'>
+        <i class="fa fa-arrows-alt" style="font-size:36px;"></i>
+
+        </button>
 
         <div class="home-demo">
 
@@ -109,27 +141,29 @@ Cache::put('caisse_categories', $categories, 86400);
 
                 @foreach ( $products_cat as $product)
 
-                <div class="item" style=' background: #ff3f4d;'>
+                <div class="item products_list"
+                    style='background-image: url({{ get_image("tmb/".$product->media[0]->media) }});'>
                     <span class="badge badge-dark badge" role="button"
                         style="position: absolute; z-index:10;color:white;top:0px">
-                        <h2 class="mb-0" style='font-size: 1.5vw'><strong> {{ $product->price}} {{$currency}} </strong> </h2>
+                        <h2 class="mb-0" style='font-size: 1.5vw'><strong> {{ $product->price}} {{$currency}} </strong>
+                        </h2>
                     </span>
-                    <div style="background-color:rgb(0,0,0,0.5);position: absolute; z-index:10;color:white;bottom:0px;width:100%;height:30%;display: flex;justify-content: center;align-items: center;padding: 5px 5px 5px 5px;">
+                    <div class='products_title'>
                         <center>
                             <h6 class="card-title " style='font-size: 1vw'> {{$product->title }} </h6>
                         </center>
                     </div>
-                    <img src="{{ get_image('tmb/'.$product->media[0]->media) }}" lass="card-image1 "
+                    <!-- <img src="{{ get_image('tmb/'.$product->media[0]->media) }}" lass="card-image1 "
                         style='height: 100%;width: 100%;'
-                        onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
+                        onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';"> -->
                 </div>
 
 
                 @endforeach
 
                 @if($row == 1)
-                    </div>
-                @endif
+            </div>
+            @endif
 
 
 
@@ -147,30 +181,33 @@ Cache::put('caisse_categories', $categories, 86400);
 
     <div class="modal fade modal-order" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" style='    max-width: 70%;'>
-            <div class="modal-content " style=' padding: 60px;padding-bottom: 20px; background-color: rgba(255,255,255,0.9);border-radius: 30px;'>
+        <div class="modal-dialog modal-lg modal-dialog-centered" style='max-width: 70%;'>
+            <div class="modal-content "
+                style=' padding: 60px;padding-bottom: 20px; background-color:rgb(62 62 62 / 80%);border-radius: 30px;'>
                 <div class='row products_div'>
 
                 </div>
-           <center>
-           <div class="card bg-warning" >
-                    <div class="card-body p-2" >
-                        <div class="no-block ">
+                <center>
+                    <div class="card bg-warning">
+                        <div class="card-body p-2">
+                            <div class="no-block ">
                                 <h1 class="text-fixed-white m-0 fw-bold"
-                                    style=" margin-top: 5px !important;font-size: 50px;">Total : <span id='total'></span> </h1>
-                            <div class="ms-auto" style="float: right"> <span class="text-fixed-white display-6"></span>
+                                    style=" margin-top: 5px !important;font-size: 50px;">Total : <span
+                                        id='total'></span> </h1>
+                                <div class="ms-auto" style="float: right"> <span
+                                        class="text-fixed-white display-6"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-           </center>
+                </center>
             </div>
         </div>
     </div>
     @include('admin.layouts_caisse.footer-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
 
-</script>
+    </script>
 
     </script>
     <script>
@@ -187,7 +224,7 @@ Cache::put('caisse_categories', $categories, 86400);
         var productPrice = data['price'];
         var currency = currency;
         var productTitle = data['title'];
-        var productImage = data['iamge'];
+        var productImage = data['image'];
 
         // HTML block as a JavaScript variable with placeholders
         var productHTML = `
@@ -196,10 +233,10 @@ Cache::put('caisse_categories', $categories, 86400);
                                 style="position: absolute; z-index:10;color:white;top:0px;">
                                 <h2 class="mb-0" style='font-size: 1.5vw;' ><strong> <span id='qty-${data['id']}' style='color: #ffab00'>${qty}</span> x ${productPrice} ${currency}</strong></h2>
                             </span>
-                  
-                            
+
+
                             <img src="${productImage}" class="card-image1"
-                                style="width: 100%;border-radius: 10px;"
+                                style="width: 100%; border-radius: 10px 10px 0 0;"
                                 onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
 
                             <div style="overflow:hidden;background-color:rgba(0,0,0,0.6);color:white;bottom:0px;width:100%;height:30%;display: flex;justify-content: center;align-items: center;padding: 5px 5px 5px 5px;border-radius: 0 0 10px 10px ;">
@@ -212,7 +249,7 @@ Cache::put('caisse_categories', $categories, 86400);
 
         $('.products_div').append(productHTML);
 
-    
+
         setTimeout(function() {
             $('.prod_div').each(function() {
                 if (!$(this).hasClass('show_div')) {
@@ -232,14 +269,14 @@ Cache::put('caisse_categories', $categories, 86400);
 
     function findDifferent(old_qty, new_qty) {
         $.each(old_qty, function(key, val) {
-            if(new_qty.hasOwnProperty(key)){
-                if(new_qty[key] != val){
-                    $('#qty-'+key).html(new_qty[key])
+            if (new_qty.hasOwnProperty(key)) {
+                if (new_qty[key] != val) {
+                    $('#qty-' + key).html(new_qty[key])
                 }
-            }else{
-                $('#prod-'+key).removeClass('show_div');
+            } else {
+                $('#prod-' + key).removeClass('show_div');
                 setTimeout(function() {
-                    $('#prod-'+key).remove();
+                    $('#prod-' + key).remove();
                 }, 700);
             }
         })
@@ -254,8 +291,8 @@ Cache::put('caisse_categories', $categories, 86400);
 
         setInterval(() => {
             data = getCachedData('CaiseSelectedProducts')
-            finish = getCachedData('CaiseFinishOrder') 
-            
+            finish = getCachedData('CaiseFinishOrder')
+
 
             if (data != null) {
                 if (data['total'] == 0) {
@@ -273,18 +310,18 @@ Cache::put('caisse_categories', $categories, 86400);
 
                         if (areObjectsDifferent(qty, data['qty'])) {
                             findDifferent(qty, data['qty'])
-                        } 
+                        }
                         // else {
                         //     console.log('Objects are the same.');
                         // }
 
 
-                        qty = data['qty'] ;
+                        qty = data['qty'];
 
 
                     });
-                    
-                    $("#total").html(data['total']+' '+data['currency'])
+
+                    $("#total").html(data['total'] + ' ' + data['currency'])
                     $(".modal-order").modal('show')
 
                 }
@@ -294,30 +331,30 @@ Cache::put('caisse_categories', $categories, 86400);
                 prods = {}
             }
 
-            if(finish == true){
-          
+            if (finish == true) {
+
                 let timerInterval;
                 Swal.fire({
-                title: "Order Submitted Successfully &#128512; ",
-                text: "Please wait to prepare your order.",
-                icon: "success",
-                timer: 2000,
-                timerProgressBar: true,
-                didOpen: () => {
-                    Swal.showLoading();
-                    const timer = Swal.getPopup().querySelector("b");
-            
-                },
-                willClose: () => {
-                    clearInterval(timerInterval);
-                }
+                    title: "Order Submitted Successfully &#128512; ",
+                    text: "Please wait to prepare your order.",
+                    icon: "success",
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading();
+                        const timer = Swal.getPopup().querySelector("b");
+
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval);
+                    }
                 }).then((result) => {
-                /* Read more about handling dismissals below */
-           
+                    /* Read more about handling dismissals below */
+
                 });
 
 
-                cacheData('CaiseFinishOrder',false)
+                cacheData('CaiseFinishOrder', false)
 
             }
         }, 1000);
@@ -412,7 +449,36 @@ Cache::put('caisse_categories', $categories, 86400);
         });
 
 
+        document.addEventListener("fullscreenchange", onFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", onFullscreenChange);
+    document.addEventListener("mozfullscreenchange", onFullscreenChange);
+    document.addEventListener("MSFullscreenChange", onFullscreenChange);
+
+    function onFullscreenChange() {
+        if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+            $('#full_screen_btn').addClass('d-none')
+        } else {
+            $('#full_screen_btn').removeClass('d-none')
+        }
+    }
+
+
     });
+
+
+    var elem = document.documentElement;
+
+    /* View in fullscreen */
+    function openFullscreen() {
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+            elem.msRequestFullscreen();
+        }
+    }
+
     </script>
 </body>
 

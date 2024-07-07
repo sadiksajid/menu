@@ -32,9 +32,20 @@ class ClientOffersList extends Component
 
 
     // public $catigory_sizes = ['tmb' => ['w' => 150, 'h' => 150], 'origin' => ['w' => 300, 'h' => 300]];
+    protected $listeners = ['nextPage'];
+    public $translations;
+    public $translations_resto;
 
     public function mount($store_info)
     {
+
+           ///////////////////////////////
+           $json = app('translations');
+           $this->translations = $json['system'];
+           $this->translations_resto = $json['resto'];
+           ////////////////////////////////////////////
+
+           
         $this->store_meta = $store_info->store_meta;
         $this->store_info = $store_info;
         $this->categories = ProductCategory::where('store_id', $store_info->id)
@@ -43,7 +54,7 @@ class ClientOffersList extends Component
 
         Cache::put('last_store', $this->store_meta);
 
-        $all_offers = $this->getData(1);
+        $this->getData(1);
 
         $info = Cache::get('store_info') ?? [];
         if (!isset($info[$this->store_meta])) {
@@ -99,9 +110,16 @@ class ClientOffersList extends Component
         $page = Cache::get('offer_page');
         $page++;
 
-        $next_prod = $this->getData($page, $this->category_id);
+        $next_page = $this->getData($page, $this->category_id);
+
+        if( $next_page['count'] == 0){
+            $this->dispatchBrowserEvent('endPages');
+        }
+
 
     }
+
+    
 
     public function getData($page = 1)
     {
@@ -116,6 +134,7 @@ class ClientOffersList extends Component
             }])
             ->paginate($this->paginat, ['*'], 'page', $page);
 
+        $count = count($data);
         if ($page > 1) {
             $all_offers = Cache::get('offers');
             $data = $all_offers->merge($data);
@@ -128,7 +147,7 @@ class ClientOffersList extends Component
         //     'products' => $data->toArray(),
         //     'images' => $data->pluck('media.0.media'),
         // ]);
-        return $data;
+        return ['data'=>$data,'count'=> $count];
     }
 
 }

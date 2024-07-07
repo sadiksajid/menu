@@ -332,7 +332,7 @@ class Caisse extends Component
         // $pdf->stream('receipt_n_' . $order_id . '_' . $date . '.pdf');
         $date = now()->format('d-m-Y H:i');
         $products = $this->getReceiptItems();
-        $barcode = DNS1D::getBarcodeHTML($order_id, 'C39+');
+        $barcode = DNS1D::getBarcodeHTML($order_id, 'C39');
         $qr_code = DNS2D::getBarcodeHTML(url('/to_competition'), 'QRCODE', 5, 5);
 
         // Ensure $date is UTF-8 encoded
@@ -533,7 +533,6 @@ class Caisse extends Component
             'message' => $this->translations['caisse_order_success'],
         ]);
 
-        // $this->generateReceiptPDF();
 
     }
 
