@@ -2,6 +2,9 @@
 <style>
     .product-box {
         box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+        border-radius: 20px !important;
+        transition:0.5s
+
     }
 
     .product-box:hover {
@@ -54,6 +57,19 @@
 
     }
 
+    .img-wrapper{
+        border-radius: 20px 20px 10px 10px ;
+
+    }
+
+    .products_image {
+        background-color: #f0f0f0;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        overflow: hidden;
+        height:35vh
+    }
 </style>
 @endsection
 <div>
@@ -118,11 +134,7 @@
                     <div class="page-main-content">
                         <div class="row">
                             <div class="col-sm-12">
-                                {{-- <div class="top-banner-wrapper">
-                                        <a href="#"><img alt="" class="img-fluid"
-                                                         src="/assets2/images/inner-page/banner.jpg"></a>
-                                     
-                                    </div> --}}
+        
                                 <div class="collection-product-wrapper">
 
                                     <div class="product-wrapper-grid ">
@@ -135,20 +147,16 @@
                                                     $products_images[$loop->index] = $product->media[0]->media;
                                                 @endphp
                                                 <div class="col-xl-3 col-md-4 col-6 col-grid-box four"  style="padding-left:6px;padding-right:6px" >
+                                                <a href="/shop/product/{{ $product->product_meta }}">
+
                                                     <div class="product-box ">
                                                         <div class="img-wrapper">
 
-                                                            <div class="front">
-                                                                <a
-                                                                    href="/shop/product/{{ $product->product_meta }}"><img
-                                                                        alt="" class="img-fluid"
-                                                                        src="{{ get_image('moyen/'.$product->media[0]->media) }}"></a>
+                                                            <div class="front products_image" style="background-image:url({{ get_image('moyen/'.$product->media[0]->media) }})">
+                                                          
                                                             </div>
-                                                            <div class="back">
-                                                                <a
-                                                                    href="/shop/product/{{ $product->product_meta }}"><img
-                                                                        alt="" class="img-fluid"
-                                                                        src="{{ get_image('moyen/'.($product->media[1]->media ?? $product->media[0]->media)) }}"></a>
+                                                            <div class="back products_image"  style="background-image:url({{ get_image('moyen/'.($product->media[1]->media ?? $product->media[0]->media)) }})">
+                                               
                                                             </div>
                                                             <div class="cart-info cart-wrap gray-bg-color"
                                                                 style='border-radius:8px'>
@@ -172,7 +180,7 @@
                                                                         class="fa fa-search"></i></a>
                                                             </div>
                                                         </div>
-                                                        <div class="product-detail">
+                                                        <div class="product-detail p-0">
                                                             <div>
                                                                 <center>
                                                                     <div class="rating"><i class="fa fa-star"></i> <i
@@ -189,17 +197,22 @@
                                                                     </a>
                                                                     <p class="mt-2">
                                                                         {{ substr($product->description, 0, 40) }}</p>
-                                                                    <h6 class="mt-2 " style='color:{{$store_info->btn_color}}'>{{ $product->price }}
-                                                                        {{ $currency }}</h6>
+                                                                    <!-- <h6 class="mt-2 " style='color:{{$store_info->btn_color}}'></h6> -->
+                                                                    <button class='btn btn-warning btn-sm' style='width: 100%;margin-top: 7px;border-radius: 10px 10px 20px 20px;'><h4>{{ $product->price }}
+                                                                    {{ $currency }}</h4></button>
                                                                 </center>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </a>
+
                                                 </div>
                                             @endforeach
                                         </div>
                                     </div>
-                                    <div class="load-more-sec"><a wire:click="nextPage()">{{$translations['load_more'] }}</a></div>
+                                    <div class="load-more-sec"><a >{{$translations['load_more'] }} <span wire:loading 
+                                                style="height: 20px;width:20px;transition: 0.5s;margin-right: 10px;"
+                                                class="spinner-border spinner-border-sm ml-3"></span></a></div>
                                 </div>
                             </div>
                         </div>
@@ -272,6 +285,8 @@
 
 @section('js')
     <script>
+
+        
         // function getpath(){
         //     let currentPath = window.location.pathname;
         //     // Split the path by '/' and filter out empty segments
@@ -283,6 +298,27 @@
         // function isKeyInArray(array, key) {
         // return array.some(item => item.key === key);
         // }
+        document.addEventListener("DOMContentLoaded", function() {
+            const loadMoreSection = document.querySelector('.load-more-sec');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // The load-more-sec is in the viewport, run your function
+                        Livewire.emit('nextPage')
+
+                    }
+                });
+            }, { threshold: 0.1 }); // Adjust the threshold as needed
+
+            observer.observe(loadMoreSection);
+        });
+
+
+        window.addEventListener('endPages', function (event) {
+            $('.load-more-sec').html('')
+        });
+
         $(document).ready(function() {
             Livewire.emit('setViewStore')
 
@@ -293,11 +329,7 @@
             var images = @json($products_images);
             var history = {};
             var history_image = {};
-            // window.addEventListener('popstate', function (event) {
-            //     var current_path = getpath();
-            //     window.livewire.products = history[current_path]
-            //     images = history_image[current_path]
-            // });
+
             window.addEventListener('putProducts', event => {
                 window.livewire.products = event.detail.products;
                 images = event.detail.images;

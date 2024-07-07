@@ -155,6 +155,14 @@
         top: -44px;
     }
 
+    .products_list {
+        background-color: #f0f0f0;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        overflow: hidden;
+    }
+
 
 
     /* //////////////////////////////////////////////////////////////////// */
@@ -311,9 +319,10 @@
                     </div>
                     @endif
                     @foreach ( $offers as $offer)
-                    <div class="col-xl-2  col-md-3 col-6" wire:click='SelectProd({{$offer->id}},1)'
+                    <div class="col-xl-3  col-md-4 col-6" wire:click='SelectProd({{$offer->id}},1)'
                         style="cursor: pointer">
-                        <div class="card overflow-hidden">
+                        <div class="card products_list" style="background-image: url({{ get_image('tmb/'.$offer->image) }})">
+
                             <div
                                 style="overflow: hidden;
                                                 width: 100%;
@@ -330,9 +339,9 @@
                                         <h6 class="card-title " style='font-size: 101%;'>{{$offer->title}}</h6>
                                     </center>
                                 </div>
-                                <img src="{{ get_image('tmb/'.$offer->image) }}" lass="card-image1 "
+                                <!-- <img src="{{ get_image('tmb/'.$offer->image) }}" lass="card-image1 "
                                     style='height: 100%;width: 100%;'
-                                    onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
+                                    onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';"> -->
                             </div>
                         </div>
                     </div>
@@ -358,7 +367,7 @@
 
                     <div class="col-xl-2  col-md-3 col-6 " onclick="selectProd({{$product->id}})"
                         style="cursor: pointer" data-id="{{$product->id}}">
-                        <div class="card overflow-hidden">
+                        <div class="card products_list" style="background-image: url({{ get_image('tmb/'.$product->media[0]->media) }})">
                             <div
                                 style="overflow: hidden;
                                                 width: 100%;
@@ -375,9 +384,9 @@
                                         <h6 class="card-title " style='font-size: 101%;'>{{$product->title }}</h6>
                                     </center>
                                 </div>
-                                <img src="{{ get_image('tmb/'.$product->media[0]->media) }}" lass="card-image1 "
+                                <!-- <img src="{{ get_image('tmb/'.$product->media[0]->media) }}" lass="card-image1 "
                                     style='height: 100%;width: 100%;'
-                                    onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';">
+                                    onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';"> -->
                             </div>
                         </div>
                     </div>
@@ -715,10 +724,6 @@
     </div>
 
 
-    <!-- @if( $show_pdf )
-    <a href="#" class="d-none " id='wait_print'></a>
-    <div id='print_show'></div>
-    @endif -->
 
     <div id="print_show" class='d-none'>
         <iframe id="pdf_iframe" style="width: 100%; height: 500px;"></iframe>
@@ -787,7 +792,6 @@ $(document).ready(function() {
 })
 
 function selectProd(id) {
-
     Livewire.emit('SelectProd', id);
 }
 
@@ -804,7 +808,6 @@ window.addEventListener('SendToAdsfinish', event => {
 /////////////////////////////////////////////////// show pdf print
 window.addEventListener('pdfRendered', event => {
     var pdfData = event.detail.pdfData;
-
     // Decode the base64 string to binary data
     var binary = atob(pdfData);
     var len = binary.length;
@@ -830,15 +833,25 @@ window.addEventListener('pdfRendered', event => {
     // Add an event listener for when the iframe has loaded
     iframe.onload = function() {
         // Trigger the print dialog
-
         iframe.contentWindow.print();
-
-        // Add an event listener for after printing
-        window.addEventListener('afterprint', () => {
-            // Clear the div when the print modal is closed
-            iframe.src = '';
-        });
+      
     };
+
+
+});
+
+
+function removeIfram(){
+    iframe =  $('#pdf_iframe')
+    var iframeSrc = iframe.attr('src');
+    if (iframeSrc && iframeSrc.trim() !== "") {
+        $('#print_show').html(`<iframe id="pdf_iframe" style="width: 100%; height: 500px;"></iframe>`);
+
+    } 
+}
+
+$("body").hover(function(){
+    removeIfram()
 });
 
 

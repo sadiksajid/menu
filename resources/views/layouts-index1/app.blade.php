@@ -8,9 +8,10 @@
         <main>
             @yield('content')
         </main>
-        {{-- @include('layouts-index1.footer') --}}
         @livewire('footer')
 
     </body>
     @include('layouts-index1.scripts')
+
+
 </html>

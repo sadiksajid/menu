@@ -14,8 +14,8 @@
         <div class="modal-body mx-3">
 
           <div class="md-form mb-3">
-            <i class="fas fa-envelope prefix grey-text"></i>
-            <input type="email" " placeholder="{{$translations['phone']}}" class="form-control validate"
+            <i class="fa fa-phone prefix grey-text"></i>
+            <input type="email"  placeholder="{{$translations['phone']}}" class="form-control validate"
               wire:model.defer='login_phone'>
               @error('login_phone')
                 <span class="text-danger">{{ $message }}</span>
@@ -23,7 +23,7 @@
           </div>
 
           <div class="md-form mb-3">
-            <i class="fas fa-lock prefix grey-text"></i>
+            <i class="fa fa-lock prefix grey-text"></i>
             <input type="password" placeholder="{{$translations['password']}}" class="form-control validate"
               wire:model.defer='login_password'>
               @error('login_password')

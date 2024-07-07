@@ -113,7 +113,7 @@
 
                         </a>
                         <a href="#">
-                            <div style="float: right; margin-right:20px">
+                            <div style="float: right; margin-right:20px" wire:ignore>
                                 <center>
                                     <a href="/client/my_orders">
                                         <img src="{{ URL::asset('assets/images/moto-white.png') }}" width="40px"
