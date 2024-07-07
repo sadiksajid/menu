@@ -689,6 +689,15 @@
 
                     </div>
 
+                    @if($update_order == true)
+                    <div class="col-4 mt-3">
+
+                    <button class="btn btn-outline-danger btn-lg h-100" style="width:100%" wire:click='deleteOrder({{$update_order_id }})'>
+                        <i class="fe fe-trash-2 me-1 d-inline-flex"></i>
+                    </div>
+
+                    @endif
+
 
 
                 </div>

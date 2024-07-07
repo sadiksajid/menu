@@ -37,6 +37,7 @@ class ClientMenu extends Component
 
     public function mount()
     {
+
         $json = app('translations');
         $this->translations = $json['system'];
         $this->translations_resto = $json['resto'];
@@ -101,7 +102,6 @@ class ClientMenu extends Component
 
     public function addToCart($id, $type = 1)
     {
-
         $this->emit('ProductToCart', $id, $type);
 
     }

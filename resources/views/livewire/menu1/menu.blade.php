@@ -1,22 +1,21 @@
 <div>
 
-<div wire:ignore class="hero_single inner_pages background-image"
-        @if (isset($images_menu))   data-background="url({{get_image($images_menu)}})" @else data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif
-        style="position: relative  ;  " >
+    <div wire:ignore class="hero_single inner_pages background-image" @if (isset($images_menu))
+        data-background="url({{get_image($images_menu)}})" @else
+        data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif style="position: relative  ;  ">
 
-            <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-xl-9 col-lg-10 col-md-8">
-                            <h1  > {{ $titles_menu ?? $translations['menu'] }}  </h1>
-                            <p  >{{ $texts_menu ?? $translations_resto['store_meta']  }} </p>
-                        </div>
+        <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-9 col-lg-10 col-md-8">
+                        <h1> {{ $titles_menu ?? $translations['menu'] }} </h1>
+                        <p>{{ $texts_menu ?? $translations_resto['store_meta']  }} </p>
                     </div>
-                    <!-- /row -->
                 </div>
+                <!-- /row -->
             </div>
-       
         </div>
+
     </div>
 
     <!-- /hero_single -->
@@ -47,8 +46,7 @@
                             <h3>{{$prod['title']}}</h3><em>{{ $prod['price']}} {{ $currency }}</em>
                         </div>
                         <p>{{ substr($prod['description'], 0, 40) }}</p>
-                        <a href="#0" class="add_to_cart"
-                            style="margin-left: 5px;background-color:{{$store_info->btn_color}}"
+                        <a class="add_to_cart bg-dark" style="margin-left: 5px"
                             wire:click="addToCart({{ $prod['id'] }},0)">{{$translations['add_to_cart']}}</a>
                     </div>
                 </div>
