@@ -53,7 +53,7 @@
                             class="card-img-top"></a>
                 </li>
                 <li><a href="#0" class="search-overlay-menu-btn"></a></li>
-                <li style="margin-left:10px ">
+                <li style="margin-right: -5px; ">
                     <a href="#0" class="cart js-cart" wire:ignore>
                         <button class="btn " style='  background-color: #262626;color: #fff;float: right'>
                             <img src="{{ URL::asset('assets/images/bag-white.png') }}" width="20px" height="20px" alt=""

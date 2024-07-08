@@ -5,9 +5,10 @@
 
         position: absolute;
         width: 60px;
-        top: -13px;
+        margin-top: -20px;
         float: left;
         height: 60px;
+        left:10px;
 
     }
 
@@ -102,7 +103,7 @@
                             </div>
 
                             <div class="row mt-2">
-                                <div class="col-6">
+                                <div class="col-md-6 col-12">
 
 
                                     <button
@@ -115,10 +116,10 @@
                                         {{$translations['ship_it_to_me']}}
                                     </button>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-md-6 col-12 mt-3 mt-md-0">
 
                                     <button
-                                        class=" border btn @if ($shipping_type == 'coming') btn-dark @else  btn-light @endif "
+                                        class="  border btn @if ($shipping_type == 'coming') btn-dark @else  btn-light @endif "
                                         style="width: 100%" wire:click='changeDelivery("coming")'>
                                         <lottie-player class='comingSVG'
                                             src="{{ URL::asset('assets/SVG/coming_icon_orange.json') }}"
@@ -138,7 +139,7 @@
                                 </div>
 
                                 <div class="row mt-2">
-                                    <div class="col-6">
+                                    <div class="cil-md-6 col-12">
                                         <button class="border btn  btn-dark  " style="width: 100%">
                                             <i class="fa fa-money"
                                                 style="font-size: 24px;left: 30px;position: absolute;color: #ff6f00;"></i>
@@ -150,13 +151,13 @@
                             </div>
 
                             @if ($total > 0)
-                            <div class="text-center mt-5"><a class="btn btn-warning radius-2 " style='width:30%'
+                            <div class="text-center mt-5"><a class="btn btn-warning radius-2 " style='min-width:30%'
                                     wire:click='NextStep(1)' id='submit'><strong>{{$translations['next']}}</strong>
                                 </a>
                             </div>
                             @else
                                 <div class="text-center mt-5">
-                                    <a href='/shop' class="btn btn-warning radius-2 " style='width:30%' >
+                                    <a href='/shop' class="btn btn-warning radius-2 " style='min-width:30%' >
                                         <strong>{{$translations['cart_empty']}}</strong>
                                     </a>
                                 </div>
@@ -172,7 +173,17 @@
 
                         <div class="checkout-title mb-3">
                             <div class="row mt-2">
-                                <div class="col-6">
+
+                                <div class="col-md-6 col-12 mb-4 mb-md-0">
+
+                                    <button class='btn btn-md btn-warning w-100'>
+                                        <h3 class='mb-0'><strong> {{$translations['total']}} : {{ $total }}
+                                                {{ $currency }}</strong></h3>
+                                    </button>
+                                </div>
+
+
+                                <div class="col-md-6 col-12">
                                     @if ($shipping_type == 'coming')
                                     <button class=" border btn btn-dark h-100" style="width: 100%">
                                         <lottie-player class='comingSVG'
@@ -191,13 +202,7 @@
                                     @endif
 
                                 </div>
-                                <div class="col-6">
-
-                                    <button class='btn btn-md btn-warning w-100'>
-                                        <h3 class='mb-0'><strong> {{$translations['total']}} : {{ $total }}
-                                                {{ $currency }}</strong></h3>
-                                    </button>
-                                </div>
+                                
                             </div>
 
                             <hr class='m-2'>
@@ -282,7 +287,7 @@
                                     <a class="btn btn-dark radius-2 text-light" style='width:30%'
                                         wire:click='NextStep(0)'><strong>{{$translations['back']}}</strong>
                                     </a>
-                                    <a class="btn btn-warning radius-2 " style='width:30%'
+                                    <a class="btn btn-warning radius-2 " style='min-width:30%'
                                         Wire:click='Step1()'><strong>{{$translations['next']}}</strong>
                                     </a>
                                 </div>
@@ -426,9 +431,9 @@
                        
                             <div class='mt-4' style='display: flex;justify-content: space-between;'>
                                 <a class="btn btn-dark radius-2 text-light" style='width:30%'
-                                    wire:click='NextStep(1)'><strong>{{$translations['back']}}</strong>
+                                    wire:click='NextStep(0)'><strong>{{$translations['back']}}</strong>
                                 </a>
-                                <a class="btn btn-warning radius-2 " style='width:30%'
+                                <a class="btn btn-warning radius-2 " style='min-width:30%'
                                     wire:click='Order'><strong>{{$translations['place_order']}}</strong>
                                 </a>
                             </div>
