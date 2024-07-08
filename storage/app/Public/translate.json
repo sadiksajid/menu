@@ -279,11 +279,6 @@
         "ar": "شحنه إلي",
         "fr": "Expédiez-le moi"
     },
-    "cart_is_empty": {
-        "en": "Cart is Empty!",
-        "ar": "السلة فارغة!",
-        "fr": "Le panier est vide!"
-    },
     "order_submit_success": {
         "en": "Order  Submitted  Successfully!",
         "ar": "تم تقديم الطلب بنجاح!",
@@ -399,29 +394,45 @@
         "ar": "عروض",
         "fr": "Offres"
     },
-    "products": {
-        "en": "Products"
+   "products": {
+        "en": "Products",
+        "ar": "المنتجات",
+        "fr": "Produits"
     },
     "shipping_method": {
-        "en": "Shipping Method"
+        "en": "Shipping Method",
+        "ar": "طريقة الشحن",
+        "fr": "Méthode d'expédition"
     },
     "payment_method": {
-        "en": "Payment Method"
+        "en": "Payment Method",
+        "ar": "طريقة الدفع",
+        "fr": "Méthode de paiement"
     },
     "client_info": {
-        "en": "Client Information"
+        "en": "Client Information",
+        "ar": "معلومات العميل",
+        "fr": "Informations sur le client"
     },
     "select_address_msg": {
-        "en": "Please Select an address from the list bottom or add new one ."
+        "en": "Please Select an address from the list bottom or add new one.",
+        "ar": "يرجى اختيار عنوان من القائمة أدناه أو إضافة عنوان جديد.",
+        "fr": "Veuillez sélectionner une adresse dans la liste ci-dessous ou en ajouter une nouvelle."
     },
     "used": {
-        "en": "Used"
+        "en": "Used",
+        "ar": "مستخدم",
+        "fr": "Utilisé"
     },
     "cart_empty": {
-        "en": "Cart is Empty"
+        "en": "Cart is Empty",
+        "ar": "السلة فارغة",
+        "fr": "Le panier est vide"
     },
     "back": {
-        "en": "Back"
+        "en": "Back",
+        "ar": "عودة",
+        "fr": "Retour"
     },
     "": {
         "en": " "

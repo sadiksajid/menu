@@ -243,7 +243,7 @@ class Checkout extends Component
         if (count($my_cart) == 0) {
             $this->dispatchBrowserEvent('swal:confirm_redirect', [
                 'type' => 'warning',
-                'title' => $this->translations['cart_is_empty'],
+                'title' => $this->translations['cart_empty'],
                 'cancle' => false,
                 'confirmBtn' => 'Ok',
                 // 'url' => '/store/' . Cache::get('last_store'),
