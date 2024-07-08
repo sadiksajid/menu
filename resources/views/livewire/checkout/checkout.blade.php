@@ -273,6 +273,11 @@
 
                                 </div>
 
+                                <div class="col-12 mb-3">
+                                        <center><span><h5>Do you have an account ?  <span class="badge badge-dark login_show" style='cursor:pointer'>Login</span></h5></span></center>
+                                </div>
+
+
                                 <div style='display: flex;justify-content: space-between;'>
                                     <a class="btn btn-dark radius-2 text-light" style='width:30%'
                                         wire:click='NextStep(0)'><strong>{{$translations['back']}}</strong>
