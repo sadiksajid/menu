@@ -132,7 +132,7 @@
                                                                     </div>
                                                                     <a class="mt-2"
                                                                         href="/shop/offer/{{ $offer->offer_meta }}">
-                                                                        <h4>{{ substr($offer->title, 0, 40) }}</h4>
+                                                                        <h4 class='mb-3'>{ substr($offer->title, 0, 40) }}</h4>
                                                                     </a>
                                                                     <!-- <p class="mt-2">
                                                                         {{ substr($offer->description, 0, 40) }}</p> -->

@@ -8,7 +8,7 @@
     }
 
     .product-box:hover {
-        box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+        box-shadow: rgb(0, 0, 0,0.5) 0px 20px 30px -10px
     }
 
     .cat_title{
@@ -193,7 +193,7 @@
                                                                     {{ $product->category->title }}
                                                                     <a class="mt-2"
                                                                         href="/shop/product/{{ $product->product_meta }}">
-                                                                        <h4>{{ substr($product->title, 0, 40) }}</h4>
+                                                                        <h4 class='mb-3'>{{ substr($product->title, 0, 40) }}</h4>
                                                                     </a>
                                                                     <p class="mt-2">
                                                                         {{ substr($product->description, 0, 40) }}</p>

@@ -10,7 +10,7 @@
     }
 
     .product-box:hover {
-        box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+        box-shadow: rgb(0, 0, 0,0.5) 0px 20px 30px -10px
     }
 
     .cat_title{
