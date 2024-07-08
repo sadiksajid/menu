@@ -56,11 +56,11 @@
                     </button>
                 </div>
                 <div class="w-100 text-center">
-                <a class="btn  rounded-5 btn-block"
-                href="/client/checkout">
-                    <button class='btn btn-dark' style='width:80%'>
-                             {{$translations['checkout']}}
-                    </button>
+                    <a class="btn  rounded-5 btn-block"
+                    href="/client/checkout">
+                        <button class='btn btn-dark' style='width:80%'>
+                                {{$translations['checkout']}}
+                        </button>
                     </a>
                   
                 </div>

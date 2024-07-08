@@ -210,7 +210,7 @@
         "fr": "Suivant"
     },
     "sellect_address": {
-        "en": "Sellect Address",
+        "en": "Sellect the Address",
         "ar": "اختر العنوان",
         "fr": "Sélectionner l'adresse"
     },
@@ -399,23 +399,23 @@
         "ar": "عروض",
         "fr": "Offres"
     },
-    "": {
-        "en": " "
+    "products": {
+        "en": "Products"
     },
-    "": {
-        "en": " "
+    "shipping_method": {
+        "en": "Shipping Method"
     },
-    "": {
-        "en": " "
+    "payment_method": {
+        "en": "Payment Method"
     },
-    "": {
-        "en": " "
+    "client_info": {
+        "en": "Client Information"
     },
-    "": {
-        "en": " "
+    "select_address_msg": {
+        "en": "Please Select an address from the list bottom or add new one ."
     },
-    "": {
-        "en": " "
+    "used": {
+        "en": "Used"
     },
     "": {
         "en": " "

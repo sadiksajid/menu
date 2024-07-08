@@ -56,6 +56,7 @@ class Checkout extends Component
     public $coming_time;
     public $titles_checkout;
     public $images_checkout;
+    public $order_steps = 0;
 
     protected $listeners = ['getCity', 'getQuarter', 'renderFunc'];
 
@@ -77,9 +78,12 @@ class Checkout extends Component
             $this->client_email = $user->email;
             $this->step = 2;
             $this->all_address = $user->client_address;
+            
             $this->new_address = false;
             if (count($this->all_address) == 0) {
                 $this->new_address = true;
+            }else{
+                $this->address_id =  $this->all_address[0]->id;
             }
         }
 
@@ -458,7 +462,7 @@ class Checkout extends Component
             $this->new_address = true;
         } else {
             $this->new_address = false;
-
+            $this->address_id =  $this->all_address[0]->id;
         }
 
     }
@@ -471,5 +475,9 @@ class Checkout extends Component
     public function changeDelivery($val)
     {
         $this->shipping_type = $val;
+    }
+    public function NextStep($val)
+    {
+        $this->order_steps = $val + 1;
     }
 }
