@@ -48,7 +48,7 @@ class ClientOfferView extends Component
             Cache::put('store_info', $info);
 
         } else {
-            $this->currency = $info[$this->store_meta]['currency'];
+            $this->currency = $info[$this->store_meta]['currency'] ?? 'MAD';
         }
 
     }

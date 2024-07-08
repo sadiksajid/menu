@@ -31,20 +31,6 @@ import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 window.Pusher = Pusher;
 
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     cluster: 'mt1',
-//     key: 'EXP2024INFO_key@',
-//     wsHost: 'soketi.sys.coolrasto.com',
-//     wsPort: 6001,
-//     wssPort: 6001,
-//     forceTLS: false,
-//     encrypted: true,
-//     disableStats: true,
-//     enabledTransports: ['ws', 'wss'],
-// });
-
-
 const config = {
     broadcaster: 'pusher',
     cluster:  process.env.MIX_PUSHER_APP_CLUSTER,

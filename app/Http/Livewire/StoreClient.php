@@ -74,7 +74,7 @@ class StoreClient extends Component
             Cache::put('store_info', $info);
 
         } else {
-            $this->currency = $info[$this->store_meta]['currency'];
+            $this->currency = $info[$this->store_meta]['currency'] ?? 'MAD';;
         }
 
         $this->shop_head = Index::where('store_id', $store_info->id)->where('name', 'shop1')->first();
