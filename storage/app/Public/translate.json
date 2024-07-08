@@ -417,11 +417,11 @@
     "used": {
         "en": "Used"
     },
-    "": {
-        "en": " "
+    "cart_empty": {
+        "en": "Cart is Empty"
     },
-    "": {
-        "en": " "
+    "back": {
+        "en": "Back"
     },
     "": {
         "en": " "

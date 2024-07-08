@@ -149,12 +149,18 @@
                                 </div>
                             </div>
 
-                            <!-- @if (Auth::guard('client')->check() == true and $step == 2) -->
+                            @if ($total > 0)
                             <div class="text-center mt-5"><a class="btn btn-warning radius-2 " style='width:30%'
-                                    wire:click='NextStep(0)' id='submit'><strong>{{$translations['next']}}</strong>
+                                    wire:click='NextStep(1)' id='submit'><strong>{{$translations['next']}}</strong>
                                 </a>
                             </div>
-                            <!-- @endif -->
+                            @else
+                                <div class="text-center mt-5">
+                                    <a href='/shop' class="btn btn-warning radius-2 " style='width:30%' >
+                                        <strong>{{$translations['cart_empty']}}</strong>
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -211,65 +217,70 @@
                         <div class="row check-out">
                             @if (Auth::guard('client')->check() == false and $step == 1)
 
-                            <div class="form-group col-sm-6 col-12">
-                                <div class="field-label text-secondary">{{$translations['first_name']}}
+                                <div class="form-group col-sm-6 col-12">
+                                    <div class="field-label text-secondary">{{$translations['first_name']}}
+                                    </div>
+                                    <input name="field-name" placeholder="FirstName" type="text"
+                                        wire:model='client_firstname'>
+                                    @error('client_firstname')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                <input name="field-name" placeholder="FirstName" type="text"
-                                    wire:model='client_firstname'>
-                                @error('client_firstname')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="form-group col-sm-6 col-12">
-                                <div class="field-label text-secondary">{{$translations['last_name']}}</div>
-                                <input name="field-name" placeholder="LastName" type="text"
-                                    wire:model='client_lastname'>
-                                @error('client_lastname')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="form-group col-sm-6 col-12">
-                                <div class="field-label text-secondary">{{$translations['phone']}}</div>
-                                <input name="field-name" placeholder="Phone" type="text" wire:model='client_phone'
-                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
-                                @error('client_phone')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="form-group col-sm-6 col-12">
-                                <div class="field-label text-secondary">{{$translations['email']}}</div>
-                                <input name="field-name" placeholder="Email" type="text" wire:model='client_email'>
-                                @error('client_email')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-
-                            </div>
-                            <div class="form-group col-sm-6 col-12">
-                                <div class="field-label text-secondary ">{{$translations['password']}}
-                                    <span style="color: gray ; font-size:10px">(
-                                        {{$translations['password_meta']}} )</span>
+                                <div class="form-group col-sm-6 col-12">
+                                    <div class="field-label text-secondary">{{$translations['last_name']}}</div>
+                                    <input name="field-name" placeholder="LastName" type="text"
+                                        wire:model='client_lastname'>
+                                    @error('client_lastname')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                <input name="field-name" placeholder="Password" type="password" wire:model='password'>
-                                @error('password')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-
-                            </div>
-
-                            <div class="form-group col-sm-6 col-12">
-                                <div class="field-label text-secondary">{{$translations['repeat_password']}}
+                                <div class="form-group col-sm-6 col-12">
+                                    <div class="field-label text-secondary">{{$translations['phone']}}</div>
+                                    <input name="field-name" placeholder="Phone" type="text" wire:model='client_phone'
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
+                                    @error('client_phone')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                <input name="field-name" placeholder="Repeat Password" type="password"
-                                    wire:model='password_confirmation'>
-                                @error('password_confirmation')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                                <div class="form-group col-sm-6 col-12">
+                                    <div class="field-label text-secondary">{{$translations['email']}}</div>
+                                    <input name="field-name" placeholder="Email" type="text" wire:model='client_email'>
+                                    @error('client_email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
 
-                            </div>
+                                </div>
+                                <div class="form-group col-sm-6 col-12">
+                                    <div class="field-label text-secondary ">{{$translations['password']}}
+                                        <span style="color: gray ; font-size:10px">(
+                                            {{$translations['password_meta']}} )</span>
+                                    </div>
+                                    <input name="field-name" placeholder="Password" type="password" wire:model='password'>
+                                    @error('password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
 
-                            <div class="text-end"><a class="btn btn-default primary-btn radius-0"
-                                    Wire:click='Step1()'>{{$translations['next']}}</a>
-                            </div>
+                                </div>
+
+                                <div class="form-group col-sm-6 col-12">
+                                    <div class="field-label text-secondary">{{$translations['repeat_password']}}
+                                    </div>
+                                    <input name="field-name" placeholder="Repeat Password" type="password"
+                                        wire:model='password_confirmation'>
+                                    @error('password_confirmation')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+
+                                </div>
+
+                                <div style='display: flex;justify-content: space-between;'>
+                                    <a class="btn btn-dark radius-2 text-light" style='width:30%'
+                                        wire:click='NextStep(0)'><strong>{{$translations['back']}}</strong>
+                                    </a>
+                                    <a class="btn btn-warning radius-2 " style='width:30%'
+                                        Wire:click='Step1()'><strong>{{$translations['next']}}</strong>
+                                    </a>
+                                </div>
                             @else
 
                             <!-- //////////////////////////////////////////////////////////////////// after login -->
@@ -295,105 +306,98 @@
                             </div>
                             <hr class='m-2'>
                             @if ($shipping_type == 'shipping')
-                            @if ($new_address == true)
-                            <div class="col-12 mb-3">
-                                <button class="btn btn-dark btn-sm mb-2" style="float: right"
-                                    wire:click='addAddress(0)'>{{$translations['sellect_address']}}</button>
-                            </div>
-                            @else
-                            <div class="col-12 mb-3">
-                                <span>{{$translations['select_address_msg']}}</span>
-                                <button class="btn btn-dark btn-sm mb-2" style="float: right"
-                                    wire:click='addAddress(1)'>{{$translations['new_address']}}</button>
-                            </div>
-                            @endif
-                            @if ($new_address == true)
-
-                                <div class="form-group col-md-6 col-sm-6 col-12">
-                                    <div class="field-label text-secondary">{{$translations['town_city']}}</div>
-                                    <input name="field-name" placeholder="{{$translations['town_city']}}" type="text"
-                                        wire:model='client_city' id="city_name">
-                                    <center>
-                                        <div class="dropdown-menu" aria-labelledby="citiesDrop" id="citiesDrop"
-                                            style=" width: 100%; position: relative;">
-                                            @foreach ($cities as $city)
-                                            <a class="dropdown-item"
-                                                wire:click="changeCity('{{ $city->city }}',{{ $city->id }})">{{ $city->city }}</a>
-                                            @endforeach
-
-                                        </div>
-                                    </center>
-
-                                    @error('client_city')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                                @if ($new_address == true)
+                                <div class="col-12 mb-3">
+                                    <button class="btn btn-dark btn-sm mb-2" style="float: right"
+                                        wire:click='addAddress(0)'>{{$translations['sellect_address']}}</button>
                                 </div>
-                                <div class="form-group col-md-6 col-sm-6 col-12">
-                                    <div class="field-label text-secondary">{{$translations['quarter']}}</div>
-                                    <input name="field-name" placeholder="{{$translations['quarter']}}" type="text"
-                                        wire:model='client_quarter' id="qaurter_name">
-                                    <center>
-                                        <div class="dropdown-menu" aria-labelledby="quartersDrop" id="quartersDrop"
-                                            style=" width: 100%; position: relative;">
-                                            @foreach ($quarters as $quarter)
-                                            <a class="dropdown-item"
-                                                wire:click="changeQuarter('{{ $quarter->quartier }}',{{ $quarter->id }},{{ $quarter->city_id }})">{{ $quarter->quartier }}</a>
-                                            @endforeach
-                                        </div>
-                                    </center>
-                                    @error('client_quarter')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group col-md-12 col-sm-12 col-12">
-                                    <div class="field-label text-secondary">{{$translations['address']}}</div>
-                                    <input name="field-name" placeholder="{{$translations['address']}}" type="text"
-                                        wire:model='client_address'>
-                                    @error('client_address')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-
-                                @if (testMobile())
-                                <div class="text-end">
-                                    <a class="btn btn-default primary-btn radius-0"
-                                        id='finishOrder'>{{$translations['next']}}</a>
+                                @else
+                                <div class="col-12 mb-3">
+                                    <span>{{$translations['select_address_msg']}}</span>
+                                    <button class="btn btn-dark btn-sm mb-2" style="float: right"
+                                        wire:click='addAddress(1)'>{{$translations['new_address']}}</button>
                                 </div>
                                 @endif
-                            @else
-                            <table class="table table-striped">
-                                <tbody>
-                                    @foreach ($all_address as $address)
-                                    <tr>
-                                        <th scope="row">{{ $loop->index + 1 }} -</th>
-                                        <td>{{ $address->city->city }} ,
-                                            {{ $address->quartier->quartier }} ,
-                                            {{ $address->address }}</td>
-                                        <td>
-                                            <button
-                                                class="btn @if ($address_id == $address->id) btn-warning  @else btn-light @endif btn-sm border"
-                                                wire:click="selectAddress({{ $address->id }})">
-                                                @if ($address_id == $address->id) 
-                                                    {{$translations['used']}}
-                                                @else
-                                                    {{$translations['use']}} 
-                                                @endif
-                                               
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    @endforeach
+                                @if ($new_address == true)
 
-                                </tbody>
-                            </table>
+                                    <div class="form-group col-md-6 col-sm-6 col-12">
+                                        <div class="field-label text-secondary">{{$translations['town_city']}}</div>
+                                        <input name="field-name" placeholder="{{$translations['town_city']}}" type="text"
+                                            wire:model='client_city' id="city_name">
+                                        <center>
+                                            <div class="dropdown-menu" aria-labelledby="citiesDrop" id="citiesDrop"
+                                                style=" width: 100%; position: relative;">
+                                                @foreach ($cities as $city)
+                                                <a class="dropdown-item"
+                                                    wire:click="changeCity('{{ $city->city }}',{{ $city->id }})">{{ $city->city }}</a>
+                                                @endforeach
 
-                            @error('address_id')
-                            <span class="text-danger">{{$translations['you_have_to_select_one_address']}}</span>
-                            @enderror
+                                            </div>
+                                        </center>
 
-                            @endif
+                                        @error('client_city')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-12">
+                                        <div class="field-label text-secondary">{{$translations['quarter']}}</div>
+                                        <input name="field-name" placeholder="{{$translations['quarter']}}" type="text"
+                                            wire:model='client_quarter' id="qaurter_name">
+                                        <center>
+                                            <div class="dropdown-menu" aria-labelledby="quartersDrop" id="quartersDrop"
+                                                style=" width: 100%; position: relative;">
+                                                @foreach ($quarters as $quarter)
+                                                <a class="dropdown-item"
+                                                    wire:click="changeQuarter('{{ $quarter->quartier }}',{{ $quarter->id }},{{ $quarter->city_id }})">{{ $quarter->quartier }}</a>
+                                                @endforeach
+                                            </div>
+                                        </center>
+                                        @error('client_quarter')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group col-md-12 col-sm-12 col-12">
+                                        <div class="field-label text-secondary">{{$translations['address']}}</div>
+                                        <input name="field-name" placeholder="{{$translations['address']}}" type="text"
+                                            wire:model='client_address'>
+                                        @error('client_address')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                @else
+                                <table class="table table-striped">
+                                    <tbody>
+                                        @foreach ($all_address as $address)
+                                        <tr>
+                                            <th scope="row">{{ $loop->index + 1 }} -</th>
+                                            <td>{{ $address->city->city }} ,
+                                                {{ $address->quartier->quartier }} ,
+                                                {{ $address->address }}</td>
+                                            <td>
+                                                <button
+                                                    class="btn @if ($address_id == $address->id) btn-warning  @else btn-light @endif btn-sm border"
+                                                    wire:click="selectAddress({{ $address->id }})">
+                                                    @if ($address_id == $address->id) 
+                                                        {{$translations['used']}}
+                                                    @else
+                                                        {{$translations['use']}} 
+                                                    @endif
+                                                
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+
+                                    </tbody>
+                                </table>
+
+                                @error('address_id')
+                                <span class="text-danger">{{$translations['you_have_to_select_one_address']}}</span>
+                                @enderror
+
+                                @endif
                             @else
                             <div class="col-12">
                                 <div class="field-label text-secondary">{{$translations['time']}}</div>
@@ -413,6 +417,17 @@
                                 @enderror
 
                             </div>
+
+                       
+                            <div class='mt-4' style='display: flex;justify-content: space-between;'>
+                                <a class="btn btn-dark radius-2 text-light" style='width:30%'
+                                    wire:click='NextStep(1)'><strong>{{$translations['back']}}</strong>
+                                </a>
+                                <a class="btn btn-warning radius-2 " style='width:30%'
+                                    wire:click='Order'><strong>{{$translations['place_order']}}</strong>
+                                </a>
+                            </div>
+
 
                             @endif
 
@@ -455,13 +470,7 @@ $(document).ready(function() {
                 Livewire.emit('getQuarter')
             }, 500);
         })
-        $('#finishOrder').click(function() {
-            var windowHeight = $(window).height();
-            var position = $("#submit").offset().top - (windowHeight / 1.5);
-            $("body, html").animate({
-                scrollTop: position
-            }, 500);
-        })
+   
     }
     window.addEventListener('reload', event => {
         Buttons()

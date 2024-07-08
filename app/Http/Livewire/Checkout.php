@@ -478,6 +478,6 @@ class Checkout extends Component
     }
     public function NextStep($val)
     {
-        $this->order_steps = $val + 1;
+        $this->order_steps = $val;
     }
 }
