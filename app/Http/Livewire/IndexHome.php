@@ -228,7 +228,6 @@ class IndexHome extends Component
             $headers = array(
                 "Content-type" => "application/pdf",
             );
-
                return response()->streamDownload(
                 fn () => print($pdf), // add the content to the stream
                 $fileName, // the name of the file/stream
