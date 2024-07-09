@@ -30,7 +30,7 @@
     @if (!Auth::guard('client')->check())
     @livewire('client-login')
     @endif
-    <header class="header clearfix element_to_stick">
+    <header class="header clearfix element_to_stick p-2" style='height: 48px;background-color: rgb(238, 238, 238, 0.9);'>
         <div class="container-fluid">
             <div id="logo">
                 <a href="/">
@@ -111,7 +111,7 @@
                     @endisset
 
                 </div>
-                <ul>
+                <ul style='margin-top: 4px;'>
 
                     <li>
                         <a href="/">{{$translations['home']}}</a>

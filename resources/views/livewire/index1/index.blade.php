@@ -43,12 +43,12 @@
     <ul id="banners_grid" class="clearfix">
         <li class="">
             <a @if (isset($urls['url_1'])) href="{{$urls['url_1']}}" @else href="menu-1.html" @endif
-                class="img_container  " data-id='url_1'>
+                class="img_container  rounded-right rounded-4" data-id='url_1'>
 
                 <img @if (isset($images['img_2'])) src="{{ get_image($images['img_2']) }}"
                     data-src="{{ get_image($images['img_2']) }}" @else
                     src="{{ URL::asset('index1/img/banners_cat_placeholder.jpg') }}"
-                    data-src="{{ URL::asset('index1/img/banner_1.jpg') }}" @endif alt="" class="lazy">
+                    data-src="{{ URL::asset('index1/img/banner_1.jpg') }}" @endif alt="" class="lazy ">
 
                 <div wire:ignore class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
                     <h3 class='' data-id='title-3'> {{ $titles['title-3'] ?? $translations_resto['our_menu'] }} </h3>
@@ -59,7 +59,7 @@
         </li>
         <li class="">
             <a @if (isset($urls['url_2'])) href="{{$urls['url_2']}}" @else href="menu-1.html" @endif
-                class="img_container  " data-id='url_2'>
+                class="img_container  rounded-4" data-id='url_2'>
                 <img @if (isset($images['img_3'])) src="{{ get_image($images['img_3']) }}"
                     data-src="{{ get_image($images['img_3'])}}" @else
                     src="{{ URL::asset('index1/img/banners_cat_placeholder.jpg') }}"
@@ -77,7 +77,7 @@
         </li>
         <li class="">
             <a @if (isset($urls['url_3'])) href="{{$urls['url_3']}}" @else href="menu-1.html" @endif
-                class="img_container  " data-id='url_3'>
+                class="img_container  rounded-left rounded-4" data-id='url_3'>
                 <img @if (isset($images['img_4'])) src="{{ get_image($images['img_4']) }}"
                     data-src="{{ get_image($images['img_4'])}}" @else
                     src="{{ URL::asset('index1/img/banners_cat_placeholder.jpg') }}"
@@ -98,12 +98,12 @@
         <div class="container margin_120_100 home_intro">
             <div class="row justify-content-center d-flex align-items-center">
                 <div class="col-lg-5 text-lg-center d-none d-lg-block " data-cue="slideInUp">
-                    <figure class="">
+                    <figure class="radius-2">
                         <img @if (isset($images['img_5'])) src="{{ get_image($images['img_5'])}}"
                             data-src="{{ get_image($images['img_5']) }}" @else
                             src="{{ URL::asset('index1/img/home_1_placeholder.png') }}"
                             data-src="{{ URL::asset('index1/img/home_1.jpg') }}" @endif width="354" height="440" alt=""
-                            class="img-fluid lazy">
+                            class="img-fluid lazy rounded-4">
 
 
                     </figure>
@@ -130,11 +130,11 @@
                     <div class='col-12'>
                         <center>
                             <a @if (isset($urls['url_4'])) href="{{$urls['url_4']}}" @else
-                                href="https://www.youtube.com/watch?v=MO7Hi_kBBBg" @endif data-id='url_4'
+                                href="https://www.youtube.com/watch?v=7b1eO0ypABo?si=ljNEzYc7Wpyr3fHx" @endif data-id='url_4'
                                 class="btn_play  " data-cue="zoomIn" data-delay="500"
                                 style='position:relative!important ; color: black;width: 190px;border-radius: 15px;background-color:#FAB100;margin-top: 90px;'><span
                                     class=""><i class="arrow_triangle-right"></i><span
-                                        style='font-size: 18px;float: right;margin-right: 10px;'>{{$translations['watch_video']}}</span></span>
+                                        style='font-size: 18px;float: right;margin-right: 10px; margin-top: -2px;'>{{$translations['watch_video']}}</span></span>
                             </a>
                         </center>
                     </div>
@@ -201,7 +201,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-5 col-md-6 text-center">
 
-                    <div class="box_1" data-cue="slideInUp">
+                    <div class="box_1 rounded-4" data-cue="slideInUp">
 
                         <h2 class='' data-id='title-14'>
                             {{ $titles['title-14'] ?? $translations_resto['our_location'] }}
@@ -229,21 +229,21 @@
 
                     @if (isset($competition_img))
                     <img src="{{ get_image($competition_img ?? '') }}" width="420" height="770" alt=""
-                        class="img-fluid">
+                        class="img-fluid rounded-4">
                     @else
                     <img src="{{ URL::asset('index1/img/chef.png') }}" width="420" height="770" alt=""
-                        class="img-fluid">
+                        class="img-fluid rounded-4">
                     @endif
 
                 </div>
-                <div class="col-lg-6 col-md-8">
+                <div class="col-lg-6 col-md-8 ">
                     <div class="main_title">
                         <span><em></em></span>
                         <h2>{{$translations_resto['competition_join']}}</h2>
                         <p>{{$translations_resto['competition_join_text']}}</p>
 
                     </div>
-                    <div id="wizard_container">
+                    <div id="wizard_container" class='rounded-4'>
                         @if ( $this->qr_code )
                         <center>
                             <h1>{{$translations_resto['competition_thanks']}}</h1>

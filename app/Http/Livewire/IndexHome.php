@@ -11,6 +11,7 @@ use Livewire\Component;
 use App\Models\StoreProduct;
 use App\Rules\PhoneValidation;
 use App\Models\CompitionClient;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Intl\Currencies;
@@ -218,25 +219,14 @@ class IndexHome extends Component
             'logoBase64' => $logoBase64,
         ];
 
-        try {
-            $pdf = new Dompdf();
-            $pdf->loadHtml(view('livewire.index1.qr_code', $data)->render());
-            $pdf->setPaper([0, 0, 250, 500], 'portrait');
-            $pdf->render();
-    
-            $fileName = 'goodforhealth_invitation.pdf';
-            $headers = array(
-                "Content-type" => "application/pdf",
-            );
-               return response()->streamDownload(
-                fn () => print($pdf), // add the content to the stream
-                $fileName, // the name of the file/stream
-                $headers
-             );
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-            // Log the error or handle it in another way
-        }
+        $pdf = Pdf::loadView('livewire.index1.qr_code', $data);
+
+        $fileName = 'goodforhealth_invitation.pdf';
+ 
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->output();
+        }, $fileName);
+
 
     }
 

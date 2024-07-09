@@ -693,10 +693,10 @@
                     </div>
                     @endif
 
-                    @if($last_order_id != null)
-                    <div class="col-4 mt-3 w-100" style='position: absolute;bottom: 0;right: 50px;'>
-                        <button class="btn btn-info btn-lg h-100"  wire:click='generateReceiptPDF({{$last_order_id }})'>
-                        Print Order : {{$last_order_id}} <span style='margin-left:10px;font-size:30px'><i class="fa fa-print"></i></span>
+                    @if($last_order_id != null and $update_order == false)
+                    <div class="col-4 mt-3" >
+                        <button class="btn btn-primary btn-lg"  wire:click='generateReceiptPDF({{$last_order_id }})'>
+                        <span style='font-size:27px'><i class="fa fa-print"></i></span>
                     </div>
                     @endif
                 </div>
@@ -1102,6 +1102,7 @@ document.body.addEventListener('keydown', function(event) {
 
 $(document).ready(function() {
   
+    // document.body.style.zoom = "70%";
 
     $("#collapse_div_show").on("click", function(event) {
         

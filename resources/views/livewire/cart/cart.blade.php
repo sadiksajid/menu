@@ -31,7 +31,8 @@
                 <div class="item-info " style="">
                     <span class="title"
                         style="margin: 0;text-align: left;font-weight: 600;font-family: sans-serif;">{{$product['product']->title}}</span>
-                    <span class="price" style="margin: 0;font-weight: 700;font-size: medium;font-family: sans-serif;margin-bottom:10px">{{$product['qte']}}
+                    <span class="price"
+                        style="margin: 0;font-weight: 700;font-size: medium;font-family: sans-serif;margin-bottom:10px">{{$product['qte']}}
                         x {{$product['product']->price}} {{$currency}}</span>
                     <a href="#" wire:click="removeProduct('{{$key}}')" class="remove"
                         style="padding: 0">{{$translations['remove']}}</a>
@@ -45,38 +46,33 @@
                         href="/client/cart">{{$translations['cart']}}</a>
                 </div>
             </div>
-            <div class="total  border-top pt-2"  >
+            <div class="total  border-top pt-2">
                 <div class="w-100" style='text-align: center;'>
                     <button class='btn btn-warning w-100'>
                         <h4 class='m-0'>
-                        <strong class="total-price"
-                            style="font-family: sans-serif">{{$total}}
-                            {{$currency}}</strong>
+                            <strong class="total-price" style="font-family: sans-serif">{{$total}}
+                                {{$currency}}</strong>
                         </h4>
                     </button>
                 </div>
                 <div class="w-100 text-center">
-                    <a class="btn  rounded-5 btn-block"
-                    href="/client/checkout">
+                    <a class="btn  rounded-5 btn-block" href="/client/checkout">
                         <button class='btn btn-dark' style='width:80%'>
-                                {{$translations['checkout']}}
+                            {{$translations['checkout']}}
                         </button>
                     </a>
-                  
+
                 </div>
             </div>
 
         </div>
 
     </aside>
-
+    <script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        if (document.getElementById('orders_nbr') != null) {
+            document.getElementById('orders_nbr').innerHTML = "{{$order_nbr}}";
+        }
+    });
+    </script>
 </div>
-
-<script>
-document.addEventListener("DOMContentLoaded", function(event) {
-    if(document.getElementById('orders_nbr') != null){
-        document.getElementById('orders_nbr').innerHTML = "{{$order_nbr}}";
-    }
-
-});
-</script>
