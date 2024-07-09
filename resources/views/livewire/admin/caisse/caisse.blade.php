@@ -684,22 +684,21 @@
                             <i class="fe fe-clock me-1 d-inline-flex"></i></button>
                         @endif
 
-
-
-
                     </div>
 
                     @if($update_order == true)
                     <div class="col-4 mt-3">
-
-                    <button class="btn btn-outline-danger btn-lg h-100" style="width:100%" wire:click='deleteOrder({{$update_order_id }})'>
+                        <button class="btn btn-outline-danger btn-lg h-100" style="width:100%" wire:click='deleteOrder({{$update_order_id }})'>
                         <i class="fe fe-trash-2 me-1 d-inline-flex"></i>
                     </div>
-
                     @endif
 
-
-
+                    @if($last_order_id != null)
+                    <div class="col-4 mt-3 w-100" style='position: absolute;bottom: 0;right: 50px;'>
+                        <button class="btn btn-info btn-lg h-100"  wire:click='generateReceiptPDF({{$last_order_id }})'>
+                        Print Order : {{$last_order_id}} <span style='margin-left:10px;font-size:30px'><i class="fa fa-print"></i></span>
+                    </div>
+                    @endif
                 </div>
 
             </div>

@@ -39,6 +39,7 @@ class Caisse extends Component
     public $all_offers = [];
     public $category_id;
     public $total = 0;
+    public $last_order_id = null ;
 
     public $selected_cat = 0;
     public $selected_products = [];
@@ -360,7 +361,7 @@ class Caisse extends Component
         if($order_status == null or $order_status == 'caisse_delivered'){
             $pdf_admin = View::make('livewire.admin.caisse.receipt_admin', $data) ;
             $pdf_client = View::make('livewire.admin.caisse.receipt_client', $data) ;   
-            $full_pdf = $pdf_client.$pdf_admin ;
+            $full_pdf = $pdf_client.$pdf_admin.$pdf_admin ;
 
         }else if( $order_status == 'confirmed' ){
             $pdf_admin = View::make('livewire.admin.caisse.receipt_admin', $data) ;
@@ -521,7 +522,7 @@ class Caisse extends Component
 
 
             $this->show_pdf = true ;
-
+            $this->last_order_id = $order->id ;
             $this->generateReceiptPDF($order->id);
 
         }
@@ -582,13 +583,11 @@ class Caisse extends Component
             $this->is_online = true ;  
             $this->online_client = $order->client ;
             $this->online_order_status = $order->status ;
-            
             if($order_type == 'shipping'){
                 $this->online_client_address = $order->client_address   ;
             }else{
                 $this->online_client_time = $order->coming_date   ;
             }
-
         }else{
             $this->is_online = false ;  
             $this->online_client = null ;   
@@ -752,6 +751,7 @@ class Caisse extends Component
                 $client = null ;
             }
 
+            $this->last_order_id = $order->id ;
 
             $this->generateReceiptPDF($order->id,' - Updated',$order->status,$client);
 
