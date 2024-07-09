@@ -43,7 +43,7 @@
     <ul id="banners_grid" class="clearfix">
         <li class="">
             <a @if (isset($urls['url_1'])) href="{{$urls['url_1']}}" @else href="menu-1.html" @endif
-                class="img_container  rounded-right rounded-4" data-id='url_1'>
+                class="img_container  rounded-right-4" data-id='url_1'>
 
                 <img @if (isset($images['img_2'])) src="{{ get_image($images['img_2']) }}"
                     data-src="{{ get_image($images['img_2']) }}" @else
@@ -77,7 +77,7 @@
         </li>
         <li class="">
             <a @if (isset($urls['url_3'])) href="{{$urls['url_3']}}" @else href="menu-1.html" @endif
-                class="img_container  rounded-left rounded-4" data-id='url_3'>
+                class="img_container " data-id='url_3'>
                 <img @if (isset($images['img_4'])) src="{{ get_image($images['img_4']) }}"
                     data-src="{{ get_image($images['img_4'])}}" @else
                     src="{{ URL::asset('index1/img/banners_cat_placeholder.jpg') }}"
