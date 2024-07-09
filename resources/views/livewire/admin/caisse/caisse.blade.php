@@ -1148,6 +1148,52 @@ $(document).ready(function() {
 
 
 });
+
+
+$("#ads_caise_btn").on("click", function(event) {
+        $('.collapse_div').removeClass("collapse_div_show");
+        $('.collapse_div_hover').removeClass("collapse_div_hover_opacity");
+
+        setTimeout(() => {
+            $('.collapse_div_hover').addClass("d-none");
+        }, 1000);
+
+        openNewWindow()
+    });
+
+
+        function openNewWindow() {
+            // URL of the new page (this can be any valid URL)
+            const url = "{{ url('/admin/caisse/ads')}}";
+            // Calculate screen dimensions
+            const screenX = window.screenX || window.screenLeft;
+            const screenY = window.screenY || window.screenTop;
+            const screenWidth = window.screen.width;
+            const screenHeight = window.screen.height;
+
+            // Determine the position of the second screen
+            const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screenX;
+            const dualScreenTop = window.screenTop !== undefined ? window.screenTop : screenY;
+
+            // Calculate the position for the new window
+            const left = dualScreenLeft + screenWidth;
+            const top = dualScreenTop;
+
+            // Options for the new window (full screen on the second screen)
+            const windowFeatures = `left=${left},top=${top},width=${screenWidth},height=${screenHeight}`;
+
+            // Open the new window with the specified URL and features
+            const newWindow = window.open(url, 'NewWindow', windowFeatures);
+
+            // Maximize the new window if it was successfully created
+            if (newWindow) {
+                newWindow.moveTo(left, top);
+                newWindow.resizeTo(screenWidth, screenHeight);
+                newWindow.focus();
+            }
+        }
+
+
 </script>
 
 

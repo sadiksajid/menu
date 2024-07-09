@@ -80,12 +80,14 @@
     </style>
 </head>
 <body>
+    <center>
+        <h3 class='total'> Order ID: {{ $order['id'] }}</h3>
+    </center>
     <div class="logo">
         <img src="{{ $logoBase64 }}" alt="Logo" class="logo">
     </div>
     
     <div class="order-info">
-        Order ID: {{ $order['id'] }}<br>
         Date Time: {{ $date }}<br>
            
 
@@ -126,11 +128,9 @@
                 <h4>  Location : {{ $client['city'] }} {{ $client['quartier'] }}  </h4>
                 <h4>  Address : {{ $client['address'] }}   </h4>
             @endif
-
+            <hr>
         @endif
 
-        <hr>
-        <h2>Order ID : {{ $order['id'] }}</h2>
      
     </div>
         <center>

@@ -450,33 +450,43 @@ Cache::put('caisse_categories', $categories, 86400);
 
 
         document.addEventListener("fullscreenchange", onFullscreenChange);
-    document.addEventListener("webkitfullscreenchange", onFullscreenChange);
-    document.addEventListener("mozfullscreenchange", onFullscreenChange);
-    document.addEventListener("MSFullscreenChange", onFullscreenChange);
+        document.addEventListener("webkitfullscreenchange", onFullscreenChange);
+        document.addEventListener("mozfullscreenchange", onFullscreenChange);
+        document.addEventListener("MSFullscreenChange", onFullscreenChange);
 
-    function onFullscreenChange() {
-        if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
-            $('#full_screen_btn').addClass('d-none')
-        } else {
-            $('#full_screen_btn').removeClass('d-none')
+        function onFullscreenChange() {
+            if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+                $('#full_screen_btn').addClass('d-none')
+            } else {
+                $('#full_screen_btn').removeClass('d-none')
+            }
         }
-    }
 
 
+
+        /* View in fullscreen */
+    
+
+        setTimeout(() => {
+            document.getElementById('full_screen_btn').click();
+        }, 4000);
+
+
+
+        
     });
 
 
-    var elem = document.documentElement;
-
-    /* View in fullscreen */
     function openFullscreen() {
-        if (elem.requestFullscreen) {
-            elem.requestFullscreen();
-        } else if (elem.webkitRequestFullscreen) { /* Safari */
-            elem.webkitRequestFullscreen();
-        } else if (elem.msRequestFullscreen) { /* IE11 */
-            elem.msRequestFullscreen();
-        }
+        var elem = document.documentElement;
+
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
     }
 
     </script>

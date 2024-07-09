@@ -75,12 +75,15 @@
     </style>
 </head>
 <body>
+    <center>
+        <h3 class='total'> Order ID: {{ $order['id'] }}</h3>
+    </center>
+
     <div class="logo">
         <img src="{{ $logoBase64 }}" alt="Logo" class="logo">
     </div>
     
     <div class="order-info">
-        Order ID: {{ $order['id'] }}<br>
         Date Time: {{ $date }}<br>
         
         @if($client != null )

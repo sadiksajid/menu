@@ -32,8 +32,8 @@ $current_lang = App::getLocale();
             </div>
 
             <div class="dropdown header-notify">
-                <a class="nav-link icon full-screen-link p-0" href="{{ url('/admin/caisse/ads') }}" target='_black' data-toggle="tooltip"
-                    data-placement="bottom" title="{{ $translations['ads_monitor'] }}">
+                <a class="nav-link icon full-screen-link p-0"  target='_black' data-toggle="tooltip"
+                    data-placement="bottom" title="{{ $translations['ads_monitor'] }}" id='ads_caise_btn'>
                     
                     <button class='btn btn-primary p-2'>{{ $translations['ads_monitor'] }} <i class="fa fa-desktop" aria-hidden="true" style='color:white' ></i></button>
 
