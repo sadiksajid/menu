@@ -40,7 +40,7 @@
     }
 
     .products_title {
-        background-color: rgb(62 62 62 / 90%)
+        background-color: rgb(62 62 62 / 60%);
         position: absolute;
         z-index: 10;
         color: white;
