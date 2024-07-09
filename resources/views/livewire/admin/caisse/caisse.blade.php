@@ -842,7 +842,12 @@ window.addEventListener('pdfRendered', event => {
     // Add an event listener for when the iframe has loaded
     iframe.onload = function() {
         // Trigger the print dialog
-        iframe.contentWindow.print();
+
+        setTimeout(function() {
+            iframe.contentWindow.print();
+        }, 500);
+
+
       
     };
 
