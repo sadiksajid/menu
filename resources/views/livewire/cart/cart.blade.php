@@ -74,7 +74,9 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
-    document.getElementById('orders_nbr').innerHTML = "{{$order_nbr}}";
+    if(document.getElementById('orders_nbr') != null){
+        document.getElementById('orders_nbr').innerHTML = "{{$order_nbr}}";
+    }
 
 });
 </script>

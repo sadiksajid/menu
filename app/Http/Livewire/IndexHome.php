@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Intl\Currencies;
 use Illuminate\Support\Facades\Session;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class IndexHome extends Component
 {
@@ -217,16 +218,26 @@ class IndexHome extends Component
             'logoBase64' => $logoBase64,
         ];
 
-        $pdf = new Dompdf();
-        $pdf->loadHtml(View::make('livewire.index1.qr_code', $data));
-        $pdf->setPaper([0, 0, 250, 500], 'portrait'); // Set the paper size to match the width of an 80mm POS printer
-        $pdf->render();
+        try {
+            $pdf = new Dompdf();
+            $pdf->loadHtml(view('livewire.index1.qr_code', $data)->render());
+            $pdf->setPaper([0, 0, 250, 500], 'portrait');
+            $pdf->render();
+    
+            $fileName = 'goodforhealth_invitation.pdf';
+            $headers = array(
+                "Content-type" => "application/pdf",
+            );
 
-        return $pdf->stream('goodforhealth_invitation.pdf');
-
-        // $this->dispatchBrowserEvent('pdfRendered', [
-        //     'pdfData' => base64_encode($pdf->output()),
-        // ]);
+               return response()->streamDownload(
+                fn () => print($pdf), // add the content to the stream
+                $fileName, // the name of the file/stream
+                $headers
+             );
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            // Log the error or handle it in another way
+        }
 
     }
 

@@ -32,8 +32,8 @@
 
 
 <!-- SPECIFIC SCRIPTS (wizard form) -->
-<script src="{{ URL::asset('index1/js/wizard/wizard_scripts.min.js') }}"></script>
-<script src="{{ URL::asset('index1/js/wizard/wizard_func.js') }}"></script>
+<!-- <script src="{{ URL::asset('index1/js/wizard/wizard_scripts.min.js') }}"></script> -->
+<!-- <script src="{{ URL::asset('index1/js/wizard/wizard_func.js') }}"></script> -->
 
 
 <!-- SPECIFIC SCRIPTS -->

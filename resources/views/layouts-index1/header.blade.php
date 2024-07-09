@@ -9,7 +9,7 @@
 
     @isset($store_info->logo)
 
-    <link rel="icon" id='site_icon' href="{{ get_image($store_info->logo) }}" type="image/x-icon">
+    <link rel="icon" id='site_icon' href="{{ str_replace('//','/',get_image($store_info->logo)) }}" type="image/x-icon">
 
 
     @else
