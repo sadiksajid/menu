@@ -4,6 +4,13 @@
     .main-menu>ul>li:hover>a {
         /* color: {{$store_info->text_color}}!important; */
     }
+
+    .main-menu > ul > li > a {
+        color:#262626!important;
+    }
+    .search-overlay-menu-btn {
+        color:#262626!important;
+    }
     </style>
 
 
@@ -30,7 +37,7 @@
     @if (!Auth::guard('client')->check())
     @livewire('client-login')
     @endif
-    <header class="header clearfix element_to_stick p-2" style='height: 48px;background-color: rgb(238, 238, 238, 0.9);'>
+    <header class="header clearfix  p-2" style='height: 48px;background-color: rgb(238, 238, 238, 0.9)'>
         <div class="container-fluid">
             <div id="logo">
                 <a href="/">
@@ -111,7 +118,7 @@
                     @endisset
 
                 </div>
-                <ul style='margin-top: 4px;'>
+                <ul  style='margin-top: 4px'>
 
                     <li>
                         <a href="/">{{$translations['home']}}</a>

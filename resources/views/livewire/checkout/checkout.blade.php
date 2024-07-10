@@ -16,14 +16,21 @@
 
         position: absolute;
         width: 80px;
+        height: 80px;
         top: -28px;
         float: left;
-        height: 80px;
         left: 0px;
 
     }
     .btn-outline-dark:hover h4 {
         color:white!important
+    }
+    .time_input{
+        width: 100px!important;
+        height: 100px!important;
+        border-radius: 20px;
+        font-size: 60px;
+        padding-left: 15px;
     }
     </style>
     <div wire:ignore class="hero_single inner_pages background-image" style="height:260px" @if (isset($images_checkout))
@@ -409,10 +416,18 @@
 
                                 @endif
                             @else
-                            <div class="col-12">
+                            <div class="col-12" style='display: flex;flex-direction: row;flex-wrap: nowrap;align-items: center;justify-content: center;'>
                                 <div class="field-label text-secondary">{{$translations['time']}}</div>
-                                <input name="field-name" class="form-control" type="time"
-                                    wire:model.defer='coming_time'>
+                                <!-- <input name="field-name" class="form-control" type="time"
+                                    wire:model.defer='coming_time'> -->
+
+
+                                <input type="text" class='time_input' value='00'>
+                                <input type="text" class='time_input' value='00'>
+                                <div class='ml-2' style='display: flex;flex-direction: column;justify-content: space-between;height: 90px;'>
+                                    <button class='btn btn-warning h-50'>AM</button>
+                                    <button class='btn btn-light h-50 border'>PM</button>
+                                </div>
                                 @error('coming_time')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
