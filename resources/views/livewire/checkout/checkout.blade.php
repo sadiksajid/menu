@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="{{ URL::asset('dist/easy-button.css') }}" />
     <link rel="stylesheet" href="{{ URL::asset('dist/leaflet.css') }}" />
     <link rel="stylesheet" href="{{ URL::asset('dist/leaflet-routing-machine.css') }}" />
-  
+
     <link rel="stylesheet" href="{{ URL::asset('dist/Control.Geocoder.css') }}" />
     <link href="{{ URL::asset('css/leaflet.icon-material.css') }}" rel="stylesheet" />
 
@@ -353,23 +353,28 @@
                             </div>
                             <hr class='m-2'>
                             @if ($shipping_type == 'shipping')
+                            <div class="col-12">
+                                <button class="btn btn-dark btn-sm mb-2 @if($longitude != null) text-warning @endif "
+                                    wire:click="showMaps" style="float: right">
+                                    <i class="fa fa-map-marker" style="font-size: 15px;margin-right: 10px;"></i>
+                                    @if($longitude != null)
+                                    {{$translations['map_pick_edit']}}
+                                    @else
+                                    {{$translations['map_pick']}}
+                                    @endif
 
-                            <div class="col-12 mb-3">
-                                <button class="btn btn-dark btn-sm mb-2" wire:click="showMaps"
-                                    style="float: right">{{$translations['map_pick']}}</button>
-                            </div>
-                            @if ($new_address == true)
-                            <div class="col-12 mb-3">
-                                <button class="btn btn-dark btn-sm mb-2" style="float: right"
+                                </button>
+                                @if ($new_address == true)
+                                <button class="btn btn-dark btn-sm mb-2" style="float: left"
                                     wire:click='addAddress(0)'>{{$translations['sellect_address']}}</button>
-                            </div>
-                            @else
-                            <div class="col-12 mb-3">
-                                <span>{{$translations['select_address_msg']}}</span>
-                                <button class="btn btn-dark btn-sm mb-2" style="float: right"
+                                @else
+                                <button class="btn btn-dark btn-sm mb-2" style="float: left"
                                     wire:click='addAddress(1)'>{{$translations['new_address']}}</button>
+                                @endif
                             </div>
-                            @endif
+                            <div class='col-12  mb-2'>
+                                <span>{{$translations['select_address_msg']}}</span>
+                            </div>
                             @if ($new_address == true)
 
                             <div class="form-group col-md-6 col-sm-6 col-12">
@@ -489,8 +494,14 @@
                                 <a class="btn btn-dark radius-2 text-light" style='width:30%'
                                     wire:click='NextStep(0)'><strong>{{$translations['back']}}</strong>
                                 </a>
-                                <a class="btn btn-warning radius-2 " style='min-width:30%'
-                                    id='submit_order'><strong>{{$translations['place_order']}}</strong>
+                                <a class="btn btn-warning radius-2 " style='min-width:30%' id='submit_order'>
+                                    <strong> {{$translations['place_order']}} </strong>
+                                    <div wire:loading class="spinner-border text-secondary" role="status" style=" font-size: 11px;
+                                            width: 15px;
+                                            height: 15px;">
+                                        <span class="sr-only">{{$translations['loading']}}...</span>
+                                    </div>
+
                                 </a>
                             </div>
 
@@ -509,22 +520,25 @@
 
     </section>
 
+    @if(!testMobile())
+
     <div class="col-12  mt-3 mb-3">
         <!-- Modal -->
         <div class="modal fade" id="map_modal" tabindex="-1" role="dialog" aria-labelledby="map_modalTitle"
             aria-hidden="true" wire:ignore>
-            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header p-1">
-                        <h5 class="modal-title" id="exampleModalLongTitle">
+                        <h5 class="modal-title ml-3" id="exampleModalLongTitle">
                             {{ $translations['edit_location'] }}
                         </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="btn btn-dark map_modal_close" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body p-0">
-                        <div id="map-wrapper" class="divMap">
+                    <div class="modal-body p-0" style='height: 500px;'>
+                        <div id="map-wrapper" class="divMap h-100">
 
                             <div class="spinner-grow text-primary" role="status"
                                 style="width: 158px;height: 150px;color: #bf1c3d !important;margin-left: 40%;margin-top: 15%;">
@@ -534,9 +548,9 @@
                         </div>
                     </div>
                     <div class="modal-footer p-1">
-                        <button type="button" class="btn btn-secondary"
+                        <button type="button" class="btn btn-light map_modal_close border border-dark"
                             data-dismiss="modal">{{ $translations['close'] }}</button>
-                        <button type="button" class="btn btn-primary"
+                        <button type="button" class="btn btn-dark " style='min-width:20%'
                             wire:click="saveLocation">{{ $translations['save'] }}
                         </button>
                     </div>
@@ -545,7 +559,46 @@
         </div>
     </div>
 
+@else
 
+<div class="col-12  mt-3 mb-3">
+        <!-- Modal -->
+        <div class="modal fade" id="map_modal" tabindex="-1" role="dialog" aria-labelledby="map_modalTitle"
+            aria-hidden="true" wire:ignore>
+            <div class="modal-dialog modal-xl modal-dialog-centered" role="document" style='--bs-modal-width: 100%;height: 100% !important;margin: 0;'>
+                <div class="modal-content h-100">
+                    <div class="modal-header p-1">
+                        <h5 class="modal-title ml-3" id="exampleModalLongTitle">
+                            {{ $translations['edit_location'] }}
+                        </h5>
+                        <button type="button" class="btn btn-dark map_modal_close" data-dismiss="modal"
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body p-0" style='height:100%;'>
+                        <div id="map-wrapper" class="divMap h-100">
+
+                            <div class="spinner-grow text-primary" role="status"
+                                style="width: 158px;height: 150px;color: #bf1c3d !important;margin-left: 40%;margin-top: 15%;">
+                                <span class="sr-only">{{ $translations['loading'] }}...</span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer p-1">
+                        <button type="button" class="btn btn-light map_modal_close border border-dark"
+                            data-dismiss="modal">{{ $translations['close'] }}</button>
+                        <button type="button" class="btn btn-dark " style='min-width:20%'
+                            wire:click="saveLocation">{{ $translations['save'] }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endif
 
 </div>
 @section('js')
@@ -568,10 +621,7 @@
 <script>
 $(document).ready(function() {
 
-    window.addEventListener('StoreInfoModal', event => {
-        var status = event.detail.status;
-        $('#map_modal').modal(status);
-    });
+
 
 
     $('html, body').animate({
@@ -733,7 +783,6 @@ $(document).ready(function() {
     });
 
 
-
     $(document).on('click', '#submit_order', function(e) {
         var hours = $('#hourInput').val();
         var minutes = $('#minuteInput').val();
@@ -744,6 +793,23 @@ $(document).ready(function() {
             'time': timeString
         })
 
+    });
+
+
+
+    $(document).on('click', '.map_modal_close', function(e) {
+
+        $('#map_modal').modal('hide');
+
+    });
+
+    window.addEventListener('StoreInfoModal', event => {
+        var status = event.detail.status;
+        $('#map_modal').modal({
+            backdrop: 'static',
+            keyboard: false
+        })
+        $('#map_modal').modal(status);
     });
 
 

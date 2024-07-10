@@ -59,7 +59,14 @@ class Checkout extends Component
     public $images_checkout;
     public $order_steps = 0;
 
-    protected $listeners = ['getCity', 'getQuarter', 'renderFunc','Order'];
+    public $edit_address;
+    public $edit_longitude;
+    public $edit_latitude;
+    
+    public $longitude = null;
+    public $latitude  = null;
+    
+    protected $listeners = ['getlocal','getCity', 'getQuarter', 'renderFunc','Order'];
 
     //////////////////////////
     public $translations;
@@ -265,12 +272,12 @@ class Checkout extends Component
         $client_id = $this->client_id;
 
         if ($this->shipping_type == 'shipping') {
-            if ($this->address_id == null and $this->new_address == false) {
+            if ($this->new_address == false) {
                 $this->validate([
                     'address_id' => 'required|integer|max:99999',
                 ]);
 
-            } elseif ($this->address_id == null and $this->new_address == true) {
+            } elseif ($this->new_address == true) {
 
                 $this->validate([
                     'client_address' => 'required|string|max:500',
@@ -278,6 +285,8 @@ class Checkout extends Component
                     'client_quarter' => 'required|string|max:50',
                     'client_quarter_id' => 'nullable|integer|max:99999',
                     'client_city_id' => 'nullable|integer|max:99999',
+                    'longitude' => 'nullable|numeric|max:99999999999999999999',
+                    'latitude' => 'nullable|numeric|max:99999999999999999999',
                 ]);
 
                 if ($this->client_city_id == null) {
@@ -305,8 +314,12 @@ class Checkout extends Component
                 $address->client_id = $client_id;
                 $address->address = $this->client_address;
                 $address->city_id = $this->client_city_id;
+                $address->longitude = $this->longitude;
+                $address->latitude = $this->latitude;
+
                 $address->quartier_id = $this->client_quarter_id;
                 $address->save();
+
                 $address_id = $address->id;
 
             } else {
@@ -323,6 +336,7 @@ class Checkout extends Component
 
             $address_id = null;
         }
+
         foreach ($stores_info as $store_name => $value) {
             if ($value['selected'] == true) {
                 $timestamp = now()->timestamp;
@@ -430,7 +444,7 @@ class Checkout extends Component
 
 
 
-        event(new CaiseOrder( $data));
+        // event(new CaiseOrder( $data));
 
         $this->dispatchBrowserEvent('swal:confirm_redirect', [
             'type' => 'success',
@@ -494,10 +508,18 @@ class Checkout extends Component
     public function showMaps()
     {
 
+        // if(!testMobile()){
+        //     $height = '500px' ;
+        // }else{
+        //     $height = '100%' ;
+        // }
+        $height = '100%' ;
+
+
         $data = [
             'change_name' => $this->client_firstname .' '.$this->client_lastname,
             'change_type' => 'Client',
-            'map_height' => '500px',
+            'map_height' => $height,
             'pick' => true,
         ];
         $this->dispatchBrowserEvent('StoreInfoModal', [
@@ -506,6 +528,32 @@ class Checkout extends Component
         $this->dispatchBrowserEvent('maps:lib', $data);
 
     }
+    public function getlocal($post)
+    {
+        $this->edit_longitude = $post['longitude'];
+        $this->edit_latitude = $post['latitude'];
+        // $this->edit_address = $post['address']['Match_addr'];
+        $this->client_address =  $post['address']['Match_addr'];
+        $this->client_city =  $post['address']['City'];
+        if ($this->client_city != ''){
+            $this->getCity();
+
+        }
+
+    }
+
+     public function saveLocation()
+    {
+        $this->longitude = $this->edit_longitude;
+        $this->latitude = $this->edit_latitude;
+
+        $this->dispatchBrowserEvent('StoreInfoModal', [
+            'status' => 'hide',
+        ]);
+
+
+    }
+
 
     
 }

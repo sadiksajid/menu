@@ -378,7 +378,7 @@
                                         <!-- Modal -->
                                         <div class="modal fade" id="map_modal" tabindex="-1" role="dialog"
                                             aria-labelledby="map_modalTitle" aria-hidden="true" wire:ignore>
-                                            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                            <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header p-1">
                                                         <h5 class="modal-title" id="exampleModalLongTitle">
