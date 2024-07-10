@@ -10,6 +10,7 @@ use Livewire\Component;
 use App\Models\Quartier;
 use App\Events\CaiseOrder;
 use App\Models\StoreOrder;
+use Carbon\CarbonInterval;
 use App\Models\ClientStore;
 use Illuminate\Support\Str;
 use App\Models\ClientAddress;
@@ -58,7 +59,7 @@ class Checkout extends Component
     public $images_checkout;
     public $order_steps = 0;
 
-    protected $listeners = ['getCity', 'getQuarter', 'renderFunc'];
+    protected $listeners = ['getCity', 'getQuarter', 'renderFunc','Order'];
 
     //////////////////////////
     public $translations;
@@ -235,8 +236,9 @@ class Checkout extends Component
         $this->dispatchBrowserEvent('reload');
     }
 
-    public function Order()
+    public function Order($data = null)
     {
+        
         $my_cart = $this->getData(0);
         $stores_info = Cache::get('store_info');
 
@@ -312,9 +314,13 @@ class Checkout extends Component
             }
         } else {
 
+            $this->coming_time = $data['time'] ?? null ;
             $this->validate([
-                'coming_time' => 'required|string',
+                'coming_time' => 'required|string|max:10',
             ]);
+
+            $this->coming_time = Carbon::createFromTimestamp(strtotime($this->coming_time)) ;
+
             $address_id = null;
         }
         foreach ($stores_info as $store_name => $value) {
@@ -336,7 +342,7 @@ class Checkout extends Component
                 $order->payment_type = 'COD';
                 $order->tracking = 'TR' . $trackingCode;
                 if ($this->shipping_type == 'coming') {
-                    $time = Carbon::now()->format('Y-m-d') . ' ' . $this->coming_time . ':00';
+                    $time = $this->coming_time ;
                     $order->coming_date = date($time);
                 }
                 $order->save();
@@ -479,5 +485,27 @@ class Checkout extends Component
     public function NextStep($val)
     {
         $this->order_steps = $val;
+
+        if($val == 1 and $this->shipping_type == 'coming'){
+            $this->dispatchBrowserEvent('update_time');
+        }
     }
+
+    public function showMaps()
+    {
+
+        $data = [
+            'change_name' => $this->client_firstname .' '.$this->client_lastname,
+            'change_type' => 'Client',
+            'map_height' => '500px',
+            'pick' => true,
+        ];
+        $this->dispatchBrowserEvent('StoreInfoModal', [
+            'status' => 'show',
+        ]);
+        $this->dispatchBrowserEvent('maps:lib', $data);
+
+    }
+
+    
 }

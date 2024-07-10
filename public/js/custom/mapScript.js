@@ -64,12 +64,27 @@ function mapSetView(map_height, click_to_drag) {
     //         attribution: "SADIK SAJID",
     //     }
     // );
-    var layer = L.tileLayer(
-        "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-    );
+    // var layer = L.tileLayer(
+    //     "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+    // );
 
+    // layer.addTo(map);
+
+    var workspace = "osm";
+    var layer_name = "osm";
+    var layer = L.tileLayer.wms(
+        "https://geoserver.sys.infodat.com/geoserver/wms",
+        {
+            layers: `${workspace}:${layer_name}`,
+            format: "image/png",
+            transparent: true,
+            attribution: "mylayer",
+        }
+    );
     layer.addTo(map);
 
+
+    
     // var layer_name2 = "osm_test";
     // var layer2 = L.tileLayer.wms(
     //     "https://geoserver.sys.infodat.com/geoserver/wms",
@@ -134,6 +149,14 @@ function mapSetView(map_height, click_to_drag) {
             map.dragging.disable();
         }
     }).addTo(map);
+
+
+    setTimeout(() => {
+        console.log('map');
+        map.invalidateSize(true);
+    }, 200);
+
+
 
     return map;
 }

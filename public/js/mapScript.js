@@ -30,7 +30,6 @@ function mapSetView(map_height) {
         map.invalidateSize(true)
     })
 
-
     return map;
 }
 
