@@ -11,6 +11,16 @@
     .search-overlay-menu-btn {
         color:#262626!important;
     }
+
+
+    .lang-image {
+        height: 50px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+    }
+
     </style>
 
 
@@ -54,11 +64,7 @@
                 </a>
             </div>
             <ul id="top_menu">
-                <li style='margin-left: 30px;margin-right: 70px;'>
-                    <a href="#" class='show_modal_language'><img class="card-img-top"
-                            src="{{ asset('assets/countries/' . $flag[$current_lang] . '.svg') }}" style="height: 30px"
-                            class="card-img-top"></a>
-                </li>
+               
                 <li><a href="#0" class="search-overlay-menu-btn"></a></li>
                 <li style="margin-right: -5px; ">
                     <a href="#0" class="cart js-cart" wire:ignore>
@@ -118,8 +124,12 @@
                     @endisset
 
                 </div>
-                <ul  style='margin-top: 4px'>
-
+                <ul>
+                    <li >
+                        <a href="#" class='show_modal_language'><img class="card-img-top"
+                                src="{{ asset('assets/countries/' . $flag[$current_lang] . '.svg') }}" style="height: 30px"
+                                class="card-img-top"></a>
+                    </li>
                     <li>
                         <a href="/">{{$translations['home']}}</a>
                     </li>
@@ -170,13 +180,17 @@
 
                         <div class="row px-md-5 mb-4 d-flex justify-content-center">
                             @foreach ($languages as $lang => $language)
-                            <div class="col-md-4 col-4 mt-2"
+                            <div class="col-md-4 col-4 mt-2 p-1"
                                 wire:click="changeLang('{{ $lang }}','{{url()->current()}}')" style="cursor: pointer">
                                 <div class="card p-0" style="box-shadow: 3px 2px 13px -4px rgba(0,0,0,0.75); ">
-                                    <img class="card-img-top mt-2"
-                                        src="{{ asset('assets/countries/' . $lang . '.svg') }}" style="height: 60px"
-                                        class="card-img-top" alt="{{ $language }} flag">
-                                    <p class="card-text mt-2 p-0 fs-13" style="    font-weight: bold;color: #626262;">
+                                    <!-- <img class="card-img-top mt-2"
+                                        src="" style="height: 60px"
+                                        class="card-img-top" alt="{{ $language }} flag"> -->
+
+                                    <div class='w-100 lang-image rounded-2' style="background-image:url({{ asset('assets/countries/' . $lang . '.svg') }})">
+
+                                    </div>
+                                    <p class="card-text mt-2 p-0 " style="    font-weight: bold;color: #626262;">
                                         {{ $language }}</p>
                                 </div>
                             </div>

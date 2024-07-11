@@ -58,6 +58,17 @@
     .time_input[type=number] {
         -moz-appearance: textfield;
     }
+
+    @media only screen and (max-width: 480px) {
+        .client_info {
+            font-size: 5vw;
+        }
+    }
+
+
+
+
+
     </style>
 
     <div wire:ignore class="hero_single inner_pages background-image" style="height:260px" @if (isset($images_checkout))
@@ -335,17 +346,17 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <button class='btn btn-outline-dark w-100'>
-                                            <h4 class='m-0'>
+                                            <h4 class='m-0 client_info'>
                                                 <i class="fa fa-user" style="font-size:24px"></i>
-                                                {{ $client_firstname }} {{ $client_lastname }}
+                                                <div class='float-right'>{{ $client_firstname }} {{ $client_lastname }}</div>
                                             </h4>
                                         </button>
                                     </div>
                                     <div class="col-6 mb-2">
                                         <button class='btn btn-outline-dark w-100'>
-                                            <h4 class='m-0'>
+                                            <h4 class='m-0 client_info'>
                                                 <i class="fa fa-phone" style="font-size:24px"></i>
-                                                {{ $client_phone }}
+                                                <div class='float-right'>{{ $client_phone }}</div>
                                             </h4>
                                         </button>
                                     </div>

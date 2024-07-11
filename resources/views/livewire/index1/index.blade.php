@@ -8,12 +8,12 @@
     @endphp
 
     <div id="carousel-home">
-        <div class="owl-carousel owl-theme">
+        <div class="owl-carousel owl-theme ">
 
             @foreach($slide_data as $slide)
-            <div class="owl-slide cover lazy"
+            <div class="owl-slide cover lazy "
                 data-bg="url({{get_image(json_decode($slide->images, true)['img-1'] ?? '' )}})">
-                <div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+                <div class="opacity-mask d-flex align-items-center rounded-4" data-opacity-mask="rgba(0, 0, 0, 0.5)">
                     <div class="container">
                         <div class="row justify-content-center justify-content-md-end">
                             <div class="col-lg-6 static">
