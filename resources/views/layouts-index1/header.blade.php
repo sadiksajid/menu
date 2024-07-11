@@ -96,7 +96,7 @@
                 </li>
             </ul>
             <!-- /top_menu -->
-            <a href="#0" class="open_close">
+            <a href="#0" class="open_close text-dark">
                 <i class="icon_menu"></i><span>x</span>
             </a>
             <nav class="main-menu"
@@ -156,9 +156,7 @@
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content" style="border:5px solid #262626;background-color:#f7f8fc">
-                {{-- <div class="text-center modal-header bg-primary">
-                    <h5 class="text-center modal-title m-0 text-white">Welcome to exxpress !</h5>
-                </div> --}}
+       
                 <div class="modal-body pb-0">
                     <div class="container text-center">
                         <lottie-player src="{{ URL::asset('assets/SVG/world.json') }}" class="lottie"
