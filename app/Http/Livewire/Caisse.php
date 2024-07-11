@@ -361,7 +361,7 @@ class Caisse extends Component
         if($order_status == null or $order_status == 'caisse_delivered'){
             $pdf_admin = View::make('livewire.admin.caisse.receipt_admin', $data) ;
             $pdf_client = View::make('livewire.admin.caisse.receipt_client', $data) ;   
-            $full_pdf = $pdf_client.$pdf_admin.$pdf_admin ;
+            $full_pdf = $pdf_client.$pdf_admin ;
 
         }else if( $order_status == 'confirmed' ){
             $pdf_admin = View::make('livewire.admin.caisse.receipt_admin', $data) ;

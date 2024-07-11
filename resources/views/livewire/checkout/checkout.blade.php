@@ -663,7 +663,7 @@ $(document).ready(function() {
 
     function clampValue(input, value) {
         if (input === 'hourInput') {
-            return Math.max(1, Math.min(12, value));
+            return Math.max(0, Math.min(12, value));
         } else {
             return Math.max(0, Math.min(59, value));
         }
@@ -726,6 +726,13 @@ $(document).ready(function() {
 
 
 
+    $(document).on('blur', '#hourInput', function(e) {
+        if($(this).val() == 00){
+            $(this).val(12);
+        }
+
+    });
+
     $(document).on('click', '#btn-time-pm', function(e) {
         $('#btn-time-pm').addClass('btn-warning');
         $('#btn-time-pm').removeClass('btn-light');
@@ -771,7 +778,7 @@ $(document).ready(function() {
         if (minutes < 10) {
             minutes = '0' + minutes;
         }
-        $('#hourInput').val(hours);
+        $('#hourInput').val(formatValue(hours));
         $('#minuteInput').val(minutes);
         $('#timeInput').val(ampm);
     }
