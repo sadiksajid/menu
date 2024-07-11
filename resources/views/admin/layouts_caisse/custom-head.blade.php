@@ -1,5 +1,5 @@
 		<!-- Title -->
-		<title>APPIINO - Admin Panel</title>
+		<title>GoodForHealth - Admin Panel</title>
 
 		<!--Favicon -->
 		<link rel="icon" href="{{URL::asset('assets/images/brand/favicon.png')}}" type="image/x-icon"/>

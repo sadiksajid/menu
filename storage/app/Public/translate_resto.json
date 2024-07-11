@@ -70,6 +70,58 @@
         "fr": "Entrez dans notre magasin et régalez vos papilles avec une symphonie de saveurs!"
     },
     "taste_unique_food": {
-        "en": "Taste Unique Food"
+        "en": "Taste Unique Food",
+        "ar": "تذوق الطعام الفريد",
+        "fr": "Goûtez une nourriture unique"
+    },
+    "competition_ready_in": {
+        "en": "You already registered!",
+        "ar": "لقد سجلت بالفعل!",
+        "fr": "Vous êtes déjà inscrit!"
+    },
+    "competition_ready_in_msg": {
+        "en": "Please contact support if you have never entered the competition!",
+        "ar": "يرجى الاتصال بالدعم إذا لم تدخل المسابقة من قبل!",
+        "fr": "Veuillez contacter le support si vous n'avez jamais participé au concours!"
+    },
+    "competition_thanks": {
+        "en": "Thank You!",
+        "ar": "شكرا لك!",
+        "fr": "Merci!"
+    },
+    "competition_thanks_msg": {
+        "en": "You are joined to the competition. See you on Sunday!",
+        "ar": "لقد انضممت إلى المسابقة. أراك يوم الأحد!",
+        "fr": "Vous êtes inscrit à la compétition. À dimanche!"
+    },
+    "competition_join": {
+        "en": "Join our Competition",
+        "ar": "انضم إلى مسابقاتنا",
+        "fr": "Rejoignez notre compétition"
+    },
+    "competition_join_text": {
+        "en": "Goodforhealth runs a competition every Sunday. Pull Up Competition in front of the store, and the winners will get various gifts from Goodforhealth. Be there!",
+        "ar": "Goodforhealth يدير مسابقة كل يوم أحد. مسابقة السحب أمام المتجر، والفائزون سيحصلون على هدايا متنوعة من Goodforhealth. كن هناك!",
+        "fr": "Goodforhealth organise un concours tous les dimanches. Concours de traction devant le magasin, et les gagnants recevront divers cadeaux de Goodforhealth. Soyez-y!"
+    },
+    "competition_qrcode": {
+        "en": "Download QrCode",
+        "ar": "تحميل رمز الاستجابة السريعة",
+        "fr": "Télécharger le QR Code"
+    },
+    "competition_fill_detais": {
+        "en": "Please fill with your details",
+        "ar": "يرجى ملء تفاصيلك",
+        "fr": "Veuillez remplir vos détails"
+    },
+    "competition_coming": {
+        "en": "I'm Coming!",
+        "ar": "أنا قادم!",
+        "fr": "J'arrive!"
+    },
+    "competition": {
+        "en": "GoodForHealth Competition",
+        "ar": "مسابقة GoodForHealth",
+        "fr": "Compétition GoodForHealth"
     }
 }

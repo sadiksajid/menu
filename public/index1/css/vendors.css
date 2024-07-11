@@ -1847,7 +1847,7 @@
 .owl-theme .owl-dots .owl-dot.active span,
 .owl-theme .owl-dots .owl-dot:hover span {
   background: transparent !important;
-  border: 2px solid #978667;
+  border: 2px solid #FAB100;
   -moz-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
@@ -1869,7 +1869,7 @@
 }
 .owl-theme .owl-dots .owl-dot span::before {
   content: '';
-  background-color: #978667 !important;
+  background-color: #FAB100 !important;
   display: block;
   border-radius: 50%;
   width: 8px;

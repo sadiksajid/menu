@@ -116,9 +116,34 @@
 
             })
             .then((result) => {
-                if (result.isConfirmed) {
+                if (result.isConfirmed && event.detail.function == undefined) {
                     Livewire.emit('confirmed');
+                }else if(result.isConfirmed && event.detail.function != undefined && event.detail.id == undefined){
+                    Livewire.emit(event.detail.function);
+                }else if(result.isConfirmed && event.detail.function != undefined && event.detail.id != undefined){
+                    Livewire.emit(event.detail.function,event.detail.id);
                 }
             });
     });
+
+
+    function changeFavicon() {
+           
+           var src =  @json(get_image(\Auth::user()->store->logo)) ;
+           let link = document.getElementById('favicon');
+           if (link) {
+               link.href = src;
+           } else {
+               link = document.createElement('link');
+               link.id = 'favicon';
+               link.rel = 'icon';
+               link.href = src;
+               document.head.appendChild(link);
+           }
+       }
+
+       $(document).ready(function() {
+           changeFavicon();
+       });
+
 </script>

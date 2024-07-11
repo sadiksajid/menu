@@ -29,6 +29,7 @@ class StoreInfo extends Component
     public $cities = [];
     public $cities_list = [];
 
+    public $city_name;
     public $city_id;
     public $quartier_id;
     public $region_id;
@@ -164,16 +165,17 @@ class StoreInfo extends Component
         $this->preorder = $this->store_info->preorder;
         $this->address = $this->store_info->address;
         $this->city_id = $this->store_info->city_id;
-        $this->region_id = $this->store_info->city->province->region->id ?? null;
+
+
+        $this->region_id = $this->store_info->city_db->province->region->id ?? null;
 
         if(!empty($this->regions)){
             $this->getCity();
         }
-
         $this->quartier_id = $this->store_info->quartier_id;
         $this->quartier = $this->store_info->quartier->quartier ?? null;
         $this->post_code = $this->store_info->quartier->code_postal ?? null;
-        $this->city = $this->store_info->city ?? null;
+        $this->city_name = $this->store_info->city ?? '';
 
         $this->quartier_fix = $this->quartier;
         $this->longitude = $this->store_info->longitude;
@@ -199,11 +201,12 @@ class StoreInfo extends Component
             
             $this->validate([
                 'city_id' => 'required|integer|max:99999',
+                'region_id' => 'required|integer|max:99999',
                 'quartier_fix' => 'nullable|string|max:50',
             ]);
         }else{
             $this->validate([
-                'city' => 'required|string|max:50',
+                'city_name' => 'required|string|max:50',
             ]);
         }
 
@@ -277,13 +280,13 @@ class StoreInfo extends Component
             $this->store_info->city = $this->store_info->country;
 
         }else{
-            $this->store_info->city = $this->city;
+            $this->store_info->city = $this->city_name;
 
             try {
-                $city_id = City::where('city', $this->city)->first()->id;
+                $city_id = City::where('city', $this->city_name)->first()->id;
             } catch (\Throwable $th) {
                 $city = new City();
-                $city->city = $this->city;
+                $city->city = $this->city_name;
                 $city->code_postal = $this->post_code;
                 $city->country_id = $this->store_info->country_id;
                 $city->save();

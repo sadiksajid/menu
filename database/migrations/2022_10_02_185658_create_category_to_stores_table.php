@@ -17,6 +17,9 @@ class CreateCategoryToStoresTable extends Migration
             $table->id();
             $table->foreignId('store_id');
             $table->foreignId('product_category_id');
+            $table->string('image',300)->nullable();
+            $table->integer('sort')->nullable();
+
             $table->timestamps();
         });
     }

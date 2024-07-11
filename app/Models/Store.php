@@ -78,7 +78,7 @@ class Store extends Model
         return $this->hasMany(ProducteExtra::class);
     }
 
-    public function city()
+    public function city_db()
     {
         return $this->belongsTo(City::class, 'city_id');
     }
@@ -88,4 +88,10 @@ class Store extends Model
     {
         return $this->belongsTo(Quartier::class, 'quartier_id');
     }
+
+    public function profiles()
+    {
+        return $this->hasMany(StoreStafPassword::class);
+    }
+
 }

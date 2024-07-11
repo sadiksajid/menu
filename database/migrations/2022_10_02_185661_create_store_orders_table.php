@@ -31,7 +31,10 @@ class CreateStoreOrdersTable extends Migration
             $table->integer('receiver_calls')->default(0);
             $table->timestamp('coming_date')->nullable();
             $table->text('offers', 1500)->nullable();
-            $table->foreign('admin_id')->references('id')->on('users');
+            $table->unsignedBigInteger('admin_id')->nullable();
+            $table->foreign('admin_id')->references('id')->on('store_admins');
+            $table->string('updated_by');
+            $table->integer('updated_by_id');
 
             $table->timestamps();
         });
