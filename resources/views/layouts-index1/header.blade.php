@@ -14,13 +14,19 @@
 
 
     .lang-image {
-        height: 50px;
+        height: 80px;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
         position: relative;
     }
+    @media only screen and (max-width: 390px) {
+    /* Your CSS styles here */
+        .lang-image {
+            height: 50px;
 
+        }
+    }
     </style>
 
 
