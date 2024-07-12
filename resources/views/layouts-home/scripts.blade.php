@@ -337,7 +337,7 @@
             });
         Toast.fire({
             icon: event.detail.type,
-            title: event.detail.message
+            title: event.detail.title
             });
 
     });

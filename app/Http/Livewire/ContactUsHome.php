@@ -63,7 +63,7 @@ class ContactUsHome extends Component
         $this->msg_sent = true; 
         $this->dispatchBrowserEvent('swal:timer', [
             'type' => 'success',
-            'message' => $this->translations['contact_us_msg_sent'],
+            'title' => $this->translations['contact_us_msg_sent'],
 
         ]);
 

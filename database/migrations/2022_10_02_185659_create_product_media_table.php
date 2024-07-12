@@ -17,8 +17,10 @@ class CreateProductMediaTable extends Migration
             $table->id();
             $table->foreignId('store_product_id');
             $table->string('media', 150);
+            $table->foreignId('staf_product_media_id');
             $table->timestamps();
             $table->softDeletes();
+            
         });
     }
 

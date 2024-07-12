@@ -84,7 +84,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'password.confir
 
     Route::get('/products/{page?}/{id?}', function ($page = null, $id = null) {
         return view('livewire.admin.products.products_route', ['page' => $page ?? null, 'id' => $id ?? null]);
-    });
+    })->name('admin.products');
 
     Route::get('/offers/{page?}/{id?}', function ($page = null, $id = null) {
         return view('livewire.admin.offers.offers_route', ['page' => $page ?? null, 'id' => $id ?? null]);

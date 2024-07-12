@@ -950,8 +950,85 @@ function sanitizeString($string) {
 
     public function AddProductLib($id)
     {
-        $data = StafProduct::find($id);
-        dd($data);
+        $data = StafProduct::where('id',$id)
+        ->with(['category','media','recipes'])
+        ->first();
+        $category =  $data->category ;
+        $media =  $data->media ;
+        $recipes =  $data->recipes ;
+        $check = ProductCategory::where('category_meta',$category->category_meta)
+        ->where('store_id' , $this->store_id)
+        ->select('id')
+        ->first();
+
+        if(!empty($data->category) and empty($check)){
+            $cat = new ProductCategory();
+            $cat->title = $category->title;
+            $cat->s_title = $category->s_title;
+            $cat->store_id = $this->store_id;
+            $cat->category_meta = $category->category_meta;
+            $cat->staf_product_category_id = $category->id ;
+            $cat->image =  $category->image;
+            $cat->save();
+            $cat_id = $cat->id ;
+        }else{
+            $cat_id = $check->id ;
+        }
+
+       
+
+        if(!empty($data)){
+            $product = new StoreProduct();
+            $product->store_id = $this->store_id;
+            $product->staf_product_id = $id;
+            $product->title = $data->title;
+            $product->product_meta = $data->product_meta;
+            $product->description = $data->description;
+            $product->to_menu = 1;
+            $product->price = $data->price;
+            $product->product_category_id = $cat_id;
+            $product->save();
+           
+            $imgs = [];
+            foreach ($media as $img) {
+                $imgs[] = array(
+                    'staf_product_media_id'=> $img->id,
+                    'media'=> $img->media,
+                    'store_product_id'=> $product->id,
+                    "created_at" => now(),
+                    "updated_at" => now(),
+                );
+            }
+
+            if(count( $imgs) != 0){
+        
+                ProductMedia::insert($imgs);
+        
+            }
+
+            $recip_list = [];
+            foreach ($recipes as $recipe) {
+                $recip_list[] = array(
+                    'store_product_id'=>  $product->id,
+                    'element'=> $recipe->element,
+                    'image'=> $recipe->image,
+                    "created_at" => now(),
+                    "updated_at" => now(),
+                );
+            }
+
+            if(count( $recip_list) != 0){
+        
+                ProductRecipe::insert($recip_list);
+        
+            }
+
+            $this->dispatchBrowserEvent('swal:timer', [
+                'type' => 'success',
+                'title' => $this->translations['product_submitted_success'],    
+            ]);
+        }
+   
        
     }
 

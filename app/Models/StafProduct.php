@@ -2,6 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\User;
+use App\Models\StafProductMedia;
+use App\Models\StafProductRecipe;
+use App\Models\StafExtraToProduct;
+use App\Models\StafProductCategory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,7 +25,7 @@ class StafProduct extends Model
 
     public function category()
     {
-        return $this->belongsTo(StafProductCategory::class, 'product_category_id');
+        return $this->belongsTo(StafProductCategory::class, 'staf_product_category_id');
     }
 
     public function media()

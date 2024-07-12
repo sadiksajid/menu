@@ -17,14 +17,22 @@ class StafAuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest:staf')->except('logout');
+        
+
     }
+
+
 
 
 
     public function showLoginForm()
     {
-        return view('auth.staf_login');
+
+        if(Auth::guard('staf')->check()){
+            return redirect()->route('staf.products');
+        }else{
+            return view('auth.staf_login');
+        }
     }
 
 

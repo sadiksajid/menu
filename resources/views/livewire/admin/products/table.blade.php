@@ -91,7 +91,7 @@
                         </div>
                         <h5 class="card-title mb-3">{{substr($product->title , 0, 40) }}</h5>
                         <p class="card-text">{{substr($product->description , 0, 40) }}</p>
-                        <a class="text-uppercase" href="/staf/products/editProduct/{{ $product->id }}">
+                        <a class="text-uppercase" href="/admin/products/editProduct/{{ $product->id }}">
                             <H5 class="">{{ $translations['edit'] }}</H5>
                         </a>
 
