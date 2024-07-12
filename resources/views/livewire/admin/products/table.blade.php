@@ -51,7 +51,7 @@
                             placeholder="Search ..." aria-label="Search"
                             aria-describedby="button-addon2" wire:model.defer='search_products'> 
                             <button class="btn btn-primary" type="button"
-                            id="button_saerch"><i class="fa fa-search text-white-50"></i></button> 
+                            id="button_saerch" wire:click='searchProduct'><i class="fa fa-search text-white-50"></i></button> 
                             
                         </div>
 
@@ -110,7 +110,7 @@
         <div class="row">
         @foreach ($lib_products as $product)
         @php 
-        if(!in_array($product->id ,$imported_products) ){
+        if(!in_array($product['id'] ,$imported_products) ){
                 $text =  $translations['add'] ;
                 $color = 'badge-warning text-dark  border border-dark'  ;
         } else{
@@ -124,7 +124,7 @@
                     <div class='product_div'>
                   
                        
-                        <div class='product_image'  @isset($product?->media[0])  style="background-image: url({{ get_image('tmb/'.$product?->media[0]->media ?? 'pngs/food-icon.jpg') }});display: flex; justify-content: center;"  @else  style="background-image: url({{ get_image('pngs/food-icon.jpg') }});display: flex; justify-content: center;" @endif>           
+                        <div class='product_image'  @isset($product['media'])  style="background-image: url({{ get_image('tmb/'.$product['media'] ?? 'pngs/food-icon.jpg') }});display: flex; justify-content: center;"  @else  style="background-image: url({{ get_image('pngs/food-icon.jpg') }});display: flex; justify-content: center;" @endif>           
                             <span class="badge {{$color}} lib_badge" > 
                                  <h4 class='m-0'><strong>{{ $text }} </strong></h4>
                             </span>
@@ -133,20 +133,44 @@
                      
                     </div>
                     <div class="card-body p-2 text-center">
-                        <h5 class="card-title ">{{substr($product->title , 0, 40) }}</h5>
+                        <h5 class="card-title ">{{substr($product['title_tr'] , 0, 40) }}</h5>
                     </div>
                 </div>
             </div>
             @endforeach
-     
 
+            @if($lib_pages_count > 1)
+            <div class='col-12'>
+                <div class='row'>
+                    
+                    <div class='col-6'>
+                        @if($lib_products_page > 1)
+                        <button class='btn btn-primary next_btn' wire:click='nextLibProducts(-1)' style='min-width: 30%;'>
+                            {{$translations['previous']}}
+                        </button>
+                        @endif
+                    </div>
+                    <div class='col-6'>
+                        @if($lib_products_page < $lib_pages_count)
+                        <button class='btn btn-primary float-right next_btn' wire:click='nextLibProducts(1)' style='min-width: 30%;'>
+                            {{$translations['next']}}
+                        </button>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            @endif
     </div>
     @endif
 </div>
 @section('js')
 <script>
-$('#button_saerch').on('click', function() {
-    Livewire.emit('render')
+
+$(document).on('click','.next_btn',function() {
+  $("html, body").animate({ scrollTop: 0 }, "slow");
+  return false;
 });
+
+
 </script>
 @endsection

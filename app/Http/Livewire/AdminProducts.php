@@ -32,11 +32,11 @@ class AdminProducts extends Component
     public $lib_categories = [];
     public $lib_category = null;
 
-    public $products_page = 1;
+    public $lib_products_page = 1;
     public $lib_paginat = 40;
     public $lib_products = [];
     public $imported_products = [];
-    
+    public $lib_pages_count = 1;
     /////////////////////////////////
     public $title;
     public $description;
@@ -156,11 +156,7 @@ class AdminProducts extends Component
     }
     
 
-    public function clearSearch()
-    {
-        $this->search_products = null;
-
-    }
+  
     public function getCategories()
     {
         $currentLocale = app()->getLocale();
@@ -848,6 +844,20 @@ function sanitizeString($string) {
         return Redirect::to('/admin/products');
     }
 
+    public function searchProduct()
+    {
+       if($this->use_lib == true){
+            $this->getLibData(1);
+       }
+    }
+
+    public function clearSearch()
+    {
+        $this->search_products = null;
+        if($this->use_lib == true){
+            $this->getLibData(1);
+        }
+    }
 
     ///////////////////////////////////////////// lib part 
 
@@ -856,7 +866,7 @@ function sanitizeString($string) {
         $this->use_lib = !$this->use_lib;
         if($this->use_lib == true){
             $this->getLibCategories();
-            $this->getLibData($this->products_page);
+            $this->getLibData($this->lib_products_page);
 
             $this->imported_products = StoreProduct::where('store_id', $this->store_id)
             ->whereNotNull('staf_product_id')->select('staf_product_id')->get()->toArray();
@@ -878,14 +888,26 @@ function sanitizeString($string) {
        
         $pages = Cache::get('lib_page') ?? [];
 
+        $currentLocale = app()->getLocale() ;
 
-        $data = StafProduct::select('staf_products.*')
-            ->with('media')
+        $data = StafProduct::leftJoin('staf_product_media', function($join) {
+            $join->on('staf_products.id', 'staf_product_media.staf_product_id')
+                    ->whereRaw('staf_product_media.id IN (
+                        SELECT MAX(id)
+                        FROM staf_product_media
+                        GROUP BY staf_product_id
+                    )');
+            })
+            ->select('staf_products.*','title->' . $currentLocale.' as title_tr','staf_product_media.media')
             ->when($this->lib_category, function ($query) {
                 $query->where('staf_products.staf_product_category_id', $lib_category);
             })
+            ->when($this->search_products,function($q){
+                $q->where('title','LIKE','%'.$this->search_products.'%');
+            })
             ->paginate($this->lib_paginat, ['*'], 'page', $page);
         
+        $this->lib_pages_count = $data->lastPage();
         $this->lib_products =  $data->items();
         if ($page > 1) {
             $lib_products = Cache::get('lib_products');
@@ -914,7 +936,17 @@ function sanitizeString($string) {
 
 
     }
+    public function nextLibProducts($page)
+    {
+        $this->lib_products_page = $this->lib_products_page + $page ;
+        if($this->lib_products_page != 0){
+            $this->getLibData($this->lib_products_page);
+        }else{
+            $this->lib_products_page = 1 ;
+        
+        }
 
+    }
 
 
 }
