@@ -557,8 +557,8 @@ if (!function_exists('setView')) {
             else{   
                 $ip = $_SERVER['REMOTE_ADDR'];   
             }  
-            
-            if(!str_contains($ip,'172.')){
+
+            if(!str_contains($ip,'127.')){
                 $response = Http::timeout(5)->get('https://geolocation-db.com/jsonp/'.$ip);
                 try {
                     $response = Http::timeout(3)->get('https://geolocation-db.com/jsonp/'.$ip);

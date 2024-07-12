@@ -1,4 +1,14 @@
 <div>
+
+    <style>
+        .div_image{
+            background-color: #cccccc; /* Used if the image is unavailable */
+            height: 100%; /* You must set a specified height */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            background-size: cover; /
+        }
+    </style>
     <div class="row flex-lg-nowrap">
         <div class="col-12 mb-3">
             <div class="row">
@@ -6,7 +16,7 @@
                 <div class="col-12">
                     <button class="btn btn-danger float-right mb-3" wire:click='DeleteOffer()'>
                         
-                        {{ $translations['delete'] }}
+                        {{ $translations['save'] }}
                     </button>
                 </div>
                 @endif
@@ -16,7 +26,7 @@
                         <div class="col-12">
                             <div class="e-panel card">
                                 <div class="card-header">
-                                    <h3 class="card-title">{{ $translations['offer_roducts'] ?? '[]' }} </h3>
+                                    <h3 class="card-title">{{ $translations['offer_roducts'] }} </h3>
                                     <span class="badge badge-warning" role="button" style="right: 10px;position: absolute;color: black;" >
                                        <h4 class="mb-0"><strong>{{ strtoupper($translations['total']) }} : {{array_sum(array_column($selected_products_info, 'total'));}} {{$currency}}</strong></h4>
                                     </span>
@@ -24,7 +34,7 @@
                                 <div class="card-body p-2">
                                     <div class="row">
                                         @foreach ( $selected_products_info as $product)
-                                        <div class="col-sm-3 col-6">
+                                        <div class="col-md-3 col-sm-4 col-6">
                                             <span class="badge badge-danger" role="button"  wire:click='removeProduct({{$product["id"]}})'  style="position: absolute; z-index:10"><i class="fa fa-trash-o" style="font-size:15px"></i>
                                             </span>
 
@@ -34,9 +44,14 @@
                                                         <h7 class="mb-0"><strong>{{ $product['price']}} {{$currency}}</strong></h7>
                                                     </span>
 
+                                                    <div class='div_image' style="background-image: url({{ get_image('tmb/'.$product['media'][0]['media'] ?? 'pngs/food-icon.jpg') }});">
 
-                                                    <img src="{{ get_image( 'tmb/'.$product['media'][0]['media']) }}"
-                                                        class="card-image1 ">
+                                                    </div>
+
+
+
+                                                    <!-- <img src="{{ get_image( 'tmb/'.$product['media'][0]['media']) }}"
+                                                        class="card-image1 "> -->
                                                 </div>
                                                 <div class="card-body p-2">
                                   
@@ -47,7 +62,7 @@
                                                             <input class="form-control " placeholder="{{ $translations['quantity'] }}"
                                                                 type="number"  oninput="this.value = this.value.replace(/[^1-9.,]/g, ''); this.setCustomValidity(this.value <= 0 ? 'Please enter a positive number greater than 0.' : '');" step="1"
                                                                 wire:model='qty.{{$product["id"]}}'
-                                                                wire:change="quantityProduct({{$product["id"]}})">
+                                                                wire:change='quantityProduct({{$product["id"]}})'>
                                                             @error('qty.{{$product["id"]}}')
                                                             <span class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -140,7 +155,7 @@
 
                             </div>
                         </div>
-                        <div class="col-md-6  col-12">
+                        <div class="col-12">
                             <div class="e-panel card">
                                 <div class="card-body">
                                     <div class="row">
@@ -202,7 +217,7 @@
                                         @else
                                             <div class="col-12">
 
-                                                <div class="dropify-wrapper" >
+                                                <div class="dropify-wrapper" style="height: 30vw">
 
                                                     <img src="{{ URL::asset('assets/images/small_site_logo.png') }}"
                                                         style="height: 100%;width:100%">
@@ -222,7 +237,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6  col-12">
+                        <div class="col-12">
                             <div class="e-panel card">
                                 <div class="card-body">
                                     <div class="row">
@@ -284,7 +299,7 @@
                                         @else
                                             <div class="col-12">
 
-                                                <div class="dropify-wrapper">
+                                                <div class="dropify-wrapper" style="height: 30vw">
 
                                                     <img src="{{ URL::asset('assets/images/small_site_logo.png') }}"
                                                         style="height: 100%;width:100%">
@@ -330,7 +345,7 @@
                                 </div>
                             </div>
 
-                            <div class="row p1-3" style="overflow: auto;max-height: 70vh">
+                            <div class="row p1-3" style="overflow: auto;max-height: 129vh">
 
                                 @foreach ( $products as $product)
                                 @if(!in_array($product->id,$selected_products))
@@ -382,18 +397,10 @@
                             <div class="col-sm-12 col-md-12">
                                 @if($editOffer)
                                 <button type="button" class="btn btn-primary"
-                                    wire:click.prevent="updateOffer()">{{ $translations['update'] }}
-                                    <div class="spinner-border text-light" role="status" style='width:20px;height:20px' wire:loading>
-                                        <span class="sr-only">Loading...</span>
-                                    </div>
-                                </button>
+                                    wire:click.prevent="updateOffer()">{{ $translations['update'] }}</button>
                                 @else
                                 <button type="button" class="btn btn-primary"
-                                    wire:click.prevent="submitOffer()">{{ $translations['save'] }}
-                                    <div class="spinner-border text-light" role="status" style='width:20px;height:20px' wire:loading>
-                                        <span class="sr-only">Loading...</span>
-                                    </div>
-                                </button>
+                                    wire:click.prevent="submitOffer()">{{ $translations['save'] }}</button>
                                 @endif
                                 <button type="button" class="btn btn-danger"
                                     wire:click.prevent="cancel()">{{ $translations['cancel'] }}</button>

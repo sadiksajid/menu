@@ -1,4 +1,14 @@
 <div>
+
+    <style>
+        .div_image{
+            background-color: #cccccc; /* Used if the image is unavailable */
+            height: 100%; /* You must set a specified height */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            background-size: cover; /
+        }
+    </style>
     <div class="container-fluid mb-3">
         <div class='row'>
             <div class="col-md-2 col-1 ">
@@ -37,7 +47,7 @@
     <div class="container-fluid">
         <div class="row">
             @foreach ($products as $product)
-            <div class="col-xl-2 col-md-4 col-lg-4 col-12">
+            <div class="col-xxl-2 col-xl-3  col-lg-4 col-md-6 col-sm-6 col-12">
                 @if($product->status == 0)
                 <span class="badge badge-warning"
                     style="position: absolute; z-index:10">{{ $translations['inactive'] }}</span>
@@ -49,20 +59,27 @@
                 <div class="card overflow-hidden">
                     <div style="overflow: hidden;
                                     width: 100%;
-                                    height: 250px;
+                                    height: 25vh;
                                     position:relative">
                         <span class="badge badge-warning" role="button"
                             style="position: absolute; z-index:10;color:black;bottom:0px">
                             <h4 class="mb-0"><strong>{{ $product['price']}} {{$currency}}</strong></h4>
                         </span>
                         @isset($product?->media[0])
-                        <img src="{{ get_image('tmb/'.$product?->media[0]->media ?? 'pngs/food-icon.jpg') }}"
+
+                        <div class='div_image' style="background-image: url({{ get_image('tmb/'.$product?->media[0]->media ?? 'pngs/food-icon.jpg') }});">
+
+                        </div>
+                        <!-- <img src=""
                             onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';"
-                            lass="card-image1 " style='height: 100%;width: 100%;'>
+                            lass="card-image1 " style='height: 100%;width: 100%;'> -->
                         @else
-                        <img src="{{ get_image('pngs/food-icon.jpg') }}"
+                        <div class='div_image' style="background-image: url({{ get_image('pngs/food-icon.jpg') }});">
+
+                        </div>
+                        <!-- <img src="{{ get_image('pngs/food-icon.jpg') }}"
                             onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';"
-                            lass="card-image1 " style='height: 100%;width: 100%;'>
+                            lass="card-image1 " style='height: 100%;width: 100%;'> -->
                         @endisset
                     </div>
                     <div class="card-body p-2">

@@ -144,7 +144,7 @@ class StoreClient extends Component
         Cache::put('products', $data);
         Cache::put('page', $page);
 
-        $cat_name = $this->categories->where('id', $category)->first()->title ?? null;
+        // $cat_name = $this->categories->where('id', $category)->first()->title ?? null;
         $this->dispatchBrowserEvent('putProducts', [
             'products' => $data->toArray(),
             'images' => $data->pluck('media.0.media'),
