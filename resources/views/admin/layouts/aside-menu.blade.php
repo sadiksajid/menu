@@ -80,6 +80,20 @@
 
             </li>
             <li class="slide mt-3">
+                <a class="side-menu__item" href="{{ url('/admin/categories') }}">
+                    <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 16 16 "
+                        width="24">
+                        <path d="M0 0h24v24H0V0z" fill="none" />
+                        <path
+                            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+
+                    </svg>
+                    <span class="side-menu__label">{{ $translations['categories'] }}</span><i class="angle fa fa-angle-right"></i>
+                </a>
+
+            </li>
+
+            <li class="slide mt-3">
                 <a class="side-menu__item" href="{{ url('/admin/orders') }}">
                     <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
@@ -151,6 +165,13 @@
             
                         </li>
                         <li class="slide mt-3">
+                            <a class="side-menu__item" href="/admin/HomeHeaderEdit">
+                              
+                                <i class="angle fa fa-angle-right ml-4 mr-3"></i> <span class="side-menu__label">{{ $translations['home_slide'] }}</span>
+                            </a>
+            
+                        </li>
+                        <li class="slide mt-3">
                             <a class="side-menu__item" href="/admin/HeadesEdit">
                               
                                 <i class="angle fa fa-angle-right ml-4 mr-3"></i> <span class="side-menu__label">{{ $translations['other_pages'] }}</span>
@@ -162,7 +183,19 @@
   
          </li>
  
-     
+         <li class="slide mt-3">
+                <a class="side-menu__item" href="/admin/security_code">
+                    <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24"
+                        width="24">
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z">
+                        </path>
+                    </svg>
+                    <span class="side-menu__label">Security Codes</span><i class="angle fa fa-angle-right"></i>
+                </a>
+            </li>
+            
 
             {{-- <li class="slide mt-3">
                 <a class="side-menu__item" href="/admin/apks">

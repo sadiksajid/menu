@@ -264,11 +264,21 @@
                             <tbody>
                                 @foreach ($top_products as $product)
                                     <tr>
+                                    @isset($product?->media[0])
                                         <td class="font-weight-bold"><img class="w-7 h-7 rounded shadow mr-3"
                                                 src="{{ get_image('tmb/'.$product->product->media[0]->media ?? '') }}"
                                                 alt="media1">
-                                            {{ $product->product->title }}
+                                            {{ $product->product->title ?? 'product title' }}
                                         </td>
+                                    @else
+                                    <td class="font-weight-bold"><img class="w-7 h-7 rounded shadow mr-3"
+                                                src="https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg"
+                                                alt="media1">
+                                            {{ $product->product->title ?? 'product title'}}
+                                    </td>
+                                    @endisset
+                                    
+                                 
                                         <td><span class="badge badge-primary">{{ $product->orders }}</span></td>
                                         <td>05</td>
                                         <td>112</td>

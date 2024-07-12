@@ -1,4 +1,14 @@
 <div>
+
+    <style>
+        .div_image{
+            background-color: #cccccc; /* Used if the image is unavailable */
+            height: 100%; /* You must set a specified height */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            background-size: cover; /
+        }
+    </style>
     <div class="row flex-lg-nowrap">
         <div class="col-12 mb-3">
             <div class="row">
@@ -24,7 +34,7 @@
                                 <div class="card-body p-2">
                                     <div class="row">
                                         @foreach ( $selected_products_info as $product)
-                                        <div class="col-sm-3 col-6">
+                                        <div class="col-md-3 col-sm-4 col-6">
                                             <span class="badge badge-danger" role="button"  wire:click='removeProduct({{$product["id"]}})'  style="position: absolute; z-index:10"><i class="fa fa-trash-o" style="font-size:15px"></i>
                                             </span>
 
@@ -34,9 +44,14 @@
                                                         <h7 class="mb-0"><strong>{{ $product['price']}} {{$currency}}</strong></h7>
                                                     </span>
 
+                                                    <div class='div_image' style="background-image: url({{ get_image('tmb/'.$product['media'][0]['media'] ?? 'pngs/food-icon.jpg') }});">
 
-                                                    <img src="{{ get_image( 'tmb/'.$product['media'][0]['media']) }}"
-                                                        class="card-image1 ">
+                                                    </div>
+
+
+
+                                                    <!-- <img src="{{ get_image( 'tmb/'.$product['media'][0]['media']) }}"
+                                                        class="card-image1 "> -->
                                                 </div>
                                                 <div class="card-body p-2">
                                   
@@ -47,7 +62,7 @@
                                                             <input class="form-control " placeholder="{{ $translations['quantity'] }}"
                                                                 type="number"  oninput="this.value = this.value.replace(/[^1-9.,]/g, ''); this.setCustomValidity(this.value <= 0 ? 'Please enter a positive number greater than 0.' : '');" step="1"
                                                                 wire:model='qty.{{$product["id"]}}'
-                                                                wire:change="quantityProduct({{$product["id"]}})">
+                                                                wire:change='quantityProduct({{$product["id"]}})'>
                                                             @error('qty.{{$product["id"]}}')
                                                             <span class="text-danger">{{ $message }}</span>
                                                             @enderror

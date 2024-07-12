@@ -17,10 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('image',255);
             $table->integer('usage')->default(0);
-            $table->string('en_tags',2550);
-            $table->string('ar_tags',2550);
-            $table->string('fr_tags',2550);
-
             $table->timestamps();
         });
     }

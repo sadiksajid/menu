@@ -48,7 +48,6 @@ class StoreClient extends Component
         $this->categories = ProductCategory::where('store_id', $store_info->id)
             ->select('product_categories.*')
             ->get();
-
         Cache::put('last_store', $this->store_meta);
 
         if ($category != null) {
@@ -126,12 +125,15 @@ class StoreClient extends Component
             $category = $this->category_url;
         }
 
-        $data = StoreProduct::select('store_products.*')
-            ->where('store_id', $this->store_info->id)
+        $data = StoreProduct::leftJoin('product_categories','store_products.product_category_id','product_categories.id')
+        
+            ->select('store_products.*')
+            ->where('store_products.store_id', $this->store_info->id)
             ->with('media')
             ->when($category, function ($query) use ($category) {
                 $query->where('store_products.product_category_id', $category);
             })
+            ->orderBy('product_categories.sort','asc')
             ->paginate($this->paginat, ['*'], 'page', $page);
 
         if ($page > 1) {
@@ -142,7 +144,7 @@ class StoreClient extends Component
         Cache::put('products', $data);
         Cache::put('page', $page);
 
-        $cat_name = $this->categories->where('id', $category)->first()->title ?? null;
+        // $cat_name = $this->categories->where('id', $category)->first()->title ?? null;
         $this->dispatchBrowserEvent('putProducts', [
             'products' => $data->toArray(),
             'images' => $data->pluck('media.0.media'),

@@ -117,7 +117,7 @@
 
                                 <div class="col-lg-3 col-sm-12">
                                     <label class="col-md-12 form-label">Apk image</label>
-                                    <input type="file" class="dropify" name='image' data-default-file="https://APPIINO.ma/image/{{ $Apk[0]->image }}"  data-height="150" />
+                                    <input type="file" class="dropify" name='image' data-default-file="https://GoodForHealth.ma/image/{{ $Apk[0]->image }}"  data-height="150" />
                                 </div>
                                 
                             </div>

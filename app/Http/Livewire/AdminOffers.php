@@ -3,15 +3,17 @@
 namespace App\Http\Livewire;
 
 use App\Models\Offer;
+use Livewire\Component;
+use App\Models\OfferView;
+use App\Models\StoreOrder;
 use App\Models\OfferProduct;
 use App\Models\StoreProduct;
+use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Redirect;
-use Livewire\Component;
-use Livewire\WithFileUploads;
-use Livewire\WithPagination;
 use Symfony\Component\Intl\Currencies;
+use Illuminate\Support\Facades\Redirect;
 
 class AdminOffers extends Component
 {
@@ -23,7 +25,7 @@ class AdminOffers extends Component
     public $description;
     public $price;
     public $search;
-    public $status;
+    public $status = true;
     public $products;
     public $selected_products = [];
     public $selected_products_qty = [];
@@ -410,43 +412,46 @@ class AdminOffers extends Component
         ]);
 
     }
-    // public function confirmed()
-    // {
-    //     $offer = Offer::where('id', $this->offer_id)->withCount('order_offers')->first();
-    //     if (!empty($offer)) {
-    //         if ($offer->order_offers_count > 0) {
-    //             $offer->delete();
-    //             OfferMedia::where('store_offer_id', $this->offer_id)->delete();
-    //             OfferRecipe::where('store_offer_id', $this->offer_id)->delete();
-    //             ExtraToOffer::where('store_offer_id', $this->offer_id)->delete();
-    //             OfferView::where('store_offer_id', $this->offer_id)->delete();
-    //         } else {
-    //             $offer->forceDelete();
-    //             $offer_image = OfferMedia::where('store_offer_id', $this->offer_id)->get();
-    //             foreach ($offer_image as $image) {
-    //                 foreach ($this->offer_sizes as $key => $size) {
-    //                     File::delete(storage_path('app') . '/public/offer_image/' . $key . '/' . $image->media);
+    public function confirmed()
+    {
+        $offer = Offer::find($this->offer_id);
 
-    //                 }
-    //             }
-    //             OfferMedia::where('store_offer_id', $this->offer_id)->forceDelete();
-    //             OfferRecipe::where('store_offer_id', $this->offer_id)->forceDelete();
-    //             ExtraToOffer::where('store_offer_id', $this->offer_id)->forceDelete();
-    //             OfferView::where('store_offer_id', $this->offer_id)->forceDelete();
 
-    //         }
-    //         $this->dispatchBrowserEvent('swal:modal_back', [
-    //             'type' => 'success',
-    //             'title' => 'Offer Deleted Successfully!',
-    //             // 'message' => 'Do you want to back to offers page ?',
-    //             'url' => '/admin/offers',
 
-    //         ]);
-    //     } else {
-    //         $this->NotFound();
-    //     }
+        if (!empty($offer)) {
+            $data = StoreOrder::whereRaw("offers LIKE '%\"id\":\"$this->offer_id\"%'")->count();
 
-    // }
+            if ($data > 0) {
+                $offer->delete();
+                // OfferMedia::where('store_offer_id', $this->offer_id)->delete();
+                // OfferRecipe::where('store_offer_id', $this->offer_id)->delete();
+                // ExtraToOffer::where('store_offer_id', $this->offer_id)->delete();
+                OfferView::where('offer_id', $this->offer_id)->delete();
+            } else {
+
+                deleteFile($offer->image);
+                deleteFile($offer->image_squad);
+
+                $offer->forceDelete();
+
+               
+                // OfferMedia::where('store_offer_id', $this->offer_id)->forceDelete();
+                // OfferRecipe::where('store_offer_id', $this->offer_id)->forceDelete();
+                // ExtraToOffer::where('store_offer_id', $this->offer_id)->forceDelete();
+                OfferView::where('offer_id', $this->offer_id)->forceDelete();
+
+            }
+            $this->dispatchBrowserEvent('swal:modal_back', [
+                'type' => 'success',
+                'title' => 'Offer Deleted Successfully!',
+                'url' => '/admin/offers',
+
+            ]);
+        } else {
+            $this->NotFound();
+        }
+
+    }
     public function NotFound()
     {
         $this->dispatchBrowserEvent('swal:modal_back', [

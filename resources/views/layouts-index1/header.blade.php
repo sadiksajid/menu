@@ -4,6 +4,21 @@
     .main-menu > ul > li:hover > a {
     }
 </style>
+
+
+@isset($store_info->logo)
+
+<link rel="icon" id='site_icon' href= "{{ get_image($store_info->logo) }}"   type="image/x-icon"> 
+
+
+@else
+
+<link rel="icon" href="{{  URL::asset('index1/img/logo.svg') }}" type="image/x-icon"/>
+
+@endisset   
+
+
+
 @php
 $translations = app('translations')['system'];
 @endphp
@@ -19,13 +34,13 @@ $translations = app('translations')['system'];
         <div id="logo">
             <a href="/">
                 @isset($store_info->logo)
-                <img src="{{ get_image($store_info->logo) }}" height="70px" alt=""
-                class="logo_normal rounded-circle">
+                    <img src="{{ get_image($store_info->logo) }}" height="70px" alt=""
+                    class="logo_normal rounded-circle">
                 @else
-                <img src="{{ URL::asset('index1/img/logo.svg') }}" width="140" height="35" alt=""
-                class="logo_normal rounded-circle">
-                <img src="{{ URL::asset('index1/img/logo_sticky.svg') }}" width="140" height="35"
-                    alt="" class="logo_sticky">
+                    <img src="{{ URL::asset('index1/img/logo.svg') }}" width="140" height="35" alt=""
+                    class="logo_normal rounded-circle">
+                    <img src="{{ URL::asset('index1/img/logo_sticky.svg') }}" width="140" height="35"
+                        alt="" class="logo_sticky">
                 @endisset
             
             </a>
@@ -95,6 +110,9 @@ $translations = app('translations')['system'];
                 <li class="submenu">
                     <a href="/shop" >{{$translations['shop']}}</a>
                 </li>
+                <li class="submenu">
+                    <a href="/contact_us" >{{$translations['contact_us']}}</a>
+                </li>
             </ul>
         </nav>
     </div>
@@ -146,7 +164,7 @@ $translations = app('translations')['system'];
             <div class="modal-footer">
 
                 <button type="button" class="btn  mx-auto" aria-label="Close" class="close"
-                    data-dismiss="modal" wire:click="changeLang('en')" style='  background-color: #262626;color: #fff;    width: 130px;'>
+                    data-dismiss="modal" wire:click="changeLang('en','{{url()->current()}}')" style='background-color: #262626;color: #fff;width: 130px;'>
                     <span>Close</span>
                 </button>
             </div>

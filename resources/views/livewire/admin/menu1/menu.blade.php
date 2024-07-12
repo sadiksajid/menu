@@ -496,7 +496,6 @@
         });
 
         $('.edit-button-image').on('click', function() {
-            console.log('sdfsdf')
             var id = $(this).data("id")
             $("#saveImg").attr("wire:click", "editImg('" + id + "')");
 

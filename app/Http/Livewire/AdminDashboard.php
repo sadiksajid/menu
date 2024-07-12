@@ -38,6 +38,9 @@ class AdminDashboard extends Component
     ///////////////////////////first step
     public $step1 = [];
     public $finish_step1;
+    public $step2 = [];
+    public $finish_step2;
+
     ////////////////////////////
     public $translations;
 
@@ -78,7 +81,11 @@ class AdminDashboard extends Component
                 $this->step1['store_location'] =  'checked=""' ; 
             }
 
+
+            $this->step2['menu_has_products'] = ($this->store_info->products->count() == 0 )?'none':'checked=""'  ;
+
             $this->finish_step1 = array_search("none",$this->step1);
+            $this->finish_step2 = array_search("none",$this->step2);
         }
 
 

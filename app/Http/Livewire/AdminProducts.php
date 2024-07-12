@@ -2,21 +2,24 @@
 
 namespace App\Http\Livewire;
 
+use Livewire\Component;
+use App\Models\ProductView;
+use App\Models\StafProduct;
+use App\Models\ProductMedia;
+use App\Models\StoreProduct;
+use Livewire\WithPagination;
+use App\Models\ProducteExtra;
+use App\Models\ProductRecipe;
+use Livewire\WithFileUploads;
 use App\Models\ExtraToProduct;
 use App\Models\ProductCategory;
-use App\Models\ProducteExtra;
-use App\Models\ProductMedia;
-use App\Models\ProductRecipe;
-use App\Models\ProductView;
-use App\Models\StoreProduct;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\StafProductCategory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Redirect;
-use Livewire\Component;
-use Livewire\WithFileUploads;
-use Livewire\WithPagination;
+use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Intl\Currencies;
+use Illuminate\Support\Facades\Redirect;
 
 class AdminProducts extends Component
 {
@@ -24,7 +27,17 @@ class AdminProducts extends Component
     use WithFileUploads;
     public $currency;
     public $store_info;
+    //////////////////////////////lib
+    public $use_lib = false;
+    public $lib_categories = [];
+    public $lib_category = null;
 
+    public $lib_products_page = 1;
+    public $lib_paginat = 40;
+    public $lib_products = [];
+    public $imported_products = [];
+    public $lib_pages_count = 1;
+    /////////////////////////////////
     public $title;
     public $description;
     public $price;
@@ -121,33 +134,34 @@ class AdminProducts extends Component
                 }
 
             default:
-                $products = StoreProduct::where('store_id', $this->store_id)
+
+                if($this->use_lib == true){
+                    return view('livewire.admin.products.table');
+
+                }else{
+                    $products = StoreProduct::where('store_id', $this->store_id)
                     ->when($this->search_products,function($q){
                         $q->where('title','LIKE','%'.$this->search_products.'%');
                     })
                     ->orderBy('id', 'DESC')
                     ->paginate(20);
-                // foreach ($products as $value) {
-                //     add_to_tmb_if_not($value->media, 'product_images', $this->product_sizes);
-                // }
 
-                return view('livewire.admin.products.table', ['products' => $products]);
+
+                    return view('livewire.admin.products.table', ['products' => $products]);
+                }
+                
                 break;
         }
 
     }
+    
 
-    public function clearSearch()
-    {
-        $this->search_products = null;
-
-    }
+  
     public function getCategories()
     {
         $currentLocale = app()->getLocale();
 
-        $this->categories = ProductCategory::where('store_id', $this->store_id)->select('id','title->' . $currentLocale.' as title')->get()->toArray();
-
+        $this->categories = ProductCategory::where('store_id', $this->store_id)->select('id','title->' . $currentLocale.' as title_tr')->get()->toArray();
     }
 
     public function TranslateAll()
@@ -829,4 +843,110 @@ function sanitizeString($string) {
     {
         return Redirect::to('/admin/products');
     }
+
+    public function searchProduct()
+    {
+       if($this->use_lib == true){
+            $this->getLibData(1);
+       }
+    }
+
+    public function clearSearch()
+    {
+        $this->search_products = null;
+        if($this->use_lib == true){
+            $this->getLibData(1);
+        }
+    }
+
+    ///////////////////////////////////////////// lib part 
+
+    public function LibUse()
+    {
+        $this->use_lib = !$this->use_lib;
+        if($this->use_lib == true){
+            $this->getLibCategories();
+            $this->getLibData($this->lib_products_page);
+
+            $this->imported_products = StoreProduct::where('store_id', $this->store_id)
+            ->whereNotNull('staf_product_id')->select('staf_product_id')->get()->toArray();
+        }
+    }
+
+    public function getLibCategories()
+    {
+        // $currentLocale = app()->getLocale();
+        if(count($this->lib_categories) == 0){
+            $this->lib_categories = StafProductCategory::all();
+        }
+        // $this->category_id = $this->categories[0]->id;
+    }
+
+
+    public function getLibData($page = 1)
+    {
+       
+        $pages = Cache::get('lib_page') ?? [];
+
+        $currentLocale = app()->getLocale() ;
+
+        $data = StafProduct::leftJoin('staf_product_media', function($join) {
+            $join->on('staf_products.id', 'staf_product_media.staf_product_id')
+                    ->whereRaw('staf_product_media.id IN (
+                        SELECT MAX(id)
+                        FROM staf_product_media
+                        GROUP BY staf_product_id
+                    )');
+            })
+            ->select('staf_products.*','title->' . $currentLocale.' as title_tr','staf_product_media.media')
+            ->when($this->lib_category, function ($query) {
+                $query->where('staf_products.staf_product_category_id', $lib_category);
+            })
+            ->when($this->search_products,function($q){
+                $q->where('title','LIKE','%'.$this->search_products.'%');
+            })
+            ->paginate($this->lib_paginat, ['*'], 'page', $page);
+        
+        $this->lib_pages_count = $data->lastPage();
+        $this->lib_products =  $data->items();
+        if ($page > 1) {
+            $lib_products = Cache::get('lib_products');
+            $data = $lib_products->merge($data);
+        }
+
+        $pages = array_unique(array_merge($pages, [$page]));
+
+
+        Cache::put('lib_products', $data);
+        Cache::put('lib_page', $pages );
+
+        // $cat_name = $this->categories->where('id', $category)->first()->title ?? null;
+        // $this->dispatchBrowserEvent('putProducts', [
+        //     'products' => $data->toArray(),
+        //     'images' => $data->pluck('media.0.media'),
+        //     // 'category' => $cat_name,
+        // ]);
+    }
+
+    public function SelectLibCategory($id)
+    {
+        $this->lib_category = $id;
+        $name = $this->lib_categories->where('id', $id)->first()->title;
+        $this->getLibData(1, $id);
+
+
+    }
+    public function nextLibProducts($page)
+    {
+        $this->lib_products_page = $this->lib_products_page + $page ;
+        if($this->lib_products_page != 0){
+            $this->getLibData($this->lib_products_page);
+        }else{
+            $this->lib_products_page = 1 ;
+        
+        }
+
+    }
+
+
 }

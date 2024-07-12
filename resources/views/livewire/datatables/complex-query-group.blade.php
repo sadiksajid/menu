@@ -18,7 +18,6 @@
                     },
                     dragenter(e) {
                         if (e.target.closest('[drag-target]') !== this.source().closest('[drag-target]')) {
-                            console.log(this.$refs.placeholder)
                             this.$refs.placeholder.appendChild(this.source())
                         }
                     },

@@ -3,12 +3,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <style>
-        /* Define your CSS styles for the receipt */
         body {
             font-family: Arial, sans-serif;
             font-size: 12px;
             line-height: 1.2;
-            width: 70mm;
+            margin-left: -12mm;
+            margin-top: -10mm;
         }
 
         table {
@@ -25,6 +25,8 @@
         .logo {
             text-align: center;
             margin-bottom: 10px;
+            width: 40mm;
+            margin: auto;
         }
 
         .store-name {
@@ -41,6 +43,8 @@
         .total-price {
             text-align: right;
             margin-bottom: 10px;
+            border-top: 2px solid black ;
+            padding-top: 1px;
         }
 
         .barcode-container {
@@ -57,17 +61,11 @@
             font-size: 14px;
             margin-bottom: 20px;
         }
-
-        /* Add more CSS rules as needed */
     </style>
 </head>
-<body style="margin-left:-7mm">
+<body>
     <div class="logo">
-        <img src="{{$store['logo']}}" alt="Logo">
-    </div>
-    
-    <div class="store-name">
-        {{ $store['name'] }}
+        <img src="{{ $logoBase64 }}" alt="Logo" class="logo">
     </div>
     
     <div class="order-info">
@@ -90,14 +88,14 @@
                     <td>{{ $item['name'] }}</td>
                     <td>{{ $item['qty'] }}</td>
                     <td>{{ $item['price'] }}</td>
-                    <td>{{ $item['qty'] * $item['price'] }} {{$currency}}</td>
+                    <td>{{ $item['qty'] * $item['price'] }} {{ $currency }}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
     
     <div class="total-price">
-        Total Price: {{ $order['total_price'] }} {{$currency}}
+        Total Price: {{ $order['total_price'] }} {{ $currency }}
     </div>
 
     <div class="barcode-container">
@@ -108,6 +106,15 @@
 
     <div class="thanks-msg">
         Thank you for your purchase!
+    </div>
+
+    <div class="barcode-container">
+        <div class="barcode">
+            {!! $qr_code !!}
+        </div>
+    </div>
+    <div class="thanks-msg">
+       Scan the QR code and join us <br> next sunday to Goodfohealth pullUp Competition! 
     </div>
 </body>
 </html>

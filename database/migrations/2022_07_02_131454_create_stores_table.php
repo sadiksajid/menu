@@ -45,6 +45,7 @@ class CreateStoresTable extends Migration
             $table->integer('country_id',50)->nullable();
             $table->string('country',50)->nullable();
             $table->string('country_code',50)->nullable();
+            $table->enum('print_type', ['auto', 'manual'])->default('manual');
 
             $table->timestamps();
             $table->softDeletes();
