@@ -948,5 +948,13 @@ function sanitizeString($string) {
 
     }
 
+    public function AddProductLib($id)
+    {
+        $data = StafProduct::find($id);
+        dd($data);
+       
+    }
+
+
 
 }

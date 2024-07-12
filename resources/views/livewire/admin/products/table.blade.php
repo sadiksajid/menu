@@ -124,7 +124,8 @@
                     <div class='product_div'>
                   
                        
-                        <div class='product_image'  @isset($product['media'])  style="background-image: url({{ get_image('tmb/'.$product['media'] ?? 'pngs/food-icon.jpg') }});display: flex; justify-content: center;"  @else  style="background-image: url({{ get_image('pngs/food-icon.jpg') }});display: flex; justify-content: center;" @endif>           
+                        <div class='product_image'  @isset($product['media'])  style="background-image: url({{ get_image('tmb/'.$product['media'] ?? 'pngs/food-icon.jpg') }});display: flex; justify-content: center;"  @else  style="background-image: url({{ get_image('pngs/food-icon.jpg') }});display: flex; justify-content: center;" @endif
+                        wire:click="AddProductLib({{$product['id']}})" >           
                             <span class="badge {{$color}} lib_badge" > 
                                  <h4 class='m-0'><strong>{{ $text }} </strong></h4>
                             </span>
@@ -132,7 +133,7 @@
                         </div>
                      
                     </div>
-                    <div class="card-body p-2 text-center">
+                    <div class="card-body p-2 text-center" >
                         <h5 class="card-title ">{{substr($product['title_tr'] , 0, 40) }}</h5>
                     </div>
                 </div>
