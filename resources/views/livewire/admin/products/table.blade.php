@@ -94,8 +94,6 @@
                         <a class="text-uppercase" href="/admin/products/editProduct/{{ $product->id }}">
                             <H5 class="">{{ $translations['edit'] }}</H5>
                         </a>
-
-
                     </div>
                 </div>
             </div>
@@ -111,11 +109,14 @@
         @foreach ($lib_products as $product)
         @php 
         if(!in_array($product['id'] ,$imported_products) ){
-                $text =  $translations['add'] ;
+                $text = "<h4 class='m-0'><strong>".$translations['add']."</strong></h4> ";
                 $color = 'badge-warning text-dark  border border-dark'  ;
+                $imported = false;
         } else{
-                $text = $translations['imported'];
-                $color = 'badge-success border'  ;
+                $text = "<h5 class='m-0'><strong>".$translations['imported']."</strong></h5> ";
+                $color = 'badge-dark border'  ;
+                $imported = true;
+
         }
         @endphp
             <div class="col-xxl-2 col-xl-3  col-lg-4 col-md-6 col-sm-6 col-12 " >
@@ -123,17 +124,24 @@
                 <div class="card overflow-hidden">
                     <div class='product_div'>
                   
-                       
+                        @if(!$imported)
                         <div class='product_image'  @isset($product['media'])  style="background-image: url({{ get_image('tmb/'.$product['media'] ?? 'pngs/food-icon.jpg') }});display: flex; justify-content: center;"  @else  style="background-image: url({{ get_image('pngs/food-icon.jpg') }});display: flex; justify-content: center;" @endif
-                        wire:click="AddProductLib({{$product['id']}})" >           
+                            wire:click="AddProductLib({{$product['id']}})" >           
                             <span class="badge {{$color}} lib_badge" > 
-                                 <h4 class='m-0'><strong>{{ $text }} </strong></h4>
+                                {!! $text !!}
                             </span>
-                    
                         </div>
+                        @else
+                        <div class='product_image'  @isset($product['media'])  style="background-image: url({{ get_image('tmb/'.$product['media'] ?? 'pngs/food-icon.jpg') }});display: flex; justify-content: center;"  @else  style="background-image: url({{ get_image('pngs/food-icon.jpg') }});display: flex; justify-content: center;" @endif >           
+                            <span class="badge {{$color}} lib_badge" > 
+                                {!! $text !!}
+                            </span>
+                        </div>
+                        @endif
                      
                     </div>
-                    <div class="card-body p-2 text-center" >
+                    
+                    <div  @if(!$imported)  class="card-body p-2 text-center" @else class="card-body p-2 text-center bg-dark text-white" @endif >
                         <h5 class="card-title ">{{substr($product['title_tr'] , 0, 40) }}</h5>
                     </div>
                 </div>

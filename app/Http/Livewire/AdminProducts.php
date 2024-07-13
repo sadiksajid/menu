@@ -869,7 +869,7 @@ function sanitizeString($string) {
             $this->getLibData($this->lib_products_page);
 
             $this->imported_products = StoreProduct::where('store_id', $this->store_id)
-            ->whereNotNull('staf_product_id')->select('staf_product_id')->get()->toArray();
+            ->whereNotNull('staf_product_id')->select('staf_product_id')->get()->pluck('staf_product_id')->toArray();
         }
     }
 
