@@ -13,9 +13,9 @@ class CreateStoreProductsTable extends Migration
             $table->id();
             $table->foreignId('store_id');
             $table->foreignId('product_category_id');
-            $table->string('title', 250);
-            $table->string('product_meta', 250)->unique();
-            $table->string('description', 3500);
+            $table->string('title', 1500);
+            $table->string('product_meta', 250);
+            $table->string('description', 10000);
             $table->double('price')->default(0);
             $table->boolean('status')->default(1);
             $table->boolean('to_menu')->default(0);

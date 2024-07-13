@@ -17,9 +17,9 @@ class CreateProductCategoriesTable extends Migration
             $table->id();
             $table->foreignId('store_id');
             $table->foreignId('staf_product_category_id');
-            $table->string('title', 150);
+            $table->string('title', 500);
             $table->string('category_meta', 50)->unique();
-            $table->string('s_title', 500);
+            $table->string('s_title', 1500);
             $table->string('image', 150)->nullable();
 
             $table->timestamps();

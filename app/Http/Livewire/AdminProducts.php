@@ -962,13 +962,18 @@ function sanitizeString($string) {
         ->first();
 
         if(!empty($data->category) and empty($check)){
+            $cat_arr = $data->category->toArray() ;
             $cat = new ProductCategory();
-            $cat->title = $category->title;
-            $cat->s_title = $category->s_title;
             $cat->store_id = $this->store_id;
             $cat->category_meta = $category->category_meta;
             $cat->staf_product_category_id = $category->id ;
             $cat->image =  $category->image;
+            foreach ($cat_arr['title'] as $lang => $value) {
+                $cat->setTranslation('title', $lang, $cat_arr['title'][$lang], JSON_UNESCAPED_UNICODE);
+                $cat->setTranslation('s_title', $lang, $cat_arr['s_title'][$lang], JSON_UNESCAPED_UNICODE);
+
+            }
+
             $cat->save();
             $cat_id = $cat->id ;
         }else{
@@ -978,15 +983,21 @@ function sanitizeString($string) {
        
 
         if(!empty($data)){
+            $prod_arr = $data->toArray() ;
+
             $product = new StoreProduct();
             $product->store_id = $this->store_id;
             $product->staf_product_id = $id;
-            $product->title = $data->title;
             $product->product_meta = $data->product_meta;
-            $product->description = $data->description;
             $product->to_menu = 1;
             $product->price = $data->price;
             $product->product_category_id = $cat_id;
+
+            foreach ($prod_arr['title'] as $lang => $value) {
+                $product->setTranslation('title', $lang, $prod_arr['title'][$lang], JSON_UNESCAPED_UNICODE);
+                $product->setTranslation('description', $lang, $prod_arr['description'][$lang], JSON_UNESCAPED_UNICODE);
+
+            }
             $product->save();
            
             $imgs = [];

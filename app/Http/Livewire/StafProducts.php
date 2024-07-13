@@ -251,7 +251,7 @@ class StafProducts extends Component
             $image = File::get($this->cat_image->getRealPath());
             $save_result = save_livewire_filetocdn($image, 'staf_categories', $this->img_link, $this->catigory_sizes);
 
-            $this->img_link = 'categories/' . $this->img_link;
+            $this->img_link = 'staf_categories/' . $this->img_link;
 
             if ($save_result) {
                 $cat->image = $this->img_link;

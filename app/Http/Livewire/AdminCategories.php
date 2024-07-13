@@ -177,7 +177,6 @@ public function editCategory($id)
     $this->cat_title =  $category->title ;
     $this->cat_sub_title =  $category->s_title ;
     $this->cat_sort =  $category->sort ;
-
     $this->dispatchBrowserEvent('edit_category', [
         'cat_title' => $category->title,
         'cat_sub_title' => $category->s_title,
