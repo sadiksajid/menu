@@ -397,6 +397,20 @@ class Caisse extends Component
         
 
     }
+    public function printLastOrder($id)
+    {
+
+        $order = $this->new_orders[$id] ;
+
+        $is_offer = ($order['offers'] == null) ? 0 : 1;
+
+        $this->editOrder( $order['id'],$is_offer,$order['order_type']);
+
+        $this->generateReceiptPDF($id);
+        $this->cancelUpdate();
+
+
+    }
 
     private function getReceiptItems()
     {
@@ -621,8 +635,6 @@ class Caisse extends Component
 
 
     }
-
-
 
     public function updateOrder($data)
     {

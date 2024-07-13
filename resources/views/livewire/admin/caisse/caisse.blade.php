@@ -695,7 +695,7 @@
 
                     @if($last_order_id != null and $update_order == false)
                     <div class="col-4 mt-3" >
-                        <button class="btn btn-primary btn-lg"  wire:click='generateReceiptPDF({{$last_order_id }})'>
+                        <button class="btn btn-primary btn-lg"  wire:click='printLastOrder({{$last_order_id }})'>
                         <span style='font-size:27px'><i class="fa fa-print"></i></span>
                     </div>
                     @endif
