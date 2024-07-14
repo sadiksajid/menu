@@ -77,7 +77,7 @@ class AdminProducts extends Component
     public $catigory_sizes = ['tmb' => ['w' => 150, 'h' => 150], 'origin' => ['w' => 300, 'h' => 300]];
     public $product_sizes = ['tmb' => ['w' => 300, 'h' => 300], 'moyen' => ['w' => 600, 'h' => 600], 'origin' => ['w' => 1000, 'h' => 1000]];
     public $extras_sizes = ['tmb' => ['w' => 150, 'h' => 150], 'small' => ['w' => 300, 'h' => 300], 'moyen' => ['w' => 600, 'h' => 600], 'origin' => ['w' => 1000, 'h' => 1000]];
-    protected $listeners = ['confirmed','checkUniqueTitle','render'];
+    protected $listeners = ['confirmed','checkUniqueTitle','render','getLibData'];
 ////////////////////////////////
     public $translations;
     public $langs = [];
@@ -870,6 +870,9 @@ function sanitizeString($string) {
 
             $this->imported_products = StoreProduct::where('store_id', $this->store_id)
             ->whereNotNull('staf_product_id')->select('staf_product_id')->get()->pluck('staf_product_id')->toArray();
+            
+            $this->dispatchBrowserEvent('select2Start');
+
         }
     }
 
@@ -900,7 +903,7 @@ function sanitizeString($string) {
             })
             ->select('staf_products.*','title->' . $currentLocale.' as title_tr','staf_product_media.media')
             ->when($this->lib_category, function ($query) {
-                $query->where('staf_products.staf_product_category_id', $lib_category);
+                $query->where('staf_products.staf_product_category_id', $this->lib_category);
             })
             ->when($this->search_products,function($q){
                 $q->where('title','LIKE','%'.$this->search_products.'%');
@@ -1034,10 +1037,15 @@ function sanitizeString($string) {
         
             }
 
+            $this->dispatchBrowserEvent('SelectedProduct', [
+                'id' => $id,    
+            ]);
+
             $this->dispatchBrowserEvent('swal:timer', [
                 'type' => 'success',
                 'title' => $this->translations['product_submitted_success'],    
             ]);
+            
         }
    
        

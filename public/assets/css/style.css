@@ -616,7 +616,7 @@ hr.message-inner-separator {
 
 .avatar-orange {
   background-color: #fee0c7;
-  color: #fc7303; }
+  color: #d14d00; }
 
 .avatar-yellow {
   background-color: #fbedb7;
@@ -2074,8 +2074,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 
 .btn-orange {
   color: #fff;
-  background-color: #fc7303;
-  border-color: #fc7303; }
+  background-color: #d14d00;
+  border-color: #d14d00; }
   .btn-orange:hover {
     color: #fff;
     background-color: #fd811e;
@@ -2084,8 +2084,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     box-shadow: 0 0 0 2px rgba(253, 150, 68, 0.5); }
   .btn-orange.disabled, .btn-orange:disabled {
     color: #fff;
-    background-color: #fc7303;
-    border-color: #fc7303; }
+    background-color: #d14d00;
+    border-color: #d14d00; }
   .btn-orange:not(:disabled):not(.disabled):active, .btn-orange:not(:disabled):not(.disabled).active {
     color: #fff;
     background-color: #fc7a12;
@@ -4969,7 +4969,7 @@ a.tag-addon {
   color: #fff; }
 
 .tag-orange {
-  background-color: #fc7303;
+  background-color: #d14d00;
   color: #fff; }
 
 .tag-yellow {
@@ -9489,7 +9489,7 @@ div.conv-form-wrapper div#messages div.message.from {
       .latest-timeline ul.timeline > li:nth-child(3):before {
         border: 2px solid #f35e90; }
       .latest-timeline ul.timeline > li:nth-child(4):before {
-        border: 2px solid #fc7303; }
+        border: 2px solid #d14d00; }
       .latest-timeline ul.timeline > li:nth-child(5):before {
         border: 2px solid #05a5ba; }
       .latest-timeline ul.timeline > li:nth-child(6):before {
@@ -22086,7 +22086,7 @@ button.bg-red:hover, button.bg-red:focus {
   color: #dc0441 !important; }
 
 .bg-orange {
-  background-color: #fc7303 !important;
+  background-color: #d14d00 !important;
   color: #fff !important; }
 
 a.bg-orange:hover, a.bg-orange:focus {
@@ -22096,7 +22096,7 @@ button.bg-orange:hover, button.bg-orange:focus {
   background-color: #fc7a12 !important; }
 
 .text-orange {
-  color: #fc7303 !important; }
+  color: #d14d00 !important; }
 
 .bg-yellow {
   background-color: #ecb403 !important;

@@ -24,4 +24,4 @@
 		@yield('css')
 
 		<!-- Color Skin css -->
-		<link id="theme" href="{{URL::asset('assets/colors/color1.css')}}" rel="stylesheet" type="text/css"/>
+		<!-- <link id="theme" href="{{URL::asset('assets/colors/color1.css')}}" rel="stylesheet" type="text/css"/> -->

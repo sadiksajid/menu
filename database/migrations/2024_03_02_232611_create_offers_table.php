@@ -23,6 +23,8 @@ return new class extends Migration
             $table->double('old_price')->default(0);
             $table->double('price')->default(0);
             $table->boolean('status')->default(1);
+            $table->boolean('in_stock')->default(1);
+
             $table->timestamps();
             $table->softDeletes();
         });
