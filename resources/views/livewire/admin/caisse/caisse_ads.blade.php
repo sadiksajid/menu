@@ -146,7 +146,7 @@ Cache::put('caisse_categories', $categories, 86400);
                     <span class="badge badge-dark badge" role="button"
                         style="position: absolute; z-index:10;color:white;top:0px">
                         @if($product->in_stock == 0)
-                        <h2 class="mb-0 text-danger" style='font-size: 1.5vw'>
+                        <h2 class="mb-0 text-warning" style='font-size: 1.5vw'>
                             <strong>
                                 Out of Stock
                             </strong>
