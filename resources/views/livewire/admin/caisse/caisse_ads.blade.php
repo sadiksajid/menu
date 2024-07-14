@@ -145,17 +145,26 @@ Cache::put('caisse_categories', $categories, 86400);
                     style='background-image: url({{ get_image("tmb/".$product->media[0]->media) }}); @if($product->in_stock == 0) ; opacity:0.4 @endif'>
                     <span class="badge badge-dark badge" role="button"
                         style="position: absolute; z-index:10;color:white;top:0px">
-                        <h2 class="mb-0" style='font-size: 1.5vw'><strong> {{ $product->price}} {{$currency}} </strong>
+                        @if($product->in_stock == 0)
+                        <h2 class="mb-0 text-danger" style='font-size: 1.5vw'>
+                            <strong>
+                                Out of Stock
+                            </strong>
                         </h2>
+                        @else
+                        <h2 class="mb-0" style='font-size: 1.5vw'>
+                            <strong>
+                                {{ $product->price}} {{$currency}} 
+                            </strong>
+                        </h2>
+                         @endif
                     </span>
                     <div class='products_title'>
                         <center>
                             <h6 class="card-title " style='font-size: 1vw'> {{$product->title }} </h6>
                         </center>
                     </div>
-                    <!-- <img src="{{ get_image('tmb/'.$product->media[0]->media) }}" lass="card-image1 "
-                        style='height: 100%;width: 100%;'
-                        onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';"> -->
+         
                 </div>
 
 
