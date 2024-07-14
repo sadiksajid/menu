@@ -19,6 +19,8 @@ class CreateStoreProductsTable extends Migration
             $table->double('price')->default(0);
             $table->boolean('status')->default(1);
             $table->boolean('to_menu')->default(0);
+            $table->boolean('in_stock')->default(1);
+
             $table->timestamps();
             $table->softDeletes();
         });

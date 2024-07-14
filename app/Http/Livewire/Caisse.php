@@ -46,11 +46,11 @@ class Caisse extends Component
     public $selected_products_ids = [];
     public $selected_products_qty = [];
 
-    protected $listeners = ['confirmPassword','RemoveProd', 'confirmed','confirmDelete','updateOrder','SelectProd','onlineOrder','GetOrdersToEdit'];
+    protected $listeners = ['confirmPassword','RemoveProd', 'confirmed','confirmDelete','updateOrder','SelectProd','onlineOrder','GetOrdersToEdit','quickEditProduct','confirmedQuickEditProduct'];
 ////////////////////////////////
     public $translations;
     public $langs = [];
-
+    public $quick_data = [];
 
 
     public $show_pdf = false ;
@@ -68,7 +68,7 @@ class Caisse extends Component
 
         $this->langs = languages()['langs'];
         $this->translations = app('translations_admin');
-///////////////////////////////////
+        ///////////////////////////////////
         $this->store_info = Auth::user()->store;
         $this->store_id = $this->store_info->id;
 
@@ -131,8 +131,9 @@ class Caisse extends Component
         // } else {
 
             $this->products  = StoreProduct::where('store_id', $this->store_id)
-                ->select('id','title','price','product_category_id')
+                ->select('id','title','price','product_category_id','status','in_stock')
                 ->where('to_menu', 1)
+                ->where('status', 1)
                 ->orderBy('id', 'DESC')
 
                 // ->when($id!=0,function($q) use($id){
@@ -143,7 +144,7 @@ class Caisse extends Component
 
             $this->all_products = $this->products; 
             $this->offers = $this->all_offers = Offer::where('store_id', $this->store_id)
-                ->select('id','title','image','price','old_price')
+                ->select('id','title','image','price','old_price','status','in_stock')
                 ->where('status', 1)
                 ->get();
 
@@ -866,6 +867,42 @@ class Caisse extends Component
         ]);
 
     }
+    /////////////////////////////////////////////
+    
+    public function quickEditProduct($data)
+    {
+        $this->quick_data = $data;
+        $this->confirmPassword('confirmedQuickEditProduct');
 
+    }
+
+    public function confirmedQuickEditProduct()
+    {
+
+        if($this->quick_data['is_offer'] == 0){
+            $data = StoreProduct::find($this->quick_data['id']);
+        }else{
+            $data = Offer::find($this->quick_data['id']);
+        }
+
+        if(!empty($data)){
+            $data->in_stock = $this->quick_data['in_stock'] ;
+            $data->price = $this->quick_data['price'] ;
+            $data->save();
+
+            $this->getProducts();
+            $this->dispatchBrowserEvent('close_modal');
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'success',
+                'message' => $this->translations['priduct_update'],
+            ]);
+
+             $this->dispatchBrowserEvent('SendToAdsRefresh');
+
+        }
+
+        $this->quick_data = [];
+
+    }
 
 }

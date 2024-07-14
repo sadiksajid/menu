@@ -1340,17 +1340,17 @@
         "ar": "معرف الطلب غير موجود!",
         "fr": "ID de commande non trouvé!"
     },
-    "": {
-        "en": ""
+    "cart_scan": {
+        "en": "Please Scan your Cart!"
     },
-    "": {
-        "en": ""
+    "use_password": {
+        "en": "Use Password"
     },
-    "": {
-        "en": ""
+    "quick_edit": {
+        "en": "Quick Edit"
     },
-    "": {
-        "en": ""
+    "priduct_update": {
+        "en": "Product Updated Successfully"
     },
     "": {
         "en": ""

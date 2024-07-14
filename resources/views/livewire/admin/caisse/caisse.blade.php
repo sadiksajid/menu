@@ -94,7 +94,7 @@
         width: 92%;
     }
 
- 
+
     .order_list_card {
         padding: 7px 11px;
         width: 410px !important;
@@ -163,8 +163,26 @@
         overflow: hidden;
     }
 
+    .product_list_title_div {
+        background-color: rgb(0, 0, 0, 0.5);
+        position: absolute;
+        z-index: 10;
+        color: white;
+        bottom: 0px;
+        width: 100%;
+        height: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px 5px 5px 5px;
+    }
 
-
+    .product_list_content{
+        overflow: hidden;
+        width: 100%;
+        height: 150px;
+        position:relative;
+    }
     /* //////////////////////////////////////////////////////////////////// */
 
 
@@ -260,6 +278,8 @@
             bottom: 100%;
         }
     }
+
+    /* ///////////////////////////////////////////////// */
     </style>
 
 
@@ -319,29 +339,24 @@
                     </div>
                     @endif
                     @foreach ( $offers as $offer)
-                    <div class="col-xl-3  col-md-4 col-6" wire:click='SelectProd({{$offer->id}},1)'
-                        style="cursor: pointer">
-                        <div class="card products_list" style="background-image: url({{ get_image('tmb/'.$offer->image) }})">
+                    <div class="col-xl-3  col-md-4 col-6 product_list_click" data-id="{{$offer->id}}" data-offer='1'
+                        wire:click='SelectProd({{$offer->id}},1)' style="cursor: pointer ; @if($offer->in_stock == 0) opacity:0.4 @endif">
+                        <input type="text" class='d-none status' value='{{$offer->in_stock}}'>
 
-                            <div
-                                style="overflow: hidden;
-                                                width: 100%;
-                                                height: 150px;
-                                                position:relative;
-                                                @if(in_array('o_'.$offer->id,$selected_products_ids)) border: 4px solid #343a40; @endif">
+                        <div class="card products_list"
+                            style="background-image: url({{ get_image('tmb/'.$offer->image) }})">
+
+                            <div class='product_list_content' style="@if(in_array('o_'.$offer->id,$selected_products_ids)) border: 4px solid #343a40; @endif">
                                 <span class="badge badge-dark" role="button"
                                     style="position: absolute; z-index:10;color:white;top:0px">
-                                    <h5 class="mb-0"><strong>{{ $offer->price}} {{$currency}}</strong></h5>
+                                    <h5 class="mb-0"><strong class='price'>{{ $offer->price}} {{$currency}}</strong></h5>
                                 </span>
-                                <div
-                                    style="background-color:rgb(0,0,0,0.5);position: absolute; z-index:10;color:white;bottom:0px;width:100%;height:30%;display: flex;justify-content: center;align-items: center;padding: 5px 5px 5px 5px;">
+                                <div class='product_list_title_div'>
                                     <center>
                                         <h6 class="card-title " style='font-size: 101%;'>{{$offer->title}}</h6>
                                     </center>
                                 </div>
-                                <!-- <img src="{{ get_image('tmb/'.$offer->image) }}" lass="card-image1 "
-                                    style='height: 100%;width: 100%;'
-                                    onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';"> -->
+                        
                             </div>
                         </div>
                     </div>
@@ -365,21 +380,18 @@
                     @endif
                     @foreach ( $products_cat as $product)
 
-                    <div class="col-xl-2  col-md-3 col-6 " onclick="selectProd({{$product->id}})"
-                        style="cursor: pointer" data-id="{{$product->id}}">
-                        <div class="card products_list" style="background-image: url({{ get_image('tmb/'.$product->media[0]->media) }})">
-                            <div
-                                style="overflow: hidden;
-                                                width: 100%;
-                                                height: 150px;
-                                                position:relative;
-                                                @if(in_array($product->id,$selected_products_ids)) border: 4px solid #343a40; @endif">
+                    <div class="col-xl-2  col-md-3 col-6 product_list_click" onclick="selectProd({{$product->id}})"
+                        style="cursor: pointer ; @if($product->in_stock == 0) opacity:0.4 @endif" data-id="{{$product->id}}" data-offer='0'>
+                        <input type="text" class='d-none status' value='{{$product->in_stock}}'>
+
+                        <div class="card products_list"
+                            style="background-image: url({{ get_image('tmb/'.$product->media[0]->media) }})">
+                            <div class='product_list_content' style=" @if(in_array($product->id,$selected_products_ids)) border: 4px solid #343a40; @endif">
                                 <span class="badge badge-dark" role="button"
                                     style="position: absolute; z-index:10;color:white;top:0px">
-                                    <h5 class="mb-0"><strong>{{ $product->price}} {{$currency}}</strong></h5>
+                                    <h5 class="mb-0"><strong  class='price'>{{ $product->price}} {{$currency}}</strong></h5>
                                 </span>
-                                <div
-                                    style="background-color:rgb(0,0,0,0.5);position: absolute; z-index:10;color:white;bottom:0px;width:100%;height:30%;display: flex;justify-content: center;align-items: center;padding: 5px 5px 5px 5px;">
+                                <div class='product_list_title_div'>
                                     <center>
                                         <h6 class="card-title " style='font-size: 101%;'>{{$product->title }}</h6>
                                     </center>
@@ -400,35 +412,35 @@
                 <!-- ///////////////////////////////////////////////////////// -->
                 <div class='collapse_div'>
                     @php
-                        krsort($new_orders);
+                    krsort($new_orders);
                     @endphp
 
                     @foreach ( $new_orders as $order )
-                        @php
-                            if(isset($order["offers"])){
-                                if($order["offers"] == null){
-                                    $is_offer = 0 ;
-                                }else{
-                                    $is_offer = 1 ;
-                                }
-                            }else{
-                                $is_offer = 0 ;
-                            }
+                    @php
+                    if(isset($order["offers"])){
+                    if($order["offers"] == null){
+                    $is_offer = 0 ;
+                    }else{
+                    $is_offer = 1 ;
+                    }
+                    }else{
+                    $is_offer = 0 ;
+                    }
 
-                            if($order["status"] == 'pending'){
-                                $div_color = "#ff6f00";
-                            }else if($order["status"] == 'confirmed'){
-                                $div_color = "#8500ff";
-                     
-                            }else{
-                                $div_color = "#444444";
-                            }
-                        @endphp
+                    if($order["status"] == 'pending'){
+                    $div_color = "#ff6f00";
+                    }else if($order["status"] == 'confirmed'){
+                    $div_color = "#8500ff";
+
+                    }else{
+                    $div_color = "#444444";
+                    }
+                    @endphp
 
                     <!-- }else if($order["status"] == 'ready' or $order["status"] == 'shipped'){
                                 $div_color = "#0dd700"; -->
 
-                    <div  class="list-card pb-0 order_list_card " style="border-left-color: {{$div_color }}" >
+                    <div class="list-card pb-0 order_list_card " style="border-left-color: {{$div_color }}">
                         <button class="btn btn-outline-dark  " style='height: 70px;float: left;'
                             wire:click='editOrder({{$order["id"]}},{{$is_offer}},"{{$order["order_type"]}}")'>
                             <i class="fe fe-edit me-1 d-inline-flex"></i>
@@ -443,13 +455,14 @@
 
                                     <div class="media-body ms-3 ">
                                         @if($order['order_type'] != 'caisse')
-                                        <span
-                                            class="avatar avatar-rounded border  order_list_card_title " style='background-color:{{$div_color}} ;width:20%; font-size: 10px;'>
+                                        <span class="avatar avatar-rounded border  order_list_card_title "
+                                            style='background-color:{{$div_color}} ;width:20%; font-size: 10px;'>
                                             {{$order['status']}}
                                         </span>
                                         @endif
                                         <span
-                                            class="avatar avatar-rounded border  order_list_card_title @if($order['order_type'] == 'caisse') order_list_caise @else order_list_onlin @endif" style='background-color:{{$div_color}}'>
+                                            class="avatar avatar-rounded border  order_list_card_title @if($order['order_type'] == 'caisse') order_list_caise @else order_list_onlin @endif"
+                                            style='background-color:{{$div_color}}'>
                                             Order ID : {{$order['id']}}
                                         </span>
 
@@ -639,15 +652,15 @@
                     <div class="col-8">
                         <button class="btn btn-dark btn-lg" style="width:100%"
                             wire:click="confirmPassword('updateOrder')" id='checkout'>
-                                
+
                             @if($online_order_status == 'pending')
-                                {{$translations['order_confirm']}} 
+                            {{$translations['order_confirm']}}
                             @elseif($online_order_type == 'coming' and $online_order_status == 'confirmed' )
-                                {{$translations['order_ready']}} 
+                            {{$translations['order_ready']}}
                             @elseif($online_order_type == 'shipping' and $online_order_status == 'confirmed' )
-                                {{$translations['order_ship']}} 
+                            {{$translations['order_ship']}}
                             @else
-                                {{$translations['update']}} 
+                            {{$translations['update']}}
                             @endif
                             <i class="fe fe-edit-sign me-1 d-inline-flex"></i>
 
@@ -663,7 +676,9 @@
                     @endif
                     <div class="col-8 mt-3">
                         @if($online_orders_pending > 0)
-                        <h1 style='position: absolute;top: 0;'><span class="badge badge-danger" style='font-size: 20px;height: 50px;padding: 15px;'>{{$online_orders_pending }}</span></h1>
+                        <h1 style='position: absolute;top: 0;'><span class="badge badge-danger"
+                                style='font-size: 20px;height: 50px;padding: 15px;'>{{$online_orders_pending }}</span>
+                        </h1>
 
                         <button class="btn btn-outline-danger btn-lg danger-neon-border"
                             style="overflow: hidden;width:100%;position: relative;height: 50px;" id='collapse_div_show'>
@@ -675,12 +690,13 @@
                             New Orders
                             <lottie-player src="{{ URL::asset('assets/SVG/notification_red.json') }}"
                                 background="transparent" speed="1"
-                                style="width: 100px;height: 100px;position: absolute;top: -28px;right: -19px;"
-                                loop autoplay></lottie-player>
+                                style="width: 100px;height: 100px;position: absolute;top: -28px;right: -19px;" loop
+                                autoplay></lottie-player>
                         </button>
 
                         @else
-                        <button class="btn btn-outline-primary btn-lg " style="width:100%" id='collapse_div_show'>Orders
+                        <button class="btn btn-outline-primary btn-lg " style="width:100%"
+                            id='collapse_div_show'>{{$translations['orders']}}
                             <i class="fe fe-clock me-1 d-inline-flex"></i></button>
                         @endif
 
@@ -688,15 +704,16 @@
 
                     @if($update_order == true)
                     <div class="col-4 mt-3">
-                        <button class="btn btn-outline-danger btn-lg h-100" style="width:100%" wire:click='deleteOrder({{$update_order_id }})'>
-                        <i class="fe fe-trash-2 me-1 d-inline-flex"></i>
+                        <button class="btn btn-outline-danger btn-lg h-100" style="width:100%"
+                            wire:click='deleteOrder({{$update_order_id }})'>
+                            <i class="fe fe-trash-2 me-1 d-inline-flex"></i>
                     </div>
                     @endif
 
                     @if($last_order_id != null and $update_order == false)
-                    <div class="col-4 mt-3" >
-                        <button class="btn btn-primary btn-lg"  wire:click='printLastOrder({{$last_order_id }})'>
-                        <span style='font-size:27px'><i class="fa fa-print"></i></span>
+                    <div class="col-4 mt-3">
+                        <button class="btn btn-primary btn-lg" wire:click='printLastOrder({{$last_order_id }})'>
+                            <span style='font-size:27px'><i class="fa fa-print"></i></span>
                     </div>
                     @endif
                 </div>
@@ -717,20 +734,83 @@
                     <center>
                         <lottie-player src="{{ URL::asset('assets/SVG/code_bar.json') }}" background="transparent"
                             speed="0.2" style="width:250px;margin-top:-30px" loop autoplay></lottie-player>
-                        <h4 style='color:white ; margin-top: -39px;'>Please Scan your Cart!</h4>
+                        <h4 style='color:white ; margin-top: -39px;'>{{$translations['cart_scan']}} </h4>
                     </center>
                 </div>
                 <div class="modal-footer border-0" style='    justify-content: center;'>
 
-                    <button type="button" tabindex="-1" class="btn btn-light mr-6" id='scanToPassword'>Use
-                        Password</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" tabindex="-1" class="btn btn-light mr-6"
+                        id='scanToPassword'>{{$translations['use_password']}}</button>
+                    <button type="button" class="btn btn-secondary"
+                        data-dismiss="modal">{{$translations['close']}}</button>
 
                 </div>
             </div>
         </div>
     </div>
 
+
+    <div class="modal fade" id="edit_product_modal" tabindex="-1" role="dialog" aria-labelledby="edit_product_modal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content" style='border-radius:30px'>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">{{$translations['quick_edit']}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class='row'>
+                        <div class='col-md-6 col-12'>
+                            <div class="card products_list mb-0 h-100"   id='quick_edit_image' >
+                                <div style="overflow: hidden;
+                                                width: 100%;
+                                                min-height: 30vh;
+                                                height: 100%;
+                                                position:relative;
+                                                ">
+                                    <div class='product_list_title_div'>
+                                        <center>
+                                            <h6 class="card-title " id='quick_edit_title' style='font-size: 101%;'></h6>
+                                        </center>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-6 col-12'>
+                        
+                        <div class='col-12'>
+                            <label class="col-12 form-label" >{{$translations['status']}} :</label>
+                            <label class="switch">
+                                <input type="checkbox" class="switch-input" id='quick_edit_stock'>
+                                <span class="switch-label" data-on="In Stock" data-off="Out Of Stock"></span>
+                                <span class="switch-handle"></span>
+                            </label>
+                        </div>
+
+                        <div class="input-group mb-3 col-12" >
+                            <label class="col-12 form-label">{{ $translations['price'] }}<span class="text-red">*</span></label>
+               
+                            <input class="form-control " placeholder="{{ $translations['price'] }}" type="number"
+                            pattern="[0-9]+([\.,][0-9]+)?" step="0.01" id='quick_edit_price'>
+                            <div class="input-group-append">
+                                <span class="input-group-text  bg-dark text-white" id='quick_edit_curency'>MAD</span>
+                            </div>
+                        </div>
+                        <div class='col-12 align-text-bottom' style='text-align:end'>
+                            <button type="button" class="btn btn-dark"
+                                data-dismiss="modal">{{$translations['close']}}</button>
+                            <button type="button" class="btn btn-warning text-dark" id='quick_edit_save'>{{$translations['save']}}</button>
+                        </div>
+
+                    </div>
+                </div>
+  
+            </div>
+        </div>
+    </div>
 
 
     <div id="print_show" class='d-none'>
@@ -754,31 +834,27 @@
 <script src="{{ asset('js/app.js') }}"></script>
 
 <script>
-
-
-    function playSound() {
-        console.log('here');
-        const audio = new Audio("{{ URL::asset('assets/mp3/notification.wav') }}");
-        audio.play();
-    }
+function playSound() {
+    console.log('here');
+    const audio = new Audio("{{ URL::asset('assets/mp3/notification.wav') }}");
+    audio.play();
+}
 
 
 
-    Echo.channel('new_orders')
-        .listen('CaiseOrder', function(e){
-                Livewire.emit('onlineOrder',  e.data) 
-                playSound() 
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "New Incoming Order!",
-                    text: "Please check the orders list",
-                    showConfirmButton: false,
-                    timer: 3000
-                });
-            }
-        )
-
+Echo.channel('new_orders')
+    .listen('CaiseOrder', function(e) {
+        Livewire.emit('onlineOrder', e.data)
+        playSound()
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "New Incoming Order!",
+            text: "Please check the orders list",
+            showConfirmButton: false,
+            timer: 3000
+        });
+    })
 </script>
 
 
@@ -787,15 +863,14 @@
 
 
 <script>
-
-
-
 $(document).ready(function() {
 
 
- 
+
     localStorage.removeItem('CaiseSelectedProducts');
     cacheData('CaiseFinishOrder', false)
+    cacheData('CaiseRefresh', false)
+
 
 })
 
@@ -847,23 +922,23 @@ window.addEventListener('pdfRendered', event => {
         }, 500);
 
 
-      
+
     };
 
 
 });
 
 
-function removeIfram(){
-    iframe =  $('#pdf_iframe')
+function removeIfram() {
+    iframe = $('#pdf_iframe')
     var iframeSrc = iframe.attr('src');
     if (iframeSrc && iframeSrc.trim() !== "") {
         $('#print_show').html(`<iframe id="pdf_iframe" style="width: 100%; height: 500px;"></iframe>`);
 
-    } 
+    }
 }
 
-$("body").hover(function(){
+$("body").hover(function() {
     removeIfram()
 });
 
@@ -884,44 +959,6 @@ window.addEventListener('pdfRenderedPrint', event => {
 
 
 window.addEventListener('swip', event => {
-
-    // $(".list-card").each(function() {
-    //     var hammer = new Hammer(this);
-
-    //     hammer.on("swipe", function(event) {
-    //         if (event.direction === Hammer.DIRECTION_RIGHT) {
-    //             $(this).addClass("swiped");
-
-    //         } else if (event.direction === Hammer.DIRECTION_LEFT) {
-    //             $(this).removeClass("swiped");
-
-    //         }
-    //     });
-    // });
-
-    // $(".list-card").draggable({
-    //     // axis: "x", // Allow dragging only along the horizontal axis
-    //     containment: "parent", // Restrict movement within the parent container
-    //     start: function(event, ui) {
-    //         // Add a class to the card when dragging starts
-    //         $(this).addClass("dragging");
-    //     },
-    //     stop: function(event, ui) {
-    //         // Remove the dragging class when dragging stops
-    //         $(this).removeClass("dragging");
-
-    //         // If the card is swiped enough to the right, mark as swiped
-    //         if (ui.position.left > $(this).width() / 2) {
-    //             $(this).addClass("swiped");
-
-    //         } else {
-    //             $(this).removeClass("swiped");
-    //         }
-
-    //         // Reset the card's position
-    //         $(this).css({ left: 0 });
-    //     }
-    // });
 
     // Variables to store the initial touch position
     let initialX = null;
@@ -1081,6 +1118,8 @@ window.addEventListener('confirmPassword', event => {
 
 window.addEventListener('close_modal', event => {
     $('#scanModal').modal("hide");
+    $('#edit_product_modal').modal('hide')
+
 });
 
 var modalScan = document.getElementById('scanModal');
@@ -1092,20 +1131,20 @@ document.body.addEventListener('keydown', function(event) {
         event.preventDefault(); // Prevent the default action
     }
     if (modalScan.style.display === 'block') { // Check if modal is shown
-      
+
         getkey(event); // Call getkey function
-    }else{
-        getkeyOrder(event); 
+    } else {
+        getkeyOrder(event);
     }
 });
 
 
 $(document).ready(function() {
-  
+
     // document.body.style.zoom = "70%";
 
     $("#collapse_div_show").on("click", function(event) {
-        
+
 
         $('.collapse_div').addClass("collapse_div_show");
         $('.collapse_div_hover').removeClass("d-none");
@@ -1156,47 +1195,118 @@ $(document).ready(function() {
 
 
 $("#ads_caise_btn").on("click", function(event) {
-        $('.collapse_div').removeClass("collapse_div_show");
-        $('.collapse_div_hover').removeClass("collapse_div_hover_opacity");
+    $('.collapse_div').removeClass("collapse_div_show");
+    $('.collapse_div_hover').removeClass("collapse_div_hover_opacity");
 
-        setTimeout(() => {
-            $('.collapse_div_hover').addClass("d-none");
-        }, 1000);
+    setTimeout(() => {
+        $('.collapse_div_hover').addClass("d-none");
+    }, 1000);
 
-        openNewWindow()
+    openNewWindow()
+});
+
+
+function openNewWindow() {
+    // URL of the new page (this can be any valid URL)
+    const url = "{{ url('/admin/caisse/ads')}}";
+    // Calculate screen dimensions
+    const screenX = window.screenX || window.screenLeft;
+    const screenY = window.screenY || window.screenTop;
+    const screenWidth = window.screen.width;
+    const screenHeight = window.screen.height;
+
+    // Determine the position of the second screen
+    const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screenX;
+    const dualScreenTop = window.screenTop !== undefined ? window.screenTop : screenY;
+
+    // Calculate the position for the new window
+    const left = dualScreenLeft + screenWidth;
+    const top = dualScreenTop;
+
+    // Options for the new window (full screen on the second screen)
+    const windowFeatures = `left=${left},top=${top},width=${screenWidth},height=${screenHeight}`;
+
+    // Open the new window with the specified URL and features
+    const newWindow = window.open(url, 'NewWindow', windowFeatures);
+
+    // Maximize the new window if it was successfully created
+    if (newWindow) {
+        newWindow.moveTo(left, top);
+        newWindow.resizeTo(screenWidth, screenHeight);
+        newWindow.focus();
+    }
+}
+//////////////////////////////////////////////////
+
+
+
+
+
+$('.product_list_click').on('contextmenu', function(event) {
+    event.preventDefault(); // Prevent the default context menu
+
+    var dataId = $(this).data('id');
+    var isOffer = $(this).data('offer');
+    console.log("Right-clicked item with data-id: " + dataId);
+
+    var $this = $(this);
+    var backgroundImage = $this.find('.products_list').css('background-image');
+    var price = $this.find('.price').text();
+    var status = $this.find('.status').val();
+    var title = $this.find('.card-title').text();
+
+    // Extract URL from background-image
+    var imageUrl = backgroundImage.slice(5, -2);
+
+    // Update context menu content
+    $("#quick_edit_image").css("background-image", "url(" + imageUrl + ")");
+    $("#quick_edit_title").text(title);
+
+
+    
+    if(status == 1){
+        $( "#quick_edit_stock" ).prop( "checked", true );
+    }else{
+        $( "#quick_edit_stock" ).prop( "checked", false );
+    }
+
+
+    $("#quick_edit_price").val(parseInt(price));
+    var curency = price.replace(/[^a-z]/gi, '');
+    $("#quick_edit_curency").text(curency);
+
+    $('#edit_product_modal').modal('show')
+
+
+    $('#quick_edit_save').on('click', function(event) {
+
+        var in_stock = $('#quick_edit_stock').is(":checked")
+
+        var price = $("#quick_edit_price").val();
+
+        var data = {
+            'id':dataId,
+            'is_offer':isOffer,
+            'in_stock':in_stock,
+            'price':price,
+        }
+        Livewire.emit('quickEditProduct', data);
+
+
+
     });
 
+    window.addEventListener('SendToAdsRefresh', event => {
+        cacheData('CaiseRefresh', true)
 
-        function openNewWindow() {
-            // URL of the new page (this can be any valid URL)
-            const url = "{{ url('/admin/caisse/ads')}}";
-            // Calculate screen dimensions
-            const screenX = window.screenX || window.screenLeft;
-            const screenY = window.screenY || window.screenTop;
-            const screenWidth = window.screen.width;
-            const screenHeight = window.screen.height;
+    })
 
-            // Determine the position of the second screen
-            const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screenX;
-            const dualScreenTop = window.screenTop !== undefined ? window.screenTop : screenY;
 
-            // Calculate the position for the new window
-            const left = dualScreenLeft + screenWidth;
-            const top = dualScreenTop;
 
-            // Options for the new window (full screen on the second screen)
-            const windowFeatures = `left=${left},top=${top},width=${screenWidth},height=${screenHeight}`;
+});
 
-            // Open the new window with the specified URL and features
-            const newWindow = window.open(url, 'NewWindow', windowFeatures);
 
-            // Maximize the new window if it was successfully created
-            if (newWindow) {
-                newWindow.moveTo(left, top);
-                newWindow.resizeTo(screenWidth, screenHeight);
-                newWindow.focus();
-            }
-        }
+
 
 
 </script>

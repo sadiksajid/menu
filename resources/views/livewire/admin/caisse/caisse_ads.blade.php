@@ -63,7 +63,7 @@ use Symfony\Component\Intl\Currencies;
 
 $store_info = Auth::user()->store ;
 $products = StoreProduct::where('store_id', Auth::user()->store_id)
-->select('id','title','price','product_category_id')
+->select('id','title','price','product_category_id','in_stock')
 ->where('to_menu', 1)
 ->orderBy('id', 'DESC')
 ->get();
@@ -142,7 +142,7 @@ Cache::put('caisse_categories', $categories, 86400);
                 @foreach ( $products_cat as $product)
 
                 <div class="item products_list"
-                    style='background-image: url({{ get_image("tmb/".$product->media[0]->media) }});'>
+                    style='background-image: url({{ get_image("tmb/".$product->media[0]->media) }}); @if($product->in_stock == 0) ; opacity:0.4 @endif'>
                     <span class="badge badge-dark badge" role="button"
                         style="position: absolute; z-index:10;color:white;top:0px">
                         <h2 class="mb-0" style='font-size: 1.5vw'><strong> {{ $product->price}} {{$currency}} </strong>
@@ -292,7 +292,11 @@ Cache::put('caisse_categories', $categories, 86400);
         setInterval(() => {
             data = getCachedData('CaiseSelectedProducts')
             finish = getCachedData('CaiseFinishOrder')
-
+            refresh = getCachedData('CaiseRefresh')
+            if(refresh == true){
+                location.reload(true);
+                cacheData('CaiseRefresh', false)
+            }
 
             if (data != null) {
                 if (data['total'] == 0) {
@@ -357,7 +361,7 @@ Cache::put('caisse_categories', $categories, 86400);
                 cacheData('CaiseFinishOrder', false)
 
             }
-        }, 1000);
+        }, 500);
 
 
 
