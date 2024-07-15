@@ -344,7 +344,7 @@
                         <input type="text" class='d-none status' value='{{$offer->in_stock}}'>
 
                         <div class="card products_list"
-                            style="background-image: url({{ get_image('tmb/'.$offer->image) }})">
+                            style="background-image: url('{{ get_image('tmb/'.$offer->image) }}')">
 
                             <div class='product_list_content' style="@if(in_array('o_'.$offer->id,$selected_products_ids)) border: 4px solid #343a40; @endif">
                                 <span class="badge badge-dark" role="button"
@@ -385,7 +385,7 @@
                         <input type="text" class='d-none status' value='{{$product->in_stock}}'>
 
                         <div class="card products_list"
-                            style="background-image: url({{ get_image('tmb/'.$product->media[0]->media) }})">
+                            style="background-image: url('{{ get_image('tmb/'.$product->media[0]->media) }}')">
                             <div class='product_list_content' style=" @if(in_array($product->id,$selected_products_ids)) border: 4px solid #343a40; @endif">
                                 <span class="badge badge-dark" role="button"
                                     style="position: absolute; z-index:10;color:white;top:0px">
