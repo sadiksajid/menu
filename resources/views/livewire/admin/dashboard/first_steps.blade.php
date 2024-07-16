@@ -5,6 +5,10 @@
             border-left:0px!important;
             border-right:0px!important;
         }
+        .actions > ul >li{
+            background-color:#343a40;
+            border-radius:4px;
+        }
     </style>
     <div class="container">
         <div id="wizard">
@@ -30,7 +34,7 @@
                 </ul>
                 <div class="purpose-radios-wrapper">
                     <a href="/admin/store_info">
-                        <button class='btn btn-primary btn-md' @if($this->finish_step1 == false) disabled @endif >
+                        <button class='btn bg-orange btn-md' @if($this->finish_step1 == false) disabled @endif >
                             Start Step 1
                         </button>
                     </a>
@@ -49,24 +53,26 @@
                 </ul>
                 <div class="purpose-radios-wrapper">
                     <a href="/admin/products">
-                        <button class='btn btn-primary btn-md' @if($this->finish_step2 == false) disabled @endif >
+                        <button class='btn bg-orange btn-md' @if($this->finish_step2 == false) disabled @endif >
                             Start Step 2
                         </button>
                     </a>
                 </div>
             </section>
-            <h3>Step 3 Title</h3>
+            <h3>Step 3 :</h3>
             <section>
-                <h5 class="bd-wizard-step-title">Step 3</h5>
-                <h2 class="section-heading mb-5">Review your Details and Submit</h2>
-                <h6 class="font-weight-bold">Select business type</h6>
-                <p class="mb-4" id="business-type">Branding</p>
-                <h6 class="font-weight-bold">Enter your Account Details</h6>
-                <p class="mb-4"><span id="enteredFirstName">Cha</span> <span id="enteredLastName">Ji-Hun C</span> <br>
-                    Phone: <span id="enteredPhoneNumber">+230-582-6609</span> <br>
-                    Email: <span id="enteredEmailAddress">willms_abby@gmail.com</span></p>
+                <h2 class="section-heading mb-5">Download your QR code and or Copy your Link</h2>
+                <p class="mb-4" id="business-type">You are almost there. On this page, we provide you with all the tools you need to reach your clients easily.</p>
+                <div class="purpose-radios-wrapper">
+                    <a href="/admin/marketing">
+                        <button class='btn bg-orange btn-md' @if($this->finish_step3 == true) disabled @endif >
+                            Start Step 3
+                        </button>
+                    </a>
+                </div>
 
             </section>
+            
         </div>
     </div>
 </div>
@@ -79,11 +85,15 @@ $(document).ready(function() {
     $('.number').each(function() {
         if ($(this).text().trim() === '1') {
             if (@json($finish_step1 == false)) {
-                $(this).css('background-color', '#38cb89');
+                $(this).addClass('bg-orange');
             }
         }else if ($(this).text().trim() === '2') {
             if (@json($finish_step2 == false)) {
-                $(this).css('background-color', '#38cb89');
+                $(this).addClass('bg-orange');
+            }
+        }else if ($(this).text().trim() === '3') {
+            if (@json($finish_step3 == false)) {
+                $(this).addClass('bg-orange');
             }
         }
     });

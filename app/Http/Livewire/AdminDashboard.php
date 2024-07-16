@@ -37,10 +37,10 @@ class AdminDashboard extends Component
     public $shart_data = [];
     ///////////////////////////first step
     public $step1 = [];
-    public $finish_step1;
+    public $finish_step1 = false;
     public $step2 = [];
-    public $finish_step2;
-
+    public $finish_step2 = false;
+    public $finish_step3 = false;
     ////////////////////////////
     public $translations;
 

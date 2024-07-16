@@ -321,8 +321,7 @@ class StafProducts extends Component
 ////////////////////////////////////////////////////////////////////////////////////
     function checkUniqueTitle() {
         if(!empty($this->title)){
-            $this->product_meta =   $this->sanitizeString($this->title);
-
+            $this->product_meta = $this->sanitizeString($this->title);
             $this->validate([
                 'product_meta' => 'required|string|max:250|unique:staf_products,product_meta',
             ]);
@@ -334,7 +333,7 @@ class StafProducts extends Component
 
     function sanitizeString($string) {
         // Replace spaces with underscores
-        $string = str_replace(' ', '_', $string);
+        $string = str_replace(' ', '_', strtolower($string));
         
         // Remove any character that is not a letter, number, hyphen, or underscore
         $sanitizedString = preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
@@ -347,7 +346,7 @@ class StafProducts extends Component
     {
 
         if($this->newCategory == false ){
-            $this->product_meta =   $this->sanitizeString($this->title);
+            $this->product_meta = $this->sanitizeString($this->title)  ;
 
             $this->validate([
                 'title' => 'required|string|max:250',
@@ -382,7 +381,7 @@ class StafProducts extends Component
                 $product->setTranslation('description', $lang, $description, JSON_UNESCAPED_UNICODE);
 
             }
-            $product->product_meta = str_replace(' ','-', $this->title);
+            $product->product_meta =  $this->product_meta;
 
             $product->status = $this->status;
             $product->price = $this->price;

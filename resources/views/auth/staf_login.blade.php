@@ -11,8 +11,8 @@
                             <div class="card-body">
                                 <form method="POST" action="{{ route('staf_login') }}">
                                     @csrf
-                                    <h2 class="display-4 mb-2 font-weight-bold error-text text-center"><strong>Login</strong></h2>
-                                    <h4 class="text-white-80 mb-7 text-center">Sign In to your account</h4>
+                                    <h2 class="display-4 mb-2 font-weight-bold error-text text-center"><strong>Staf Login</strong></h2>
+                                    <h4 class="text-white-80 mb-7 text-center">Sign In to your staf account</h4>
                                     <div class="row">
                                         <div class="col-9 d-block mx-auto">
                                             <div class="input-group mb-4">

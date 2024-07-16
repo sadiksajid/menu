@@ -124,6 +124,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'password.confir
         }
     });
 
+    Route::get('/marketing', function () {
+        return view('livewire.admin.marketing.marketing_route');
+    });
+
+
+
+
+
 });
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::group(['prefix' => 'client', 'middleware' => ['auth:client', 'fw-block-blacklisted', 'fw-block-attacks']], function () {
@@ -392,7 +400,7 @@ Route::group(['prefix' => 'staf', 'middleware' => ['auth:staf', 'fw-block-blackl
     });
 
     Route::get('/header_images', function () {
-        return view('livewire.staf.header_images.header_images_route', );
+        return view('livewire.staf.header_images.header_images_route' );
     });
 
 
@@ -416,5 +424,10 @@ Route::group(['prefix' => 'staf', 'middleware' => ['auth:staf', 'fw-block-blackl
             return view('404');
         }
     });
+
+    Route::get('/qr_code', function () {
+        return view('livewire.staf.qr_code.qr_code_route' );
+    });
+
 
 });

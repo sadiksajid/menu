@@ -18,10 +18,7 @@
         </style>
         <div class="app-sidebar__user">
             <div class="dropdown user-pro-body text-center">
-                <div class="user-pic">
-                    <img src="{{ URL::asset('assets/images/users/user_icon.png') }}" alt="user-img"
-                        class="avatar-xl rounded-circle mb-1">
-                </div>
+         
                 <div class="user-info">
                     <h5 class=" mb-1">{{ Auth::user()->name ?? '' }} <i
                             class="ion-checkmark-circled  text-success fs-12"></i>
@@ -71,6 +68,23 @@
                 </a>
 
             </li>
+
+            <li class="slide mt-3">
+                <a class="side-menu__item" href="{{ url('/staf/qr_code') }}">
+                    <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 16 16 "
+                        width="24">
+                        <path d="M0 0h24v24H0V0z" fill="none" />
+                        <path
+                            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+
+                    </svg>
+                    <span class="side-menu__label">Qr Codes</span><i class="angle fa fa-angle-right"></i>
+                </a>
+
+            </li>
+
+
+
             <li class="slide mt-3">
                 <a class="side-menu__item" href="{{ url('/staf/clients') }}">
                     <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"

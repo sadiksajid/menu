@@ -13,14 +13,14 @@
         <div class='row'>
             <div class="col-md-2 col-1 ">
                 <a href="/staf/products/addProduct">
-                    <button class="btn btn-info">{{ $translations['new_product'] }}</button>
+                    <button class="btn btn-orange">{{ $translations['new_product'] }}</button>
                 </a>
 
             </div>
 
             <div class="col-1 ">
               
-                <div class="spinner-border text-info" role="status" style='width:30px;height:30px' wire:loading>
+                <div class="spinner-border text-orange" role="status" style='width:30px;height:30px' wire:loading>
                     <span class="sr-only">Loading...</span>
                 </div>
                 
@@ -35,7 +35,7 @@
                         <input type="text" class="form-control"
                             placeholder="Search ..." aria-label="Search ..."
                             aria-describedby="button-addon2" wire:model.defer='search_products'> 
-                            <button class="btn btn-primary" type="button"
+                            <button class="btn btn-orange" type="button"
                             id="button_saerch"><i class="fa fa-search text-white-50"></i></button> 
                             
                         </div>
@@ -49,10 +49,10 @@
             @foreach ($products as $product)
             <div class="col-xxl-2 col-xl-3  col-lg-4 col-md-6 col-sm-6 col-12">
                 @if($product->status == 0)
-                <span class="badge badge-warning"
+                <span class="badge badge-dark"
                     style="position: absolute; z-index:10">{{ $translations['inactive'] }}</span>
                 @else
-                <span class="badge badge-success"
+                <span class="badge badge-dark"
                     style="position: absolute; z-index:10">{{ $translations['active'] }}</span>
 
                 @endif
@@ -61,10 +61,7 @@
                                     width: 100%;
                                     height: 25vh;
                                     position:relative">
-                        <span class="badge badge-warning" role="button"
-                            style="position: absolute; z-index:10;color:black;bottom:0px">
-                            <h4 class="mb-0"><strong>{{ $product['price']}} {{$currency}}</strong></h4>
-                        </span>
+            
                         @isset($product?->media[0])
 
                         <div class='div_image' style="background-image: url({{ get_image('tmb/'.$product?->media[0]->media ?? 'pngs/food-icon.jpg') }});">

@@ -6,7 +6,7 @@
             <div class="row">
                 @if($editProduct)
                 <div class="col-12">
-                    <button class="btn btn-danger float-right mb-3" wire:click='DeleteProduct()'>
+                    <button class="btn btn-dark float-right mb-3" wire:click='DeleteProduct()'>
                         {{ $translations['delete_product'] }}
                     </button>
                 </div>
@@ -26,10 +26,10 @@
                                             <input class="form-control mb-4" placeholder="Title" type="text" id='title'
                                                 wire:model='title'>
                                             @error('title')
-                                            <span class="text-danger">{{ $message }}</span>
+                                            <span class="text-dark">{{ $message }}</span>
                                             @enderror
                                             @error('product_meta')
-                                            <span class="text-danger">{{ $message }}</span>
+                                            <span class="text-dark">{{ $message }}</span>
                                             @enderror
                                         </div>
 
@@ -39,7 +39,7 @@
                                             <textarea class="form-control mb-4" placeholder="Description"
                                                 wire:model='description' style="height: 200px"></textarea>
                                             @error('description')
-                                            <span class="text-danger">{{ $message }}</span>
+                                            <span class="text-dark">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
@@ -66,13 +66,13 @@
                                                 @endforeach
                                             </select>
                                             @error('form-control')
-                                            <span class="text-danger">{{ $message }}</span>
+                                            <span class="text-dark">{{ $message }}</span>
                                             @enderror
                                             @endif
                                         </div>
                                         <div class="col-2">
                                             <label class="col-md-12 form-label">.</label>
-                                            <button type="button" class="btn btn-icon btn-info mb-4 float-right"
+                                            <button type="button" class="btn btn-icon btn-orange mb-4 float-right"
                                                 wire:click="newCategory()">
                                                 <span wire:loading wire:target="newCategory"
                                                     style="height: 20px;width:20px;transition: 0.5s;margin-right: 10px;"
@@ -87,7 +87,7 @@
                                             <input class="form-control mb-4" placeholder="Price" type="number"
                                                 pattern="[0-9]+([\.,][0-9]+)?" step="0.01" wire:model='price'>
                                             @error('price')
-                                            <span class="text-danger">{{ $message }}</span>
+                                            <span class="text-dark">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div class="col-md-4 col-6">
@@ -99,7 +99,7 @@
                                                 <span class="custom-switch-indicator"></span>
                                             </label>
                                             @error('status')
-                                            <span class="text-danger">{{ $message }}</span>
+                                            <span class="text-dark">{{ $message }}</span>
                                             @enderror
                                         </div>
 
@@ -117,7 +117,7 @@
                                                 <input class="form-control mb-4" placeholder="Category" type="text"
                                                     wire:model='cat_title'>
                                                 @error('cat_title')
-                                                <span class="text-danger">{{ $message }}</span>
+                                                <span class="text-dark">{{ $message }}</span>
                                                 @enderror
                                             </div>
                                             <div class="col-12">
@@ -127,7 +127,7 @@
                                                 <textarea class="form-control mb-4" rows="3"
                                                     wire:model='cat_s_title'></textarea>
                                                 @error('cat_s_title')
-                                                <span class="text-danger">{{ $message }}</span>
+                                                <span class="text-dark">{{ $message }}</span>
                                                 @enderror
                                             </div>
                                         </div>
@@ -152,11 +152,11 @@
                                             <input type="file" class="dropify" wire:model="cat_image" data-height="210">
                                         </div>
                                         @error('cat_image')
-                                        <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-dark">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="col-12">
-                                        <button type="button" class="btn btn-icon btn-primary mb-4 "
+                                        <button type="button" class="btn btn-icon btn-orange mb-4 "
                                             wire:click="submitCategory()">
                                             <span wire:loading wire:target="submitCategory"
                                                 style="height: 20px;width:20px;transition: 0.5s;margin-right: 10px;"
@@ -164,7 +164,7 @@
                                             <span wire:loading.remove
                                                 wire:target="submitCategory">{{ $translations['save'] }}</span>
                                         </button>
-                                        <button type="button" class="btn btn-icon btn-danger mb-4 "
+                                        <button type="button" class="btn btn-icon btn-dark mb-4 "
                                             wire:click="cancelCategory()">
                                             <span wire:loading wire:target="cancelCategory"
                                                 style="height: 20px;width:20px;transition: 0.5s;margin-right: 10px;"
@@ -190,7 +190,7 @@
                                             <div class="dropify-wrapper" style="height: auto">
                                                 @if ($to_delete_image_edit != $loop->index)
                                                 <button style="position: absolute;margin-left: 10px;"
-                                                    class="btn-sm btn-danger mt-2"
+                                                    class="btn-sm btn-dark mt-2"
                                                     wire:click.prevent="to_delete_image_edit({{ $loop->index }})"><i
                                                         class="fa fa-trash-o" data-toggle="tooltip" title=""
                                                         data-original-title="fa fa-trash-o"></i></button>
@@ -200,7 +200,7 @@
                                                     wire:click.prevent="delete_image_edit()"><i class="fa fa-check"
                                                         data-toggle="tooltip"></i></button>
                                                 <button style="position: absolute;margin-left: 50px;"
-                                                    class="btn-sm btn-danger mt-2"
+                                                    class="btn-sm btn-dark mt-2"
                                                     wire:click.prevent="no_delete_image_edit()"><i class="fa fa-times"
                                                         data-toggle="tooltip" title=""
                                                         data-original-title="fa fa-times"></i></button>
@@ -221,7 +221,7 @@
                                             <div class="dropify-wrapper" style="height: auto">
                                                 @if ($to_delete_image_tm != $loop->index)
                                                 <button style="position: absolute;margin-left: 10px;"
-                                                    class="btn-sm btn-danger mt-2"
+                                                    class="btn-sm btn-dark mt-2"
                                                     wire:click.prevent="to_delete_image_tm({{ $loop->index }})"><i
                                                         class="fa fa-trash-o" data-toggle="tooltip" title=""
                                                         data-original-title="fa fa-trash-o"></i></button>
@@ -231,7 +231,7 @@
                                                     wire:click.prevent="delete_image_tm({{ $loop->index }})"><i
                                                         class="fa fa-check" data-toggle="tooltip"></i></button>
                                                 <button style="position: absolute;margin-left: 50px;"
-                                                    class="btn-sm btn-danger mt-2"
+                                                    class="btn-sm btn-dark mt-2"
                                                     wire:click.prevent="no_delete_image_tm()"><i class="fa fa-times"
                                                         data-toggle="tooltip" title=""
                                                         data-original-title="fa fa-times"></i></button>
@@ -275,7 +275,7 @@
                         <div class="e-panel card">
                             <div class="card-header">
                                 <h3 class="card-title">{{ $translations['receipt'] }}</h3>
-                                <button type="button" class="btn btn-icon btn-info float-right ml-auto"
+                                <button type="button" class="btn btn-icon btn-orange float-right ml-auto"
                                     wire:click="addReceipt()">
                                     <span wire:loading wire:target="addReceipt"
                                         style="height: 20px;width:20px;transition: 0.5s;margin-right: 10px;"
@@ -292,12 +292,12 @@
                                         <input class="form-control mb-4" placeholder="{{ $translations['receipt'] }}"
                                             type="text" wire:model='receipts.{{ $key }}'>
                                         @error('receipts.{{ $key }}')
-                                        <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-dark">{{ $message }}</span>
                                         @enderror
                                     </div>
 
                                     <div class="col-2">
-                                        <button type="button" class="btn btn-icon btn-danger mb-4 float-right"
+                                        <button type="button" class="btn btn-icon btn-dark mb-4 float-right"
                                             wire:click='removeReceipt({{ $key }})'>
                                             <span wire:loading wire:target="removeReceipt({{ $key }})"
                                                 style="height: 20px;width:20px;transition: 0.5s;margin-right: 10px;"
@@ -316,7 +316,7 @@
                         <div class="e-panel card mb-1">
                             <div class="card-header">
                                 <h3 class="card-title">{{ $translations['extra_products'] }}</h3>
-                                <button type="button" class="btn btn-icon btn-info float-right ml-auto"
+                                <button type="button" class="btn btn-icon btn-orange float-right ml-auto"
                                     wire:click="addExtra()">
                                     <span wire:loading wire:target="addExtra"
                                         style="height: 20px;width:20px;transition: 0.5s;margin-right: 10px;"
@@ -343,7 +343,7 @@
                                                     placeholder="{{ $translations['title'] }}" type="text"
                                                     wire:model='extras.{{ $key }}.title'>
                                                 @error('extras.{{ $key }}.title')
-                                                <span class="text-danger">{{ $message }}</span>
+                                                <span class="text-dark">{{ $message }}</span>
                                                 @enderror
                                             </div>
                                             <div class="col-8">
@@ -352,7 +352,7 @@
                                                     pattern="[0-9]+([\.,][0-9]+)?" step="0.01"
                                                     wire:model='extras.{{ $key }}.price'>
                                                 @error('extras.{{ $key }}.price')
-                                                <span class="text-danger">{{ $message }}</span>
+                                                <span class="text-dark">{{ $message }}</span>
                                                 @enderror
                                             </div>
                                         </div>
@@ -381,11 +381,11 @@
                                                 data-height="210">
                                         </div>
                                         @error('extras.{{ $key }}.image')
-                                        <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-dark">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="col-12">
-                                        <button type="button" class="btn btn-icon btn-danger float-right"
+                                        <button type="button" class="btn btn-icon btn-dark float-right"
                                             wire:click='removeExtra({{ $key }})'>
                                             <span wire:loading wire:target="removeExtra({{ $key }})"
                                                 style="height: 20px;width:20px;transition: 0.5s;margin-right: 10px;"
@@ -406,7 +406,7 @@
 
             <div class="col-12">
                 @if ($errors->any())
-                <div class="alert alert-danger">
+                <div class="alert alert-dark">
                     <ul>
                         @foreach ($errors->all() as $error)
                         <li>OMG!!! {{ $error }} Fix that!!!</li>
@@ -420,14 +420,14 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-12">
                             @if($editProduct)
-                            <button type="button" class="btn btn-primary"
+                            <button type="button" class="btn btn-orange"
                                 wire:click.prevent="updateProduct()">{{ $translations['update'] }}
                                 <div class="spinner-border text-light" role="status" style='width:20px;height:20px' wire:loading>
                                     <span class="sr-only">Loading...</span>
                                 </div>
                             </button>
                             @else
-                            <button type="button" class="btn btn-primary"
+                            <button type="button" class="btn btn-orange"
                                 wire:click.prevent="submitProduct()">{{ $translations['save'] }}
 
                             <div class="spinner-border text-light" role="status" style='width:20px;height:20px' wire:loading>
@@ -437,7 +437,7 @@
 
                             </button>
                             @endif
-                            <button type="button" class="btn btn-danger"
+                            <button type="button" class="btn btn-dark"
                                 wire:click.prevent="cancel()">{{ $translations['cancel'] }}</button>
                         </div>
                     </div>
