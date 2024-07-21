@@ -916,11 +916,20 @@ window.addEventListener('pdfRendered', event => {
     // Add an event listener for when the iframe has loaded
     iframe.onload = function() {
         // Trigger the print dialog
+        // console.log(iframe.contentWindow);
+ 
+        var check = false
+        var x = 0 ;
+        do {
+            setTimeout(function() {
+                check =   (iframe.contentWindow == undefined);
+                console.log(check);
+            }, 500);
+            x = x + 1 ; 
+        } while ( check == true or x == 6);
 
-        setTimeout(function() {
-            iframe.contentWindow.print();
-        }, 500);
 
+        iframe.contentWindow.print()
 
 
     };

@@ -276,9 +276,9 @@ class Checkout extends Component
                 $this->validate([
                     'address_id' => 'required|integer|max:99999',
                 ]);
+                $address_id = $this->address_id;
 
             } elseif ($this->new_address == true) {
-
                 $this->validate([
                     'client_address' => 'required|string|max:500',
                     'client_city' => 'required|string|max:50',
@@ -322,9 +322,7 @@ class Checkout extends Component
 
                 $address_id = $address->id;
 
-            } else {
-                $address_id = $this->address_id;
-            }
+            } 
         } else {
 
             $this->coming_time = $data['time'] ?? null ;
