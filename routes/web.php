@@ -27,23 +27,7 @@ use App\Http\Controllers\PasswordConfirmationController;
 | contains the "web" middleware group. Now create something great!
 |
  */
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// admin
-Route::get('/test', function () {
-
-
-
-
-    // event(new App\Events\CaiseOrder('Hello World'));
-    event(new App\Events\RealTimeMessage('Hello World'));
-
-    dd(env('PUSHER_APP_KEY'),env('PUSHER_APP_SECRET'),
-    env('PUSHER_APP_ID'),env('PUSHER_APP_CLUSTER'),
-    env('PUSHER_APP_HOST'),env('PUSHER_APP_PORT'),env('PUSHER_APP_SCHEME'));
-
-    
-    dd('DONE');
-});;
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// admi
 
 Route::get('/password/confirm', 'PasswordConfirmationController@showConfirmForm')->name('password.confirm.form');
 Route::post('/password/confirm', 'PasswordConfirmationController@confirm')->name('password.confirm');
@@ -337,6 +321,21 @@ Route::group(['middleware' => ['fw-block-blacklisted', 'fw-block-attacks', 'web'
             return view('404');
         }
     });
+
+
+    Route::get('/maps', function () {
+        $store_info = Store::where('store_meta', env('STOR_NAME'))->first();
+        if (!empty($store_info)) {
+            if ($store_info->status == 1) {
+                return view('livewire.maps.maps_route');
+            } else {
+                return view('desabled');
+            }
+        } else {
+            return view('404');
+        }
+    });
+
 
     Route::get('/competition/{id?}', function ($id = null) {
         return view('livewire.competition.competition_route', ['id' => $id]);

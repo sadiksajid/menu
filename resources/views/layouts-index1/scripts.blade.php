@@ -49,6 +49,8 @@
 
 
 <script>
+
+    
     window.addEventListener('changeURL', event => {
         var data = {
             message: "History updated with replaceState()"
