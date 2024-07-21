@@ -834,6 +834,8 @@
 <script src="{{ asset('js/app.js') }}"></script>
 
 <script>
+$(document).ready(function() {
+
 function playSound() {
     console.log('here');
     const audio = new Audio("{{ URL::asset('assets/mp3/notification.wav') }}");
@@ -855,6 +857,7 @@ Echo.channel('new_orders')
             timer: 3000
         });
     })
+})
 </script>
 
 

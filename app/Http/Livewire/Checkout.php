@@ -442,7 +442,7 @@ class Checkout extends Component
 
 
 
-        // event(new CaiseOrder( $data));
+        event(new CaiseOrder( $data));
 
         $this->dispatchBrowserEvent('swal:confirm_redirect', [
             'type' => 'success',

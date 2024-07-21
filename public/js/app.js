@@ -56,9 +56,9 @@ window.Pusher = (pusher_js__WEBPACK_IMPORTED_MODULE_1___default());
 var config = {
   broadcaster: 'pusher',
   cluster: "mt1",
-  key: "12345",
-  wsHost: process.env.MIX_PUSHER_APP_HOST,
-  wsPort: process.env.MIX_PUSHER_APP_PORTWS,
+  key: "EXP2024INFO_key@",
+  wsHost: "soketi.sys.coolrasto.com",
+  wsPort: "443",
   wssPort: process.env.MIX_PUSHER_APP_PORTWSS,
   forceTLS: false,
   encrypted: true,
