@@ -926,7 +926,7 @@ window.addEventListener('pdfRendered', event => {
                 console.log(check);
             }, 500);
             x = x + 1 ; 
-        } while ( check == true or x == 6);
+        } while ( check == true || x == 6);
 
 
         iframe.contentWindow.print()
