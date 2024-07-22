@@ -1,0 +1,26 @@
+{
+    "sadik": {
+        "normal": "C:\\web\\menu\\vendor\\dompdf\\dompdf\/lib\/fonts\/fonttest",
+        "bold": "C:\\web\\menu\\vendor\\dompdf\\dompdf\/lib\/fonts\/fonttest",
+        "italic": "C:\\web\\menu\\vendor\\dompdf\\dompdf\/lib\/fonts\/fonttest",
+        "bold_italic": "C:\\web\\menu\\vendor\\dompdf\\dompdf\/lib\/fonts\/fonttest"
+    },
+    "branda": {
+        "normal": "C:\\web\\menu\\vendor\\dompdf\\dompdf\/lib\/fonts\/Branda-yolq",
+        "bold": "C:\\web\\menu\\vendor\\dompdf\\dompdf\/lib\/fonts\/Branda-yolq",
+        "italic": "C:\\web\\menu\\vendor\\dompdf\\dompdf\/lib\/fonts\/Branda-yolq",
+        "bold_italic": "C:\\web\\menu\\vendor\\dompdf\\dompdf\/lib\/fonts\/Branda-yolq"
+    },
+    "branda2": {
+        "normal": "C:\\web\\menu\\vendor\\dompdf\\dompdf\/lib\/fonts\/Branda-yolq",
+        "bold": "C:\\web\\menu\\vendor\\dompdf\\dompdf\/lib\/fonts\/Branda-yolq",
+        "italic": "C:\\web\\menu\\vendor\\dompdf\\dompdf\/lib\/fonts\/Branda-yolq",
+        "bold_italic": "C:\\web\\menu\\vendor\\dompdf\\dompdf\/lib\/fonts\/Branda-yolq"
+    },
+    "branda3": {
+        "normal": "storage\/fonts\/Branda-yolq",
+        "bold": "storage\/fonts\/Branda-yolq",
+        "italic": "storage\/fonts\/Branda-yolq",
+        "bold_italic": "storage\/fonts\/Branda-yolq"
+    }
+}

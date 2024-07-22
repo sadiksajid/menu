@@ -15,13 +15,19 @@ return new class extends Migration
     {
         Schema::create('qr_code_templates', function (Blueprint $table) {
             $table->id();
-            $table->string('image',255);
-            $table->string('preview',255);
-            $table->string('logo_config',250)->nullable();
-            $table->string('qr_config',250)->nullable();
-            $table->string('text_config',250)->nullable();
-            $table->string('image_config',250)->nullable();
+            $table->string('preview',255)->nullable();
+            
+            $table->json('image')->nullable();
+            $table->json('qr_config')->nullable();
+            $table->json('logo_config')->nullable();
+            $table->json('phone1_config')->nullable();
+            $table->json('phone2_config')->nullable();
+            $table->json('email_config')->nullable();
+            $table->json('title_config')->nullable();
+
+
             $table->integer('downloads')->default(0);
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

@@ -1340,59 +1340,62 @@
     "color": {
         "en": "Color"
     },
-    "": {
-        "en": ""
+    "width": {
+        "en": "Width"
     },
-    "": {
-        "en": ""
+    "height": {
+        "en": "Height"
     },
-    "": {
-        "en": ""
+    "qr_settings": {
+        "en": "Qr Code Settings"
     },
-    "": {
-        "en": ""
+    "logo_settings": {
+        "en": "Logo Settings"
     },
-    "": {
-        "en": ""
+    "phone1_settings": {
+        "en": "Phone Settings"
     },
-    "": {
-        "en": ""
+    "phone2_settings": {
+        "en": "Phone2 Settings"
     },
-    "": {
-        "en": ""
+    "email_settings": {
+        "en": "Email Settings"
     },
-    "": {
-        "en": ""
+    "font_size": {
+        "en": "Font Size"
     },
-    "": {
-        "en": ""
+    "image_settings": {
+        "en": "Image Settings"
     },
-    "": {
-        "en": ""
+    "template_saved": {
+        "en": "Template saved!"
     },
-    "": {
-        "en": ""
+    "template_not_saved": {
+        "en": "Template not saved!"
     },
-    "": {
-        "en": ""
+    "title_settings": {
+        "en": "Title Settings"
     },
-    "": {
-        "en": ""
+    "center": {
+        "en": "Center"
     },
-    "": {
-        "en": ""
+    "font_url": {
+        "en": "Font Url"
     },
-    "": {
-        "en": ""
+    "font_name": {
+        "en": "Font Name"
     },
-    "": {
-        "en": ""
+    "template_updated": {
+        "en": "Template Updated!"
     },
-    "": {
-        "en": ""
+    "delete_template": {
+        "en": "Delete Template!"
     },
-    "": {
-        "en": ""
+    "delete_template_question": {
+        "en": "'Are you sure you want to delete Template ?'"
+    },
+    "delete_template_success": {
+        "en": "'Template deleted Successfully!'"
     },
     "": {
         "en": ""

@@ -1,4 +1,5 @@
 <div>
+    fty
     <div class='container'>
         <div class='row'>
             <div class='col-md-6 col-12'>
@@ -11,6 +12,20 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            @foreach ($all_qr as $image)
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12" wire:click='GeneratQR({{$image["id"]}})'>
+                <div class="card"> <img src="{{ get_image('tmb/'.$image['image']['link']) }}"
+                        onerror="this.onerror=null;this.src='https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg';"
+                        class="card-img-top" alt="...">
+                    
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+
     </div>
 </div>
 

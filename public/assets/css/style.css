@@ -25411,6 +25411,11 @@ input:checked + .slider {
   background-color: #d14d00;
 }
 
+.switch-dark input:checked + .slider {
+  background-color: #343a40;
+}
+
+
 input:focus + .slider {
   box-shadow: 0 0 1px #d14d00;
 }
