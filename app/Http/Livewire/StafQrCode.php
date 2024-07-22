@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Cache;
+use Symfony\Component\Process\Process;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\OverWrite\NewGetBarcodeHTML;
@@ -56,7 +57,7 @@ class StafQrCode extends Component
     public $title_font_size;
     public $title_color;
     public $title_center;
-    public $title_font_url;
+    public $title_font_file;
     public $title_font_name;
 
 
@@ -66,7 +67,7 @@ class StafQrCode extends Component
     public $phone1_font_size;
     public $phone1_color;
     public $phone1_center;
-    public $phone1_font_url;
+    public $phone1_font_file;
     public $phone1_font_name;
 
     public $phone2_left;
@@ -74,7 +75,7 @@ class StafQrCode extends Component
     public $phone2_font_size;
     public $phone2_color;
     public $phone2_center;
-    public $phone2_font_url;
+    public $phone2_font_file;
     public $phone2_font_name;
 
     public $email_left;
@@ -82,7 +83,7 @@ class StafQrCode extends Component
     public $email_font_size;
     public $email_color;
     public $email_center;
-    public $email_font_url;
+    public $email_font_file;
     public $email_font_name;
 
 //////////////////////////////////////////
@@ -135,7 +136,14 @@ public $inputs_array = ['title','phone1','phone2','email'];
     
     public function submitImage()
     {
-       
+        dd($this->title_font_file);
+        $this->title_font_file->store('all_fonts', 'public');
+        // dd($fileName);
+        $result = Process::run('php load_font.php Branda3 .\storage\Branda-yolq.ttf');
+
+
+
+
   
         $pass = true ;
 
@@ -216,7 +224,7 @@ public $inputs_array = ['title','phone1','phone2','email'];
                 $key_center = $key."_center";
                 $key_left = $key."_left";
                 $key_font_name = $key."_font_name";
-                $key_font_url = $key."_font_url";
+                $key_font_file = $key."_font_file";
 
 
                 $valid1 = [
@@ -239,14 +247,14 @@ public $inputs_array = ['title','phone1','phone2','email'];
                     ]);
                 }
     
-                if(!$this->$key_font_name != null or $this->$key_font_url != null){
+                if(!$this->$key_font_name != null or $this->$key_font_file != null){
                     $valid1 = array_merge($valid1, [
-                        $key_font_url => $this->$key_font_url,
+                        $key_font_file => $this->$key_font_file,
                         $key_font_name => $this->$key_font_name,
                     ]);
                     $valid2 = array_merge($valid2,  [
-                        $key_font_url => ['nullable', 'string','max:250'],
-                        $key_font_name => ['nullable', 'string','max:250'],
+                        $key_font_file => ['required', 'string','max:250'],
+                        $key_font_name => ['required', 'string','max:250'],
                     ]);
                 }
     
@@ -314,7 +322,7 @@ public $inputs_array = ['title','phone1','phone2','email'];
                             $key_center = $key."_center";
                             $key_left = $key."_left";
                             $key_font_name = $key."_font_name";
-                            $key_font_url = $key."_font_url";
+                            $key_font_file = $key."_font_file";
                             $key_config = $key."_config";
             
             
@@ -322,7 +330,7 @@ public $inputs_array = ['title','phone1','phone2','email'];
                                 'font-size' => $this->$key_font_size * 1.333,
                                 'color' => $this->$key_color,
                                 'top' => $this->$key_top,
-                                'font_url' => $this->$key_font_url,
+                                'font_url' => $this->$key_font_file,
                                 'font_name' => $this->$key_font_name,
     
     
@@ -429,13 +437,13 @@ public function editQR($id)
             $key_center = $key."_center";
             $key_left = $key."_left";
             $key_font_name = $key."_font_name";
-            $key_font_url = $key."_font_url";
+            $key_font_file = $key."_font_file";
 
             $this->$key_check       = true ;
             $this->$key_font_size   =  number_format(($image->$key_config['font-size'] / 1.333 ), 2, '.', '');
             $this->$key_color       = $image->$key_config['color'] ;
             $this->$key_top         = $image->$key_config['top'] ;
-            $this->$key_font_url    = $image->$key_config['font_url'] ?? null ;
+            $this->$key_font_file    = $image->$key_config['font_url'] ?? null ;
             $this->$key_font_name   = $image->$key_config['font_name']  ?? null;
 
             if(isset($image->$key_config['position'] )){
@@ -541,7 +549,7 @@ public function editQR($id)
                 $key_center = $key."_center";
                 $key_left = $key."_left";
                 $key_font_name = $key."_font_name";
-                $key_font_url = $key."_font_url";
+                $key_font_file = $key."_font_file";
 
 
                 $valid1 = [
@@ -564,14 +572,14 @@ public function editQR($id)
                     ]);
                 }
     
-                if(!$this->$key_font_name != null or $this->$key_font_url != null){
+                if(!$this->$key_font_name != null or $this->$key_font_file != null){
                     $valid1 = array_merge($valid1, [
-                        $key_font_url => $this->$key_font_url,
+                        $key_font_file => $this->$key_font_file,
                         $key_font_name => $this->$key_font_name,
                     ]);
                     $valid2 = array_merge($valid2,  [
-                        $key_font_url => ['nullable', 'string','max:250'],
-                        $key_font_name => ['nullable', 'string','max:250'],
+                        $key_font_file => ['required', 'string','max:250'],
+                        $key_font_name => ['required', 'string','max:250'],
                     ]);
                 }
     
@@ -647,15 +655,21 @@ public function editQR($id)
                         $key_center = $key."_center";
                         $key_left = $key."_left";
                         $key_font_name = $key."_font_name";
-                        $key_font_url = $key."_font_url";
+                        $key_font_file = $key."_font_file";
                         $key_config = $key."_config";
-        
+
+                        $file =  $this->$key_font_file;
+                        $fileName = $file->getClientOriginalName();
+                        $file->storeAs('all_fonts', $fileName, 'public');
+                        dd($fileName);
+                        $result = Process::run('php load_font.php Branda3 .\storage\Branda-yolq.ttf');
+
         
                         $conf  =  [
                             'font-size' => $this->$key_font_size * 1.333,
                             'color' => $this->$key_color,
                             'top' => $this->$key_top,
-                            'font_url' => $this->$key_font_url,
+                            'font_url' => $this->$key_font_file,
                             'font_name' => $this->$key_font_name,
 
 
@@ -732,7 +746,7 @@ public function editQR($id)
         $title_font_size = null  ;
         $title_color = null  ;
         $title_center = false  ;
-        $title_font_url = null  ;
+        $title_font_file = null  ;
         $title_font_name = null  ;
 
 
@@ -742,7 +756,7 @@ public function editQR($id)
         $phone1_font_size = null  ;
         $phone1_color = null  ;
         $phone1_center = false  ;
-        $phone1_font_url = null  ;
+        $phone1_font_file = null  ;
         $phone1_font_name = null  ;
 
         $phone2_left = null  ;
@@ -750,7 +764,7 @@ public function editQR($id)
         $phone2_font_size = null  ;
         $phone2_color = null  ;
         $phone2_center = false  ;
-        $phone2_font_url = null  ;
+        $phone2_font_file = null  ;
         $phone2_font_name = null  ;
 
         $email_left = null  ;
@@ -758,7 +772,7 @@ public function editQR($id)
         $email_font_size = null  ;
         $email_color = null  ;
         $email_center = false  ;
-        $email_font_url = null  ;
+        $email_font_file = null  ;
         $email_font_name = null  ;
 
     }

@@ -297,10 +297,9 @@
                                             </div>
                                             <div class='col-md-6 col-8'>
                                                 <label
-                                                    class="col-md-12 form-label">{{ $translations['font_url'] }}</label>
-                                                <input class="form-control mb-4"
-                                                    placeholder="{{ $translations['font_url'] }}" type="text"
-                                                    wire:model.defer='{{$input}}_font_url'>
+                                                    class="col-md-12 form-label">{{ $translations['font_file'] }} ( .ttf or .otf )</label>
+                                                <input class="form-control mb-4" type="file"
+                                                    wire:model='{{$input}}_font_file' >
                                             </div>
                                         </div>
                                     </div>
