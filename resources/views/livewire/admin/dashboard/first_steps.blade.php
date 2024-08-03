@@ -9,6 +9,9 @@
             background-color:#343a40;
             border-radius:4px;
         }
+        .wizard > .actions > ul > li:last-child a{
+            background-color:#343a40;
+        }
     </style>
     <div class="container">
         <div id="wizard">
@@ -78,18 +81,38 @@
 </div>
 @section('js')
 <script src="{{ URL::asset('assets/js/jquery.steps.min.js')}}"></script>
-<script src="{{ URL::asset('assets/js/bd-wizard.js')}}"></script>
 
 <script>
+
+
+
 $(document).ready(function() {
+
+    var  $wizard = $("#wizard").steps({
+        forceMoveForward : true,
+        headerTag: "h3",
+        bodyTag: "section",
+        transitionEffect: "none",
+        stepsOrientation: "vertical",
+        titleTemplate: '<span class="number">#index#</span>',
+        onFinished: function (event, currentIndex) {
+            Livewire.emit('finishSteps')
+
+        }
+    });
+
     $('.number').each(function() {
         if ($(this).text().trim() === '1') {
             if (@json($finish_step1 == false)) {
                 $(this).addClass('bg-orange');
+                $wizard.steps("next");
+
             }
         }else if ($(this).text().trim() === '2') {
             if (@json($finish_step2 == false)) {
                 $(this).addClass('bg-orange');
+                $wizard.steps("next");
+
             }
         }else if ($(this).text().trim() === '3') {
             if (@json($finish_step3 == false)) {

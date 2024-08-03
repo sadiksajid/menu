@@ -23,20 +23,28 @@ class AdminMarketing extends Component
     public $store_meta ;
     public $store_url ;
     public $paginat = 20 ;
+    public $fixed_templates ;
+
+    //////////////////////////
+    public $background_color = null  ;
+    public $content_color  = null  ;
+    public $qr_color = null  ;
 
 ////////////////////////////////
     public $langs;
     public $translations;
 
+    protected $listeners = ['GeneratFixQR'];
+
     public function mount()
     {
-
+        $this->fixed_templates = json_decode(file_get_contents(storage_path('app/Public/qr_templates/qr_code_templates.json')), true);
         $this->langs = languages()['langs'];
         $this->translations = app('translations_admin');
         ///////////////////////////////////
         $this->store_info = Auth::user()->store ;
         $this->store_meta = $this->store_info->store_meta ;
-        $this->store_url = Request::root().$this->store_meta.'/menu';
+        $this->store_url = Request::root().'/'.$this->store_meta.'/menu';
         $this->getQrCodes();
 
     }
@@ -103,24 +111,79 @@ class AdminMarketing extends Component
         
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
+        $options->setFontDir(storage_path('fonts')); // not working for me
+
         $pdf = new Dompdf($options);
         $pdf->loadHtml(View::make('livewire.admin.marketing.qr_template', $data));
         $pdf->setPaper([0, 0,$template['image']['width'],$template['image']['height']]); 
           
         $pdf->render();
 
-        $output = $pdf->output();
-        $filePath = 'security_code_card.pdf';
+        // $output = $pdf->output();
+        // $filePath = 'qrCode-'.$id.'.pdf';
 
-        Storage::put($filePath, $output);
+        // // Storage::put($filePath, $output);
 
-        return response()->download(storage_path('app/' . $filePath))->deleteFileAfterSend(true);
+        
+        $this->dispatchBrowserEvent('pdfRendered', [
+            'pdfData' => base64_encode($pdf->output()),
+        ]);
+
+
+        // return response()->download(storage_path('app/' . $filePath))->deleteFileAfterSend(true);
 
 
         
      
     }
 
+    public function GeneratFixQR($key){
+        $page_info = $this->fixed_templates[$key];
+        $generator = new NewGetBarcodeHTML();
+
+        $qr_color = $this->qr_color ?? $page_info['QR_code']['color'] ;
+        $content_color = $this->content_color ?? $page_info['text']['color'] ;
+        $background_color = $this->background_color ?? $page_info['page']['color'] ;
+
+        $QRcode = $generator->getBarcodeHTML($this->store_url, 'QRCODE',$page_info['QR_code']['height'],$page_info['QR_code']['width'],$page_info['QR_code']['top'],$page_info['QR_code']['left'],$qr_color);
+
+        $extention = pathinfo($page_info['image'], PATHINFO_EXTENSION) ;
+        $content = file_get_contents(public_path($page_info['image']));
+
+        $content = str_replace( $page_info['text']['color'] , $content_color , $content);
+
+        $bgBase64 = 'data:image/'.$extention.';base64,' . base64_encode($content);
+
+        $data = [
+            'QRcode' => $QRcode,
+            'template'=>$page_info,
+            'bgBase64' => $bgBase64,
+            'background_color' =>  $background_color,
+        ];
+
+        
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->setFontDir(storage_path('fonts')); // not working for me
+
+        $pdf = new Dompdf($options);
+        $pdf->loadHtml(View::make('livewire.admin.marketing.qr_template_fixed', $data));
+        $pdf->setPaper([0, 0,$page_info['page']['width'],$page_info['page']['height']]); 
+          
+        $pdf->render();
+
+        
+        $this->dispatchBrowserEvent('pdfRendered', [
+            'pdfData' => base64_encode($pdf->output()),
+        ]);
+
+        $this->qr_color = $qr_color ;
+        $this->content_color = $content_color ;
+        $this->background_color = $background_color ;
+
+
+
+    }
 
 
 

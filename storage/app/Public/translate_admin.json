@@ -1,4 +1,9 @@
 {
+    "weekdays": {
+        "en": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "ar": ["الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت", "الأحد"],
+        "fr": ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"]
+    },
     "login": {
         "en": "Login",
         "ar": "تسجيل الدخول",
@@ -1311,94 +1316,716 @@
         "fr": "En-tête du menu"
     },
     "products_lib": {
-        "en": "Products Library"
+        "en": "Products Library",
+        "ar": "مكتبة المنتجات",
+        "fr": "Bibliothèque de produits"
     },
     "imported": {
-        "en": "Imported"
+        "en": "Imported",
+        "ar": "مستورد",
+        "fr": "Importé"
     },
     "marketing_tool": {
-        "en": "Marketing Tool"
+        "en": "Marketing Tool",
+        "ar": "أداة تسويق",
+        "fr": "Outil de marketing"
     },
     "copy_link": {
-        "en": "Copy Link"
+        "en": "Copy Link",
+        "ar": "نسخ الرابط",
+        "fr": "Copier le lien"
     },
     "your_link": {
-        "en": "Your Link"
+        "en": "Your Link",
+        "ar": "رابطك",
+        "fr": "Votre lien"
     },
     "link_copied": {
-        "en": "Link Copied"
+        "en": "Link Copied",
+        "ar": "تم نسخ الرابط",
+        "fr": "Lien copié"
     },
     "qr_code_list": {
-        "en": "QR Code list"
+        "en": "QR Code list",
+        "ar": "قائمة رموز الاستجابة السريعة",
+        "fr": "Liste des QR Codes"
     },
     "left": {
-        "en": "Left"
+        "en": "Left",
+        "ar": "يسار",
+        "fr": "Gauche"
     },
     "top": {
-        "en": "Top"
+        "en": "Top",
+        "ar": "أعلى",
+        "fr": "Haut"
     },
     "color": {
-        "en": "Color"
+        "en": "Color",
+        "ar": "لون",
+        "fr": "Couleur"
     },
     "width": {
-        "en": "Width"
+        "en": "Width",
+        "ar": "عرض",
+        "fr": "Largeur"
     },
     "height": {
-        "en": "Height"
+        "en": "Height",
+        "ar": "ارتفاع",
+        "fr": "Hauteur"
     },
     "qr_settings": {
-        "en": "Qr Code Settings"
+        "en": "Qr Code Settings",
+        "ar": "إعدادات رمز الاستجابة السريعة",
+        "fr": "Paramètres du QR Code"
     },
     "logo_settings": {
-        "en": "Logo Settings"
+        "en": "Logo Settings",
+        "ar": "إعدادات الشعار",
+        "fr": "Paramètres du logo"
     },
     "phone1_settings": {
-        "en": "Phone Settings"
+        "en": "Phone Settings",
+        "ar": "إعدادات الهاتف",
+        "fr": "Paramètres du téléphone"
     },
     "phone2_settings": {
-        "en": "Phone2 Settings"
+        "en": "Phone2 Settings",
+        "ar": "إعدادات الهاتف 2",
+        "fr": "Paramètres du téléphone 2"
     },
     "email_settings": {
-        "en": "Email Settings"
+        "en": "Email Settings",
+        "ar": "إعدادات البريد الإلكتروني",
+        "fr": "Paramètres de l'email"
     },
     "font_size": {
-        "en": "Font Size"
+        "en": "Font Size",
+        "ar": "حجم الخط",
+        "fr": "Taille de la police"
     },
     "image_settings": {
-        "en": "Image Settings"
+        "en": "Image Settings",
+        "ar": "إعدادات الصورة",
+        "fr": "Paramètres de l'image"
     },
     "template_saved": {
-        "en": "Template saved!"
+        "en": "Template saved!",
+        "ar": "تم حفظ القالب!",
+        "fr": "Modèle enregistré !"
     },
     "template_not_saved": {
-        "en": "Template not saved!"
+        "en": "Template not saved!",
+        "ar": "لم يتم حفظ القالب!",
+        "fr": "Modèle non enregistré !"
     },
     "title_settings": {
-        "en": "Title Settings"
+        "en": "Title Settings",
+        "ar": "إعدادات العنوان",
+        "fr": "Paramètres du titre"
     },
     "center": {
-        "en": "Center"
+        "en": "Center",
+        "ar": "مركز",
+        "fr": "Centre"
     },
     "font_url": {
-        "en": "Font Url"
+        "en": "Font Url",
+        "ar": "رابط الخط",
+        "fr": "URL de la police"
     },
     "font_name": {
-        "en": "Font Name"
+        "en": "Font Name",
+        "ar": "اسم الخط",
+        "fr": "Nom de la police"
     },
     "template_updated": {
-        "en": "Template Updated!"
+        "en": "Template Updated!",
+        "ar": "تم تحديث القالب!",
+        "fr": "Modèle mis à jour !"
     },
     "delete_template": {
-        "en": "Delete Template!"
+        "en": "Delete Template!",
+        "ar": "حذف القالب!",
+        "fr": "Supprimer le modèle !"
     },
     "delete_template_question": {
-        "en": "'Are you sure you want to delete Template ?'"
+        "en": "Are you sure you want to delete Template?",
+        "ar": "هل أنت متأكد أنك تريد حذف القالب؟",
+        "fr": "Êtes-vous sûr de vouloir supprimer le modèle ?"
     },
     "delete_template_success": {
-        "en": "'Template deleted Successfully!'"
+        "en": "Template deleted Successfully!",
+        "ar": "تم حذف القالب بنجاح!",
+        "fr": "Modèle supprimé avec succès !"
     },
     "font_file": {
-        "en": "Font File"
+        "en": "Font File",
+        "ar": "ملف الخط",
+        "fr": "Fichier de police"
+    },
+    "preview": {
+        "en": "Preview",
+        "ar": "معاينة",
+        "fr": "Aperçu"
+    },
+    "content_color": {
+        "en": "Content Color",
+        "ar": "لون المحتوى",
+        "fr": "Couleur du contenu"
+    },
+    "qr_color": {
+        "en": "QrCode Color",
+        "ar": "لون رمز الاستجابة السريعة",
+        "fr": "Couleur du QR Code"
+    },
+    "download": {
+        "en": "Download",
+        "ar": "تحميل",
+        "fr": "Télécharger"
+    },
+    "you_are_offline": {
+        "en": "You Are Offline!",
+        "ar": "أنت غير متصل بالإنترنت!",
+        "fr": "Vous êtes hors ligne !"
+    },
+    "check_internet": {
+        "en": "please check your internet",
+        "ar": "يرجى التحقق من الإنترنت الخاص بك",
+        "fr": "veuillez vérifier votre connexion Internet"
+    },
+    "marketing": {
+        "en": "Marketing",
+        "ar": "تسويق",
+        "fr": "Marketing"
+    },
+    "security_codes": {
+        "en": "Security Codes",
+        "ar": "رموز الأمان",
+        "fr": "Codes de sécurité"
+    },
+    "header_images": {
+        "en": "Header Images",
+        "ar": "صور الرأس",
+        "fr": "Images d'en-tête"
+    },
+    "qr_code": {
+        "en": "Qr Codes",
+        "ar": "رموز الاستجابة السريعة",
+        "fr": "QR Codes"
+    },
+    "shipping_companies": {
+        "en": "Shipping Companies",
+        "ar": "شركات الشحن",
+        "fr": "Entreprises de transport"
+    },
+    "shipping_company_info": {
+        "en": "Shipping Company Information",
+        "ar": "معلومات شركة الشحن",
+        "fr": "Informations sur l'entreprise de transport"
+    },
+    "company_name": {
+        "en": "Company Name",
+        "ar": "اسم الشركة",
+        "fr": "Nom de l'entreprise"
+    },
+    "company_tag": {
+        "en": "Company Tag",
+        "ar": "علامة الشركة",
+        "fr": "Tag de l'entreprise"
+    },
+    "company_url": {
+        "en": "Company URL",
+        "ar": "رابط الشركة",
+        "fr": "URL de l'entreprise"
+    },
+    "company_logo": {
+        "en": "Company Logo",
+        "ar": "شعار الشركة",
+        "fr": "Logo de l'entreprise"
+    },
+    "info": {
+        "en": "Info",
+        "ar": "معلومات",
+        "fr": "Info"
+    },
+    "country": {
+        "en": "Country",
+        "ar": "البلد",
+        "fr": "Pays"
+    },
+    "cities": {
+        "en": "Cities",
+        "ar": "مدن",
+        "fr": "Villes"
+    },
+    "company_location": {
+        "en": "Company Location",
+        "ar": "موقع الشركة",
+        "fr": "Emplacement de l'entreprise"
+    },
+    "company_working_time": {
+        "en": "Working Time",
+        "ar": "ساعات العمل",
+        "fr": "Heures de travail"
+    },
+    "from": {
+        "en": "From",
+        "ar": "من",
+        "fr": "De"
+    },
+    "to": {
+        "en": "To",
+        "ar": "إلى",
+        "fr": "À"
+    },
+    "user_name": {
+        "en": "UserName",
+        "ar": "اسم المستخدم",
+        "fr": "Nom d'utilisateur"
+    },
+    "token": {
+        "en": "Token",
+        "ar": "رمز",
+        "fr": "Jeton"
+    },
+    "company_saved": {
+        "en": "Shipping Company saved successfully",
+        "ar": "تم حفظ شركة الشحن بنجاح",
+        "fr": "L'entreprise de transport a été sauvegardée avec succès"
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
+    },
+    "": {
+        "en": ""
     },
     "": {
         "en": ""

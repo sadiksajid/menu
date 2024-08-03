@@ -18,7 +18,7 @@
 
 @php
 $location = GetLocation();
-$country_code = $location['country_code'] ;
+$country_code = $location['countryCode'] ;
 @endphp
 
 <!-- ///////////////////////////////////////////////////////////// for register -->

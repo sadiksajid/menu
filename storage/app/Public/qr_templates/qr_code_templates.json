@@ -1,0 +1,59 @@
+{
+    "template_1": {
+        "image":"/storage/qr_templates/template_1.svg",
+        "preview":"/storage/qr_templates/template_1.jpg",
+        "page": {
+            "width":"1000",
+            "height":"600",
+            "color":"#FFFFFF"
+        },
+        "QR_code": {
+            "width":"360",
+            "height":"360",
+            "top":"120.664",
+            "left":"112.547",
+            "color":"#333"
+        },
+        "text": {
+            "color":"#333"
+        }
+    },
+    "template_2": {
+        "image":"/storage/qr_templates/template_2.svg",
+        "preview":"/storage/qr_templates/template_2.jpg",
+        "page": {
+            "width":"1000",
+            "height":"600",
+            "color":"#FFFFFF"
+        },
+        "QR_code": {
+            "width":"312",
+            "height":"312",
+            "top":"153.3698",
+            "left":"90.7263",
+            "color":"#FF9400"
+        },
+        "text": {
+            "color":"#333"
+        }
+    },
+    "template_3": {
+        "image":"/storage/qr_templates/template_3.svg",
+        "preview":"/storage/qr_templates/template_3.jpg",
+        "page": {
+            "width":"1748",
+            "height":"2480",
+            "color":"#FFFFFF"
+        },
+        "QR_code": {
+            "width":"1009",
+            "height":"1009",
+            "top":"1157.5936",
+            "left":"369.8437",
+            "color":"#F26322"
+        },
+        "text": {
+            "color":"#333"
+        }
+    }
+}

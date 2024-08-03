@@ -15,6 +15,12 @@
                     max-height: 100%;
                 }
             }
+
+            .side_btn {
+                border-radius: 20px;
+                margin-right: 10px;
+            }
+    
         </style>
         <div class="app-sidebar__user">
             <div class="dropdown user-pro-body text-center">
@@ -28,63 +34,55 @@
             </div>
         </div>
         <ul class="side-menu app-sidebar3">
+  
+
             <li class="slide">
                 <a class="side-menu__item" href="{{ url('/staf/dashboard') }}">
-                    <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24"
-                        width="24">
-                        <path d="M0 0h24v24H0V0z" fill="none" />
-                        <path
-                            d="M19 5v2h-4V5h4M9 5v6H5V5h4m10 8v6h-4v-6h4M9 17v2H5v-2h4M21 3h-8v6h8V3zM11 3H3v10h8V3zm10 8h-8v10h8V11zm-10 4H3v6h8v-6z" />
-                    </svg>
-                    <span class="side-menu__label"> {{ $translations['dashboard'] }}  </span></a>
-            </li>
+                    <button class='btn btn-light side_btn'><i class="fa fa-bar-chart-o"></i></button>
 
+                    <span class="side-menu__label"> {{ $translations['dashboard'] }} </span></a>
+            </li>
 
             <li class="slide mt-3">
                 <a class="side-menu__item" href="{{ url('/staf/products') }}">
-                    <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 16 16 "
-                        width="24">
-                        <path d="M0 0h24v24H0V0z" fill="none" />
-                        <path
-                            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-
-                    </svg>
-                    <span class="side-menu__label">{{ $translations['products'] }} </span><i class="angle fa fa-angle-right"></i>
+                    <button class='btn btn-light side_btn'><i class="fa fa-shopping-bag"></i></button>
+                    <span class="side-menu__label">{{ $translations['products'] }} </span><i
+                        class="angle fa fa-angle-right"></i>
                 </a>
 
             </li>
-    
-     
+
+
+
+
             <li class="slide mt-3">
                 <a class="side-menu__item" href="{{ url('/staf/header_images') }}">
-                    <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 16 16 "
-                        width="24">
-                        <path d="M0 0h24v24H0V0z" fill="none" />
-                        <path
-                            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-
-                    </svg>
-                    <span class="side-menu__label">Header Images</span><i class="angle fa fa-angle-right"></i>
+                    <button class='btn btn-light side_btn'><i class="fa fa-image"></i></button>
+                    <span class="side-menu__label">{{ $translations['header_images'] }} </span><i
+                        class="angle fa fa-angle-right"></i>
                 </a>
 
             </li>
 
             <li class="slide mt-3">
                 <a class="side-menu__item" href="{{ url('/staf/qr_code') }}">
-                    <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 16 16 "
-                        width="24">
-                        <path d="M0 0h24v24H0V0z" fill="none" />
-                        <path
-                            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-
-                    </svg>
-                    <span class="side-menu__label">Qr Codes</span><i class="angle fa fa-angle-right"></i>
+                    <button class='btn btn-light side_btn'><i class="fa fa-qrcode"></i></button>
+                    <span class="side-menu__label">{{ $translations['qr_code'] }} </span><i
+                        class="angle fa fa-angle-right"></i>
                 </a>
 
             </li>
 
 
+            <a class="side-menu__item" href="{{ url('/staf/shipping_companies') }}">
+                    <button class='btn btn-light side_btn'><i class="fa fa-truck"></i></button>
+                    <span class="side-menu__label">{{ $translations['shipping_companies'] }} </span><i
+                        class="angle fa fa-angle-right"></i>
+                </a>
 
+            </li>
+
+<!-- 
             <li class="slide mt-3">
                 <a class="side-menu__item" href="{{ url('/staf/clients') }}">
                     <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -100,8 +98,8 @@
                     <span class="side-menu__label">{{ $translations['my_clients'] }}</span><i class="angle fa fa-angle-right"></i>
                 </a>
 
-            </li>
-
+            </li> -->
+<!-- 
             <li class="slide mt-3">
                 <a class="side-menu__item" href="/staf/store_info">
                     <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 20 20"
@@ -113,7 +111,7 @@
                 </a>
 
             </li>
-          
+           -->
  
      
 

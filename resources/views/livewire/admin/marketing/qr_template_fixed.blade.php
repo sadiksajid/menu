@@ -5,21 +5,14 @@
     <style>
     @page {
         margin: 0px;
+        padding: 0;
+
     }
 
-    html {
-        background-color: red
-    }
 
     body {
-        background-image: url('{{$bgBase64}}');
-        background-size: cover;
-        /* Adjust the size as needed */
-        background-repeat: no-repeat;
-        /* Prevents the image from repeating */
-        background-position: center;
-        /* Centers the image */
-        /* font-family: Arial, sans-serif; */
+        background-color:{{$background_color}};
+
         margin: 0;
         padding: 0;
         left: 0px;
@@ -34,6 +27,9 @@
 </head>
 
 <body>
+    <img src="{{$bgBase64}}" alt="" style='width:!00%;height:100%'>
+
+    </div>
     <div class='qr_code_div'>
         {!! $QRcode !!}
     </div>

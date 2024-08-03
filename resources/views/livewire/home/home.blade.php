@@ -14,12 +14,12 @@
 
     <div id="content">
         <div class="slider-block style-one">
-            <div class="slider-main">
+            <div class="slider-main " style='margin-top:85px'>
                 <div class="container">
                     <div class="row center_mobile">
                         <div class="col-xl-6">
                             <div class="text-content">
-                                <div class="heading1 scroll-bottom-to-top2">{{ $translations['title1'] ?? 'text'}}</div>
+                                <div class="heading1 scroll-bottom-to-top2" style='font-size:60px'>{{ $translations['title1'] ?? 'text'}}</div>
                                 <div class="body2 text-placehover mt-40">{{ $translations['title2'] ?? 'text'}}</div><a
                                     class="button button-blue-hover mt-40 register_popup" href="#"> <span>
                                         <span></span></span><span

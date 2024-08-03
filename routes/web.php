@@ -14,6 +14,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\StafAuthController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\DataTables\ShippingCompaniesDataTable;
 
 /*
 |--------------------------------------------------------------------------
@@ -428,6 +429,15 @@ Route::group(['prefix' => 'staf', 'middleware' => ['auth:staf', 'fw-block-blackl
     Route::get('/qr_code', function () {
         return view('livewire.staf.qr_code.qr_code_route' );
     });
-
+    Route::get('/shipping_companies', function () {
+        return view('livewire.staf.shipping_companies.shipping_companies_route',['type'=>'list'] );
+    });
+    Route::get('/shipping_companies/add', function () {
+        return view('livewire.staf.shipping_companies.shipping_companies_route',['type'=>'add'] );
+    });
+    Route::get('/shipping_companies/edit/{id}', function ($id) {
+        return view('livewire.staf.shipping_companies.shipping_companies_route',['type'=>'edit','id'=>$id] );
+    });
+    route::post('/datatables/shipping_companies/list', ['as' => 'datatables.shipping_companies.list', 'uses' => 'ShippingCompaniesDataTable@ShippingCompaniesList']);
 
 });

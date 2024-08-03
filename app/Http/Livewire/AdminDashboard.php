@@ -3,14 +3,15 @@
 namespace App\Http\Livewire;
 
 use App\Models\Client;
-use App\Models\OrderProducte;
-use App\Models\ProductView;
-use App\Models\StoreOrder;
+use Livewire\Component;
 use App\Models\StoreView;
+use App\Models\StoreOrder;
+use App\Models\ProductView;
+use App\Models\OrderProducte;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
 use Symfony\Component\Intl\Currencies;
+use Illuminate\Support\Facades\Redirect;
 
 class AdminDashboard extends Component
 {
@@ -43,11 +44,12 @@ class AdminDashboard extends Component
     public $finish_step3 = false;
     ////////////////////////////
     public $translations;
+    protected $listeners = ['finishSteps'];
+
 
     public function mount()
     {
         $this->translations = app('translations_admin');
-
         $this->today = Carbon::today()->format('Y-m-d');
         $this->yasterday = Carbon::today()->subDays(1)->format('Y-m-d');
         $this->store_info = Auth::user()->store;
@@ -99,6 +101,18 @@ class AdminDashboard extends Component
 
         }
     }
+
+
+
+    public function finishSteps()
+    {
+        $this->store_info->first_run = 0 ;
+        $this->store_info->save() ;
+
+        return Redirect::to('/admin/dashboard');
+
+    }
+
     public function getOrders()
     {
         $this->orders_list = StoreOrder::where('store_id', $this->store_info->id)

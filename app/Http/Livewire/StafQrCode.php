@@ -10,6 +10,7 @@ use Livewire\WithFileUploads;
 use App\Models\QrCodeTemplate;
 use App\Models\StafTagToTable;
 use App\Models\StafHeaderImage;
+use App\Http\Controllers\LoadFont;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,10 @@ class StafQrCode extends Component
     public $paginat = 20;
     public $translations;
 /////////////////////////
+
+    public $qr_image;
+    public $qr_preview;
+
     public $logo_check = false ;
     public $title_check = false ;
     public $phone1_check = false ;
@@ -93,7 +98,7 @@ public $inputs_array = ['title','phone1','phone2','email'];
     public $store_id;
     public $langs;
     public $store_info;
-    public $qr_image;
+
     public $image_to_delete = null;
     public $image_to_update = null;
 
@@ -136,20 +141,13 @@ public $inputs_array = ['title','phone1','phone2','email'];
     
     public function submitImage()
     {
-        dd($this->title_font_file);
-        $this->title_font_file->store('all_fonts', 'public');
-        // dd($fileName);
-        $result = Process::run('php load_font.php Branda3 .\storage\Branda-yolq.ttf');
 
-
-
-
-  
         $pass = true ;
 
         $validator = Validator::make(
             [
                 'qr_image' => $this->qr_image,
+                'qr_preview' => $this->qr_preview,
                 'qr_left' => $this->qr_left,
                 'qr_top' => $this->qr_top,
                 'qr_width' => $this->qr_width,
@@ -162,6 +160,7 @@ public $inputs_array = ['title','phone1','phone2','email'];
             ],
             [
             'qr_image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'qr_preview' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
             'qr_left' => ['required', 'regex:/^[0-9]*[.,]?[0-9]+$/'],
             'qr_top' => ['required', 'regex:/^[0-9]*[.,]?[0-9]+$/'],
             'qr_width' => ['required', 'regex:/^[0-9]*[.,]?[0-9]+$/'],
@@ -247,13 +246,14 @@ public $inputs_array = ['title','phone1','phone2','email'];
                     ]);
                 }
     
-                if(!$this->$key_font_name != null or $this->$key_font_file != null){
+                if($this->$key_font_name != null or $this->$key_font_file != null){
                     $valid1 = array_merge($valid1, [
                         $key_font_file => $this->$key_font_file,
                         $key_font_name => $this->$key_font_name,
                     ]);
                     $valid2 = array_merge($valid2,  [
-                        $key_font_file => ['required', 'string','max:250'],
+                        // $key_font_file => ['required', 'mimes:ttf,otf','max:2000'],
+                        $key_font_file => ['required'],
                         $key_font_name => ['required', 'string','max:250'],
                     ]);
                 }
@@ -278,17 +278,25 @@ public $inputs_array = ['title','phone1','phone2','email'];
        
         if ($pass) {
         
-            if (!empty($this->qr_image)) {
-                $img_link = 'QR_'. md5(microtime()) .'.'. $this->qr_image->getClientOriginalExtension();
+            if (!empty($this->qr_image) and !empty($this->qr_preview)) {
+
+                $title =   'QR_'.md5(microtime()) ;
+                $img_link = $title .'.'. $this->qr_image->getClientOriginalExtension();
                 $image = File::get($this->qr_image->getRealPath());
-                $save_result = save_livewire_filetocdn($image, 'staf_qr_templates', $img_link);
-    
+                $save_result1 = save_livewire_filetocdn($image, 'staf_qr_templates', $img_link);
                 $img_link = 'staf_qr_templates/' . $img_link;
     
-                if ($save_result) {
+                $priv_link = $title.'.'. $this->qr_preview->getClientOriginalExtension();
+                $image = File::get($this->qr_preview->getRealPath());
+                $save_result2 = save_livewire_filetocdn($image, 'staf_qr_templates_preview', $priv_link);
+                $priv_link = 'staf_qr_templates_preview/' . $priv_link;
+
+
+                if ($save_result1 and $save_result2) {
 
 
                     $image = new QrCodeTemplate();
+                    $image->preview = $priv_link;
                     $image->image = [
                         'link' => $img_link,
                         'width' => $this->image_width,
@@ -312,7 +320,7 @@ public $inputs_array = ['title','phone1','phone2','email'];
                         ];
                     }
                     
-
+                    $loaded_fonts = [];
                     foreach ($this->inputs_array as $key) {
                         $key_check = $key."_check";
                         if($this->$key_check){
@@ -325,15 +333,27 @@ public $inputs_array = ['title','phone1','phone2','email'];
                             $key_font_file = $key."_font_file";
                             $key_config = $key."_config";
             
-            
+                            if($this->$key_font_name != null and !in_array($this->$key_font_name,$loaded_fonts)){
+                                $fileName = $this->$key_font_file->getClientOriginalName() ; 
+                                $this->$key_font_file->storeAs('all_fonts',$fileName, 'public');
+
+                                $storage_path = 'fonts/'.$this->$key_font_name.'.'.$this->$key_font_file->getClientOriginalExtension();
+                                Storage::disk('minio')->put($storage_path , $this->$key_font_file);
+
+                        
+                                $path = storage_path("app\Public\all_fonts\\" . $fileName);
+                        
+                                $loadFont = new LoadFont();
+                                $loadFont->import($this->$key_font_name,$path) ;
+                                $loaded_fonts[] = $this->$key_font_name ;
+                            }
+
+
                             $conf  =  [
-                                'font-size' => $this->$key_font_size * 1.333,
+                                'font-size' => $this->$key_font_size ,
                                 'color' => $this->$key_color,
                                 'top' => $this->$key_top,
-                                'font_url' => $this->$key_font_file,
                                 'font_name' => $this->$key_font_name,
-    
-    
                             ];
     
                             if(!$this->$key_center){
@@ -417,6 +437,7 @@ public function editQR($id)
         
 
     $edit_img_link = get_image('tmb/'.$image->image['link']);
+    $edit_preview_link = get_image('tmb/'.$image->preview);
     $this->image_width  = $image->image['width'];
     $this->image_height = $image->image['height'];
     $this->qr_left      = $image->qr_config['left'];
@@ -440,10 +461,9 @@ public function editQR($id)
             $key_font_file = $key."_font_file";
 
             $this->$key_check       = true ;
-            $this->$key_font_size   =  number_format(($image->$key_config['font-size'] / 1.333 ), 2, '.', '');
+            $this->$key_font_size   =  $image->$key_config['font-size'] ;
             $this->$key_color       = $image->$key_config['color'] ;
             $this->$key_top         = $image->$key_config['top'] ;
-            $this->$key_font_file    = $image->$key_config['font_url'] ?? null ;
             $this->$key_font_name   = $image->$key_config['font_name']  ?? null;
 
             if(isset($image->$key_config['position'] )){
@@ -462,6 +482,8 @@ public function editQR($id)
             
     $this->dispatchBrowserEvent('edit_image', [
         'qr_image' => $edit_img_link ,
+        'qr_preview' => $edit_preview_link ,
+
     ]);
 }
 
@@ -471,10 +493,13 @@ public function editQR($id)
        
 
         $pass = true ;
+        $update_image = QrCodeTemplate::find($this->image_to_update);
 
         $validator = Validator::make(
             [
                 'qr_image' => $this->qr_image,
+                'qr_preview' => $this->qr_preview,
+
                 'qr_left' => $this->qr_left,
                 'qr_top' => $this->qr_top,
                 'qr_width' => $this->qr_width,
@@ -487,6 +512,8 @@ public function editQR($id)
             ],
             [
             'qr_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'qr_preview' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
             'qr_left' => ['required', 'regex:/^[0-9]*[.,]?[0-9]+$/'],
             'qr_top' => ['required', 'regex:/^[0-9]*[.,]?[0-9]+$/'],
             'qr_width' => ['required', 'regex:/^[0-9]*[.,]?[0-9]+$/'],
@@ -550,6 +577,7 @@ public function editQR($id)
                 $key_left = $key."_left";
                 $key_font_name = $key."_font_name";
                 $key_font_file = $key."_font_file";
+                $key_config = $key."_config";
 
 
                 $valid1 = [
@@ -572,13 +600,13 @@ public function editQR($id)
                     ]);
                 }
     
-                if(!$this->$key_font_name != null or $this->$key_font_file != null){
+                if(($this->$key_font_name != null or $this->$key_font_file != null) and ($update_image->$key_config['font_name'] ?? null) != $this->$key_font_name){
                     $valid1 = array_merge($valid1, [
                         $key_font_file => $this->$key_font_file,
                         $key_font_name => $this->$key_font_name,
                     ]);
                     $valid2 = array_merge($valid2,  [
-                        $key_font_file => ['required', 'string','max:250'],
+                        $key_font_file => ['required'],
                         $key_font_name => ['required', 'string','max:250'],
                     ]);
                 }
@@ -602,7 +630,6 @@ public function editQR($id)
 
        
         if ($pass) {
-            $image = QrCodeTemplate::find($this->image_to_update);
 
             if (!empty($this->qr_image)) {
                 $img_link = 'QR_'. md5(microtime()) .'.'. $this->qr_image->getClientOriginalExtension();
@@ -610,25 +637,37 @@ public function editQR($id)
                 $save_result = save_livewire_filetocdn($image, 'staf_qr_templates', $img_link);
                 $img_link = 'staf_qr_templates/' . $img_link;
                 if ($save_result) {
-                    deleteFile($image->image['link']);
+                    deleteFile($update_image->image['link']);
                 }
 
             }else{
                 $save_result = true ;
-                $img_link = $image->image['link'];
+                $img_link = $update_image->image['link'];
             }
+
+            if (!empty($this->qr_preview)) {
+                $priv_link = 'QR_'. md5(microtime()) .'.'. $this->qr_preview->getClientOriginalExtension();
+                $image = File::get($this->qr_preview->getRealPath());
+                $save_result2 = save_livewire_filetocdn($image, 'staf_qr_templates_preview', $priv_link);
+                $priv_link = 'staf_qr_templates_preview/' . $priv_link;
+                if ($save_result2) {
+                    deleteFile($update_image->preview);
+                    $update_image->preview = $priv_link;
+                }
+
+            }
+
     
             if ($save_result) {
                 
-
                 
-                $image->image = [
+                $update_image->image = [
                     'link' => $img_link,
                     'width' => $this->image_width,
                     'height' => $this->image_height,
                 ];
                 
-                $image->qr_config = [
+                $update_image->qr_config = [
                     'left' => $this->qr_left,
                     'top' => $this->qr_top,
                     'width' => $this->qr_width,
@@ -637,7 +676,7 @@ public function editQR($id)
                 ];
                 
                 if ($this->logo_check) {
-                    $image->logo_config = [
+                    $update_image->logo_config = [
                         'left' => $this->logo_left,
                         'top' => $this->logo_top,
                         'width' => $this->logo_width,
@@ -645,7 +684,8 @@ public function editQR($id)
                     ];
                 }
                 
-
+                $x = 1 ;
+                $loaded_fonts = [] ;
                 foreach ($this->inputs_array as $key) {
                     $key_check = $key."_check";
                     if($this->$key_check){
@@ -658,22 +698,51 @@ public function editQR($id)
                         $key_font_file = $key."_font_file";
                         $key_config = $key."_config";
 
-                        $file =  $this->$key_font_file;
-                        $fileName = $file->getClientOriginalName();
-                        $file->storeAs('all_fonts', $fileName, 'public');
-                        dd($fileName);
-                        $result = Process::run('php load_font.php Branda3 .\storage\Branda-yolq.ttf');
+                        
 
-        
+
+                        if($this->$key_font_name != null and $this->$key_font_file != null  and !in_array($this->$key_font_name,$loaded_fonts)){
+                          try {
+                            $fileName = $this->$key_font_file->getClientOriginalName() ; 
+                            $this->$key_font_file->storeAs('all_fonts',$fileName, 'public');
+
+                            $storage_path = 'fonts/'.$this->$key_font_name.'.'.$this->$key_font_file->getClientOriginalExtension();
+                            Storage::disk('minio')->put($storage_path , $this->$key_font_file);
+
+                    
+                            $path = storage_path("app\Public\all_fonts\\" . $fileName);
+                    
+                            $loadFont = new LoadFont();
+                            $loadFont->import($this->$key_font_name,$path) ;
+                            $loaded_fonts[$x] = $this->$key_font_name ;
+                            $x++;
+                          } catch (\Throwable $th) {
+                            dd('error');
+                          }
+                        }
+                        // if(count($loaded_fonts)){
+                        //     dd($loaded_fonts);
+
+                        // }
+
+                      
                         $conf  =  [
-                            'font-size' => $this->$key_font_size * 1.333,
+                            'font-size' => $this->$key_font_size ,
                             'color' => $this->$key_color,
                             'top' => $this->$key_top,
-                            'font_url' => $this->$key_font_file,
-                            'font_name' => $this->$key_font_name,
-
-
                         ];
+
+                        if($this->$key_font_name != null  and ($update_image->$key_config['font_name'] ?? null) != $this->$key_font_name){
+
+                            $conf = array_merge($conf, [
+                                'font_name' => $this->$key_font_name,
+                            ]);
+                        }elseif(isset($update_image->$key_config['font_name'])){
+
+                            $conf = array_merge($conf, [
+                                'font_name' => $update_image->$key_config['font_name'],
+                            ]);
+                        }
 
                         if(!$this->$key_center){
                             $conf = array_merge($conf, [
@@ -685,34 +754,26 @@ public function editQR($id)
                             ]);
                         }
 
-                        $image->$key_config = $conf ;
+                        $update_image->$key_config = $conf ;
                         
                     }
                 }              
-                                    
-                $img_id = $image->save();
+     
+                $update_image->save();
             }
-    
-                
-            if(!$img_id){
 
-                $this->dispatchBrowserEvent('swal:finish', [
-                    'type' => 'error',
-                    'title' => $this->translations['template_not_saved'] ,
-                ]);
-            }else{
-                $this->image_to_update = null ;
-                $this->getImages();
-                $this->clearData();
-                $this->GeneratQR($img_id);
-                $this->dispatchBrowserEvent('swal:finish', [
-                    'type' => 'success',
-                    'title' => $this->translations['template_updated'] ,
-                ]);
-            }
+
+            $this->image_to_update = null ;
+            $this->getImages();
+            $this->clearData();
+            $this->GeneratQR($update_image->id);
+            $this->dispatchBrowserEvent('swal:finish', [
+                'type' => 'success',
+                'title' => $this->translations['template_updated'] ,
+            ]);
+            
     
         }
-
 
     }
 
@@ -787,42 +848,57 @@ public function editQR($id)
         // $content = Http::get(get_image($this->store_info->logo))->body();
         // $logoBase64 = 'data:image/png;base64,' . base64_encode($content);
 
+        try {
+            $content = Http::get(get_image($template['image']['link']))->body();
+            $bgBase64 = 'data:image/png;base64,' . base64_encode($content);
 
-        $content = Http::get(get_image($template['image']['link']))->body();
-        $bgBase64 = 'data:image/png;base64,' . base64_encode($content);
+            $data = [
+                'QRcode' => $QRcode,
+                'info' => array(
+                    'phone1'=>'0623783001',
+                    'phone2'=>'0708084136',
+                    'email'=>'sadikagadir@gmail.com',
+                    'title'=>'Cool Resto',
+                ),
+                'template'=>$template->toArray(),
+            // 'logoBase64' => $logoBase64,
+                'bgBase64' => $bgBase64,
+    
+            ];
+    
+            
+            $options = new Options();
+            $options->set('isHtml5ParserEnabled', true);
+            $options->setFontDir(storage_path('fonts')); // not working for me
+            $pdf = new Dompdf($options);
+            $pdf->loadHtml(View::make('livewire.admin.marketing.qr_template', $data));
+            $pdf->setPaper([0, 0,$template['image']['width'],$template['image']['height']]); 
+              
+            $pdf->render();
+    
+    
+            $this->dispatchBrowserEvent('pdfRendered', [
+                'pdfData' => base64_encode($pdf->output()),
+            ]);
+    
+
+
+        } catch (\Throwable $th) {
+
+            if(str_contains($th->getMessage(),'cURL')){
+                $this->dispatchBrowserEvent('swal:modal', [
+                    'type' => 'error',
+                    'message' => $this->translations['you_are_offline'] ,
+                    'text' => $this->translations['check_internet'] ,
+                ]);
+            };
+        }
+       
 
 
 
         
-        $data = [
-            'QRcode' => $QRcode,
-            'info' => array(
-                'phone1'=>'0623783001',
-                'phone2'=>'0708084136',
-                'email'=>'sadikagadir@gmail.com',
-                'title'=>'Cool Resto',
-            ),
-            'template'=>$template->toArray(),
-        // 'logoBase64' => $logoBase64,
-            'bgBase64' => $bgBase64,
-
-        ];
-
-        
-        $options = new Options();
-        $options->set('isHtml5ParserEnabled', true);
-        $options->setFontDir(storage_path('fonts')); // not working for me
-        $pdf = new Dompdf($options);
-        $pdf->loadHtml(View::make('livewire.admin.marketing.qr_template', $data));
-        $pdf->setPaper([0, 0,$template['image']['width'],$template['image']['height']]); 
-          
-        $pdf->render();
-
-
-        $this->dispatchBrowserEvent('pdfRendered', [
-            'pdfData' => base64_encode($pdf->output()),
-        ]);
-
+       
         // $output = $pdf->output();
 
         // $filePath = 'security_code_card.pdf';

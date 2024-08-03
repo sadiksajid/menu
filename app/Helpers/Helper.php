@@ -559,17 +559,23 @@ if (!function_exists('setView')) {
             }  
 
             if(!str_contains($ip,'127.')){
-                $response = Http::timeout(5)->get('https://geolocation-db.com/jsonp/'.$ip);
+                // $response = Http::timeout(5)->get('http://ip-api.com/json/'.$ip.'?fields=66846719');
+
+                // $response = Http::timeout(5)->get('https://geolocation-db.com/jsonp/'.$ip);
                 try {
-                    $response = Http::timeout(3)->get('https://geolocation-db.com/jsonp/'.$ip);
+                    // $response = Http::timeout(3)->get('https://geolocation-db.com/jsonp/'.$ip);
+                    $response = Http::timeout(5)->get('http://ip-api.com/json/');
                 
                     if ($response->failed()) {
                         return ['country_code' => 'Not found'];
                     }
-                
-                    // Strip the JSONP padding
-                    $body = trim($response->body(), 'callback()');
-                    $body = trim($body, '();');
+
+                    $body = $response->body();
+                    $json = preg_replace('/^callback\(|\)$/', '', $body);
+    
+                    // // Strip the JSONP padding
+                    // $body = trim($response->body(), 'callback()');
+                    // $body = trim($body, '();');
                     
                     // Decode the JSON data
                     $data = json_decode($body, true);
