@@ -29,9 +29,11 @@ class AdminShippingCompanyIntegration extends Component
     public $map_mode = false ;
     protected $listeners = ['getlocal'];
 
-    public function mount($tag)
+    public function mount($tag,$company_info)
     {
         $this->tag = $tag;
+        $this->company_info = $company_info;
+
 
         $this->translations = app('translations_admin');
         $this->langs = languages()['langs'];
@@ -45,9 +47,7 @@ class AdminShippingCompanyIntegration extends Component
             $this->input_value[ $key] = $value ;
         }
 
-        // dd($this->input_value);
-        // dd($this->integration_info);
-        $this->company_info = ShippingCompany::where('tag',$tag)->where('status',1)->first();
+   
     }
     public function render()
     {

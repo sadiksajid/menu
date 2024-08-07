@@ -9,7 +9,7 @@ $translations = app('translations_admin');
 
 @section('content')
     <div>
-        @livewire('admin-shipping-company-integration',[$tag])
+        @livewire('admin-shipping-company-integration',[$tag,$company_info])
     </div>
 @endsection
 <!-- Row -->

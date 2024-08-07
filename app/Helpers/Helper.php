@@ -559,12 +559,11 @@ if (!function_exists('setView')) {
             }  
 
             if(!str_contains($ip,'127.')){
-                // $response = Http::timeout(5)->get('http://ip-api.com/json/'.$ip.'?fields=66846719');
+                $response = Http::timeout(5)->get('http://ip-api.com/json/'.$ip.'?fields=66846719');
 
-                // $response = Http::timeout(5)->get('https://geolocation-db.com/jsonp/'.$ip);
                 try {
-                    // $response = Http::timeout(3)->get('https://geolocation-db.com/jsonp/'.$ip);
-                    $response = Http::timeout(5)->get('http://ip-api.com/json/');
+
+                    // $response = Http::timeout(5)->get('http://ip-api.com/json/');
                 
                     if ($response->failed()) {
                         return ['country_code' => 'Not found'];

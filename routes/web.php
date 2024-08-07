@@ -5,6 +5,7 @@ use App\Models\Store;
 use App\Models\Client;
 use App\Models\StoreProduct;
 use Illuminate\Http\Request;
+use App\Models\ShippingCompany;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ClientsController;
@@ -138,7 +139,21 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'password.confir
 
     ////////////////
     Route::get('/shipping_companies/integration/{tag}', function ($tag) {
-        return view('livewire.admin.shipping_companies_integration.shipping_companies_integration_route',['tag'=>$tag] );
+
+        $company_info = ShippingCompany::where('tag',$tag)
+        ->where('status',1)
+        ->first();
+        if(!empty($company_info)){
+            if(empty($company_info->getShippingCompanyIntegrationStore())){
+                return view('livewire.admin.shipping_companies_integration.shipping_companies_integration_route',['tag'=>$tag,'company_info' => $company_info] );
+            }else{
+                return redirect('/admin/shipping_companies');
+            }
+        }else{
+            return redirect('/admin/shipping_companies');
+        }
+        
+
     });
 
 

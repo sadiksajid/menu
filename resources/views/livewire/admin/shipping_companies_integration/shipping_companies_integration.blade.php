@@ -18,7 +18,13 @@
                             <label>{{ $translations[$input['label']]}}</label>
                             <input type="{{$input['type']}}" class="form-control"
                                 placeholder="{{ $translations[$input['label']]}}"
-                                wire:model.defer="input_value.{{$key}}">
+                                @if($input_value[$key] != null )
+                                    value="{{$input_value[$key]}}"
+                                    disabled="disabled"
+                                @else
+                                    wire:model.defer="input_value.{{$key}}" 
+                                @endif
+                                >
                             @error("input_value.".$key)
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
