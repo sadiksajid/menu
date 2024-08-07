@@ -12,7 +12,7 @@ class ShippingCompaniesAPI extends Controller
 
     public function CompanyIntegrationStatus(Request $request)
     {
-
+        dd('sdfsdf');
         $data = [
             'api_id' => $request->api_id,
             'status' => $request->status,

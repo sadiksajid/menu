@@ -14,7 +14,7 @@ class AdminShippingCompanies extends Component
     public $langs = null ;
 
     public function mount()
-    {
+    {       
         $this->translations = app('translations_admin');
         $this->langs = languages()['langs'];
         ///////////////////////

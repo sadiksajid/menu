@@ -48,6 +48,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'shipping_companies',
+            'hash' => true,
+        ],
     ],
 
     /*
@@ -79,6 +84,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'shipping_companies' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\ShippingCompany::class,
         ],
         // 'users' => [
         //     'driver' => 'database',

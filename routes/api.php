@@ -20,7 +20,7 @@ use App\Http\Controllers\ShippingCompaniesAPI;
 //     return $request->user();
 // });
 
-Route::post('/shipping_company_status'    ,[ShippingCompaniesAPI::class, 'CompanyIntegrationStatus']);// good
+Route::middleware('auth:api')->post('/shipping_company_status'    ,[ShippingCompaniesAPI::class, 'CompanyIntegrationStatus']);// good
 
 
 // Route::get('/apkInfo'    ,[ApiController::class, 'ApkInfo']);// good

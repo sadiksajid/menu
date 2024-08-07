@@ -28,7 +28,9 @@ return new class extends Migration
             $table->string('country',150)->nullable();
             $table->json('cities',2500)->nullable();
             $table->boolean('status')->default(1);
-
+            $table->string('api_token', 80)
+            ->unique()
+            ->nullable();
             $table->timestamps();
         });
     }
