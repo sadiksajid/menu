@@ -130,6 +130,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'password.confir
     });
 
 
+    Route::get('/shipping_companies', function () {
+        return view('livewire.admin.shipping_companies.shipping_companies_route' );
+    });
+
+    route::post('/datatables/shipping_companies/list', ['as' => 'datatables.shipping_companies_admin.list', 'uses' => 'ShippingCompaniesDataTable@ShippingCompaniesListAdmin']);
+
+    ////////////////
+    Route::get('/shipping_companies/integration/{tag}', function ($tag) {
+        return view('livewire.admin.shipping_companies_integration.shipping_companies_integration_route',['tag'=>$tag] );
+    });
 
 
 

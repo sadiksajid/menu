@@ -168,6 +168,17 @@
 
             </li>
 
+            <li class="slide mt-3">
+
+                <a class="side-menu__item" href="{{ url('/admin/shipping_companies') }}">
+                    <button class='btn btn-light side_btn'><i class="fa fa-truck"></i></button>
+                    <span class="side-menu__label">{{ $translations['shipping_companies'] }} </span><i
+                        class="angle fa fa-angle-right"></i>
+                </a>
+
+            </li>
+
+
 
 
 

@@ -389,10 +389,10 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body p-0">
-                                                        <div id="map-wrapper" class="divMap">
+                                                        <div id="map-wrapper" class="divMap" style='text-align: center;'>
 
-                                                            <div class="spinner-grow text-primary" role="status"
-                                                                style="width: 158px;height: 150px;color: #bf1c3d !important;margin-left: 40%;margin-top: 15%;">
+                                                            <div class="spinner-border text-dark" role="status"
+                                                                style="width: 60px;height: 60px;margin-top: 10%;margin-bottom: 10%;">
                                                                 <span
                                                                     class="sr-only">{{ $translations['loading'] }}...</span>
                                                             </div>

@@ -22,7 +22,6 @@ function fullScreenMap(map_height) {
 
 function mapSetView(map_height, click_to_drag) {
 
-    console.log(map_height)
     var div = document.getElementById("map-wrapper");
     div.innerHTML =
         "<div id='map' style=' height: " +

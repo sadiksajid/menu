@@ -204,6 +204,11 @@
         "ar": "تكرار كلمة السر",
         "fr": "Répéter le mot de passe"
     },
+    "confirm_password": {
+        "en": "Confirm Password",
+        "ar": "تأكيد كلمة المرور",
+        "fr": "Confirmer le mot de passe"
+    },
     "next": {
         "en": "Next",
         "ar": "التالي",
@@ -1595,23 +1600,20 @@
         "ar": "تم حفظ شركة الشحن بنجاح",
         "fr": "L'entreprise de transport a été sauvegardée avec succès"
     },
-    "": {
-        "en": ""
+    "your_business_information": {
+        "en": "Your business information"
     },
-    "": {
-        "en": ""
+    "start": {
+        "en": "Start"
     },
-    "": {
-        "en": ""
+    "integration_not_complet": {
+        "en": "Integration is not complete"
     },
-    "": {
-        "en": ""
+    "please_contact_support": {
+        "en": "Please Contact Support"
     },
-    "": {
-        "en": ""
-    },
-    "": {
-        "en": ""
+    "integration_success": {
+        "en": "Integration Completely Successfully"
     },
     "": {
         "en": ""

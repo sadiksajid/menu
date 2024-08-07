@@ -1,5 +1,5 @@
     @php
-        $translations = app('translations_admin');
+    $translations = app('translations_admin');
     @endphp
     <aside class="app-sidebar  ">
         <div class="app-sidebar__logo">
@@ -10,21 +10,20 @@
             </a>
         </div>
         <style>
-            @media (min-width: 767px) {
-                .sidebar-mini.sidenav-toggled .app-sidebar {
-                    max-height: 100%;
-                }
+        @media (min-width: 767px) {
+            .sidebar-mini.sidenav-toggled .app-sidebar {
+                max-height: 100%;
             }
+        }
 
-            .side_btn {
-                border-radius: 20px;
-                margin-right: 10px;
-            }
-    
+        .side_btn {
+            border-radius: 20px;
+            margin-right: 10px;
+        }
         </style>
         <div class="app-sidebar__user">
             <div class="dropdown user-pro-body text-center">
-         
+
                 <div class="user-info">
                     <h5 class=" mb-1">{{ Auth::user()->name ?? '' }} <i
                             class="ion-checkmark-circled  text-success fs-12"></i>
@@ -34,7 +33,7 @@
             </div>
         </div>
         <ul class="side-menu app-sidebar3">
-  
+
 
             <li class="slide">
                 <a class="side-menu__item" href="{{ url('/staf/dashboard') }}">
@@ -73,8 +72,9 @@
 
             </li>
 
+            <li class="slide mt-3">
 
-            <a class="side-menu__item" href="{{ url('/staf/shipping_companies') }}">
+                <a class="side-menu__item" href="{{ url('/staf/shipping_companies') }}">
                     <button class='btn btn-light side_btn'><i class="fa fa-truck"></i></button>
                     <span class="side-menu__label">{{ $translations['shipping_companies'] }} </span><i
                         class="angle fa fa-angle-right"></i>
@@ -82,7 +82,7 @@
 
             </li>
 
-<!-- 
+            <!-- 
             <li class="slide mt-3">
                 <a class="side-menu__item" href="{{ url('/staf/clients') }}">
                     <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -99,7 +99,7 @@
                 </a>
 
             </li> -->
-<!-- 
+            <!-- 
             <li class="slide mt-3">
                 <a class="side-menu__item" href="/staf/store_info">
                     <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 20 20"
@@ -112,10 +112,10 @@
 
             </li>
            -->
- 
-     
 
-        
+
+
+
         </ul>
     </aside>
     <!--aside closed-->

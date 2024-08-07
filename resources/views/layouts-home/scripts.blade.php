@@ -18,7 +18,7 @@
 
 @php
 $location = GetLocation();
-$country_code = $location['countryCode'] ;
+$country_code = $location['countryCode'] ?? "Not found" ;
 @endphp
 
 <!-- ///////////////////////////////////////////////////////////// for register -->
