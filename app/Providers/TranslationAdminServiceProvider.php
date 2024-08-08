@@ -25,22 +25,6 @@ class TranslationAdminServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $translations = json_decode(file_get_contents(storage_path('app/Public/translate_admin.json')), true);
-
-        if (Cache::has('locale_admin')) {
-            $currentLocale = Cache::get('locale_admin');
-        } else {
-            $currentLocale = 'en';
-        }
-        app()->setLocale($currentLocale);
-
-        $Lang_ranslations = collect($translations)
-            ->mapWithKeys(function ($translation, $key) use ($currentLocale) {
-                return [$key => $translation[$currentLocale] ?? $translation['en']];
-            })
-            ->toArray();
-        $this->app->singleton('translations_admin', function () use ($Lang_ranslations) {
-            return $Lang_ranslations;
-        });
+     
     }
 }

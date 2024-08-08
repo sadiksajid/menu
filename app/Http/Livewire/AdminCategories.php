@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Events\CaiseOrder;
 use Livewire\WithFileUploads;
 use App\Models\ProductCategory;
 use Illuminate\Support\Facades\Auth;

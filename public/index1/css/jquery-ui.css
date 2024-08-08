@@ -225,7 +225,7 @@
 .ui-state-active,
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
-  background: #978667;
+  background: #ad7800;
   color: #ffffff;
 }
 
@@ -241,7 +241,7 @@
 .ui-state-highlight,
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
-  background: #978667;
+  background: #ad7800;
   color: #fff;
 }
 

@@ -3,22 +3,25 @@
 namespace App\Http\Livewire;
 
 use App\Models\City;
-use App\Models\Client;
-use App\Models\ClientAddress;
-use App\Models\ClientStore;
 use App\Models\Index;
-use App\Models\OrderProducte;
-use App\Models\Quartier;
 use App\Models\Store;
+use App\Models\Client;
+use Livewire\Component;
+use App\Models\Quartier;
+use App\Events\CaiseOrder;
 use App\Models\StoreOrder;
+use Carbon\CarbonInterval;
+use App\Models\ClientStore;
+use Illuminate\Support\Str;
+use App\Models\ClientAddress;
+use App\Models\OrderProducte;
 use App\Rules\EmailValidation;
 use App\Rules\PhoneValidation;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Livewire\Component;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
 
 class Checkout extends Component
 {
@@ -54,8 +57,16 @@ class Checkout extends Component
     public $coming_time;
     public $titles_checkout;
     public $images_checkout;
+    public $order_steps = 0;
 
-    protected $listeners = ['getCity', 'getQuarter', 'renderFunc'];
+    public $edit_address;
+    public $edit_longitude;
+    public $edit_latitude;
+    
+    public $longitude = null;
+    public $latitude  = null;
+    
+    protected $listeners = ['getlocal','getCity', 'getQuarter', 'renderFunc','Order'];
 
     //////////////////////////
     public $translations;
@@ -75,9 +86,12 @@ class Checkout extends Component
             $this->client_email = $user->email;
             $this->step = 2;
             $this->all_address = $user->client_address;
+            
             $this->new_address = false;
             if (count($this->all_address) == 0) {
                 $this->new_address = true;
+            }else{
+                $this->address_id =  $this->all_address[0]->id;
             }
         }
 
@@ -118,7 +132,7 @@ class Checkout extends Component
 
     public function getData($rend = 0)
     {
-        $my_cart = Cache::get('my_cart') ?? [];
+        $my_cart = Session::get('my_cart') ?? [];
         $this->total = 0;
         $this->qte = 0;
         $stores_info = Cache::get('store_info');
@@ -229,15 +243,16 @@ class Checkout extends Component
         $this->dispatchBrowserEvent('reload');
     }
 
-    public function Order()
+    public function Order($data = null)
     {
+        
         $my_cart = $this->getData(0);
         $stores_info = Cache::get('store_info');
 
         if (count($my_cart) == 0) {
             $this->dispatchBrowserEvent('swal:confirm_redirect', [
                 'type' => 'warning',
-                'title' => $this->translations['cart_is_empty'],
+                'title' => $this->translations['cart_empty'],
                 'cancle' => false,
                 'confirmBtn' => 'Ok',
                 // 'url' => '/store/' . Cache::get('last_store'),
@@ -257,19 +272,21 @@ class Checkout extends Component
         $client_id = $this->client_id;
 
         if ($this->shipping_type == 'shipping') {
-            if ($this->address_id == null and $this->new_address == false) {
+            if ($this->new_address == false) {
                 $this->validate([
                     'address_id' => 'required|integer|max:99999',
                 ]);
+                $address_id = $this->address_id;
 
-            } elseif ($this->address_id == null and $this->new_address == true) {
-
+            } elseif ($this->new_address == true) {
                 $this->validate([
                     'client_address' => 'required|string|max:500',
                     'client_city' => 'required|string|max:50',
                     'client_quarter' => 'required|string|max:50',
                     'client_quarter_id' => 'nullable|integer|max:99999',
                     'client_city_id' => 'nullable|integer|max:99999',
+                    'longitude' => 'nullable|numeric|max:99999999999999999999',
+                    'latitude' => 'nullable|numeric|max:99999999999999999999',
                 ]);
 
                 if ($this->client_city_id == null) {
@@ -297,20 +314,27 @@ class Checkout extends Component
                 $address->client_id = $client_id;
                 $address->address = $this->client_address;
                 $address->city_id = $this->client_city_id;
+                $address->longitude = $this->longitude;
+                $address->latitude = $this->latitude;
+
                 $address->quartier_id = $this->client_quarter_id;
                 $address->save();
+
                 $address_id = $address->id;
 
-            } else {
-                $address_id = $this->address_id;
-            }
+            } 
         } else {
 
+            $this->coming_time = $data['time'] ?? null ;
             $this->validate([
-                'coming_time' => 'required|string',
+                'coming_time' => 'required|string|max:10',
             ]);
+
+            $this->coming_time = Carbon::createFromTimestamp(strtotime($this->coming_time)) ;
+
             $address_id = null;
         }
+
         foreach ($stores_info as $store_name => $value) {
             if ($value['selected'] == true) {
                 $timestamp = now()->timestamp;
@@ -330,7 +354,7 @@ class Checkout extends Component
                 $order->payment_type = 'COD';
                 $order->tracking = 'TR' . $trackingCode;
                 if ($this->shipping_type == 'coming') {
-                    $time = Carbon::now()->format('Y-m-d') . ' ' . $this->coming_time . ':00';
+                    $time = $this->coming_time ;
                     $order->coming_date = date($time);
                 }
                 $order->save();
@@ -394,7 +418,7 @@ class Checkout extends Component
             }
 
         }
-        $my_cart = Cache::get('my_cart');
+        $my_cart = Session::get('my_cart');
         $stores_info_back = $stores_info;
         foreach ($stores_info as $store_name => $value) {
             if ($value['selected'] == true) {
@@ -402,9 +426,24 @@ class Checkout extends Component
                 unset($stores_info_back[$store_name]);
             }
         }
-        Cache::put('my_cart', $my_cart);
+        Session::put('my_cart', $my_cart);
         Cache::put('store_info', $stores_info_back);
-        // Cache::clear('my_cart');
+        
+
+        $data = array(
+            "id" => $order->id ,
+            "created_at" => $order->created_at ,
+            "total" => $order->total ,
+            "offers" =>  $order->offers  ,
+            "order_type" =>  $order->order_type ,
+            "coming_date" =>  $order->coming_date ,
+            "status" => 'pending' ,
+        );
+
+
+
+        event(new CaiseOrder( $data));
+
         $this->dispatchBrowserEvent('swal:confirm_redirect', [
             'type' => 'success',
             'title' => $this->translations['order_submit_success'],
@@ -441,7 +480,7 @@ class Checkout extends Component
             $this->new_address = true;
         } else {
             $this->new_address = false;
-
+            $this->address_id =  $this->all_address[0]->id;
         }
 
     }
@@ -455,4 +494,64 @@ class Checkout extends Component
     {
         $this->shipping_type = $val;
     }
+    public function NextStep($val)
+    {
+        $this->order_steps = $val;
+
+        if($val == 1 and $this->shipping_type == 'coming'){
+            $this->dispatchBrowserEvent('update_time');
+        }
+    }
+
+    public function showMaps()
+    {
+
+        // if(!testMobile()){
+        //     $height = '500px' ;
+        // }else{
+        //     $height = '100%' ;
+        // }
+        $height = '100%' ;
+
+
+        $data = [
+            'change_name' => $this->client_firstname .' '.$this->client_lastname,
+            'change_type' => 'Client',
+            'map_height' => $height,
+            'pick' => true,
+        ];
+        $this->dispatchBrowserEvent('StoreInfoModal', [
+            'status' => 'show',
+        ]);
+        $this->dispatchBrowserEvent('maps:lib', $data);
+
+    }
+    public function getlocal($post)
+    {
+        $this->edit_longitude = $post['longitude'];
+        $this->edit_latitude = $post['latitude'];
+        // $this->edit_address = $post['address']['Match_addr'];
+        $this->client_address =  $post['address']['Match_addr'];
+        $this->client_city =  $post['address']['City'];
+        if ($this->client_city != ''){
+            $this->getCity();
+
+        }
+
+    }
+
+     public function saveLocation()
+    {
+        $this->longitude = $this->edit_longitude;
+        $this->latitude = $this->edit_latitude;
+
+        $this->dispatchBrowserEvent('StoreInfoModal', [
+            'status' => 'hide',
+        ]);
+
+
+    }
+
+
+    
 }

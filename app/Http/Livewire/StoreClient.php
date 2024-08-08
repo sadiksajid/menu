@@ -30,7 +30,7 @@ class StoreClient extends Component
     public $texts_shop;
 
     // public $catigory_sizes = ['tmb' => ['w' => 150, 'h' => 150], 'origin' => ['w' => 300, 'h' => 300]];
-    protected $listeners = ['addToCart', 'changeQte', 'storeComponent' => 'renderComponent', 'setViewStore', 'setViewProduct'];
+    protected $listeners = ['addToCart', 'changeQte', 'storeComponent' => 'renderComponent', 'setViewStore', 'setViewProduct','nextPage'];
     //////////////////////////
     public $translations;
     public $translations_resto;
@@ -59,7 +59,7 @@ class StoreClient extends Component
         //     add_to_tmb_if_not_category($value, 'categories', $this->catigory_sizes);
         // }
 
-        $all_products = $this->getData(1);
+        $this->getData(1);
 
         $info = Cache::get('store_info') ?? [];
         if (!isset($info[$this->store_meta])) {
@@ -74,7 +74,7 @@ class StoreClient extends Component
             Cache::put('store_info', $info);
 
         } else {
-            $this->currency = $info[$this->store_meta]['currency'];
+            $this->currency = $info[$this->store_meta]['currency'] ?? 'MAD';;
         }
 
         $this->shop_head = Index::where('store_id', $store_info->id)->where('name', 'shop1')->first();
@@ -86,7 +86,7 @@ class StoreClient extends Component
 
             $this->images_shop = $this->shop_head->images;
             $this->images_shop = json_decode($this->images_shop, true);
-            $this->images_shop = $this->images_shop['img_1'];
+            $this->images_shop = $this->images_shop['img_1'] ?? '';
 
             $this->texts_shop = $this->shop_head->texts;
             $this->texts_shop = json_decode($this->texts_shop, true);
@@ -112,10 +112,16 @@ class StoreClient extends Component
     }
     public function nextPage()
     {
+
+
         $page = Cache::get('page');
         $page++;
 
         $next_prod = $this->getData($page, $this->category_id);
+
+        if( $next_prod['count'] == 0){
+            $this->dispatchBrowserEvent('endPages');
+        }
 
     }
 
@@ -135,7 +141,7 @@ class StoreClient extends Component
             })
             ->orderBy('product_categories.sort','asc')
             ->paginate($this->paginat, ['*'], 'page', $page);
-
+        $count = count( $data);
         if ($page > 1) {
             $all_products = Cache::get('products');
             $data = $all_products->merge($data);
@@ -150,14 +156,14 @@ class StoreClient extends Component
             'images' => $data->pluck('media.0.media'),
             // 'category' => $cat_name,
         ]);
-        return $data;
+        return ['data'=>$data,'count'=>$count];
     }
 
     public function SelectCategory($id)
     {
         $this->category_id = $id;
         $name = $this->categories->where('id', $id)->first()->title;
-        $products = $this->getData(1, $id);
+        $this->getData(1, $id);
 
         $this->dispatchBrowserEvent('changeURL', [
             'title' => '/' . $this->store_info->title . ' - ' . $name,

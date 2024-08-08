@@ -2,11 +2,12 @@
 
 namespace App\Http\Livewire;
 
-use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Intl\Currencies;
+use Illuminate\Support\Facades\Session;
 
 class Product extends Component
 {
@@ -48,7 +49,7 @@ class Product extends Component
             Cache::put('store_info', $info);
 
         } else {
-            $this->currency = $info[$this->store_meta]['currency'];
+            $this->currency = $info[$this->store_meta]['currency'] ?? 'MAD';
         }
 
     }
@@ -56,11 +57,11 @@ class Product extends Component
     {
         return view('livewire.product.product', ['product' => $this->product_info]);
     }
-    public function addToCart()
+    public function addToCart($is_buy_now = 0)
     {
         // Cache::clear();
-        if (Cache::has('my_cart')) {
-            $cart = Cache::get('my_cart');
+        if (Session::has('my_cart')) {
+            $cart = Session::get('my_cart');
         } else {
             $cart = [];
         }
@@ -77,8 +78,14 @@ class Product extends Component
             );
         }
 
-        Cache::put('my_cart', $cart);
-        $this->emit('updateComponent');
+        Session::put('my_cart', $cart);
+
+        if($is_buy_now == 0){
+            $this->emit('updateComponent');
+        }else{
+            return redirect()->to('/client/checkout');
+
+        }
 
     }
     public function changeQte($qte)

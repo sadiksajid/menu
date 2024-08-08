@@ -236,11 +236,6 @@ if (!function_exists('get_image')) {
     function get_image($url)
     {
 
-        // $img = Storage::disk('minio')->get($url);
-        // $base64Image = base64_encode($img);
-
-        // return 'data:image/jpeg;base64,'.$base64Image ;
-
         return config('filesystems.disks.minio.endpoint') . '/' . config('filesystems.disks.minio.bucket') . '/' . $url;
 
     }

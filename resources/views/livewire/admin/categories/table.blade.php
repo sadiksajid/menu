@@ -175,6 +175,20 @@
 
 
 <script>
+
+
+// function getCachedData(key) {
+//     const cachedData = localStorage.getItem(key);
+//     return cachedData ? JSON.parse(cachedData) : null;
+// }
+
+
+// const interval = setInterval(function() {
+//     console.log(getCachedData('date'))
+//  }, 1000);
+
+
+
 $('#submit').on('click', function() {
     Livewire.emit('submitCategory')
 });

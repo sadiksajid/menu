@@ -11,10 +11,10 @@
 <script src="{{ URL::asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 
 <!--Othercharts js-->
-<script src="{{ URL::asset('assets/plugins/othercharts/jquery.sparkline.min.js') }}"></script>
+<!-- <script src="{{ URL::asset('assets/plugins/othercharts/jquery.sparkline.min.js') }}"></script> -->
 
 <!-- Circle-progress js-->
-<script src="{{ URL::asset('assets/js/circle-progress.min.js') }}"></script>
+<!-- <script src="{{ URL::asset('assets/js/circle-progress.min.js') }}"></script> -->
 
 
 <link href="{{ URL::asset('index1/css/wizard.css') }}" rel="stylesheet">
@@ -32,8 +32,8 @@
 
 
 <!-- SPECIFIC SCRIPTS (wizard form) -->
-<script src="{{ URL::asset('index1/js/wizard/wizard_scripts.min.js') }}"></script>
-<script src="{{ URL::asset('index1/js/wizard/wizard_func.js') }}"></script>
+<!-- <script src="{{ URL::asset('index1/js/wizard/wizard_scripts.min.js') }}"></script> -->
+<!-- <script src="{{ URL::asset('index1/js/wizard/wizard_func.js') }}"></script> -->
 
 
 <!-- SPECIFIC SCRIPTS -->
@@ -49,6 +49,8 @@
 
 
 <script>
+
+    
     window.addEventListener('changeURL', event => {
         var data = {
             message: "History updated with replaceState()"
@@ -179,11 +181,7 @@
 
     });
     $(document).ready(function() {
-        Livewire.emit('checkLanguage')
-
-        // $('#select_modal_language').modal('show')
-        
-    
+        Livewire.emit('checkLanguage')        
     });
 
 

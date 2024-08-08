@@ -18,9 +18,9 @@
 <script src="{{ URL::asset('assets/plugins/sidemenu/sidemenu.js') }}"></script>
 
 <!-- P-scroll js-->
-<script src="{{ URL::asset('assets/plugins/p-scrollbar/p-scrollbar.js') }}"></script>
+<!-- <script src="{{ URL::asset('assets/plugins/p-scrollbar/p-scrollbar.js') }}"></script>
 <script src="{{ URL::asset('assets/plugins/p-scrollbar/p-scroll1.js') }}"></script>
-<script src="{{ URL::asset('assets/plugins/p-scrollbar/p-scroll.js') }}"></script>
+<script src="{{ URL::asset('assets/plugins/p-scrollbar/p-scroll.js') }}"></script> -->
 
 
 
@@ -29,8 +29,6 @@
 <script src="{{ URL::asset('assets/js/apexcharts.js') }}"></script>
 <script src="{{ URL::asset('assets/plugins/echarts/echarts.js') }}"></script>
 <script src="{{ URL::asset('assets2/js/owl.carousel.min.js') }}"></script>
-
-<!--INTERNAL Index js-->
 
 @yield('js')
 <!-- Simplebar JS -->
@@ -127,44 +125,26 @@
     });
 
 
-    useScrol()
-   function useScrol(){
-        $(document).find('.saas-brand').owlCarousel({
+    window.addEventListener('swal:notification', event => {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+            });
+            Toast.fire({
+            icon: event.detail.type,
+            title:  event.detail.title,
+            });
 
-            autoHeight: true,
-            autoWidth: true,
-            nav: false,
-            dots: false,
-            autoplay: true,
-            slideSpeed: 300,
-            mouseDrag: true,
-            responsiveClass: true,
-            paginationSpeed: 400,
-        
-        });
+    });
 
 
-  
-        function changeFavicon() {
-           
-           var src =  @json(get_image(\Auth::user()->store->logo)) ;
-           let link = document.getElementById('favicon');
-           if (link) {
-               link.href = src;
-           } else {
-               link = document.createElement('link');
-
-               link.id = 'favicon';
-               link.rel = 'icon';
-               link.href = src;
-               document.head.appendChild(link);
-           }
-       }
-
-       $(document).ready(function() {
-           changeFavicon();
-       });
-
-   }
-
+ 
 </script>
+

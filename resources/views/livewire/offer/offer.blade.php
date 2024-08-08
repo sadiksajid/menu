@@ -10,7 +10,7 @@
     }
 
     .product-box:hover {
-        box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+        box-shadow: rgb(0, 0, 0,0.5) 0px 20px 30px -10px
     }
 
     .cat_title{
@@ -64,12 +64,12 @@
 @endsection
 <div>
     @php
-    $cart = Cache::get('my_cart');
+    $cart = Session::get('my_cart');
     @endphp
     <!-- section start -->
-
+    
     <div wire:ignore class="hero_single inner_pages background-image" style="height:260px" @if (isset($offer->image ))
-        data-background="url({{ get_image($offer->image)}})" @else
+        data-background="url({{ get_image($offer->image )}})" @else
         data-background="url({{ URL::asset('index1/img/hero_menu.jpg')}})" @endif >
 
         <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
@@ -100,7 +100,6 @@
                                         <div class="owl-carousel saas-brand owl-theme">
                                             @foreach ($offer->products as $product)
                                               <div style="height: 150px">
-                                                  {{-- <a href="/store/goodforhealth/{{ $category->category_meta }}" > --}}
                                                     <a href="/shop/product/{{ $product->product->product_meta }}" >
                                                         <div class="item hover-overlay pt-2 cat_div background-image  shadow border border-dark ; position:relative"
                                                             data-background="url({{ get_image('tmb/'.$product->product->media[0]?->media)  }})">
@@ -219,7 +218,7 @@
                                                 @endisset
 
                                             </a>
-                                            <a class="btn btn-default primary-btn radius-0" href="#">
+                                            <a class="btn btn-warning primary-btn radius-0" href="#" wire:click="addToCart(1)">
                                                 {{ $translations['buy_now'] }}
                                             </a>
                                         </div>

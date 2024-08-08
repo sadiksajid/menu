@@ -3,10 +3,12 @@
 use App\Models\Offer;
 use App\Models\Store;
 use App\Models\Client;
+use App\Events\CaiseOrder;
 use App\Models\StoreProduct;
 use Illuminate\Http\Request;
 use App\Models\ShippingCompany;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Broadcast;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\Admin\apksController;
@@ -27,8 +29,7 @@ use App\Http\Controllers\DataTables\ShippingCompaniesDataTable;
 | contains the "web" middleware group. Now create something great!
 |
  */
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// admin
- 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// admi
 
 Route::get('/password/confirm', 'PasswordConfirmationController@showConfirmForm')->name('password.confirm.form');
 Route::post('/password/confirm', 'PasswordConfirmationController@confirm')->name('password.confirm');
@@ -50,7 +51,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'password.confir
         if ($lang == 'ma') {
             $lang = 'ar';
         }
-        Cache::put('locale_admin', $lang, 86400);
+        Session::put('locale_admin', $lang);
         return back();
     })->name('change_lang');
 
@@ -59,6 +60,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:web', 'password.confir
     });
     Route::get('/caisse ', function () {
         return view('livewire.admin.caisse.caisse_route');   
+    });
+
+    Route::get('/caisse/ads ', function () {
+        return view('livewire.admin.caisse.caisse_ads');
     });
 
     Route::get('/categories ', function () {
@@ -364,6 +369,21 @@ Route::group(['middleware' => ['fw-block-blacklisted', 'fw-block-attacks', 'web'
             return view('404');
         }
     });
+
+
+    Route::get('/maps', function () {
+        $store_info = Store::where('store_meta', env('STOR_NAME'))->first();
+        if (!empty($store_info)) {
+            if ($store_info->status == 1) {
+                return view('livewire.maps.maps_route');
+            } else {
+                return view('desabled');
+            }
+        } else {
+            return view('404');
+        }
+    });
+
 
     Route::get('/competition/{id?}', function ($id = null) {
         return view('livewire.competition.competition_route', ['id' => $id]);

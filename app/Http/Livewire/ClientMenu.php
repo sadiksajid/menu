@@ -12,7 +12,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Intl\Currencies;
 
-class MenuHome extends Component
+class ClientMenu extends Component
 {
     public $titles = [];
     public $images = [];
@@ -37,6 +37,7 @@ class MenuHome extends Component
 
     public function mount($store)
     {
+
         $json = app('translations');
         $this->translations = $json['system'];
         $this->translations_resto = $json['resto'];
@@ -93,7 +94,6 @@ class MenuHome extends Component
 
     public function addToCart($id, $type = 1)
     {
-
         $this->emit('ProductToCart', $id, $type);
 
     }

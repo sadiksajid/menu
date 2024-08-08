@@ -3,8 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Models\Store;
-use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
 
 class Header extends Component
 {
@@ -19,9 +20,25 @@ class Header extends Component
     
     public function mount($store)
     {
-        $this->current_lang = Cache::get('locale_user') ?? 'en';
-        $this->store_info = $store ;
-     
+
+        if (Session::has('locale_user')) {
+            $this->current_lang  = Session::get('locale_user', config('app.locale'));
+        } else {
+            $this->current_lang  = 'en';
+        }
+
+
+        $this->store_meta = env('STOR_NAME');
+        $stores = Cache::get('stores');
+
+        if (isset($stores[$this->store_meta])) {
+            $this->store_info = $stores[$this->store_meta];
+        } else {
+            $this->store_info = Store::where('store_meta', $this->store_meta)->first();
+            $stores[$this->store_meta] = $this->store_info;
+            Cache::put('stores', $stores, 7200);
+
+        }
 
     }
     public function render()
@@ -36,10 +53,11 @@ class Header extends Component
 
     public function changeLang($lang, $redirect = false)
     {
-        if ($lang == 'ma') {
+    if ($lang == 'ma') {
             $lang = 'ar';
         }
-        Cache::put('locale_user', $lang, 86400);
+        Session::put('locale_user', $lang);
+
         if ($redirect != false) {
             return redirect($redirect);
 
@@ -48,7 +66,7 @@ class Header extends Component
 
     public function checkLanguage()
     {
-        if (!Cache::has('locale_user')) {
+        if (!Session::has('locale_user')) {
             $this->dispatchBrowserEvent('swal:chamgeLanguage');
         }
     }

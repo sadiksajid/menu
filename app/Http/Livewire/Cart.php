@@ -2,9 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-use Livewire\Component;
+use Illuminate\Support\Facades\Session;
 
 class Cart extends Component
 {
@@ -51,7 +52,7 @@ class Cart extends Component
     public function getData($rend = 0)
     {
         // Cache::clear();
-        $my_cart = Cache::get('my_cart') ?? [];
+        $my_cart = Session::get('my_cart') ?? [];
         $this->total = 0;
         $this->qte_cart = 0;
         foreach ($my_cart as $store) {
@@ -100,14 +101,14 @@ class Cart extends Component
 
     public function removeProduct($key)
     {
-        $my_cart = Cache::get('my_cart');
+        $my_cart = Session::get('my_cart');
         unset($my_cart[$this->store_meta][$key]);
 
-        Cache::put('my_cart', $my_cart);
+        Session::put('my_cart', $my_cart);
         // $this->emit('indexRender');
     }
 
-    public function addToCart($id, $type = 1, $qte = 1)
+    public function addToCart($id, $type = 1, $qte = 1,$is_buy_now = 0)
     {
         if ($type == 0) {
             $this->qte = 1;
@@ -117,8 +118,8 @@ class Cart extends Component
         }
         $all_products = Cache::get('products');
         $product_info = $all_products->where('id', $id)->first();
-        if (Cache::has('my_cart')) {
-            $cart = Cache::get('my_cart');
+        if (Session::has('my_cart')) {
+            $cart = Session::get('my_cart');
         } else {
             $cart = [];
         }
@@ -135,8 +136,15 @@ class Cart extends Component
             );
         }
 
-        Cache::put('my_cart', $cart);
-        $this->emit('updateComponent');
+        Session::put('my_cart', $cart);
+
+
+         if($is_buy_now == 0){
+            $this->emit('updateComponent');
+        }else{
+            return redirect()->to('/client/checkout');
+
+        }
 
     }
 

@@ -341,7 +341,7 @@ a.open_filters.btn_filters {
   display: inline-block;
 }
 .grid_item a h3:hover {
-  color: #978667;
+  color: #ad7800;
 }
 .grid_item .price_box {
   margin-bottom: 5px;
@@ -373,7 +373,7 @@ a.open_filters.btn_filters {
   }
 }
 .new_price {
-  color: #978667;
+  color: #ad7800;
   font-weight: 500;
   font-size: 16px;
   font-size: 1rem;
@@ -438,7 +438,7 @@ a.open_filters.btn_filters {
   }
 }
 .row_item a h3:hover {
-  color: #978667;
+  color: #ad7800;
 }
 .row_item p {
   margin-bottom: 20px;
@@ -488,7 +488,7 @@ a.open_filters.btn_filters {
   display: inline-block;
 }
 .rating em a:hover {
-  color: #978667;
+  color: #ad7800;
 }
 
 .prod_info {
@@ -641,7 +641,7 @@ input.qty2:focus {
   color: #999;
 }
 .button_inc:hover {
-  color: #978667;
+  color: #ad7800;
 }
 
 .dec {

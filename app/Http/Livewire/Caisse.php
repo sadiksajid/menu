@@ -39,21 +39,28 @@ class Caisse extends Component
     public $all_offers = [];
     public $category_id;
     public $total = 0;
+    public $last_order_id = null ;
 
     public $selected_cat = 0;
     public $selected_products = [];
     public $selected_products_ids = [];
     public $selected_products_qty = [];
 
-    protected $listeners = ['confirmPassword','RemoveProd', 'confirmed','confirmDelete','updateOrder','SelectProd'];
+    protected $listeners = ['confirmPassword','RemoveProd', 'confirmed','confirmDelete','updateOrder','SelectProd','onlineOrder','GetOrdersToEdit','quickEditProduct','confirmedQuickEditProduct'];
 ////////////////////////////////
     public $translations;
     public $langs = [];
-
+    public $quick_data = [];
 
 
     public $show_pdf = false ;
-
+    public $is_online = false ;
+    public $online_order_type = null ;
+    public $online_order_status = null ;
+    public $online_client = null ;
+    public $online_client_address = null ;
+    public $online_client_time = null ;
+    public $online_orders_pending = 0 ;
     
     public function mount()
     {
@@ -61,7 +68,7 @@ class Caisse extends Component
 
         $this->langs = languages()['langs'];
         $this->translations = app('translations_admin');
-///////////////////////////////////
+        ///////////////////////////////////
         $this->store_info = Auth::user()->store;
         $this->store_id = $this->store_info->id;
 
@@ -124,8 +131,9 @@ class Caisse extends Component
         // } else {
 
             $this->products  = StoreProduct::where('store_id', $this->store_id)
-                ->select('id','title','price','product_category_id')
+                ->select('id','title','price','product_category_id','status','in_stock')
                 ->where('to_menu', 1)
+                ->where('status', 1)
                 ->orderBy('id', 'DESC')
 
                 // ->when($id!=0,function($q) use($id){
@@ -136,7 +144,7 @@ class Caisse extends Component
 
             $this->all_products = $this->products; 
             $this->offers = $this->all_offers = Offer::where('store_id', $this->store_id)
-                ->select('id','title','image','price','old_price')
+                ->select('id','title','image','price','old_price','status','in_stock')
                 ->where('status', 1)
                 ->get();
 
@@ -179,16 +187,35 @@ class Caisse extends Component
         $lastTime = Carbon::today()->subHours(4)->format('Y-m-d H:i');
 
 
-        $this->new_orders = StoreOrder::where('store_id', $this->store_id)
-        ->select('id','total','created_at','offers')
-        ->where('order_type', 'caisse')
-        ->whereDate('created_at', '>=', $lastTime)
-        ->orderBy('created_at', 'desc')
-        ->get()
-        ->keyBy('id')
-        ->toArray();
+        $new_orders = StoreOrder::where('store_id', $this->store_id)
+        ->select('id','total','created_at','offers','order_type','coming_date','status')
+        ->where(function($q) use($lastTime){
+            $q->where(function($q) use($lastTime){
+                $q->where('order_type', 'caisse');
+                $q->whereDate('created_at', '>=', $lastTime);
+            });
+            $q->orWhere(function($q) use($lastTime){
+                $q->whereIn('order_type', ['coming','shipping']);
+                $q->where(function($q) use($lastTime){  
+                    $q->where(function($q) {
+                        $q->whereIn('status',['pending','confirmed']);
+                    });
+                    $q->orWhere(function($q) use($lastTime){
+                        $q->whereIn('status',['shipped','ready']);
+                        $q->whereDate('updated_at', '>=', $lastTime);
+                    });
+                });
+         
+            });
+           
+        })
 
-       
+        ->orderBy('created_at', 'desc')
+        ->get() ;
+        
+        $this->online_orders_pending = $new_orders->where('status','pending')->count();
+        $this->new_orders = $new_orders->keyBy('id')->toArray();
+        
     }
 
 
@@ -201,7 +228,7 @@ class Caisse extends Component
             $product = $products->where('id', $id)->first();
             if (!in_array($id, $this->selected_products_ids)) {
                 $this->selected_products[$id] = array(
-                    'image' => $product->media[0]->media,
+                    'image' => get_image('tmb/'.$product->media[0]->media),
                     'price' => $product->price,
                     'type' => 'product',
                     'title' => $product->title,
@@ -220,7 +247,7 @@ class Caisse extends Component
             $offer = $this->offers->where('id', $id)->first();
             if (!in_array('o_'.$id, $this->selected_products_ids)) {
                 $this->selected_products['o_'.$id] = array(
-                    'image' => $offer->image,
+                    'image' => get_image('tmb/'.$offer->image),
                     'price' => $offer->price,
                     'old_price' => $offer->old_price,
                     'type'  => 'offer',
@@ -240,6 +267,7 @@ class Caisse extends Component
         }
         
         $this->calculTotal();
+
     }
 
     public function RemoveProd($id)
@@ -267,25 +295,46 @@ class Caisse extends Component
             $total = $total + ($prod['price'] * $this->selected_products_qty[$prod['id']]);
         }
         $this->total = $total;
+
+        $this->dispatchBrowserEvent('SendToAds', [
+            'data' =>  array(
+                'data'=>$this->selected_products,
+                'qty'=>$this->selected_products_qty,
+                'total'=>$this->total,
+                'currency'=>$this->currency
+            )
+        ]);
+
+
     }
 
     public function changeQte($id, $type)
     {
         if ($type == 'plus') {
             $this->selected_products_qty[$id] += 1;
-        } else {
-            $this->selected_products_qty[$id] -= 1;
 
+        } else {
+            if($this->selected_products_qty[$id] > 1){
+                $this->selected_products_qty[$id] -= 1;
+
+            }else{
+                unset($this->selected_products[$id]);
+                unset($this->selected_products_ids[$id]);
+                unset($this->selected_products_qty[$id]);
+            }
         }
+
         $this->calculTotal();
+
+        
     }
 
-    public function generateReceiptPDF($order_id,$text = '')
+    public function generateReceiptPDF($order_id,$text = '',$order_status = null,$client = null)
     {
         // $pdf->stream('receipt_n_' . $order_id . '_' . $date . '.pdf');
         $date = now()->format('d-m-Y H:i');
         $products = $this->getReceiptItems();
-        $barcode = DNS1D::getBarcodeHTML($order_id, 'C39+');
+        $barcode = DNS1D::getBarcodeHTML($order_id, 'C39');
         $qr_code = DNS2D::getBarcodeHTML(url('/to_competition'), 'QRCODE', 5, 5);
 
         // Ensure $date is UTF-8 encoded
@@ -302,15 +351,36 @@ class Caisse extends Component
             'qr_code' => $qr_code,
             'date' => $date,
             'order' => ['id' => $order_id.$text, 'total_price' => array_sum(array_column($products, 'total'))],
-            'store' => ['name' => $this->store_info->title, 'logo' => $this->store_info->logo],
+            'store' => ['name' => $this->store_info->title,'phone1'=> $this->store_info->phone,'phone2'=> $this->store_info->phone2],
+            'client'=> $client ,
             'currency' => $this->currency,
             'logoBase64' => $logoBase64,
         ];
 
+
+
+        if($order_status == null or $order_status == 'caisse_delivered'){
+            $pdf_admin = View::make('livewire.admin.caisse.receipt_admin', $data) ;
+            $pdf_client = View::make('livewire.admin.caisse.receipt_client', $data) ;   
+            $full_pdf = $pdf_client.$pdf_admin ;
+
+        }else if( $order_status == 'confirmed' ){
+            $pdf_admin = View::make('livewire.admin.caisse.receipt_admin', $data) ;
+            $full_pdf = $pdf_admin ;
+
+        }else{
+            $pdf_client = View::make('livewire.admin.caisse.receipt_client', $data) ;   
+            $full_pdf = $pdf_client ;
+        }
+
         $pdf = new Dompdf();
-        $pdf->loadHtml(View::make('livewire.admin.caisse.receipt', $data));
+
+
+        $pdf->loadHtml($full_pdf);
         $pdf->setPaper([0, 0, 226.77, 2500], 'portrait'); // Set the paper size to match the width of an 80mm POS printer
         $pdf->render();
+
+
 
         $filePath = 'receipts/' . $order_id . '.pdf';
         Storage::put($filePath, $pdf->output());
@@ -326,6 +396,20 @@ class Caisse extends Component
         }
 
         
+
+    }
+    public function printLastOrder($id)
+    {
+
+        $order = $this->new_orders[$id] ;
+
+        $is_offer = ($order['offers'] == null) ? 0 : 1;
+
+        $this->editOrder( $order['id'],$is_offer,$order['order_type']);
+
+        $this->generateReceiptPDF($id);
+        $this->cancelUpdate();
+
 
     }
 
@@ -432,50 +516,101 @@ class Caisse extends Component
                 $y++;
             };
             if (count($order_offers) > 0) {
-                $order->offers = json_encode($order_offers);
+                $offers = json_encode($order_offers);
+                $order->offers = $offers;
                 $order->save();
+            }else{
+                $offers = null;
             }
 
             $this->new_orders[ $order->id] = array(
                 "id" => $order->id ,
                 "created_at" => $order->created_at ,
                 "total" => $order->total ,
+                "offers" =>  $offers ,
+                "order_type" =>  'caisse' ,
+                "coming_date" =>  $order->coming_date ,
+                "status" =>   $order->status ,
             );
-            
 
             OrderProducte::insert($products);
 
 
             $this->show_pdf = true ;
-
+            $this->last_order_id = $order->id ;
             $this->generateReceiptPDF($order->id);
 
         }
 
         $this->ResetAll();
+        $this->dispatchBrowserEvent('SendToAdsfinish');
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',
             'message' => $this->translations['caisse_order_success'],
         ]);
 
-        // $this->generateReceiptPDF();
+
+    }
+
+    public function onlineOrder($data)
+    {
+        $this->new_orders[$data['id']] = array(
+            "id" => $data['id'] ,
+            "created_at" => $data['created_at']  ,
+            "total" => $data['total'] ,
+            "offers" =>  $data['offers'] ,
+            "order_type" =>  $data['order_type'] ,
+            "coming_date" =>  $data['coming_date'] ,
+            "status" =>   $data['status'] ,
+        );
+        $this->online_orders_pending = $this->online_orders_pending + 1 ;
 
     }
 
     /////////////////////////////////////////////////////////
 
+    public function GetOrdersToEdit($id)
+    {
+        if(isset($this->new_orders[$id])){
+            $order = $this->new_orders[$id] ;
 
-    public function editOrder($id,$is_offer = 0)
+            $is_offer = ($order['offers'] == null) ? 0 : 1;
+
+            $this->editOrder( $order['id'],$is_offer,$order['order_type']);
+        }else{
+            $this->dispatchBrowserEvent('swal:notification', [
+                'type' => 'error',
+                'title' => $this->translations['caisse_order_not_found'],
+            ]);
+        }
+        
+    }
+    public function editOrder($id,$is_offer = 0,$order_type)
     {
 
         // $this->products = Cache::get('caisse_products');
         // $this->offers = Cache::get('caisse_offers');
+        $this->ResetAll();
 
+        if($order_type != 'caisse'){
+            $this->online_order_type = $order_type; 
+            $order = StoreOrder::find($id);
+            $this->is_online = true ;  
+            $this->online_client = $order->client ;
+            $this->online_order_status = $order->status ;
+            if($order_type == 'shipping'){
+                $this->online_client_address = $order->client_address   ;
+            }else{
+                $this->online_client_time = $order->coming_date   ;
+            }
+        }else{
+            $this->is_online = false ;  
+            $this->online_client = null ;   
+        }
 
         $this->update_order = true ;    
         $this->update_order_id = $id ;  
         
-        $this->ResetAll();
 
        
         $products = OrderProducte::where('store_order_id',$id)->where('is_offer',0)->get();
@@ -484,15 +619,15 @@ class Caisse extends Component
             $this->SelectProd($product->store_product_id);
             $this->selected_products_qty[$product->store_product_id] = $product->qte;
         }
+
         if($is_offer == 1 ){
             $order = storeOrder::where('id',$id)->select('offers')->first();
            
             $offers = json_decode($order->offers,true);
 
-
             foreach ($offers as $offer ) {
                 $this->SelectProd($offer['id'],1);
-                $this->selected_products_qty['o_'.$offer['id']] = $offer['qte'];
+                $this->selected_products_qty['o_'.$offer['id']] = $offer['qte'] ?? 1;
             }
             
         }
@@ -502,17 +637,40 @@ class Caisse extends Component
 
     }
 
-
-
     public function updateOrder($data)
     {
         if (count($this->selected_products) > 0) {
 
             $order =  StoreOrder::find($this->update_order_id );
+
+            if($order->order_type != 'caisse'){
+
+                if($order->status == 'pending'){
+                    $this->online_orders_pending =  $this->online_orders_pending - 1;
+                    $order->admin_id = Auth::id();
+                }else if($order->total != $this->total){
+                    $order->updated_by = $data['name'] ;
+                    $order->updated_by_id = $data['id'] ;
+                }
+                if($order->status == 'pending'){
+                    $order->status = 'confirmed';
+
+                }else if( $order->status == 'confirmed'  ){
+                    if($order->order_type == 'shipping'){
+                        $order->status = 'shipped';
+                    }else{
+                        $order->status = 'ready';
+                    }
+                }
+
+
+            } else{
+
+                $order->updated_by = $data['name'] ;
+                $order->updated_by_id = $data['id'] ;
+            }
+
             $order->total = $this->total;
-            $order->admin_id = Auth::id();
-            $order->updated_by = $data['name'] ;
-            $order->updated_by_id = $data['id'] ;
 
             $order->save();
 
@@ -520,23 +678,36 @@ class Caisse extends Component
             $x = 0;
             $y = 0;
             $order_offers = array();
+            $all_offers = [];
             foreach ($this->selected_products as $key => $product) {
                 if ($product['type'] == 'offer') {
-                    $order_offers[$x]['id'] = $product['product']->id;
-                    $order_offers[$x]['price'] = $product['product']->price * $product['qte'];
-                    $order_offers[$x]['old_price'] = $product['product']->old_price * $product['qte'];
-                    $order_offers[$x]['qte'] = $product['qte'];
+                    $all_offers[] = str_replace('o_','',$product['id']) ;
+                }
+            }
+            if(count($all_offers) != 0){
+                $offer_products = OfferProduct::whereIn('offer_id',$all_offers)->get();
+            }
+
+            
+            foreach ($this->selected_products as $key => $product) {
+                if ($product['type'] == 'offer') {
+                    $offer_id = str_replace('o_','',$product['id']);
+                    $offer_qte = $this->selected_products_qty[$product['id']];
+                    $order_offers[$x]['id'] = $offer_id ;
+                    $order_offers[$x]['price'] = $product['price'] * $offer_qte;
+                    $order_offers[$x]['old_price'] = $product['old_price'] *  $offer_qte;
+                    $order_offers[$x]['qte'] =  $offer_qte;
                     $x++;
 
                     ////////////////////////////////////
-                    foreach ($product['product']->products as $offer_prod) {
+                    foreach ( $offer_products->where('offer_id',$offer_id) as $offer_prod) {
                         $products[$y] = array(
                             'store_product_id' => $offer_prod->store_product_id,
                             'store_order_id' => $order->id,
-                            'qte' => $offer_prod->qty * $product['qte'],
-                            'price' => $offer_prod->product->price * $product['qte'],
-                            'total' => $offer_prod->product->price * $offer_prod->qty * $product['qte'],
-                            'offer_id' => $product['product']->id,
+                            'qte' => $offer_prod->qty *  $offer_qte,
+                            'price' => $offer_prod->product->price *  $offer_qte,
+                            'total' => $offer_prod->product->price * $offer_prod->qty *  $offer_qte,
+                            'offer_id' => $offer_id,
                             'is_offer' => 1,
                             "created_at" => now(),
                             "updated_at" => now(),
@@ -572,15 +743,36 @@ class Caisse extends Component
                 "id" => $order->id ,
                 "created_at" => $order->created_at ,
                 "total" => $order->total ,
+                "offers" =>  $order->offers ,
+                "order_type" =>  $order->order_type ,
+                "coming_date" =>  $order->coming_date ,
+                "status" =>   $order->status ,
             );
 
 
-            $this->generateReceiptPDF($order->id,' - Updated');
+            if($order->order_type != 'caisse'){
+                $client = array(
+                    'type'=>$order->order_type,
+                    'client' =>$order->client ,
+                    'address' => $order->client_address->address ?? '' ,
+                    'city' => $order->client_address?->city->city  ?? '',
+                    'quartier' => $order->client_address?->quartier->quartier ?? '',
+                    'date'=>$order->coming_date,
+                );
+
+            }else{
+                $client = null ;
+            }
+
+            $this->last_order_id = $order->id ;
+
+            $this->generateReceiptPDF($order->id,' - Updated',$order->status,$client);
 
         }
 
         $this->cancelUpdate();
         $this->dispatchBrowserEvent('close_modal');
+        $this->dispatchBrowserEvent('SendToAdsfinish');
 
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',
@@ -596,7 +788,15 @@ class Caisse extends Component
     public function cancelUpdate()
     {
         $this->update_order = false ;    
-        $this->update_order_id = null ;    
+        $this->update_order_id = null ;   
+        
+        $this->is_online = false ;  
+        $this->online_client = null ;  
+        $this->online_client_address = null ; 
+        $this->online_order_type = null ; 
+        $this->online_client_time = null ; 
+        $this->online_order_status = null ; 
+
 
         $this->ResetAll();
 
@@ -620,8 +820,14 @@ class Caisse extends Component
     public function confirmDelete($data)
     {
         $order = StoreOrder::find($this->order_to_delete);
+
+        if($order->status == 'pending'){
+            $this->online_orders_pending = $this->online_orders_pending - 1 ;
+        }
+
+
         $o_products = OrderProducte::where('store_order_id',$this->order_to_delete);
-        // ->delete()
+       
 
         $arr_order = $order->toArray();
         unset( $arr_order['id'] );
@@ -661,6 +867,42 @@ class Caisse extends Component
         ]);
 
     }
+    /////////////////////////////////////////////
+    
+    public function quickEditProduct($data)
+    {
+        $this->quick_data = $data;
+        $this->confirmPassword('confirmedQuickEditProduct');
 
+    }
+
+    public function confirmedQuickEditProduct()
+    {
+
+        if($this->quick_data['is_offer'] == 0){
+            $data = StoreProduct::find($this->quick_data['id']);
+        }else{
+            $data = Offer::find($this->quick_data['id']);
+        }
+
+        if(!empty($data)){
+            $data->in_stock = $this->quick_data['in_stock'] ;
+            $data->price = $this->quick_data['price'] ;
+            $data->save();
+
+            $this->getProducts();
+            $this->dispatchBrowserEvent('close_modal');
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'success',
+                'message' => $this->translations['priduct_update'],
+            ]);
+
+             $this->dispatchBrowserEvent('SendToAdsRefresh');
+
+        }
+
+        $this->quick_data = [];
+
+    }
 
 }

@@ -23,11 +23,15 @@ class OrdersDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         $translations = app('translations_admin');
-
-        return (new EloquentDataTable($query))
+        return (new EloquentDataTable($query))  
         // ->addColumn('action', 'orders.action')
             ->addColumn('cleint', function ($query) {
-                return ($query->client->firstname . ' ' . $query->client->lastname) ?? 'Unknow';
+                if(isset($query->client->firstname ) and isset($query->client->lastname)){
+                    return ($query->client->firstname . ' ' . $query->client->lastname ) ?? 'Unknow';
+
+                }else{
+                    return 'Unknow';
+                }
             })
             ->addColumn('date', function ($query) {
                 return $query->created_at->format('d-m-Y H:i');
@@ -91,14 +95,14 @@ class OrdersDataTable extends DataTable
     public function query(StoreOrder $model): QueryBuilder
     {
         $query = $model->where('store_id', Auth::user()->store->id)
-        // ->leftJoin('clients', 'clients.id', 'store_orders.client_id')
+            ->whereIn('order_type', ['shipping', 'coming'])
             ->with(['client' => function ($q) {
                 $q->select('id', 'firstname', 'lastname');
             }])
             ->select('store_orders.id', 'store_orders.store_id', 'store_orders.client_id', 'store_orders.currency', 'store_orders.total', 'store_orders.status', 'store_orders.order_type', 'store_orders.created_at')
             ->orderBy('store_orders.created_at', 'DESC')
             ->newQuery();
-
+        
         return $query;
     }
 

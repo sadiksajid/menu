@@ -7,14 +7,13 @@
     }
     @endphp
 
-
     <div id="carousel-home">
-        <div class="owl-carousel owl-theme">
+        <div class="owl-carousel owl-theme ">
 
             @foreach($slide_data as $slide)
-            <div class="owl-slide cover lazy"
+            <div class="owl-slide cover lazy "
                 data-bg="url({{get_image(json_decode($slide->images, true)['img-1'] ?? '' )}})">
-                <div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+                <div class="opacity-mask d-flex align-items-center rounded-4" data-opacity-mask="rgba(0, 0, 0, 0.5)">
                     <div class="container">
                         <div class="row justify-content-center justify-content-md-end">
                             <div class="col-lg-6 static">
@@ -44,12 +43,12 @@
     <ul id="banners_grid" class="clearfix">
         <li class="">
             <a @if (isset($urls['url_1'])) href="{{$urls['url_1']}}" @else href="menu-1.html" @endif
-                class="img_container  " data-id='url_1'>
+                class="img_container  rounded-4" data-id='url_1'>
 
                 <img @if (isset($images['img_2'])) src="{{ get_image($images['img_2']) }}"
                     data-src="{{ get_image($images['img_2']) }}" @else
                     src="{{ URL::asset('index1/img/banners_cat_placeholder.jpg') }}"
-                    data-src="{{ URL::asset('index1/img/banner_1.jpg') }}" @endif alt="" class="lazy">
+                    data-src="{{ URL::asset('index1/img/banner_1.jpg') }}" @endif alt="" class="lazy ">
 
                 <div wire:ignore class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
                     <h3 class='' data-id='title-3'> {{ $titles['title-3'] ?? $translations_resto['our_menu'] }} </h3>
@@ -60,7 +59,7 @@
         </li>
         <li class="">
             <a @if (isset($urls['url_2'])) href="{{$urls['url_2']}}" @else href="menu-1.html" @endif
-                class="img_container  " data-id='url_2'>
+                class="img_container  rounded-4" data-id='url_2'>
                 <img @if (isset($images['img_3'])) src="{{ get_image($images['img_3']) }}"
                     data-src="{{ get_image($images['img_3'])}}" @else
                     src="{{ URL::asset('index1/img/banners_cat_placeholder.jpg') }}"
@@ -78,7 +77,7 @@
         </li>
         <li class="">
             <a @if (isset($urls['url_3'])) href="{{$urls['url_3']}}" @else href="menu-1.html" @endif
-                class="img_container  " data-id='url_3'>
+                class="img_container rounded-4" data-id='url_3'>
                 <img @if (isset($images['img_4'])) src="{{ get_image($images['img_4']) }}"
                     data-src="{{ get_image($images['img_4'])}}" @else
                     src="{{ URL::asset('index1/img/banners_cat_placeholder.jpg') }}"
@@ -99,12 +98,12 @@
         <div class="container margin_120_100 home_intro">
             <div class="row justify-content-center d-flex align-items-center">
                 <div class="col-lg-5 text-lg-center d-none d-lg-block " data-cue="slideInUp">
-                    <figure class="">
+                    <figure class="radius-2">
                         <img @if (isset($images['img_5'])) src="{{ get_image($images['img_5'])}}"
                             data-src="{{ get_image($images['img_5']) }}" @else
                             src="{{ URL::asset('index1/img/home_1_placeholder.png') }}"
                             data-src="{{ URL::asset('index1/img/home_1.jpg') }}" @endif width="354" height="440" alt=""
-                            class="img-fluid lazy">
+                            class="img-fluid lazy rounded-4">
 
 
                     </figure>
@@ -131,11 +130,12 @@
                     <div class='col-12'>
                         <center>
                             <a @if (isset($urls['url_4'])) href="{{$urls['url_4']}}" @else
-                                href="https://www.youtube.com/watch?v=MO7Hi_kBBBg" @endif data-id='url_4'
+                                href="https://www.youtube.com/watch?v=7b1eO0ypABo?si=ljNEzYc7Wpyr3fHx" @endif data-id='url_4'
                                 class="btn_play  " data-cue="zoomIn" data-delay="500"
                                 style='position:relative!important ; color: black;width: 190px;border-radius: 15px;background-color:#FAB100;margin-top: 90px;'><span
                                     class=""><i class="arrow_triangle-right"></i><span
-                                        style='font-size: 18px;float: right;margin-right: 10px;'>{{$translations['watch_video']}}</span></span> </a>
+                                        style='font-size: 18px;float: right;margin-right: 10px; margin-top: -2px;'>{{$translations['watch_video']}}</span></span>
+                            </a>
                         </center>
                     </div>
                 </div>
@@ -193,21 +193,22 @@
     <!-- /bg_gray -->
 
     <div class="call_section lazy" @if (isset($images['img_7']))
-        style="position: relative; background-image:url({{get_image($images['img_7'])}})" data-bg="url({{get_image($images['img_7'])}})"
-        @else style="position: relative" data-bg="url({{ URL::asset('index1/img/bg_call_section.jpg') }})" @endif>
+        style="position: relative; background-image:url({{get_image($images['img_7'])}})"
+        data-bg="url({{get_image($images['img_7'])}})" @else style="position: relative"
+        data-bg="url({{ URL::asset('index1/img/bg_call_section.jpg') }})" @endif>
 
         <div class="container clearfix">
             <div class="row justify-content-center">
                 <div class="col-lg-5 col-md-6 text-center">
 
-                    <div class="box_1" data-cue="slideInUp">
+                    <div class="box_1 rounded-4" data-cue="slideInUp">
 
                         <h2 class='' data-id='title-14'>
                             {{ $titles['title-14'] ?? $translations_resto['our_location'] }}
                         </h2>
                         <h2 class='' data-id='title-15'><span>
                                 {{ $titles['title-15'] ?? '' }}</span></h2>
-<!-- 
+                        <!-- 
                         <p class='' data-id='text-2'>{!! $texts['text-2'] ?? $translations_resto['our_location_text']
                             !!}. -->
                         </p>
@@ -228,21 +229,21 @@
 
                     @if (isset($competition_img))
                     <img src="{{ get_image($competition_img ?? '') }}" width="420" height="770" alt=""
-                        class="img-fluid">
+                        class="img-fluid rounded-4">
                     @else
                     <img src="{{ URL::asset('index1/img/chef.png') }}" width="420" height="770" alt=""
-                        class="img-fluid">
+                        class="img-fluid rounded-4">
                     @endif
 
                 </div>
-                <div class="col-lg-6 col-md-8">
+                <div class="col-lg-6 col-md-8 ">
                     <div class="main_title">
                         <span><em></em></span>
                         <h2>{{$translations_resto['competition_join']}}</h2>
                         <p>{{$translations_resto['competition_join_text']}}</p>
 
                     </div>
-                    <div id="wizard_container">
+                    <div id="wizard_container" class='rounded-4'>
                         @if ( $this->qr_code )
                         <center>
                             <h1>{{$translations_resto['competition_thanks']}}</h1>
@@ -251,109 +252,20 @@
 
 
                             <button type="button" name="process" class="submit mt-4" wire:click="DownloadQR()"
-                                style='background-color:{{$store_info->btn_color}}' wire:loading.remove>
+                                style='background-color:{{$store_info->btn_color}}'>
                                 {{$translations_resto['competition_qrcode']}}</button>
+                            <!-- 
                             <button type="button" name="process" class="submit mt-4 d-none"
                                 style='background-color:{{$store_info->btn_color}}' wire:loading.class.remove="d-none"
-                                {{$translations['downloading']}} ...</button>
+                                {{$translations['downloading']}} ...</button> -->
 
                         </center>
                         @else
-                        <input id="website" name="website" type="text" value="">
                         <!-- Leave for security protection, read docs for details -->
                         <div id="middle-wizard">
-                            {{-- <div class="step">
-                                    <h3 class="main_question"><strong>1/3</strong> Please Select a date</h3>
-                                    <div class="form-group">
-                                        <input type="hidden" name="datepicker_field" id="datepicker_field"
-                                            class="required">
-                                    </div>
-                                    <div id="DatePicker"></div>
-                                </div>
-                                <!-- /step-->
-                                <div class="step">
-                                    <h3 class="main_question"><strong>2/3</strong> Select time and guests</h3>
-                                    <div class="step_wrapper">
-                                        <h4>Time</h4>
-                                        <div class="radio_select add_bottom_15">
-                                            <ul>
-                                                <li>
-                                                    <input type="radio" id="time_1" name="time" value="12.00am"
-                                                        class="required">
-                                                    <label for="time_1">12.00</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="time_2" name="time" value="12.30pm"
-                                                        class="required">
-                                                    <label for="time_2">12.30</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="time_3" name="time" value="1.00pm"
-                                                        class="required">
-                                                    <label for="time_3">1.00</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="time_4" name="time" value="1.30pm"
-                                                        class="required">
-                                                    <label for="time_4">1.30</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="time_5" name="time" value="08.00pm"
-                                                        class="required">
-                                                    <label for="time_5">8.00</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="time_6" name="time" value="08.30pm"
-                                                        class="required">
-                                                    <label for="time_6">8.30</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="time_7" name="time" value="09.00pm"
-                                                        class="required">
-                                                    <label for="time_7">9.00</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="time_8" name="time" value="09.30pm"
-                                                        class="required">
-                                                    <label for="time_8">9.30</label>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <!-- /time_select -->
-                                    </div>
-                                    <!-- /step_wrapper -->
-                                    <div class="step_wrapper">
-                                        <h4>How many people?</h4>
-                                        <div class="radio_select">
-                                            <ul>
-                                                <li>
-                                                    <input type="radio" id="people_1" name="people" value="1"
-                                                        class="required">
-                                                    <label for="people_1">1</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="people_2" name="people" value="2"
-                                                        class="required">
-                                                    <label for="people_2">2</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="people_3" name="people" value="3"
-                                                        class="required">
-                                                    <label for="people_3">3</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="people_4" name="people" value="4"
-                                                        class="required">
-                                                    <label for="people_4">4</label>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <!-- /people_select -->
-                                    </div>
-                                    <!-- /step_wrapper -->
-                                </div> --}}
+
                             <!-- /step-->
-                            <div class="submit step">
+                            <div class="">
                                 <h3 class="main_question">{{$translations_resto['competition_fill_detais']}}</h3>
                                 <div class="form-group">
                                     <input type="text" name="name_reserve" class="form-control required"
@@ -361,12 +273,6 @@
                                         wire:model.defer='fullname'>
                                 </div>
                                 <div class="row">
-                                    {{-- <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <input type="email" name="email_reserve" class="form-control required"
-                                                    placeholder="Your Email">
-                                            </div>
-                                        </div> --}}
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <input type="text" name="telephone_reserve"
@@ -377,18 +283,6 @@
                                     </div>
                                 </div>
 
-                                {{-- <div class="form-group">
-                                        <textarea class="form-control" name="opt_message_reserve"
-                                            placeholder="Please provide any additional info"></textarea>
-                                    </div> --}}
-                                {{-- <div class="form-group terms">
-                                        <label class="container_check">Please accept our <a href="#"
-                                                data-bs-toggle="modal" data-bs-target="#terms-txt">Terms and
-                                                conditions</a>
-                                            <input type="checkbox" name="terms" value="Yes" class="required">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div> --}}
                             </div>
                             <!-- /step-->
                             <div class="col-12">
@@ -405,8 +299,7 @@
                         </div>
                         <!-- /middle-wizard -->
                         <div id="bottom-wizard">
-                            {{-- <button type="button" name="backward" class="backward">Prev</button>
-                                <button type="button" name="forward" class="forward">Next</button> --}}
+
                             <button type="button" name="process" class="submit" wire:click="CompetitionRegister()"
                                 style='background-color:{{$store_info->btn_color}}'
                                 wire:loading.remove>{{$translations_resto['competition_coming']}}</button>
@@ -450,12 +343,6 @@
 <script>
 // Video Header
 $(document).ready(function() {
-    // HeaderVideo.init({
-    //     container: $('.header-video'),
-    //     header: $('.header-video--media'),
-    //     videoTrigger: $("#video-trigger"),
-    //     autoPlayVideo: true
-    // });
 
     window.addEventListener('swal:modal', event => {
         Swal.fire({

@@ -16,7 +16,8 @@ class StoreOrder extends Model
 
     public function client()
     {
-        return $this->belongsTo(Client::class, 'client_id');
+        return $this->belongsTo(Client::class, 'client_id')->select(['id', 'firstname', 'lastname','phone','black_list']); // Specify the columns you want to select
+
     }
 
     public function client_address()

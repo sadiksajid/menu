@@ -34,7 +34,9 @@
         height: 50px;
     }
     .card_p2 {
-        background-color: #D4D4D4;
+        background-color: #fffbe9;
+        border-radius: 10px;
+
     }
 </style>
 @endsection

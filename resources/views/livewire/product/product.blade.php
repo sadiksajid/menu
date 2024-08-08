@@ -4,7 +4,7 @@
 @endsection
 <div>
     @php
-    $cart = Cache::get('my_cart');
+    $cart = Session::get('my_cart');
     @endphp
         <!-- section start -->
 
@@ -83,20 +83,20 @@
                                             <h2>{{$product->title}}</h2>
                                             <h3>{{$product->s_title}}</h3>
                                             <h4>
-                                                <del>{{$product->price}} {{$currency}}</del>
-                                                <span>55% off</span></h4>
+                                                <!-- <del>{{$product->price}} {{$currency}}</del>
+                                                <span>55% off</span></h4> -->
                                             <h3>{{$product->price}} {{$currency}}</h3>
     
                                             <div class="product-description border-product">
     
-                                                <div class="size-box">
+                                                <!-- <div class="size-box">
                                                     <ul>
                                                         <li class="active"><a href="#">s</a></li>
                                                         <li><a href="#">m</a></li>
                                                         <li><a href="#">l</a></li>
                                                         <li><a href="#">xl</a></li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                                 <h6 class="product-title">{{$translations['quantity']}}</h6>
                                                 <div class="qty-box">
                                                     <div class="input-group"><span class="input-group-prepend"><button
@@ -120,7 +120,7 @@
                                                     @endisset
                                                   
                                                 </a>
-                                                <a class="btn btn-default primary-btn radius-0" href="#">
+                                                <a class="btn btn-warning primary-btn radius-0" href="#" wire:click="addToCart(1)">
                                                    
                                                     {{$translations['buy_now']}}
                                                 </a>

@@ -2,18 +2,21 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\CompitionClient;
+use DNS2D;
+use Dompdf\Dompdf;
 use App\Models\Index;
 use App\Models\Offer;
 use App\Models\Store;
+use Livewire\Component;
 use App\Models\StoreProduct;
 use App\Rules\PhoneValidation;
-use DNS2D;
-use Dompdf\Dompdf;
-use Illuminate\Support\Facades\Cache;
+use App\Models\CompitionClient;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\View;
-use Livewire\Component;
+use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Intl\Currencies;
+use Illuminate\Support\Facades\Session;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class IndexHome extends Component
 {
@@ -53,6 +56,11 @@ class IndexHome extends Component
 
     public function mount($scroll = false)
     {
+
+        // app()->setLocale('ar');
+        // dd(app()->getLocale());
+
+
         $this->scroll = $scroll;
 
         $json = app('translations');
@@ -211,16 +219,14 @@ class IndexHome extends Component
             'logoBase64' => $logoBase64,
         ];
 
-        $pdf = new Dompdf();
-        $pdf->loadHtml(View::make('livewire.index1.qr_code', $data));
-        $pdf->setPaper([0, 0, 250, 500], 'portrait'); // Set the paper size to match the width of an 80mm POS printer
-        $pdf->render();
+        $pdf = Pdf::loadView('livewire.index1.qr_code', $data);
 
-        return $pdf->stream('goodforhealth_invitation.pdf');
+        $fileName = 'goodforhealth_invitation.pdf';
+ 
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->output();
+        }, $fileName);
 
-        // $this->dispatchBrowserEvent('pdfRendered', [
-        //     'pdfData' => base64_encode($pdf->output()),
-        // ]);
 
     }
 

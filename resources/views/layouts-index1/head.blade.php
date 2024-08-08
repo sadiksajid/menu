@@ -150,6 +150,11 @@
                 display: block !important;
             }
         }
+
+        .swal2-confirm{
+            background-color:#343a40;
+            color:white;
+        }
     </style>
     @livewireStyles
     @yield('css')

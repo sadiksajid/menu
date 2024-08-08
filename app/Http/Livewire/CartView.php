@@ -4,10 +4,11 @@ namespace App\Http\Livewire;
 
 use App\Models\Index;
 use App\Models\Store;
-use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
 
 class CartView extends Component
 {
@@ -81,7 +82,7 @@ class CartView extends Component
 
     public function getData($rend = 0)
     {
-        $my_cart = Cache::get('my_cart') ?? [];
+        $my_cart = Session::get('my_cart') ?? [];
         $this->total = 0;
         $this->qte = 0;
         foreach ($my_cart as $store) {
@@ -106,17 +107,17 @@ class CartView extends Component
 
     public function changeQte($key, $store_meta)
     {
-        $my_cart = Cache::get('my_cart');
+        $my_cart = Session::get('my_cart');
         $my_cart[$store_meta][$key]['qte'] = $this->quantity[$key];
-        Cache::put('my_cart', $my_cart);
+        Session::put('my_cart', $my_cart);
         $this->emit('updateComponent');
     }
 
     public function removeProduct($key, $store_meta)
     {
-        $my_cart = Cache::get('my_cart');
+        $my_cart = Session::get('my_cart');
         unset($my_cart[$store_meta][$key]);
-        Cache::put('my_cart', $my_cart);
+        Session::put('my_cart', $my_cart);
         $this->emit('updateComponent');
     }
 

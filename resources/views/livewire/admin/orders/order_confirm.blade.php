@@ -243,9 +243,18 @@
                                 @foreach ($offer as $product)
                                 <tr style="background-color:rgb(236, 180, 3,0.3);">
                                     <td class="font-weight-bold">{{ $x }}</td>
-                                    <td class="tx-center">
+                                    <td class="tx-center" wire:ignore>
+
+                                    @if(isset($order->products[0]->product->media[0]))
                                         <img style='width:50px;height:50px'
-                                            src="{{ get_image('tmb/'.$product->product->media[0]->media ?? '') }}">
+                                        src="{{ get_image('tmb/'.$product->product->media[0]->media ?? '') }}" onerror="this.onerror=null;this.src=\'https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg\';">
+                                    @else
+                                        <img style='width:50px;height:50px'
+                                        src="https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg">
+                                    @endif
+
+
+                                
                                     </td>
                                     <td class="tx-center">{{ $product->product->title }}</td>
                                     <td class="tx-center">{{ $product->qte }}</td>
@@ -272,9 +281,17 @@
                                 @foreach ($order->products->where('is_offer',0) as $product)
                                     <tr>
                                         <td class="font-weight-bold">{{ $x }}</td>
-                                        <td class="tx-center">
+                                        <td class="tx-center" wire:ignore>
+                                        @if(isset($order->products[0]->product->media[0]))
                                             <img style='width:50px;height:50px'
-                                                src="{{ get_image('tmb/'.$product->product->media[0]->media ?? '') }}">
+                                            src="{{ get_image('tmb/'.$product->product->media[0]->media ?? '') }}" onerror="this.onerror=null;this.src=\'https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg\';">
+                                        @else
+                                            <img style='width:50px;height:50px'
+                                            src="https://minio-api.sys.coolrasto.com/menu/pngs/food-icon.jpg">
+                                        @endif
+
+                                        
+                                         
                                         </td>
                                         <td class="tx-center">{{ $product->product->title }}</td>
                                         <td class="tx-center">{{ $product->qte }}</td>

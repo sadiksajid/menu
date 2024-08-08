@@ -8,8 +8,10 @@
         <main>
             @yield('content')
         </main>
-        @livewire('footer',['store'=>$store])
+        @livewire('footer')
 
     </body>
     @include('layouts-index1.scripts')
+
+
 </html>
